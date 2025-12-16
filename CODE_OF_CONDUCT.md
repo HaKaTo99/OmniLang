@@ -34,7 +34,7 @@ Kode Etik ini berlaku dalam semua ruang proyek, dan juga berlaku ketika individu
 
 ## Pelaporan Pelanggaran
 
-Contoh perilaku pelecehan, tidak dapat diterima, atau perilaku tidak menyenangkan lainnya dapat dilaporkan kepada tim proyek yang bertanggung jawab atas penegakan di: **[TAMBAHKAN ALAMAT EMAIL UNTUK LAPORAN RAHASIA DI SINI]**.
+Contoh perilaku pelecehan, tidak dapat diterima, atau perilaku tidak menyenangkan lainnya dapat dilaporkan kepada tim proyek yang bertanggung jawab atas penegakan di: **[h.krisnanto@live.com / hkrisnanto@gmail.com]**.
 
 Semua keluhan akan ditinjau dan diselidiki, dan akan menghasilkan respons yang dianggap perlu dan sesuai dengan keadaan. Kerahasiaan pelapor akan dijaga.
 
