@@ -6,7 +6,7 @@ Harap patuhi panduan berikut untuk menjaga kualitas kode dan alur kerja yang efi
 
 ##  Kode Etik
 
-Untuk memastikan lingkungan yang ramah, semua kontributor harus mematuhi [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) (Akan ditambahkan ke file `CODE_OF_CONDUCT.md` di masa mendatang).
+Untuk memastikan lingkungan yang ramah, semua kontributor harus mematuhi kode etik yang telah kami tetapkan (lihat [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)).
 
 ##  Bagaimana Cara Berkontribusi?
 

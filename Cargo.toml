@@ -1,0 +1,15 @@
+[package]
+name = "omnilang"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Dependencies will be added as needed
+
+[[bin]]
+name = "omnilang"
+path = "src/main.rs"  # Assuming main entry point will be created here or exists
+
+[lib]
+name = "omnilang_core"
+path = "src/lib.rs"   # Or wherever the core library logic resides, adjusting based on current file structure

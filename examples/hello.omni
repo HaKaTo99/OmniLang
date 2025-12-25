@@ -1,0 +1,6 @@
+// OmniLang v0.1 Hello World
+mod hello {
+    func main() {
+        println("Hello, OmniLang!");
+    }
+}

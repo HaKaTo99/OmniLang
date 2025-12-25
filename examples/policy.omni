@@ -1,0 +1,14 @@
+INTENT: Melindungi keselamatan pekerja
+ACTOR:
+- Primary: SafetySystem
+CONTEXT:
+- Domain: Factory
+RULE:
+- IF Distance < 1m
+- THEN StopMachine
+CONSTRAINT:
+- Ethical: HumanFirst
+IMPACT:
+- Benefit: SaveLife
+TRACE:
+- Moral: ValueLife

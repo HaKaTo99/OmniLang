@@ -20,7 +20,7 @@ OmniLang dirancang untuk menggantikan kebutuhan akan banyak bahasa di tumpukan t
 
 Saat ini, kami berfokus pada validasi inti keamanan dan performa:
 
-1.  **Parser Inti:** Mampu memahami sintaks OmniLang.
+1.  **Parser Inti:** Mampu memahami sintaks OmniLang (Fokus saat ini pada *Universal Intent Language*).
 2.  **Type Checker:** Validasi tipe pada waktu kompilasi.
 3.  **Borrow Checker:** Mekanisme keamanan memori yang ketat, terinspirasi Rust, untuk memastikan tidak ada *data race* atau *null pointer* tanpa bergantung pada *Garbage Collector* (GC).
 
@@ -29,7 +29,7 @@ Saat ini, kami berfokus pada validasi inti keamanan dan performa:
 Saat ini, proyek berada dalam **Fase Prototipe Inti**. Kami telah membuktikan bahwa arsitektur keamanan dimungkinkan.
 
 **Apa yang Belum Selesai:**
-* **Compiler Fungsional Penuh:** Belum dapat menghasilkan kode yang dapat dieksekusi (*native* atau Wasm) dari sintaks OmniLang secara keseluruhan.
+* **Compiler Fungsional Penuh:** Belum dapat menghasilkan kode yang dapat dieksekusi (*native* atau Wasm) dari sintaks OmniLang Secara keseluruhan.
 * **Standard Library:** `std::web`, `std::tensor`, dan modul I/O lainnya.
 * **Runtime:** Implementasi *Scheduler* dan Model Konkurensi (`OmniRoutine`).
 
@@ -40,5 +40,6 @@ Proyek inti ditulis dalam Rust. Anda perlu menginstal [Rust toolchain](https://w
 
 ### 2. **Kloning Repositori**
 ```bash
-git clone [https://github.com/HaKaTo99/OmniLang.git](https://github.com/HaKaTo99/OmniLang.git)
+git clone https://github.com/HaKaTo99/OmniLang.git
 cd OmniLang
+```

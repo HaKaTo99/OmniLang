@@ -1,0 +1,32 @@
+// OmniLang v0.1 Demo Program
+// Demonstrating struct, function, and basic features
+
+mod demo {
+    struct Person {
+        name: String,
+        age: Int
+    }
+
+    func greet(p: Person) {
+        println("Hello, " + p.name);
+    }
+
+    func print_age(p: &Person) {
+        println("Age: " + p.age);
+    }
+
+    func add(a: Int, b: Int) -> Int {
+        return a + b;
+    }
+
+    func main() {
+        let person = Person{name: "Alice", age: 30};
+        greet(person);
+        
+        let person2 = Person{name: "Bob", age: 25};
+        print_age(&person2);
+        
+        let sum = add(10, 20);
+        println("Sum: " + sum);
+    }
+}
