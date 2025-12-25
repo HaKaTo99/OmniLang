@@ -4,11 +4,11 @@ Kami sangat antusias dengan minat Anda untuk berkontribusi pada OmniLang! Karena
 
 Harap patuhi panduan berikut untuk menjaga kualitas kode dan alur kerja yang efisien.
 
-## 🤝 Kode Etik
+##  Kode Etik
 
 Untuk memastikan lingkungan yang ramah, semua kontributor harus mematuhi [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) (Akan ditambahkan ke file `CODE_OF_CONDUCT.md` di masa mendatang).
 
-## 💡 Bagaimana Cara Berkontribusi?
+##  Bagaimana Cara Berkontribusi?
 
 Ada beberapa cara utama untuk membantu proyek ini saat ini:
 
