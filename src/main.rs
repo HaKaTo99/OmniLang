@@ -3,13 +3,15 @@ use std::fs;
 use std::process;
 
 mod ast;
-mod checker;
+// mod checker;
 mod lexer;
 mod parser;
-mod types;
+// mod types;
+mod evaluator;
+mod runtime;
 
 use lexer::Lexer;
-use parser::Parser;
+// use parser::Parser;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -44,8 +46,8 @@ fn main() {
 
     // 2. Parsing
     println!("Step 2: Parsing...");
-    let mut parser = parser::Parser::new(tokens);
-    let policy = match parser.parse_policy() {
+    let mut parser_inst = parser::Parser::new(tokens);
+    let policy = match parser_inst.parse_policy() {
         Ok(pol) => pol,
         Err(msg) => {
             eprintln!("Parsing Error: {}", msg);
@@ -60,9 +62,12 @@ fn main() {
     println!("\nStep 3: Initializing OmniLang Runtime...");
     let mut runtime = runtime::Runtime::new();
 
-    // Simulasi Data Sensor (Misalkan kita dapat data dari sensor jarak)
-    println!("> Simulating Senor Input: Distance = 0.5m");
+    // Simulasi Data Sensor
+    println!("> Simulating Sensor Input: Distance=0.5, Suhu=52.0, Status=1.0, Mode=1.0");
     runtime.update_data("Distance", 0.5);
+    runtime.update_data("Suhu", 52.0);
+    runtime.update_data("Status", 1.0);
+    runtime.update_data("Mode", 1.0);
 
     // Jalankan Policy Engine
     let actions = runtime.execute_policy(&policy);

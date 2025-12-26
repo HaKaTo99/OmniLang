@@ -2,6 +2,12 @@
 
 ## Versi Terkini
 
+### [1.1.0] - 2025-12-25
+### Added
+- **Looping Constructs**: Implemented `FOR` and `WHILE` loops in the Rust backend.
+- **Recursive Parsing**: Support for nested rules within loop bodies.
+- **Loop Simulation**: Runtime support for iterating actors and condition-based loops.
+
 ### [v1.0.0] - 2025-12-25
 **Migrasi Besar: Universal Intent Language**
 - 🚀 **Shift Paradigma**: Transformasi dari bahasa pemrograman umum ke "Universal Intent Language" untuk definisi kebijakan dan niat.

@@ -30,3 +30,4 @@ Membuat bahasa pemrograman OmniLang.txt
 .env.development.local
 .env.test.local
 .env.production.local
+benches/

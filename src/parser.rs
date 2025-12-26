@@ -147,42 +147,100 @@ impl Parser {
     fn parse_rules(&mut self) -> Result<Vec<Rule>, String> {
         let mut rules = Vec::new();
         while self.match_token(TokenType::Minus) {
-             self.consume(TokenType::If, "Expected IF")?;
-             // IF condition, ... THEN action
-             // This parser is tricky without line breaks. Let's assume IF <text> - THEN <text>
-             // But lexer eats line breaks. 
-             // We need to look for THEN token.
-             let mut condition = String::new();
-             while !self.check(TokenType::Then) && !self.is_at_end() {
-                  // Collect condition
-                   condition.push_str(&self.parse_text_chunk()?);
-                   condition.push(' ');
-             }
-             
-             // Issue: 'parse_text_chunk' above needs to advance 1 token
-             
-             if self.match_token(TokenType::Then) {
-                 let action = self.parse_text_line()?;
-                 rules.push(Rule { condition: condition.trim().to_string(), action });
-             } else {
-                 // Maybe Error or just skip
-             }
-             
-             // If we are at a Minus, loop continues.
+            if self.check(TokenType::If) {
+                self.advance();
+                let mut condition = String::new();
+                while !self.check(TokenType::Then) && !self.is_at_end() {
+                    condition.push_str(&self.parse_text_chunk()?);
+                    condition.push(' ');
+                }
+                
+                if self.match_token(TokenType::Then) {
+                    let action = self.parse_text_line()?;
+                    rules.push(Rule::Standard(StandardRule { condition: condition.trim().to_string(), action }));
+                }
+            } else if self.check(TokenType::For) {
+                rules.push(self.parse_for_rule()?);
+            } else if self.check(TokenType::While) {
+                rules.push(self.parse_while_rule()?);
+            } else {
+                // Unknown rule start, skip
+                self.advance();
+            }
         }
         Ok(rules)
     }
-    
-    // Simplification for parser_rules logic above:
-    // Actually, structure is:
-    // - IF condition
-    // - THEN action
-    // This implies two list items per rule or one complex item?
-    // Grammar says:
-    // - IF <Condition>
-    // - THEN <Action>
-    // This means they are separate lines (separate list items).
-    // Let's adjust logic.
+    fn parse_for_rule(&mut self) -> Result<Rule, String> {
+        self.advance(); // FOR
+        let iterator = self.consume_ident("Expected iterator name after FOR")?;
+        self.consume(TokenType::In, "Expected IN after iterator")?;
+        let collection = self.consume_ident("Expected collection name after IN")?;
+        
+        self.consume(TokenType::LBrace, "Expected '{' to start FOR body")?;
+        let mut body = Vec::new();
+        while !self.check(TokenType::RBrace) && !self.is_at_end() {
+             if self.match_token(TokenType::Minus) {
+                 if self.check(TokenType::If) {
+                     self.advance();
+                     let mut condition = String::new();
+                     while !self.check(TokenType::Then) && !self.is_at_end() {
+                         condition.push_str(&self.parse_text_chunk()?);
+                         condition.push(' ');
+                     }
+                     if self.match_token(TokenType::Then) {
+                         let action = self.parse_text_line()?;
+                         body.push(Rule::Standard(StandardRule { condition: condition.trim().to_string(), action }));
+                     }
+                 } else if self.check(TokenType::For) {
+                     body.push(self.parse_for_rule()?);
+                 } else if self.check(TokenType::While) {
+                     body.push(self.parse_while_rule()?);
+                 }
+             } else {
+                 self.advance();
+             }
+        }
+        self.consume(TokenType::RBrace, "Expected '}' to end FOR body")?;
+        
+        Ok(Rule::For(ForLoop { iterator, collection, body }))
+    }
+
+    fn parse_while_rule(&mut self) -> Result<Rule, String> {
+        self.advance(); // WHILE
+        let mut condition = String::new();
+        while !self.check(TokenType::LBrace) && !self.is_at_end() {
+            condition.push_str(&self.parse_text_chunk()?);
+            condition.push(' ');
+        }
+        
+        self.consume(TokenType::LBrace, "Expected '{' to start WHILE body")?;
+        let mut body = Vec::new();
+        while !self.check(TokenType::RBrace) && !self.is_at_end() {
+             if self.match_token(TokenType::Minus) {
+                 if self.check(TokenType::If) {
+                     self.advance();
+                     let mut cond = String::new();
+                     while !self.check(TokenType::Then) && !self.is_at_end() {
+                         cond.push_str(&self.parse_text_chunk()?);
+                         cond.push(' ');
+                     }
+                     if self.match_token(TokenType::Then) {
+                         let action = self.parse_text_line()?;
+                         body.push(Rule::Standard(StandardRule { condition: cond.trim().to_string(), action }));
+                     }
+                 } else if self.check(TokenType::For) {
+                     body.push(self.parse_for_rule()?);
+                 } else if self.check(TokenType::While) {
+                     body.push(self.parse_while_rule()?);
+                 }
+             } else {
+                 self.advance();
+             }
+        }
+        self.consume(TokenType::RBrace, "Expected '}' to end WHILE body")?;
+        
+        Ok(Rule::While(WhileLoop { condition: condition.trim().to_string(), body }))
+    }
     
     fn parse_constraints(&mut self) -> Result<Vec<Constraint>, String> {
          let mut list = Vec::new();
@@ -295,6 +353,16 @@ impl Parser {
     fn consume(&mut self, t: TokenType, msg: &str) -> Result<&Token, String> {
         if self.check(t) {
             Ok(self.advance())
+        } else {
+            Err(format!("{} at line {}", msg, self.peek().line))
+        }
+    }
+
+    fn consume_ident(&mut self, msg: &str) -> Result<String, String> {
+        if let TokenType::Ident(s) = &self.peek().token_type {
+            let s = s.clone();
+            self.advance();
+            Ok(s)
         } else {
             Err(format!("{} at line {}", msg, self.peek().line))
         }

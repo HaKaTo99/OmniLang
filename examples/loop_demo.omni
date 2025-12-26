@@ -1,0 +1,28 @@
+INTENT: Validasi Loop dalam Aturan Kebijakan
+
+ACTOR:
+- Primary: Admin
+- Secondary: Sensor_Suhu
+
+CONTEXT:
+- Domain: Industri
+- Lokasi: Gudang_A
+- Fase: Operasional
+
+RULE:
+- IF Suhu > 50 THEN Aktifkan_Pendingin
+- FOR actor IN ACTORS {
+    - IF Status == 1 THEN Kirim_Notifikasi_Ke_actor
+}
+- WHILE Suhu > 45 {
+    - IF Mode == 1 THEN Turunkan_Daya_Mesin
+}
+
+CONSTRAINT:
+- Technical: Loop harus dibatasi untuk mencegah overhead.
+
+IMPACT:
+- Benefit: Otomasi aturan untuk banyak entitas.
+
+TRACE:
+- Evidence: https://omnilang.dev/spec/v1.0/loops

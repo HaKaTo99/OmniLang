@@ -27,9 +27,29 @@ pub struct Context {
 }
 
 #[derive(Debug)]
-pub struct Rule {
+pub enum Rule {
+    Standard(StandardRule),
+    For(ForLoop),
+    While(WhileLoop),
+}
+
+#[derive(Debug)]
+pub struct StandardRule {
     pub condition: String,
     pub action: String,
+}
+
+#[derive(Debug)]
+pub struct ForLoop {
+    pub iterator: String,
+    pub collection: String,
+    pub body: Vec<Rule>,
+}
+
+#[derive(Debug)]
+pub struct WhileLoop {
+    pub condition: String,
+    pub body: Vec<Rule>,
 }
 
 #[derive(Debug)]

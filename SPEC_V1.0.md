@@ -15,8 +15,11 @@ Setiap dokumen OmniLang (`.omni`) harus mengikuti urutan seksi berikut:
 2.  **ACTOR**: Definisi entitas yang terlibat (Primary/Secondary).
 3.  **CONTEXT**: Lingkup operasional (Domain, Lokasi, Fase).
 4.  **ASSUMPTION** (Opsional): Kondisi yang dianggap benar.
-5.  **RULE**: Logika keputusan (IF... THEN...).
-6.  **CONSTRAINT**: Batasan legal, etika, atau teknis.
+5. - **RULE**: Definisi aturan logika tindakan. Mendukung konstruksi standar dan perulangan:
+    - `IF <Kondisi> THEN <Aksi>`
+    - `FOR <Iterator> IN <Koleksi> { <Aturan_Bersarang> }`
+    - `WHILE <Kondisi> { <Aturan_Bersarang> }`
+6. - **CONSTRAINT**: Batasan sistem (Legal, Ethical, Technical).
 7.  **IMPACT**: Estimasi manfaat, risiko, atau *trade-off*.
 8.  **TRACE**: Referensi ke regulasi, moral, atau bukti pendukung.
 9.  **REVIEW** (Opsional): Catatan untuk tinjauan masa depan.
@@ -28,7 +31,12 @@ Setiap seksi dimulai dengan nama seksi dalam huruf kapital diikuti tanda titik d
 
 ```ebnf
 Section = Header ":" Content ;
-Header  = "INTENT" | "ACTOR" | "CONTEXT" | "RULE" | "CONSTRAINT" | "IMPACT" | "TRACE" | "REVIEW" ;
+Header  = "INTENT" | "ACTOR" | "CONTEXT" | "ASSUMPTION" | "IMPACT" | "TRACE" | "REVIEW" ;
+RuleSection      ::= "RULE:" (StandardRule | ForLoop | WhileLoop)+
+StandardRule     ::= "- IF" Text "THEN" Text
+ForLoop          ::= "- FOR" Identifier "IN" Identifier "{" (StandardRule | ForLoop | WhileLoop)+ "}"
+WhileLoop        ::= "- WHILE" Text "{" (StandardRule | ForLoop | WhileLoop)+ "}"
+ConstraintSection ::= "CONSTRAINT:" (ConstraintItem)+
 ```
 
 ### 3.2 List Item

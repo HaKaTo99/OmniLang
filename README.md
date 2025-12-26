@@ -1,10 +1,11 @@
 # OmniLang
 Bahasa Pemrograman
 
-# OmniLang: The Universal, Zero-Compromise Programming Language
+# OmniLang: High-Assurance Policy Language for Autonomous Systems
 
-**Status: Prototipe Inti (Proof of Concept)**
-OmniLang adalah bahasa pemrograman yang dirancang untuk menghilangkan kompromi performa, keamanan, dan universalitas yang ada pada bahasa modern. Kami menargetkan kinerja Native (C++) dengan jaminan keamanan memori (Rust) untuk aplikasi Full-Stack, Real-Time, dan High Concurrency.
+**OmniLang** adalah bahasa spesifikasi kebijakan deklaratif yang dirancang khusus untuk menjembatani antara niat manusia (*Human Intent*) dan eksekusi mesin (*Machine Execution*) pada sistem otonom dan cerdas.
+
+> **"Bukan sekadar bahasa pemrograman, melainkan kompas bagi mesin otonom."**
 
 ## Visi: Menghilangkan Kompromi
 

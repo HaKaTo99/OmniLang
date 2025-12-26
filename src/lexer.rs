@@ -29,6 +29,11 @@ pub enum TokenType {
     Regulation,
     Evidence,
 
+    // Looping
+    For,
+    While,
+    In,
+
     // Identifiers & Literals
     Ident(String),
     Number(f64),
@@ -37,10 +42,23 @@ pub enum TokenType {
     // Symbols
     Plus,       // +
     Minus,      // -
+    Mul,        // *
+    Div,        // /
+    Assign,     // =
+    Eq,         // ==
+    Neq,        // !=
     Gt,         // >
     Lt,         // <
-    Colon,      // :
+    LParen,     // (
+    RParen,     // )
+    LBrace,     // {
+    RBrace,     // }
     Comma,      // ,
+    Dot,        // .
+    Colon,      // :
+    Semicolon,  // ;
+    Ampersand,  // &
+    RArrow,     // ->
     
     EOF,
 }
@@ -171,6 +189,10 @@ impl Lexer {
                         "Moral" => TokenType::Moral,
                         "Regulation" => TokenType::Regulation,
                         "Evidence" => TokenType::Evidence,
+                        
+                        "FOR" => TokenType::For,
+                        "WHILE" => TokenType::While,
+                        "IN" => TokenType::In,
                         
                         _ => TokenType::Ident(s.clone()),
                     };
