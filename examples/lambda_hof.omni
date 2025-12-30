@@ -1,0 +1,5 @@
+INTENT: Uji lambda dan HOF
+ACTOR:
+- Primary: Tester
+RULE:
+- IF reduce(map([1, 2, 3], |x| x * 2), |acc, x| acc + x, 0) == 12 THEN Display "Lambda HOF OK"

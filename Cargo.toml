@@ -2,9 +2,22 @@
 name = "omnilang"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
 
 [dependencies]
-# Dependencies will be added as needed
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+wat = "1.0"
+time = { version = "0.3", features = ["formatting", "macros", "parsing"] }
+regex = "1.10"
+sha2 = "0.10"
+hmac = "0.12"
+base64 = "0.22"
+rand = "0.8"
+
+[dev-dependencies]
+proptest = "1.1.0"
+proptest-derive = "0.7.0"
 
 [[bin]]
 name = "omnilang"
@@ -13,3 +26,8 @@ path = "src/main.rs"  # Assuming main entry point will be created here or exists
 [lib]
 name = "omnilang_core"
 path = "src/lib.rs"   # Or wherever the core library logic resides, adjusting based on current file structure
+
+[[bench]]
+name = "loop_bench"
+path = "benches/loop_bench.rs"
+harness = false

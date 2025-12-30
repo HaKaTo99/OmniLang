@@ -40,6 +40,18 @@ export function Documentation() {
             </ul>
           </AccordionContent>
         </AccordionItem>
+        <AccordionItem value="item-00">
+          <AccordionTrigger>Mode & Kapabilitas</AccordionTrigger>
+          <AccordionContent>
+            <div className="rounded border border-amber-200 bg-amber-50 px-3 py-2 text-amber-900 text-sm">
+              Mode: Validator-only (parse + runtime eval). Compiler/stdlib/runtime produksi belum tersedia.
+            </div>
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
+              <li>Engine utama: Rust evaluator, fallback Python bila cargo/linker tidak tersedia.</li>
+              <li>Output API menyertakan <code>mode</code>, <code>capabilities</code>, <code>compiler</code> untuk transparansi.</li>
+            </ul>
+          </AccordionContent>
+        </AccordionItem>
         <AccordionItem value="item-5">
           <AccordionTrigger>Status Proyek & Kesiapan</AccordionTrigger>
           <AccordionContent>

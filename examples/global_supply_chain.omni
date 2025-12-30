@@ -1,0 +1,43 @@
+INTENT: Meningkatkan transparansi dan etika dalam rantai pasok global
+
+ACTOR:
+- Primary: SupplyChainOrchestrator
+- Secondary: LogisticsProvider
+- Secondary: WarehouseManager
+
+CONTEXT:
+- Domain: Global-Trade
+- Lokasi: International-Shipping-Lanes
+- Fase: Sourcing-to-Delivery
+
+ASSUMPTION:
+- Tag RFID/IoT aktif pada setiap kontainer
+- Data bea cukai tersedia secara elektronik
+
+RULE:
+- IF SupplierRating < 3 THEN SeekAlternativeSupplier
+- IF ShippingPostponed > 48h THEN NotifyCustomerImmediate
+- FOR container IN Shipments {
+    - IF HumiditySensor > 70% THEN CheckProductIntegrity
+    - WHILE ShipStatus == "AtPort" {
+        - IF CustomsDelay > 5d THEN EscalateToPortAuthority
+    }
+}
+
+CONSTRAINT:
+- Legal: Incoterms 2020
+- Ethical: Melarang kerja paksa dan eksploitasi anak di seluruh vendor
+- Technical: Update status pengiriman minimal per 1 jam
+
+IMPACT:
+- Benefit: Kepuasan pelanggan meningkat melalui visibilitas real-time
+- Risk: Gangguan geopolitik pada rute pelayaran tertentu
+- Trade-off: Biaya audit vendor vs jaminan kepatuhan etika
+
+TRACE:
+- Regulation: https://iccwbo.org/resources-for-business/incoterms-rules/
+- Evidence: Laporan audit keberlanjutan rantai pasok
+
+REVIEW:
+- Interval: Quarterly
+- Criteria: Persentase vendor yang lulus audit etika = 100%

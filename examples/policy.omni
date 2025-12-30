@@ -4,8 +4,7 @@ ACTOR:
 CONTEXT:
 - Domain: Factory
 RULE:
-- IF Distance < 1m
-- THEN StopMachine
+- IF Distance < 1m THEN StopMachine
 CONSTRAINT:
 - Ethical: HumanFirst
 IMPACT:

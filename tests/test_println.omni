@@ -1,1 +1,15 @@
-println("Test Print");
+INTENT: Validasi fungsi output dasar
+ACTOR:
+- Primary: Tester
+CONTEXT:
+- Domain: Testing
+- Lokasi: Local
+- Fase: Development
+RULE:
+- IF TestRun == True THEN Output "Test Print successful"
+CONSTRAINT:
+- Technical: Output must be captured by test runner
+IMPACT:
+- Benefit: Verifikasi fungsionalitas dasar
+TRACE:
+- Evidence: Internal Test Suite

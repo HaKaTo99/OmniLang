@@ -1,0 +1,25 @@
+INTENT: Stress test nested loops and mixed units
+ACTOR:
+- Primary: DroneFleet
+- Secondary: OpsCenter
+CONTEXT:
+- Domain: Logistics
+- Lokasi: Warehouse-7
+- Fase: Patrol
+RULE:
+- IF Battery < 20% THEN ReturnToBase
+- FOR drone IN Drones {
+    - IF Altitude < 30m THEN IncreaseAltitude
+    - WHILE Temperature > 45C {
+        - IF Speed > 10kmh THEN ReduceSpeed
+    }
+}
+- WHILE ObstacleDistance < 2m {
+    - IF ObstacleSize > 0.5m THEN EmergencyBrake
+}
+CONSTRAINT:
+- Technical: Nested loops must terminate
+IMPACT:
+- Benefit: Safe navigation
+TRACE:
+- Evidence: https://omnilang.dev/spec/nested

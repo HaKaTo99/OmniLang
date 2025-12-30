@@ -7,34 +7,53 @@ import { Documentation } from "./documentation"
 
 interface HeaderProps {
   code: string;
+  onValidate?: () => void;
+  isValidating?: boolean;
 }
 
-export function Header({ code }: HeaderProps) {
+export function Header({ code, onValidate, isValidating }: HeaderProps) {
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between border-b bg-[#1e1e1e] text-white px-4 md:px-6 z-10">
-      <div className="flex items-center gap-3">
-        <Code className="h-7 w-7 text-primary" />
-        <h1 className="text-xl font-bold font-headline">OmniLang Studio</h1>
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="hidden md:block">
-            <ShareSnippetDialog code={code} />
+    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+      <div className="container flex h-14 items-center justify-between px-4">
+        <div className="flex items-center gap-2">
+          <div className="bg-primary p-1.5 rounded-lg">
+            <Code className="h-5 w-5 text-primary-foreground" />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold tracking-tight">OmniLang Studio</h1>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">Universal Intent Language v1.0</p>
+          </div>
         </div>
-        <div className="md:hidden">
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onValidate}
+            disabled={isValidating}
+            className="hidden sm:flex"
+          >
+            {isValidating ? "Validating..." : "Validate Policy"}
+          </Button>
+
+          <ShareSnippetDialog code={code} />
+
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button variant="ghost" size="icon">
                 <Book className="h-5 w-5" />
-                <span className="sr-only">Menu</span>
+                <span className="sr-only">Documentation</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-sm p-0 flex flex-col">
-                <div className="p-4 border-b">
-                    <ShareSnippetDialog code={code} />
+            <SheetContent side="right" className="p-0 w-[400px] sm:w-[540px]">
+              <div className="p-6 h-full flex flex-col">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold">Documentation</h2>
                 </div>
-                <div className="p-4 overflow-y-auto flex-grow">
-                    <Documentation />
+                <div className="flex-grow overflow-y-auto">
+                  <Documentation />
                 </div>
+              </div>
             </SheetContent>
           </Sheet>
         </div>

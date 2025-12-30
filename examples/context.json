@@ -1,0 +1,7 @@
+{
+  "BatteryLevel": 15,
+  "ObstacleDistance": 5,
+  "ObstacleDetected": true,
+  "RiskScore": 0.2,
+  "Temperature": 25
+}

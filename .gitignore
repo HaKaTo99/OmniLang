@@ -2,6 +2,15 @@
 /target
 Cargo.lock
 
+# Python
+__pycache__/
+*.pyc
+/.venv
+
+# Lint/Reports
+lint_output.txt
+lint_results.json
+
 # Node.js
 /node_modules
 /.next

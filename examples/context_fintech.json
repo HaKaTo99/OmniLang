@@ -1,0 +1,7 @@
+{
+  "TransactionAmount": 12000,
+  "RiskScore": 0.35,
+  "GeoVelocity": 4,
+  "AccountAgeDays": 45,
+  "DeviceTrust": 0.6
+}

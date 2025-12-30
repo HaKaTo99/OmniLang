@@ -1,4 +1,4 @@
 import { config } from 'dotenv';
 config();
 
-import '@/ai/flows/code-autocompletion.ts';
+import '@/ai/flows/code-autocompletion';

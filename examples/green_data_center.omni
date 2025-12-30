@@ -1,0 +1,43 @@
+INTENT: Mengurangi jejak karbon pusat data melalui optimasi energi yang dinamis
+
+ACTOR:
+- Primary: EnergyManagementSystem
+- Secondary: InfrastructureOps
+- Secondary: CoolingController
+
+CONTEXT:
+- Domain: Sustainability-IT
+- Lokasi: Data-Center-Alpha
+- Fase: Operational-Load-Balancing
+
+ASSUMPTION:
+- PUE (Power Usage Effectiveness) diukur secara real-time
+- Sumber energi terbarukan (solar/wind) tersedia pada siang hari
+
+RULE:
+- IF OutsideTemperature < 15C THEN UseFreeCooling
+- IF RenewableEnergyAvailability > 80% THEN RunHeavyBatchJobs
+- FOR rack IN ServerRacks {
+    - IF CPU_Utilization < 10% THEN PutToSleepMode
+    - WHILE AverageTemperature > 25C {
+        - IF CoolingFanSpeed < 100% THEN IncreaseFanSpeed
+    }
+}
+
+CONSTRAINT:
+- Technical: SLA availability harus tetap 99.99%
+- Environmental: Target emisi karbon < 2.0 kg CO2/MWh
+- Legal: ISO 50001 Energy Management Standard
+
+IMPACT:
+- Benefit: Penurunan biaya operasional listrik hingga 25%
+- Risk: Risiko degradasi hardware akibat siklus sleep/wake berlebih
+- Trade-off: Penghematan energi vs performa responsif instan
+
+TRACE:
+- Regulation: https://www.iso.org/standard/69426.html
+- Evidence: Sertifikasi bangunan hijau (LEED)
+
+REVIEW:
+- Interval: Monthly
+- Criteria: Rata-rata PUE < 1.2

@@ -1,0 +1,83 @@
+{
+  "intent": "Mengelola operasional drone logistik secara otomatis",
+  "actors": [
+    {
+      "primary": true,
+      "role": "DronePilot"
+    },
+    {
+      "primary": false,
+      "role": "AirTrafficControl"
+    }
+  ],
+  "assumptions": [
+    "GPS signal is stable",
+    "Weather is clear"
+  ],
+  "constraints": [
+    {
+      "description": "FAA Regulation Part 107",
+      "kind": "Legal"
+    },
+    {
+      "description": "Max altitude 400",
+      "kind": "Technical"
+    }
+  ],
+  "context": {
+    "domain": "Logistics",
+    "location": "UrbanArea",
+    "phase": "Flight"
+  },
+  "flat_rules": [
+    {
+      "action": "ReturnToHome",
+      "condition": "BatteryLevel < 20",
+      "kind": "standard"
+    },
+    {
+      "action": "EmergencyBrake",
+      "condition": "ObstacleDetected == True",
+      "kind": "standard"
+    }
+  ],
+  "impacts": [
+    {
+      "description": "Efisiensi pengiriman",
+      "kind": "Benefit"
+    },
+    {
+      "description": "Potensi tabrakan jika sensor gagal",
+      "kind": "Risk"
+    }
+  ],
+  "intent": "Mengelola operasional drone logistik secara otomatis",
+  "reviews": [
+    {
+      "criteria": "",
+      "interval": "30 Days"
+    },
+    {
+      "criteria": "Accident rate < 0.1 %",
+      "interval": ""
+    }
+  ],
+  "rules": [
+    {
+      "action": "ReturnToHome",
+      "condition": "BatteryLevel < 20",
+      "kind": "standard"
+    },
+    {
+      "action": "EmergencyBrake",
+      "condition": "ObstacleDetected == True",
+      "kind": "standard"
+    }
+  ],
+  "traces": [
+    {
+      "kind": "Regulation",
+      "link": "https:"
+    }
+  ]
+}

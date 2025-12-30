@@ -1,0 +1,31 @@
+INTENT: Menguji parser pada unit beragam dan loop dalam loop
+ACTOR:
+- Primary: TestHarness
+- Secondary: QAEngineer
+CONTEXT:
+- Domain: Testing
+- Lokasi: Lab
+- Fase: Validation
+ASSUMPTION:
+- Data sintetik
+RULE:
+- IF Pressure > 2bar THEN Vent
+- IF Speed > 30kmh THEN Brake
+- FOR batch IN Batches {
+    - IF Temp > 100C THEN Cool
+    - WHILE Humidity > 60pct {
+        - IF Distance < 50cm THEN Pause
+    }
+}
+- WHILE Voltage > 240V {
+    - IF Current > 5A THEN CutOff
+}
+CONSTRAINT:
+- Technical: Parser harus tahan unit beragam
+IMPACT:
+- Benefit: Menangkap regresi lebih awal
+TRACE:
+- Evidence: https://omnilang.dev/spec/edge
+REVIEW:
+- Interval: Per rilisan
+- Criteria: Zero parser panic

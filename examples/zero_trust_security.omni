@@ -1,0 +1,43 @@
+INTENT: Mengamankan infrastruktur cloud dengan prinsip Zero Trust (Never Trust, Always Verify)
+
+ACTOR:
+- Primary: NetworkController
+- Secondary: IdentityProvider
+- Secondary: SecurityOperationCenter
+
+CONTEXT:
+- Domain: Cybersecurity
+- Lokasi: Hybrid-Cloud-Environment
+- Fase: Access-Request-Evaluation
+
+ASSUMPTION:
+- Semua perangkat pengguna memiliki sertifikat valid
+- Sistem MFA (Multi-Factor Authentication) aktif
+
+RULE:
+- IF AuthenticationGaps > 0 THEN DenyAccess
+- IF AnomalousBehaviorDetected == True THEN RevokeAllSessions
+- FOR connection IN ActiveConnections {
+    - IF TrafficEncryption == "None" THEN TerminateImmediate
+    - WHILE AccessDuration > 8h {
+        - IF ReAuthenticationFailed THEN LogSecurityIncident
+    }
+}
+
+CONSTRAINT:
+- Legal: NIST SP 800-207 Zero Trust Architecture
+- Technical: Latensi verifikasi tidak boleh melebihi 200ms
+- Moral: Privasi data pribadi admin harus tetap terjaga saat logging
+
+IMPACT:
+- Benefit: Mitigasi serangan lateral movement hingga 90%
+- Risk: Ketidanyamanan pengguna akibat verifikasi berulang
+- Trade-off: Keamanan ketat vs produktivitas karyawan
+
+TRACE:
+- Regulation: https://www.nist.gov/publications/zero-trust-architecture
+- Evidence: Laporan uji penetrasi kuartal terakhir
+
+REVIEW:
+- Interval: 14 Days
+- Criteria: Jumlah akun dengan akses istimewa yang tidak aktif = 0

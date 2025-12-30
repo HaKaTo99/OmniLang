@@ -1,0 +1,29 @@
+# See https://github.com/EmbarkStudios/cargo-deny/pull/611 for migration details
+[advisories]
+version = 2
+# All advisories are 'deny' by default in version 2.
+# We keep 'yanked' as it was not marked as deprecated.
+yanked = "deny"
+
+[licenses]
+version = 2
+# All licenses are 'deny' by default unless explicitly allowed.
+# The 'deny' list is now redundant.
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "Unicode-3.0",
+]
+
+# Config for private/unpublished crates
+[licenses.private]
+ignore = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+
+[bans]
+multiple-versions = "warn"

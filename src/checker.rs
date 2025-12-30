@@ -240,6 +240,8 @@ impl Checker {
             Expr::Call(callee, args) => self.check_call_expr(callee, args, env, borrow_tracker),
             Expr::Block(block_expr) => self.check_block(block_expr, env, borrow_tracker),
             Expr::If(if_expr) => self.check_if_expr(if_expr, env, borrow_tracker),
+            Expr::Match(value, arms) => self.check_match_expr(value, arms, env, borrow_tracker),
+            Expr::Lambda(params, body) => self.check_lambda_expr(params, body, env, borrow_tracker),
             _ => {
                 self.errors.push(format!("Unsupported expression: {:?}", expr));
                 Ok(Type::Unknown)
@@ -272,6 +274,114 @@ impl Checker {
             Ok(Type::Unknown) // Return Unknown on mismatch
         } else {
             Ok(then_type) // Both branches have the same type
+        }
+    }
+
+    fn check_match_expr(&mut self, value: &Expr, arms: &[MatchArm], env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<Type, Vec<String>> {
+        let value_type = self.check_expression(value, env, borrow_tracker)?;
+
+        let mut arm_types = Vec::new();
+        for arm in arms {
+            // Check pattern exhaustiveness and binding
+            self.check_pattern(&arm.pattern, &value_type, env, borrow_tracker)?;
+
+            // Check guard if present
+            if let Some(guard) = &arm.guard {
+                let guard_type = self.check_expression(guard, env, borrow_tracker)?;
+                if guard_type != Type::Bool {
+                    self.errors.push(format!("Match guard must be boolean, found {:?}", guard_type));
+                }
+            }
+
+            // Check arm body
+            let arm_type = self.check_expression(&arm.body, env, borrow_tracker)?;
+            arm_types.push(arm_type);
+        }
+
+        // All arms must have the same type
+        if let Some(first_type) = arm_types.first() {
+            for arm_type in &arm_types[1..] {
+                if arm_type != first_type {
+                    self.errors.push(format!("Match arms have mismatched types: expected {:?}, found {:?}", first_type, arm_type));
+                }
+            }
+            Ok(first_type.clone())
+        } else {
+            Ok(Type::Unit) // Empty match
+        }
+    }
+
+    fn check_lambda_expr(&mut self, params: &[String], body: &Expr, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<Type, Vec<String>> {
+        // Create a new scope for lambda parameters
+        let mut lambda_env = env.enter_scope();
+        let mut lambda_borrow_tracker = borrow_tracker.clone();
+
+        // Register parameters (assume all parameters are of type Unknown for now, or we could infer)
+        let mut param_types = Vec::new();
+        for param in params {
+            // For simplicity, assume parameters are of type Unknown
+            // In a full implementation, we'd do type inference
+            let param_type = Type::Unknown;
+            param_types.push(param_type.clone());
+
+            let symbol = Symbol {
+                name: param.clone(),
+                type_info: param_type,
+                is_mutable: false,
+                status: OwnershipStatus::Owned,
+                defined_at: 0,
+            };
+            if let Err(e) = lambda_env.insert(symbol) {
+                self.errors.push(e);
+            }
+            lambda_borrow_tracker.declare_variable(param, BorrowState::Owned);
+        }
+
+        // Check lambda body
+        let return_type = self.check_expression(body, &mut lambda_env, &mut lambda_borrow_tracker)?;
+
+        // Return function type
+        Ok(Type::Function {
+            params: param_types,
+            return_type: Box::new(return_type),
+        })
+    }
+
+    fn check_pattern(&mut self, pattern: &Pattern, expected_type: &Type, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<(), Vec<String>> {
+        match pattern {
+            Pattern::Wildcard => Ok(()), // Wildcard matches anything
+            Pattern::Literal(lit) => {
+                let lit_type = match lit {
+                    Literal::Int(_) => Type::I32,
+                    Literal::Float(_) => Type::F64,
+                    Literal::Bool(_) => Type::Bool,
+                    Literal::Str(_) => Type::Named("String".to_string()),
+                };
+                if &lit_type != expected_type {
+                    self.errors.push(format!("Pattern literal type mismatch: expected {:?}, found {:?}", expected_type, lit_type));
+                }
+                Ok(())
+            }
+            Pattern::Identifier(name) => {
+                // Bind the identifier to the expected type
+                let symbol = Symbol {
+                    name: name.clone(),
+                    type_info: expected_type.clone(),
+                    is_mutable: false,
+                    status: OwnershipStatus::Owned,
+                    defined_at: 0,
+                };
+                if let Err(e) = env.insert(symbol) {
+                    self.errors.push(e);
+                }
+                borrow_tracker.declare_variable(name, BorrowState::Owned);
+                Ok(())
+            }
+            Pattern::Tuple(patterns) => {
+                // For now, assume tuple patterns match any type
+                // In a full implementation, we'd check tuple structure
+                Ok(())
+            }
         }
     }
 

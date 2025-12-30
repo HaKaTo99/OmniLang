@@ -1,0 +1,43 @@
+INTENT: Menjamin penggunaan AI yang etis, transparan, dan bebas bias dalam sistem rekrutmen
+
+ACTOR:
+- Primary: AutomatedRecruiterAI
+- Secondary: EthicsCommittee
+- Secondary: HRDepartment
+
+CONTEXT:
+- Domain: Corporate-HR
+- Lokasi: Global-Offices
+- Fase: Applicant-Screening
+
+ASSUMPTION:
+- Dataset pelatihan telah diaudit untuk representasi demografis
+- API pihak ketiga untuk evaluasi skill tersedia
+
+RULE:
+- IF BiasScore > 0.05 THEN TriggerHumanReview
+- IF TransparencyLevel < 100% THEN NotifyEthicsCommittee
+- FOR applicant IN Applicants {
+    - IF ProtectedAttributeDetected == True THEN RedactSensitiveData
+    - WHILE ProcessingTime > 5s {
+        - IF QueueLength > 100 THEN ScaleComputingResources
+    }
+}
+
+CONSTRAINT:
+- Legal: EU AI Act Compliance
+- Ethical: Tidak boleh ada diskriminasi berdasarkan gender, usia, atau ras
+- Technical: Model explainability must use SHAP or LIME
+
+IMPACT:
+- Benefit: Rekrutmen yang lebih adil dan objektif
+- Risk: Potensi penolakan dari pelamar jika hasil AI tidak dijelaskan dengan baik
+- Trade-off: Kecepatan pemrosesan vs akurasi deteksi bias
+
+TRACE:
+- Regulation: https://artificialintelligenceact.eu/
+- Evidence: Dokumen audit model tahunan
+
+REVIEW:
+- Interval: 3 Months
+- Criteria: Disparitas rekrutmen antar grup < 2%

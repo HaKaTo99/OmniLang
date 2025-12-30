@@ -11,8 +11,8 @@ CONTEXT:
 
 RULE:
 - IF Suhu > 50 THEN Aktifkan_Pendingin
-- FOR actor IN ACTORS {
-    - IF Status == 1 THEN Kirim_Notifikasi_Ke_actor
+- FOR agent IN Participants {
+    - IF Status == 1 THEN Kirim_Notifikasi_Ke_agent
 }
 - WHILE Suhu > 45 {
     - IF Mode == 1 THEN Turunkan_Daya_Mesin

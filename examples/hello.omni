@@ -1,6 +1,16 @@
-// OmniLang v0.1 Hello World
-mod hello {
-    func main() {
-        println("Hello, OmniLang!");
-    }
-}
+INTENT: Menyapa dunia dan memperkenalkan OmniLang
+ACTOR:
+- Primary: User
+- Secondary: OmniSystem
+CONTEXT:
+- Domain: General
+- Lokasi: Global
+- Fase: InitialContact
+RULE:
+- IF SystemStatus == "Ready" THEN Display "Hello, OmniLang!"
+CONSTRAINT:
+- Technical: Harus mendukung encoding UTF-8
+IMPACT:
+- Benefit: Memastikan sistem berfungsi
+TRACE:
+- Evidence: https://omnilang.dev/hello

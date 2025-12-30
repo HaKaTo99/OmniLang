@@ -1,0 +1,15 @@
+INTENT: Demonstrate evaluator features
+ACTOR:
+- Primary: Operator
+CONTEXT:
+- Domain: Testbed
+RULE:
+- IF Mode IN modes THEN ActivateProfile
+- IF label IN ["a","b"] THEN RouteToClusterB
+- IF sensor.temperature < 30 AND sensor.humidity < 90 THEN MaintainTrajectory
+- FOR device IN sensors {
+- IF device.status == "ok" THEN AddDevice
+- IF device.flags[0] == "hot" THEN Escalate
+}
+IMPACT:
+- Benefit: Demo coverage for evaluator features

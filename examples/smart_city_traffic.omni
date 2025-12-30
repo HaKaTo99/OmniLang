@@ -1,0 +1,46 @@
+INTENT: Mengoptimalkan aliran trafik Smart City dan prioritas kendaraan darurat
+
+ACTOR:
+- Primary: TrafficControlSystem
+- Secondary: EmergencyDispatch
+- Secondary: PublicTransport
+
+CONTEXT:
+- Domain: SmartCity-Transportation
+- Lokasi: Sektor-Pusat-Kota
+- Fase: PeakHour-Adjustment
+
+ASSUMPTION:
+- Sensor IoT pada setiap persimpangan berfungsi
+- Konektivitas 5G stabil untuk komunikasi antar-kendaraan
+
+RULE:
+- IF TrafficDensity > 80% THEN ActivateGreenWave
+- IF EmergencyVehicleDetected == True THEN ClearPathImmediate
+- FOR intersection IN Intersections {
+    - IF QueueLength > 15m THEN ExtendGreenLight
+    - WHILE EmergencyVehicleDistance < 500m {
+        - IF LightStatus != "Red" THEN SetTrafficRedExceptEmergency
+    }
+}
+- FOR v IN PublicBuses {
+    - IF DelayInMinutes > 5 THEN PrioritizeBusLane
+}
+
+CONSTRAINT:
+- Legal: UU Lalu Lintas No 22 Tahun 2009
+- Ethical: Tidak boleh membahayakan pejalan kaki demi kendaraan darurat
+- Technical: Max GreenLightDuration is 120s
+
+IMPACT:
+- Benefit: Pengurangan waktu respon darurat hingga 30%
+- Risk: Potensi kemacetan di jalur non-prioritas
+- Trade-off: Kelancaran transportasi umum vs efisiensi kendaraan pribadi
+
+TRACE:
+- Regulation: https://jdih.dephub.go.id/peraturan
+- Evidence: Skenario simulasi trafik 2025
+
+REVIEW:
+- Interval: Setiap 24 Jam (Daily Audit)
+- Criteria: Waktu respon ambulans rata-rata < 8 menit

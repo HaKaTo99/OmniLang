@@ -25,12 +25,23 @@ Kami menerima PR yang fokus pada penyempurnaan dan implementasi fitur yang terca
 
 1.  **Fork** Repositori OmniLang.
 2.  **Clone** hasil *fork* Anda ke mesin lokal.
-3.  Buat *branch* baru (contoh: `git checkout -b feature/implement-runtime-scheduler`).
+3.  Buat *branch* baru (contoh: `git checkout -b feat/validator-improvement`).
     * Gunakan format: `fix/nama-perbaikan` atau `feat/nama-fitur`.
-4.  Lakukan perubahan dan pastikan semua *test suite* (`cargo test`) **LULUS**.
-5.  **Commit** perubahan Anda. Gunakan pesan *commit* yang deskriptif dan mengikuti konvensi **Conventional Commits** (misalnya: `feat: Menambahkan scheduler dasar ke runtime`).
-6.  *Push* *branch* baru Anda ke *fork* Anda di GitHub.
-7.  Buat **Pull Request (PR)** ke *branch* `main` di repositori utama OmniLang.
+4.  Lakukan perubahan.
+5.  **Jalankan regresi cepat:**
+    * Rust: `cargo test --all`
+    * Frontend/API validator: `npm test`
+6.  **Commit** perubahan Anda. Gunakan pesan *commit* yang deskriptif dan mengikuti konvensi **Conventional Commits** (misalnya: `feat: tambah konversi unit di evaluator`).
+7.  *Push* *branch* baru Anda ke *fork* Anda di GitHub.
+8.  Buat **Pull Request (PR)** ke *branch* `main` di repositori utama OmniLang.
+
+#### Checklist Cepat (selaras scope v1.0 - validator)
+
+- Pastikan perubahan tidak menambah compiler/stdlib/runtime baru; fokus pada validator (parser/checker/evaluator) atau tooling sekitarnya.
+- Tambahkan/ubah contoh di `examples/` jika ada sintaks atau fitur baru yang disentuh.
+- Tambahkan tes: Rust `tests/` atau API guard rails `tests/api-validate.test.ts` jika relevan.
+- Dokumentasi singkat: perbarui README atau docs/ sesuai perubahan perilaku.
+- Format: `cargo fmt` untuk Rust, `npm run lint` jika Anda menyentuh frontend.
 
 #### Standar Kode
 

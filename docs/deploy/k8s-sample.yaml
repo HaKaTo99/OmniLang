@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omnilang-studio
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: omnilang-studio
+  template:
+    metadata:
+      labels:
+        app: omnilang-studio
+    spec:
+      containers:
+        - name: web
+          image: your-registry/omnilang-studio:{{TAG}}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: LOG_LEVEL
+              value: "info"
+            - name: VALIDATE_MAX_INFLIGHT
+              value: "8"
+            - name: VALIDATE_RATE_LIMIT_MAX
+              value: "60"
+            - name: VALIDATE_RATE_LIMIT_WINDOW_MS
+              value: "60000"
+            - name: DISABLE_PY_FALLBACK
+              value: "true"
+            - name: BUILD_VERSION
+              value: "{{TAG}}"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /api/readiness
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            failureThreshold: 12
+            periodSeconds: 5
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omnilang-studio
+spec:
+  selector:
+    app: omnilang-studio
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: omnilang-studio
+spec:
+  selector:
+    matchLabels:
+      app: omnilang-studio
+  endpoints:
+    - port: http
+      path: /api/metrics-prom
+      interval: 30s

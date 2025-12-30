@@ -1,32 +1,25 @@
-// OmniLang v0.1 Demo Program
-// Demonstrating struct, function, and basic features
-
-mod demo {
-    struct Person {
-        name: String,
-        age: Int
-    }
-
-    func greet(p: Person) {
-        println("Hello, " + p.name);
-    }
-
-    func print_age(p: &Person) {
-        println("Age: " + p.age);
-    }
-
-    func add(a: Int, b: Int) -> Int {
-        return a + b;
-    }
-
-    func main() {
-        let person = Person{name: "Alice", age: 30};
-        greet(person);
-        
-        let person2 = Person{name: "Bob", age: 25};
-        print_age(&person2);
-        
-        let sum = add(10, 20);
-        println("Sum: " + sum);
-    }
-}
+INTENT: Mengelola operasional drone logistik secara otomatis
+ACTOR:
+- Primary: DronePilot
+- Secondary: AirTrafficControl
+CONTEXT:
+- Domain: Logistics
+- Lokasi: UrbanArea
+- Fase: Flight
+ASSUMPTION:
+- GPS signal is stable
+- Weather is clear
+RULE:
+- IF BatteryLevel < 20 THEN ReturnToHome
+- IF ObstacleDetected == True THEN EmergencyBrake
+CONSTRAINT:
+- Legal: FAA Regulation Part 107
+- Technical: Max altitude 400ft
+IMPACT:
+- Benefit: Efisiensi pengiriman
+- Risk: Potensi tabrakan jika sensor gagal
+TRACE:
+- Regulation: https://www.faa.gov/uas
+REVIEW:
+- Interval: 30 Days
+- Criteria: Accident rate < 0.1%

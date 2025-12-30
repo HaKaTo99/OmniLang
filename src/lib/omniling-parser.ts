@@ -23,6 +23,23 @@ export function parseOmniLang(code: string): OmniLangError[] {
   const foundSections: Map<string, number> = new Map();
   let currentSectionIndex = -1;
 
+  const isHeaderLine = (raw: string) => {
+    const m = raw.match(/^\s*([A-Za-z]+):/);
+    return m ? m[1].toUpperCase() : null;
+  };
+
+  const hasListItemsBeforeNextHeader = (startIdx: number) => {
+    for (let j = startIdx + 1; j < lines.length; j++) {
+      const look = lines[j].trim();
+      if (look.length === 0 || look.startsWith('//') || look.startsWith('#')) continue;
+      if (isHeaderLine(look)) return false; // hit next header first
+      if (look.startsWith('-')) return true; // found list entry
+      // regular text counts as content too
+      return true;
+    }
+    return false;
+  };
+
   lines.forEach((line, index) => {
     const lineNumber = index + 1;
     const trimmedLine = line.trim();
@@ -32,12 +49,8 @@ export function parseOmniLang(code: string): OmniLangError[] {
       return;
     }
 
-    // Check if line starts with a keyword followed by colon
-    const match = trimmedLine.match(/^([A-Z]+):/);
-    if (match) {
-      const keyword = match[1];
-
-      // Validate if it is a valid core keyword
+    const keyword = isHeaderLine(trimmedLine);
+    if (keyword) {
       if (!canonicalOrder.includes(keyword)) {
         errors.push({
           line: lineNumber,
@@ -46,7 +59,6 @@ export function parseOmniLang(code: string): OmniLangError[] {
         return;
       }
 
-      // Record found section
       if (foundSections.has(keyword)) {
         errors.push({
           line: lineNumber,
@@ -55,7 +67,6 @@ export function parseOmniLang(code: string): OmniLangError[] {
       }
       foundSections.set(keyword, lineNumber);
 
-      // Validate Order
       const newSectionIndex = canonicalOrder.indexOf(keyword);
       if (newSectionIndex < currentSectionIndex) {
         errors.push({
@@ -65,15 +76,14 @@ export function parseOmniLang(code: string): OmniLangError[] {
       }
       currentSectionIndex = newSectionIndex;
 
-      // Validate Content Presence (Basic)
-      if (trimmedLine.length <= keyword.length + 1) {
+      const hasInlineContent = trimmedLine.length > keyword.length + 1;
+      if (!hasInlineContent && !hasListItemsBeforeNextHeader(index)) {
         errors.push({
           line: lineNumber,
-          message: `Section '${keyword}' must have content.`
+          message: `Section '${keyword}' must have content or list items.`
         });
       }
     } else if (trimmedLine.startsWith('-')) {
-      // List item, generally checking if inside a section
       if (currentSectionIndex === -1) {
         errors.push({
           line: lineNumber,
@@ -81,7 +91,6 @@ export function parseOmniLang(code: string): OmniLangError[] {
         });
       }
     } else {
-      // Regular text line. If not part of a section (no header seen yet), it might be invalid
       if (currentSectionIndex === -1) {
         errors.push({
           line: lineNumber,
@@ -91,7 +100,6 @@ export function parseOmniLang(code: string): OmniLangError[] {
     }
   });
 
-  // Final Validation: Check for Missing Mandatory Sections
   const mandatorySections = ['INTENT', 'ACTOR', 'CONTEXT', 'RULE', 'CONSTRAINT', 'IMPACT', 'TRACE'];
 
   mandatorySections.forEach(section => {

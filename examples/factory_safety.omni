@@ -1,0 +1,29 @@
+INTENT: Menjaga keselamatan pekerja pabrik secara real-time
+ACTOR:
+- Primary: SafetySystem
+- Secondary: Supervisor
+CONTEXT:
+- Domain: Factory
+- Lokasi: Line-3
+- Fase: Operation
+ASSUMPTION:
+- Sensor kalibrasi terbaru
+RULE:
+- IF Distance < 1m THEN StopMachine
+- IF Temperature > 52C THEN CoolDown
+- FOR worker IN Workers {
+    - IF WorkerDistance < 2m THEN SlowDown
+}
+- WHILE Temperature > 50C {
+    - IF FanStatus == 0 THEN TurnOnFan
+}
+CONSTRAINT:
+- Technical: Loop harus dibatasi dan unit harus dikenali
+IMPACT:
+- Benefit: Hindari kecelakaan dan overheating
+- Risk: Downtime meningkat
+TRACE:
+- Evidence: https://omnilang.dev/spec/factory
+REVIEW:
+- Interval: Bulanan
+- Criteria: Zero incident

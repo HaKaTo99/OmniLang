@@ -1,0 +1,5 @@
+INTENT: Uji pattern matching sederhana
+ACTOR:
+- Primary: Tester
+RULE:
+- IF match Status { "Ready" => true, _ => false } THEN Display "Status OK"

@@ -1,0 +1,19 @@
+{
+  "Mode": 2,
+  "modes": [1, 2, 3],
+  "label": "b",
+  "sensor": {
+    "temperature": 25,
+    "humidity": 80
+  },
+  "sensors": [
+    {
+      "status": "ok",
+      "flags": ["hot", "tagged"]
+    },
+    {
+      "status": "offline",
+      "flags": []
+    }
+  ]
+}

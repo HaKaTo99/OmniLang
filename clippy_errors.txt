@@ -1,0 +1,73 @@
+    Checking omnilang v0.1.0 (D:\GitHub\OmniLang)
+error: use of `char::is_digit` with literal radix of 10
+   --> src\lexer.rs:157:22
+    |
+157 |                 c if c.is_digit(10) => {
+    |                      ^^^^^^^^^^^^^^ help: try: `c.is_ascii_digit()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.92.0/index.html#is_digit_ascii_radix
+    = note: `-D clippy::is-digit-ascii-radix` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::is_digit_ascii_radix)]`
+
+error: use of `char::is_digit` with literal radix of 10
+   --> src\lexer.rs:273:17
+    |
+273 |             && (self.current_char().is_digit(10) || self.current_char() == '.')
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `self.current_char().is_ascii_digit()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.92.0/index.html#is_digit_ascii_radix
+
+error: use of `char::is_digit` with literal radix of 10
+   --> src\lexer.rs:283:25
+    |
+283 |             .filter(|c| c.is_digit(10) || **c == '.')
+    |                         ^^^^^^^^^^^^^^ help: try: `c.is_ascii_digit()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.92.0/index.html#is_digit_ascii_radix
+
+error: unneeded `return` statement
+  --> src\evaluator.rs:58:13
+   |
+58 |             return false;
+   |             ^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.92.0/index.html#needless_return
+   = note: `-D clippy::needless-return` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::needless_return)]`
+help: remove `return`
+   |
+58 -             return false;
+58 +             false
+   |
+
+error: use of `char::is_digit` with literal radix of 10
+  --> src\evaluator.rs:37:21
+   |
+37 |         .filter(|c| c.is_digit(10) || *c == '.')
+   |                     ^^^^^^^^^^^^^^ help: try: `c.is_ascii_digit()`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.92.0/index.html#is_digit_ascii_radix
+
+error: you should consider adding a `Default` implementation for `Runtime`
+  --> src\runtime.rs:15:5
+   |
+15 | /     pub fn new() -> Self {
+16 | |         Runtime {
+17 | |             context_data: HashMap::new(),
+18 | |         }
+19 | |     }
+   | |_____^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.92.0/index.html#new_without_default
+   = note: `-D clippy::new-without-default` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::new_without_default)]`
+help: try adding this
+   |
+14 + impl Default for Runtime {
+15 +     fn default() -> Self {
+16 +         Self::new()
+17 +     }
+18 + }
+   |
+
+error: could not compile `omnilang` (lib) due to 6 previous errors

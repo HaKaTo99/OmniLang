@@ -1,0 +1,43 @@
+INTENT: Mendeteksi dan mencegah pencucian uang dalam sistem perbankan digital
+
+ACTOR:
+- Primary: AMLMonitorSystem
+- Secondary: ComplianceOfficer
+- Secondary: CentralBank_API
+
+CONTEXT:
+- Domain: Finance-Stability
+- Lokasi: Domestic-and-International
+- Fase: Transaction-Settlement
+
+ASSUMPTION:
+- Daftar hitam (Sanction List) diperbarui setiap jam
+- Kurs mata uang asing ditarik secara real-time
+
+RULE:
+- IF TransactionAmount > 10000USD THEN GenerateCTReport
+- IF SenderCountry IN SanctionedList THEN BlockTransaction
+- FOR account IN HighRiskAccounts {
+    - IF VolumeIncrease > 300% THEN LockAccountTemporary
+    - WHILE RiskPatternDetected == True {
+        - IF InvestigationStatus == "Pending" THEN FreezeFunds
+    }
+}
+
+CONSTRAINT:
+- Legal: FATF Recommendations
+- Technical: Pengecekan daftar sanksi harus < 50ms
+- Ethical: Tidak boleh membekukan dana nasabah tanpa dasar bukti yang kuat
+
+IMPACT:
+- Benefit: Mencegah pendanaan aktivitas ilegal
+- Risk: Komplain nasabah akibat pemblokiran yang salah (False Positive)
+- Trade-off: Kecepatan transaksi vs ketelitian pengawasan
+
+TRACE:
+- Regulation: https://www.fatf-gafi.org/
+- Evidence: Audit kepatuhan tahunan
+
+REVIEW:
+- Interval: Daily
+- Criteria: Akurasi deteksi transaksi mencurigakan > 95%

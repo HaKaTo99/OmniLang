@@ -1,0 +1,43 @@
+INTENT: Manufacturing Safety & Quality Control
+ACTOR:
+- Primary: Production Line Monitor
+- Secondary: Quality Assurance Team
+
+CONTEXT:
+- Domain: manufacturing
+- Temperature: 85.5
+- Pressure: 2.1
+- VibrationLevel: 0.8
+- DefectRate: 0.03
+- ProductionSpeed: 120
+- SafetySensorStatus: "operational"
+
+RULE:
+- IF Temperature > 90 OR Pressure > 2.5
+- THEN EmergencyShutdown, AlertMaintenance
+
+RULE:
+- IF VibrationLevel > 1.0 AND ProductionSpeed > 100
+- THEN ReduceSpeed, ScheduleInspection
+
+RULE:
+- IF DefectRate > 0.05 OR SafetySensorStatus != "operational"
+- THEN HaltProduction, QualityAudit
+
+RULE:
+- IF std::time::duration_between_ms(LastMaintenance, std::time::now_unix_millis()) > 604800000
+- THEN PreventiveMaintenance, LogMaintenance
+
+IMPACT:
+- SafetyIncidents: 0
+- Downtime: 2%
+- QualityScore: 98.5%
+
+TRACE:
+- PolicyVersion: "Safety-v3.2"
+- LastUpdated: "2024-01-20"
+- Standards: "ISO 45001"
+
+REVIEW:
+- Effectiveness: Excellent
+- Continuous monitoring required

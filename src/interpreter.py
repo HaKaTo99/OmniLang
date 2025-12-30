@@ -1,24 +1,23 @@
-# OmniLang v0.1 - Interpreter
-# Interpreter sederhana untuk AST OmniLang
+# Deprecated v0.1 interpreter shim.
+# For v1.0, use omnilang.Parser and policy runtime instead.
 
-from parser import Parser
-from lexer import tokenize
+from omnilang import Lexer, Parser  # type: ignore
 
-class Interpreter:
-    def __init__(self):
-        self.env = {}
-    def eval(self, ast):
-        for node in ast:
-            if node.type == 'VarDecl':
-                var_name = node.value
-                var_value = int(node.children[0].value)
-                self.env[var_name] = var_value
-                print(f"{var_name} = {var_value}")
+
+def parse(code: str):
+    lexer = Lexer(code)
+    tokens = lexer.tokenize()
+    parser = Parser(tokens)
+    return parser.parse()
+
 
 if __name__ == "__main__":
-    code = 'let x = 42;'
-    tokens = tokenize(code)
-    parser = Parser(tokens)
-    ast = parser.parse()
-    interp = Interpreter()
-    interp.eval(ast)
+    import sys
+
+    if len(sys.argv) < 2:
+        print("Usage: python interpreter.py <file.omni>")
+        sys.exit(1)
+
+    with open(sys.argv[1], "r", encoding="utf-8") as f:
+        policy = parse(f.read())
+        print(policy)

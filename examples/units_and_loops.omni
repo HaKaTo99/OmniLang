@@ -1,0 +1,23 @@
+INTENT: Uji angka dengan unit dan loop bersarang
+ACTOR:
+- Primary: RobotArm
+- Secondary: SafetySupervisor
+CONTEXT:
+- Domain: Manufacturing
+- Lokasi: Line-1
+- Fase: Operation
+RULE:
+- IF Distance < 1m THEN StopMachine
+- IF Temperature > 52C THEN CoolDown
+- FOR worker IN Workers {
+    - IF WorkerDistance < 2m THEN SlowDown
+}
+- WHILE Temperature > 50C {
+    - IF FanStatus == 0 THEN TurnOnFan
+}
+CONSTRAINT:
+- Technical: Loop harus dibatasi dan unit harus dikenali
+IMPACT:
+- Benefit: Hindari kecelakaan dan overheating
+TRACE:
+- Evidence: https://omnilang.dev/spec/units

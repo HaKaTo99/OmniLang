@@ -1,0 +1,27 @@
+INTENT: Menjaga kepatuhan etika dan keselamatan di rumah sakit
+ACTOR:
+- Primary: HospitalSystem
+- Secondary: NurseSupervisor
+CONTEXT:
+- Domain: Healthcare
+- Lokasi: ICU
+- Fase: Operation
+ASSUMPTION:
+- Semua perangkat steril
+RULE:
+- IF PatientDistance < 0.5m THEN AlertStaff
+- IF OxygenLevel < 92 THEN IncreaseO2
+- FOR device IN Devices {
+    - IF DeviceStatus == "Error" THEN NotifyTechnician
+}
+CONSTRAINT:
+- Legal: HIPAA
+- Ethical: PatientFirst
+IMPACT:
+- Benefit: Patient safety
+- Risk: Alarm fatigue
+TRACE:
+- Regulation: https://omnilang.dev/spec/hipaa
+REVIEW:
+- Interval: Harian
+- Criteria: Zero critical alarm missed

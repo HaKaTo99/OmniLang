@@ -1,0 +1,34 @@
+INTENT: Orkestrasi respon insiden multi-region dengan aksi terarah
+ACTOR:
+- Primary: IncidentCommander
+- Secondary: EdgeGateway_APAC
+- Secondary: EdgeGateway_EMEA
+- Secondary: SOC_Analyst
+CONTEXT:
+- Domain: SecurityOperations
+- Lokasi: MultiRegion
+- Fase: LiveOps
+ASSUMPTION:
+- Telemetry real-time tersedia
+- Runbook disetujui tim legal
+RULE:
+- IF ThreatLevel >= 80 THEN Activate_Global_Runbook
+- FOR agent IN IncidentActors {
+    - IF agent.Status == "Degraded" THEN Dispatch_Remediation_to_agent
+    - IF agent.BufferUsage > 75 THEN RateLimit_Traffic_for_agent
+}
+- WHILE AnomalyScore > 0.65 {
+    - IF Region == "APAC" THEN Trigger_SwitchOver_APAC
+    - IF Region == "EMEA" THEN Isolate_Segment_EMEA
+}
+CONSTRAINT:
+- Technical: Loop dibatasi 10 iterasi untuk mencegah overload
+- Legal: Ikuti SLA per region
+IMPACT:
+- Benefit: MTTR turun < 10 menit
+- Risk: Switchover salah jika telemetry palsu
+TRACE:
+- Evidence: https://omnilang.dev/spec/v1.0/actions-loop-showcase
+REVIEW:
+- Interval: 14 Days
+- Criteria: False positive < 3%
