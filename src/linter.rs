@@ -1,6 +1,6 @@
 //! Enhanced linter with comprehensive rule set for OmniLang policies
 
-use crate::ast;
+use omnilang_core::ast;
 use serde_json::Value;
 use std::collections::HashSet;
 
@@ -126,13 +126,13 @@ impl Linter {
     /// Check that loops have proper guard coverage
     fn check_guard_coverage(&self, policy: &ast::Policy, result: &mut LintResult) {
         for rule in &policy.rules {
-            if let ast::Rule::For(_) | ast::Rule::While(_) = rule {
+            if let ast::Rule::For(_) | ast::Rule::While(_) | ast::Rule::Match(_) = rule {
                 result.add_finding(LintFinding {
                     rule: "guard-coverage".to_string(),
                     severity: Severity::Info,
-                    message: "Loop detected - ensure guard limits are configured".to_string(),
+                    message: "Complex rule detected - ensure guard limits or logic are optimal".to_string(),
                     line: None,
-                    suggestion: Some("Configure MAX_LOOP_ITERATIONS and MAX_LOOP_TIME_MS".to_string()),
+                    suggestion: Some("Configure appropriate safety guards for this rule type".to_string()),
                 });
             }
         }
@@ -164,7 +164,7 @@ impl Linter {
                         });
                     }
                 }
-                ast::Rule::Standard(_) => {}
+                ast::Rule::Match(_) | ast::Rule::Standard(_) => {}
             }
         }
     }
@@ -214,6 +214,11 @@ impl Linter {
                         if let ast::Rule::Standard(std_rule) = sub_rule {
                             actions.insert(std_rule.action.clone());
                         }
+                    }
+                }
+                ast::Rule::Match(match_rule) => {
+                    for arm in &match_rule.arms {
+                        actions.insert(arm.action.clone());
                     }
                 }
             }
@@ -267,6 +272,12 @@ impl Linter {
                         }
                     }
                 }
+                ast::Rule::Match(match_rule) => {
+                    referenced_fields.insert(match_rule.scrutinee.clone());
+                    for arm in &match_rule.arms {
+                        referenced_fields.insert(arm.pattern.clone());
+                    }
+                }
             }
         }
 
@@ -301,6 +312,9 @@ impl Linter {
                 }
                 ast::Rule::While(while_rule) => {
                     self.extract_fields_from_condition(&while_rule.condition, &mut used_fields);
+                }
+                ast::Rule::Match(match_rule) => {
+                    used_fields.insert(match_rule.scrutinee.clone());
                 }
             }
         }

@@ -231,6 +231,7 @@ impl Lexer {
 
                         _ => TokenType::Ident(s.clone()),
                     };
+                    // println!("DEBUG LEXER: '{}' -> {:?}", s, token_type); 
                     tokens.push(Token {
                         token_type,
                         line: self.line,

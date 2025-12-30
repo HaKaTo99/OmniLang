@@ -38,6 +38,7 @@ pub enum RuleIR {
     Standard(StandardRuleIR),
     For(ForLoopIR),
     While(WhileLoopIR),
+    Match(PolicyMatchRuleIR),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -59,6 +60,18 @@ pub struct WhileLoopIR {
     pub condition: String,
     pub body: Vec<RuleIR>,
     pub guard: GuardMeta,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PolicyMatchRuleIR {
+    pub scrutinee: String,
+    pub arms: Vec<PolicyMatchArmIR>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PolicyMatchArmIR {
+    pub pattern: String,
+    pub action: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -174,6 +187,17 @@ fn build_rule_ir(rule: &ast::Rule) -> RuleIR {
                 max_time_ms: MAX_LOOP_TIME_MS,
             },
         }),
+        ast::Rule::Match(m) => RuleIR::Match(PolicyMatchRuleIR {
+            scrutinee: m.scrutinee.clone(),
+            arms: m
+                .arms
+                .iter()
+                .map(|a| PolicyMatchArmIR {
+                    pattern: a.pattern.clone(),
+                    action: a.action.clone(),
+                })
+                .collect(),
+        }),
     }
 }
 
@@ -209,5 +233,6 @@ fn flatten_rule_ir(rule: &ast::Rule, out: &mut Vec<RuleIR>) {
                 flatten_rule_ir(sub, out);
             }
         }
+        ast::Rule::Match(_) => out.push(build_rule_ir(rule)),
     }
 }

@@ -4,7 +4,7 @@ use std::fs;
 use std::path::PathBuf;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
-use crate::runtime::Decision;
+use omnilang_core::runtime::Decision;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct CacheEntry {

@@ -12,9 +12,63 @@ OmniLang dirancang untuk menggantikan kebutuhan akan banyak bahasa di tumpukan t
 
 | Bahasa yang Digantikan | Kompromi yang Diatasi | Solusi OmniLang |
 | :--- | :--- | :--- |
-| **JavaScript/React** | Kinerja terbatas, terikat pada runtime JS. | **Full-Stack Universal.** Frontend (Wasm) dan Backend (Native) dalam satu bahasa, aman, dan tanpa overhead JS. |
-| **Java/Python** | Berat (JVM), Lambat (GIL), GC Pause tak terduga. | **Kinerja Native & Kontrol Memori.** Kompilasi ke *native binary* ringan. Mode `@ownership` menjamin real-time tanpa GC. |
-| **C++** | Sangat Tidak Aman, Risiko Kebocoran Memori & Data Race. | **Kecepatan C++ dengan Keamanan Rust.** Jaminan keamanan memori melalui **Borrow Checker** yang diimplementasikan di Rust. |
+| **JavaScript / React / Angular** | Kinerja terbatas, terikat pada runtime JS yang besar. | **Full-Stack Universal.** Frontend (Wasm) dan Backend (Native) dalam satu bahasa, aman, dan tanpa overhead JS/V8. |
+| **Java / Python / Go** | Berat (JVM), Lambat (GIL), atau GC Pause tak terduga. | **Kinerja Native & Kontrol Memori.** Kompilasi ke *native binary* ringan. Mode `@ownership` menjamin real-time tanpa Garbage Collector (GC). |
+| **C++ / Rust** | C++ tidak aman; Rust memiliki kurva belajar curam. | **Kecepatan C++ dengan Ergonomi Pascal.** Jaminan keamanan memori (Borrow Checker) namun dengan sintaksis yang mudah dibaca manusia (*Human-Readable*). |
+
+## Mental Model: Analogi OmniLang
+
+Jika Anda familiar dengan teknologi berikut, inilah cara memahami OmniLang:
+
+1.  **Seperti Turbo Pascal / Delphi**:
+    *   Mengutamakan **Struktur & Ketertiban** (*Canonical Order*).
+    *   Kompilasi **Native yang Sangat Cepat**.
+    *   Hasil akhir berupa binary tunggal yang **Mandiri** (tidak butuh dependencies runtime).
+
+2.  **Seperti SQL**:
+    *   Bersifat **Deklaratif**. Anda menuliskan `INTENT` (Niat) dan `RULE` (Aturan), biarkan *engine* yang mengurus optimasi eksekusi.
+    *   Fokus pada **Filter & Query** konteks (misal: `FOR device IN sensors WHERE ...`).
+
+3.  **Seperti Go (Golang)**:
+    *   **Kesederhanaan** di atas segalanya. Tidak ada fitur "magic" yang tersembunyi.
+    *   Tooling modern yang terintegrasi (Formatter, Linter, Test) yang cepat.
+
+4.  **Seperti Angular / React**:
+    *   Mendukung konsep **Komponen & State**, tetapi dijalankan di **WebAssembly (Wasm)** untuk performa native di browser, melampaui batas kecepatan JavaScript.
+
+## Warisan & Evolusi (Heritage)
+
+OmniLang bukanlah penciptaan ulang roda, melainkan kulminasi dari evolusi bahasa pemrograman selama 70 tahun terakhir:
+
+### Generasi Awal (Fondasi Logika)
+*   **Assembly & Fortran**: OmniLang mewarisi efisiensi tingkat rendah (via Rust/LLVM) dan ketepatan komputasi.
+*   **Lisp & COBOL**: Fokus pada *Intent* (Kecerdasan) seperti Lisp, dan keterbacaan bisnis (*Business Readable*) seperti COBOL.
+*   **Pascal & ALGOL**: Mengadopsi struktur yang disiplin dan "Canonical Order".
+
+### Era Pertengahan (Sistem & Objek)
+*   **Ada**: Inspirasi utama untuk **Safety-Critical Systems** (sistem militer/medis). OmniLang adalah "Ada untuk era AI".
+*   **SQL**: Sifat deklaratif untuk query data/konteks (`SELECT/FOR`, `WHERE/IF`).
+*   **Java & C++**: Mengambil performa C++ tetapi membuang *Garbage Collector* (GC) yang tidak terduga milik Java.
+
+### Era Modern (Efisiensi & Tooling)
+*   **Rust**: OmniLang dibangun di atas bahu raksasa ini, meminjam **Borrow Checker** untuk keamanan memori tanpa kompromi.
+*   **Go & Python**: Mengutamakan kesederhanaan (Go) dan keterbacaan (Python), menghapus sintaksis yang rumit (*boilerplate*).
+*   **TypeScript**: Sistem tipe yang kuat untuk mencegah error sebelum runtime.
+
+**Kesimpulan:** OmniLang adalah langkah selanjutnya—**Era Intent (2025+)**—di mana kita tidak lagi sekadar memberi instruksi *step-by-step* ke mesin, melainkan mendefinisikan *Batasan (Constraints)* dan *Tujuan (Goals)*.
+
+## Posisi dalam Ekosistem: Dirigen & Spesialis
+
+Bagaimana OmniLang berinteraksi dengan ribuan bahasa yang sudah ada? OmniLang tidak mencoba menggantikan peran mereka sebagai *general purpose language*, melainkan bertindak sebagai **governance layer** (lapisan tata kelola).
+
+| Kategori Bahasa | Contoh | Hubungan dengan OmniLang |
+| :--- | :--- | :--- |
+| **System & Low-Level** | Assembly, C, C++, Rust | **Memanfaatkan (Leverage).** OmniLang menggunakan teknologi mereka (Rust/LLVM) untuk menghasilkan binary yang secepat C dan seaman Rust. |
+| **General Purpose** | Java, Python, Go, C# | **Mengatur (Govern).** Bahasa-bahasa ini membangun *mekanisme* (misal: driver motor), sementara OmniLang mendefinisikan *kebijakan* (misal: "Jangan berputar jika panas > 50°C"). |
+| **Scripting & Web** | JS, TS, PHP, Ruby | **Mengamankan (Guard).** OmniLang dapat dikompilasi ke WebAssembly (Wasm) untuk berjalan di browser/server sebagai "penjaga" yang memvalidasi input logika berisiko. |
+| **Logic & Business** | SQL, COBOL, Excel | **Modernisasi (Elevate).** Menggantikan ribuan baris logika bisnis yang tersebar ("spaghetti code") menjadi satu dokumen `.omni` yang terpusat dan mudah diaudit. |
+
+> **Analogi:** Jika bahasa lain adalah *Peralatan Tukang* (Palu, Gergaji, Obeng), maka OmniLang adalah *Cetak Biru Arsitek* (Blueprint) yang memastikan gedung dibangun sesuai spesifikasi dan tidak roboh.
 
 ## Fitur Inti yang Sudah Divalidasi
 

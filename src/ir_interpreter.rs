@@ -119,6 +119,23 @@ fn eval_rule(rule: &RuleIR, ctx: &mut Value, decision: &mut Decision) {
                 }
             }
         }
+        RuleIR::Match(match_ir) => {
+            decision.metrics.rules_evaluated += 1;
+            decision
+                .logs
+                .push(format!("[MATCH] {}", match_ir.scrutinee));
+            
+            for arm in &match_ir.arms {
+                let condition = format!("{} == {}", match_ir.scrutinee, arm.pattern);
+                if evaluate_condition(&condition, ctx) {
+                    decision.logs.push(format!("-> Match arm: {} => {}", arm.pattern, arm.action));
+                    decision.actions.push(arm.action.clone());
+                    decision.metrics.actions_triggered += 1;
+                    return;
+                }
+            }
+            decision.logs.push("-> No match found".to_string());
+        }
     }
 }
 

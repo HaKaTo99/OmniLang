@@ -3,7 +3,7 @@
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use crate::runtime::DecisionMetrics;
+use omnilang_core::runtime::DecisionMetrics;
 
 static TOTAL_POLICIES: AtomicU64 = AtomicU64::new(0);
 static TOTAL_RULES: AtomicU64 = AtomicU64::new(0);

@@ -207,6 +207,8 @@ impl Parser {
                     } else {
                         return Err("Unexpected end of rule: missing THEN".to_string());
                 }
+            } else if self.check(TokenType::Match) || matches!(self.peek().token_type, TokenType::Ident(ref s) if s.eq_ignore_ascii_case("match")) {
+                rules.push(self.parse_match_rule()?);
             } else if self.check(TokenType::For) {
                 rules.push(self.parse_for_rule()?);
             } else if self.check(TokenType::While) {
@@ -218,6 +220,32 @@ impl Parser {
         }
         Ok(rules)
     }
+    fn parse_match_rule(&mut self) -> Result<Rule, String> {
+        self.advance(); // MATCH
+        let scrutinee = self.parse_text_chunk()?;
+        self.consume(TokenType::LBrace, "Expected '{' after MATCH expression")?;
+
+        let mut arms = Vec::new();
+        while !self.check(TokenType::RBrace) && !self.is_at_end() {
+            self.consume(TokenType::Minus, "Expected '-' before match arm")?;
+            let pattern = self.parse_text_chunk_until_arrow()?;
+            self.consume(TokenType::Arrow, "Expected '=>' after pattern")?;
+            let action = self.parse_text_line()?;
+            arms.push(PolicyMatchArm { pattern, action });
+        }
+
+        self.consume(TokenType::RBrace, "Expected '}' after match arms")?;
+        Ok(Rule::Match(PolicyMatchRule { scrutinee, arms }))
+    }
+
+    fn parse_text_chunk_until_arrow(&mut self) -> Result<String, String> {
+        let mut parts = Vec::new();
+        while !self.check(TokenType::Arrow) && !self.is_at_end() && !self.is_section_header(self.peek()) {
+            parts.push(self.advance().lexeme.clone());
+        }
+        Ok(parts.join(" ").trim().to_string())
+    }
+
     fn parse_for_rule(&mut self) -> Result<Rule, String> {
         self.advance(); // FOR
         let iterator = self.consume_ident("Expected iterator name after FOR")?;
@@ -672,7 +700,7 @@ impl Parser {
     }
 
     fn parse_impl(&mut self) -> Result<ImplDecl, String> {
-        let trait_name = if self.check(TokenType::Ident(_)) && self.peek().lexeme != "for" {
+        let trait_name = if matches!(self.peek().token_type, TokenType::Ident(_)) && self.peek().lexeme != "for" {
             Some(self.consume_ident("Expected trait name")?)
         } else {
             None

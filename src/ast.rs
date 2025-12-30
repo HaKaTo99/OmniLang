@@ -1,8 +1,6 @@
 // src/ast.rs
 
-// Root dari dokumen Kebijakan OmniLang
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct Policy {
     pub intent: Option<String>,
     pub actors: Vec<Actor>,
@@ -16,21 +14,18 @@ pub struct Policy {
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct Review {
     pub interval: String,
     pub criteria: String,
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct Actor {
     pub role: String,
     pub primary: bool,
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct Context {
     pub domain: Option<String>,
     pub location: Option<String>,
@@ -38,22 +33,20 @@ pub struct Context {
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub enum Rule {
     Standard(StandardRule),
     For(ForLoop),
     While(WhileLoop),
+    Match(PolicyMatchRule),
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct StandardRule {
     pub condition: String,
     pub action: String,
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct ForLoop {
     pub iterator: String,
     pub collection: String,
@@ -61,34 +54,41 @@ pub struct ForLoop {
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct WhileLoop {
     pub condition: String,
     pub body: Vec<Rule>,
 }
 
+#[derive(Debug, Clone, PartialEq)]
+pub struct PolicyMatchRule {
+    pub scrutinee: String,
+    pub arms: Vec<PolicyMatchArm>,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub struct PolicyMatchArm {
+    pub pattern: String,
+    pub action: String,
+}
+
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct Constraint {
-    pub kind: String, // Legal, Ethical, Technical
+    pub kind: String,
     pub description: String,
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct Impact {
-    pub kind: String, // Benefit, Risk
+    pub kind: String,
     pub description: String,
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 pub struct Trace {
-    pub kind: String, // Moral, Regulation, Evidence
+    pub kind: String,
     pub link: String,
 }
 
-// Programming Language AST
 #[derive(Debug, Clone)]
 pub enum Expr {
     Literal(Literal),
@@ -110,27 +110,14 @@ pub enum Literal {
     Str(String),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum BinaryOp {
-    Add,
-    Sub,
-    Mul,
-    Div,
-    Assign,
-    Eq,
-    Neq,
-    Lt,
-    Gt,
-    Lte,
-    Gte,
+    Add, Sub, Mul, Div, Assign, Eq, Neq, Lt, Gt, Lte, Gte,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum UnaryOp {
-    Neg,
-    Not,
-    Ref,
-    RefMut,
+    Neg, Not, Ref, RefMut,
 }
 
 #[derive(Debug, Clone)]
@@ -174,6 +161,11 @@ pub enum Pattern {
     Literal(Literal),
     Identifier(String),
     Tuple(Vec<Pattern>),
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum Type {
+    I32, F64, Bool, Named(String),
 }
 
 #[derive(Debug, Clone)]
@@ -234,7 +226,7 @@ pub enum Item {
 #[derive(Debug, Clone)]
 pub struct Module {
     pub name: String,
-    pub mode: Option<String>, // "@gc", "@ownership", etc.
+    pub mode: Option<String>,
     pub items: Vec<Item>,
 }
 

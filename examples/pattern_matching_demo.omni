@@ -1,0 +1,20 @@
+INTENT: Mendemonstrasikan Fitur Match v1.1
+ACTOR:
+- Primary: Automated Factory Controller
+CONTEXT:
+- Domain: Smart Manufacturing
+- Lokasi: Plant A
+RULE:
+- match reactor.status {
+    - "Critical" => EmergencyShutdown
+    - "Warning"  => AlertOperator
+    - "Idle"     => PowerSaveMode
+    - _          => MonitorNormal
+}
+- IF reactor.temperature > 100C THEN ActivateCooling
+CONSTRAINT:
+- Technical: Waktu respon emergency harus < 50ms
+IMPACT:
+- Benefit: Mengurangi downtime dan resiko kecelakaan
+TRACE:
+- Regulation: ISO-9001 Safety Standard

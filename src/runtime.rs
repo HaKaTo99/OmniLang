@@ -62,6 +62,18 @@ pub struct Decision {
     pub traces: Vec<TraceEvent>,
 }
 
+impl Decision {
+    pub fn add_action(&mut self, action: String) {
+        if !self.actions.contains(&action) {
+            self.actions.push(action);
+        }
+    }
+
+    pub fn log(&mut self, msg: String) {
+        self.logs.push(crate::observability::format_log(&msg));
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct DecisionMetrics {
     pub rules_evaluated: usize,
@@ -356,7 +368,60 @@ impl Runtime {
                     }
                 }
             }
+            crate::ast::Rule::Match(match_rule) => {
+                self.execute_match_rule(match_rule, data, decision, trace_step, start);
+            }
         }
+    }
+
+    fn execute_match_rule(
+        &self,
+        rule: &crate::ast::PolicyMatchRule,
+        data: &mut Value,
+        decision: &mut Decision,
+        trace_step: &mut usize,
+        start: &Instant,
+    ) {
+        decision.metrics.rules_evaluated += 1;
+        decision.logs.push(format_log(&format!("[MATCH] {}", rule.scrutinee)));
+        
+        Self::push_trace(
+            &mut decision.traces,
+            trace_step,
+            "match",
+            format!("MATCH {}", rule.scrutinee),
+            data,
+            start.elapsed().as_millis(),
+        );
+
+        for arm in &rule.arms {
+            // Check if scrutinee == pattern
+            let condition = format!("{} == {}", rule.scrutinee, arm.pattern);
+            if evaluate_condition(&condition, data) {
+                decision.logs.push(format_log(&format!("-> Match arm: {} => {}", arm.pattern, arm.action)));
+                decision.add_action(arm.action.clone());
+                
+                Self::push_trace(
+                    &mut decision.traces,
+                    trace_step,
+                    "match-hit",
+                    format!("Arm matched: {}", arm.pattern),
+                    data,
+                    start.elapsed().as_millis(),
+                );
+                return; // Match first arm only
+            }
+        }
+        
+        decision.logs.push(format_log("-> No match found"));
+        Self::push_trace(
+            &mut decision.traces,
+            trace_step,
+            "match-miss",
+            "No arm matched".to_string(),
+            data,
+            start.elapsed().as_millis(),
+        );
     }
 
     fn push_trace(
