@@ -10,7 +10,7 @@ pub mod json;
 pub mod crypto;
 pub mod tensor;
 
-pub const VERSION: &str = "0.1.0-stdlib-expanded";
+pub const VERSION: &str = "1.0.0-stable";
 
 pub use io::{read_json_file, write_json_pretty};
 pub use time::{add_millis, duration_between_ms, now_iso8601, now_unix_millis, parse_iso8601, to_utc_iso8601, truncate_to_date_iso8601, truncate_to_hour_iso8601};
