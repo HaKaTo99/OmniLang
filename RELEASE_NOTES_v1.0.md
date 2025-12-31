@@ -1,27 +1,31 @@
-# Release Notes — OmniLang v1.0 (2025-12-31)
+# Release Notes — OmniLang v1.0.0 "Eventide" (2025-12-31)
 
-This release marks the stabilization of OmniLang core for intent validation and policy execution.
+Rilis **v1.0.0 "Eventide"** menandai puncak dari sprint stabilitas akhir tahun 2025. OmniLang kini resmi bertransformasi menjadi bahasa spesifikasi kebijakan yang matang, aman, dan siap untuk ekosistem otonom masa depan.
 
-## Highlights
+## ✨ Highlight Utama
 
-- Core parser/lexer and evaluator stabilized — full support for rules, loops, and match expressions.
-- IR emitter and runtime runner for native and wasm completed and smoke-tested.
-- Stdlib: math, string, time, json, crypto (basic), tensor ops (dot/matmul).
-- Observability: basic OpenMetrics exporter and trace-aware logs.
-- OmniRoutine scheduler for parallel action execution.
-- Comprehensive test suite: all unit and integration tests passing locally.
-- CI: GitHub Actions workflow added to run `cargo test`, `clippy`, `fmt`, and builds.
+- **⚖️ Intent Architecture**: Validasi ketat terhadap `INTENT:`, `ACTOR:`, dan `RULE:` menjamin setiap kebijakan memiliki tujuan dan konteks yang jelas.
+- **🛡️ High-Assurance Evaluator**: Engine Rust yang dioptimalkan dengan dukungan *Pattern Matching* (`MATCH`) dan perulangan (`FOR`/`WHILE`) yang aman.
+- **🚀 Multi-Target Execution**: Kompilasi ke IR JSON, Binary Native, atau WebAssembly (Wasm) untuk fleksibilitas di *edge*, *cloud*, maupun *browser*.
+- **📦 Core Stdlib**: Dukungan lengkap untuk operasi matematika, kriptografi (SHA-256), tensor (AI-ready), dan manipulasi JSON Path.
+- **🔍 Deep Observability**: Logging yang sadar-trace (*trace-aware*) dan ekspor metrik OpenMetrics untuk pemantauan real-time.
+- **🤖 OmniRoutine**: Penjadwal paralel yang efisien untuk eksekusi aksi kebijakan tanpa mengorbankan keamanan memori.
 
-## Known issues
+## 🛠️ Perbaikan Teknis Terakhir
+- **Parser Robustness**: Perbaikan pada logika *token-matching* untuk akurasi parsing yang lebih tinggi pada seksi naratif.
+- **Clean Code**: Pembersihan peringatan kompilasi pada evaluator dan modul metrik.
+- **CI/CD Pipeline**: Integrasi GitHub Actions (`ci.yml`) yang menjamin kualitas kode melalui otomatisasi tes dan linting.
 
-- LSP / VSCode extension needs polishing before public publish.
-- Additional stdlib features (secure RNG, more tensor ops) planned.
-- Ecosystem integration (ROS2, K8s admission) targeted for post-release.
+## 🔮 Apa Selanjutnya? (Roadmap 2026)
+- Pengembangan LSP & Ekstensi VS Code yang lebih kaya.
+- Integrasi asli dengan Kubernetes Admission Controllers dan ROS2 Nodes.
+- Ekspansi Standard Library untuk keamanan tingkat lanjut dan API IoT.
 
-## Upgrade notes
+---
 
-- Consumers using `examples/` should run `cargo test --all` to validate their environment.
+> **"Bukan sekadar bahasa pemrograman, melainkan kompas bagi mesin otonom."**
 
-## Contributors
+Terima kasih kepada seluruh kontributor yang telah bekerja keras menyempurnakan OmniLang di penghujung tahun ini. Mari kita sambut 2026 dengan visi yang lebih tajam!
 
-Thanks to everyone who contributed to the v1.0 stabilization sprint.
+---
+*Dibuat dengan dedikasi tinggi pada 31 Desember 2025.*
