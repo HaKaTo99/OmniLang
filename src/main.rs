@@ -29,12 +29,12 @@ fn main() {
 
 	let exit_code = match command {
 		"compile" => handle_compile(&args[1..]),
-		"exec" => handle_exec(&args[1..], true),
+		"exec" => handle_exec(&args[1..]),
 		"lint" => handle_lint(&args[1..]),
 		"test" => handle_test(&args[1..]),
 		"metrics" => handle_metrics(),
 		"demo-action" => handle_demo_action(&args[1..]),
-		_ => handle_exec(&args[..], false),
+		_ => handle_exec(&args[..]),
 	};
 
 	process::exit(exit_code);
@@ -50,8 +50,8 @@ fn print_usage() {
 	println!("  omnilang metrics                                      Show execution performance");
 }
 
-fn handle_exec(args: &[String], skip_cmd: bool) -> i32 {
-	let file_idx = if skip_cmd { 0 } else { 0 };
+fn handle_exec(args: &[String]) -> i32 {
+	let file_idx = 0;
 	if args.len() <= file_idx {
 		println!("Error: No policy file specified.");
 		return 1;
@@ -131,10 +131,8 @@ fn handle_compile(args: &[String]) -> i32 {
 	let policy = parser.parse_policy().unwrap();
 
 	let mut target = CompileTarget::Ir;
-	if args.len() > 2 && args[1] == "--target" {
-		if args[2] == "wasm" {
-			target = CompileTarget::Wasm;
-		}
+	if args.len() > 2 && args[1] == "--target" && args[2] == "wasm" {
+		target = CompileTarget::Wasm;
 	}
 
     let out_path = "output.bin";
@@ -191,6 +189,6 @@ fn handle_metrics() -> i32 {
 }
 
 fn handle_demo_action(args: &[String]) -> i32 {
-	println!("Executing live demo action: {}", args.get(0).unwrap_or(&"ping".to_string()));
+	println!("Executing live demo action: {}", args.first().unwrap_or(&"ping".to_string()));
 	0
 }

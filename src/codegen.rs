@@ -1,6 +1,6 @@
 ﻿use std::fs;
 use std::io::Write;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 
 /// Build a native runner embedding the policy IR JSON and return the binary bytes.
@@ -208,6 +208,6 @@ fn workspace_root() -> Result<PathBuf, String> {
         .map_err(|e| format!("cannot canonicalize cwd: {}", e))
 }
 
-fn escape_path_for_toml(path: &PathBuf) -> String {
+fn escape_path_for_toml(path: &Path) -> String {
     path.to_string_lossy().replace('\\', "\\\\")
 }

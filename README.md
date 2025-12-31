@@ -90,17 +90,25 @@ OmniLang v1.x berperan sebagai **validator intent** yang stabil (parser, evaluat
 - Metrics: Prometheus/OpenMetrics export aktif.
 - Action ABI & Scheduler: `ActionResult` dengan elapsed, OmniRoutine untuk eksekusi paralel terbatas.
 
-**Belum Selesai (roadmap ringkas):**
-* IDE/LSP + VS Code extension.
-* Perf: cache IR/runner, optional JIT/bytecode flattening.
-* Stdlib lanjutan: crypto nonce/random, tensor ops tambahan.
-* Observability sink: file/OTLP exporter, action-level timing logs.
-* Integrasi ekosistem: ROS2/Kubernetes/IoT.
+## 📚 Dokumentasi & Sumber Daya
+
+Untuk mempermudah navigasi, dokumentasi OmniLang telah dikategorikan sebagai berikut:
+
+- **[Spesifikasi Bahasa](file:///d:/GitHub/OmniLang/docs/specs/)**: Detail tata bahasa (Grammar), AST, dan protokol (v1.0 & v1.1).
+- **[Panduan Pengguna](file:///d:/GitHub/OmniLang/docs/guides/)**: Langkah awal, tutorial penulisan kebijakan, dan praktik terbaik.
+- **[Arsitektur & Desain](file:///d:/GitHub/OmniLang/docs/architecture/)**: Rencana implementasi, desain sistem, dan walkthrough teknis.
+- **[Riwayat & Retrospektif](file:///d:/GitHub/OmniLang/docs/history/)**: Catatan kronologis 2025 dan evaluasi pasca-rilis.
+- **[Arsip Rilis](file:///d:/GitHub/OmniLang/docs/archive/)**: Catatan rilis versi terdahulu dan evaluasi kesiapan produksi.
+
+> [!TIP]
+> Mulailah dengan **[QUICKSTART.md](file:///d:/GitHub/OmniLang/QUICKSTART.md)** untuk mencoba OmniLang dalam hitungan menit!
+
+---
 
 **Cara berkontribusi cepat:**
-* Tambah contoh kebijakan dan konteks di folder examples/ (lintas domain/industri).
-* Tambah integrasi atau tool seputar validator (CLI, editor extension, pipeline CI) tanpa menyentuh compiler terlebih dahulu.
-* Jalankan regresi sebelum PR: `cargo test --all` untuk Rust, `npm test` untuk guard rails API/validator di frontend.
+- Tambah contoh kebijakan dan konteks di folder [examples/](file:///d:/GitHub/OmniLang/examples/) (lintas domain/industri).
+- Tambah integrasi atau tool seputar validator (CLI, editor extension, pipeline CI).
+- Jalankan regresi sebelum PR: `cargo test --all`.
 
 ## Sorotan Evaluator v1.0
 
