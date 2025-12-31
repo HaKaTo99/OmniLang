@@ -14,6 +14,8 @@ pub mod error;
 pub mod omniroutine;
 pub mod observability;
 pub mod action_abi;
+pub mod program_evaluator;
+
 
 pub use error::OmniError;
 pub use omniroutine::{OmniRoutine, RoutineResult, RoutineTask};

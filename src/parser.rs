@@ -520,7 +520,8 @@ impl Parser {
         if self.is_at_end() {
             return matches!(t, TokenType::Eof);
         }
-        std::mem::discriminant(&self.peek().token_type) == std::mem::discriminant(&t)
+        // Compare the full TokenType (including inner values for Ident/String)
+        self.peek().token_type == t
     }
 
     fn is_at_end(&self) -> bool {
@@ -755,7 +756,7 @@ impl Parser {
         }
     }
 
-    fn parse_expression(&mut self) -> Result<Expr, String> {
+    pub fn parse_expression(&mut self) -> Result<Expr, String> {
         self.parse_equality()
     }
 
@@ -879,11 +880,10 @@ impl Parser {
             let s = s.clone();
             self.advance();
             Ok(Expr::Literal(Literal::Str(s)))
+        } else if self.match_token(TokenType::Match) {
+            self.parse_match()
         } else if let TokenType::Ident(name) = &self.peek().token_type {
-            if name == "match" {
-                self.advance();
-                self.parse_match()
-            } else if name == "if" {
+            if name == "if" {
                 self.advance();
                 self.parse_if()
             } else {
@@ -915,9 +915,7 @@ impl Parser {
             let body = self.parse_expression()?;
             arms.push(MatchArm { pattern, guard: None, body });
 
-            if !self.match_token(TokenType::Comma) && !self.check(TokenType::RBrace) {
-                return Err("Expected ',' or '}' after match arm".to_string());
-            }
+            self.match_token(TokenType::Comma);
         }
 
         self.consume(TokenType::RBrace, "Expected '}' to end match")?;

@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use crate::ast::{Program, Module, Statement, Expression, Literal, BinaryOp, UnaryOp, Function, Parameter};
+use crate::ast::{Program, Module, Stmt, Expr, Literal, BinaryOp, UnaryOp, MatchArm, Pattern};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Value {
@@ -7,10 +7,17 @@ pub enum Value {
     String(String),
     Bool(bool),
     Unit,
+    // Future: Function(FunctionDecl), Struct(StructInstance)
 }
 
 pub struct ProgramEvaluator {
-    environment: HashMap<String, Value>,
+    pub environment: HashMap<String, Value>,
+}
+
+impl Default for ProgramEvaluator {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl ProgramEvaluator {
@@ -27,59 +34,44 @@ impl ProgramEvaluator {
         Ok(Value::Unit)
     }
 
-    fn evaluate_module(&mut self, module: &Module) -> Result<(), String> {
-        for statement in &module.statements {
-            self.evaluate_statement(statement)?;
-        }
+    fn evaluate_module(&mut self, _module: &Module) -> Result<(), String> {
+        // For MVP, just evaluate items that are statements or expressions if any?
+        // Actually AST Module has `items: Vec<Item>`, not statements.
+        // We might need an entry point like "main".
+        // For now, let's assume we are evaluating a BlockExpr or similar in tests.
+        // But for match expression testing, we just need evaluate_expression.
         Ok(())
     }
 
-    fn evaluate_statement(&mut self, statement: &Statement) -> Result<(), String> {
-        match statement {
-            Statement::Function(func) => {
-                // Store function in environment
-                self.environment.insert(func.name.clone(), Value::Unit); // Placeholder
-                Ok(())
-            }
-            Statement::Constant(name, expr) => {
-                let value = self.evaluate_expression(expr)?;
-                self.environment.insert(name.clone(), value);
-                Ok(())
-            }
-            Statement::Expression(expr) => {
-                self.evaluate_expression(expr)?;
-                Ok(())
-            }
-        }
-    }
-
-    fn evaluate_expression(&mut self, expr: &Expression) -> Result<Value, String> {
+    // Helper for testing expression evaluation directly
+    pub fn evaluate_expression(&mut self, expr: &Expr) -> Result<Value, String> {
         match expr {
-            Expression::Literal(lit) => self.evaluate_literal(lit),
-            Expression::Identifier(name) => {
+            Expr::Literal(lit) => self.evaluate_literal(lit),
+            Expr::Identifier(name) => {
                 self.environment.get(name)
                     .cloned()
                     .ok_or_else(|| format!("Undefined variable: {}", name))
             }
-            Expression::BinaryOp(left, op, right) => {
+            Expr::BinaryOp(left, op, right) => {
                 let left_val = self.evaluate_expression(left)?;
                 let right_val = self.evaluate_expression(right)?;
                 self.evaluate_binary_op(left_val, op, right_val)
             }
-            Expression::UnaryOp(op, expr) => {
+            Expr::UnaryOp(op, expr) => {
                 let val = self.evaluate_expression(expr)?;
                 self.evaluate_unary_op(op, val)
             }
-            Expression::FunctionCall(name, args) => {
-                self.evaluate_function_call(name, args)
+            Expr::Call(func, args) => {
+                // Simplified call handling for built-ins
+                self.evaluate_call(func, args)
             }
-            Expression::If(cond, then_expr, else_expr) => {
-                let cond_val = self.evaluate_expression(cond)?;
+            Expr::If(if_expr) => {
+                let cond_val = self.evaluate_expression(&if_expr.condition)?;
                 match cond_val {
-                    Value::Bool(true) => self.evaluate_expression(then_expr),
+                    Value::Bool(true) => self.evaluate_block(&if_expr.then_branch),
                     Value::Bool(false) => {
-                        if let Some(else_expr) = else_expr {
-                            self.evaluate_expression(else_expr)
+                        if let Some(else_branch) = &if_expr.else_branch {
+                            self.evaluate_expression(else_branch)
                         } else {
                             Ok(Value::Unit)
                         }
@@ -87,23 +79,70 @@ impl ProgramEvaluator {
                     _ => Err("Condition must be a boolean".to_string()),
                 }
             }
-            Expression::Block(statements, expr) => {
-                for stmt in statements {
-                    self.evaluate_statement(stmt)?;
+            Expr::Block(block) => self.evaluate_block(block),
+            Expr::Match(scrutinee, arms) => self.evaluate_match(scrutinee, arms),
+            _ => Err(format!("Unsupported expression type for evaluation: {:?}", expr)),
+        }
+    }
+
+    fn evaluate_match(&mut self, scrutinee: &Expr, arms: &[MatchArm]) -> Result<Value, String> {
+        let value = self.evaluate_expression(scrutinee)?;
+
+        for arm in arms {
+            if self.check_pattern(&arm.pattern, &value)? {
+                // If pattern matches, execute body
+                // TODO: Handle variable binding in pattern (e.g. identifier binding)
+                // For now, simple matching
+                if let Pattern::Identifier(name) = &arm.pattern {
+                     self.environment.insert(name.clone(), value.clone());
                 }
-                if let Some(expr) = expr {
-                    self.evaluate_expression(expr)
-                } else {
-                    Ok(Value::Unit)
+                
+                return self.evaluate_expression(&arm.body);
+            }
+        }
+
+        Err("Non-exhaustive match or no match found".to_string())
+    }
+
+    fn check_pattern(&self, pattern: &Pattern, value: &Value) -> Result<bool, String> {
+        match (pattern, value) {
+            (Pattern::Wildcard, _) => Ok(true),
+            (Pattern::Literal(lit), val) => {
+                let lit_val = self.evaluate_literal(lit)?;
+                Ok(lit_val == *val)
+            }
+            (Pattern::Identifier(_), _) => Ok(true), // Always matches and binds
+            _ => Ok(false), // Tuple not supported yet
+        }
+    }
+
+    fn evaluate_block(&mut self, block: &crate::ast::BlockExpr) -> Result<Value, String> {
+        for stmt in &block.statements {
+            match stmt {
+                Stmt::Let(let_stmt) => {
+                    let val = self.evaluate_expression(&let_stmt.value)?;
+                    self.environment.insert(let_stmt.name.clone(), val);
+                }
+                Stmt::Expr(e) => {
+                    self.evaluate_expression(e)?;
+                }
+                Stmt::Return(e) => {
+                    return self.evaluate_expression(e);
                 }
             }
+        }
+        if let Some(final_expr) = &block.final_expr {
+            self.evaluate_expression(final_expr)
+        } else {
+            Ok(Value::Unit)
         }
     }
 
     fn evaluate_literal(&self, lit: &Literal) -> Result<Value, String> {
         match lit {
-            Literal::Number(n) => Ok(Value::Number(*n)),
-            Literal::String(s) => Ok(Value::String(s.clone())),
+            Literal::Int(n) => Ok(Value::Number(*n as f64)),
+            Literal::Float(n) => Ok(Value::Number(*n)),
+            Literal::Str(s) => Ok(Value::String(s.clone())),
             Literal::Bool(b) => Ok(Value::Bool(*b)),
         }
     }
@@ -112,64 +151,66 @@ impl ProgramEvaluator {
         match (left, right) {
             (Value::Number(l), Value::Number(r)) => match op {
                 BinaryOp::Add => Ok(Value::Number(l + r)),
-                BinaryOp::Subtract => Ok(Value::Number(l - r)),
-                BinaryOp::Multiply => Ok(Value::Number(l * r)),
-                BinaryOp::Divide => {
+                BinaryOp::Sub => Ok(Value::Number(l - r)),
+                BinaryOp::Mul => Ok(Value::Number(l * r)),
+                BinaryOp::Div => {
                     if r == 0.0 {
                         Err("Division by zero".to_string())
                     } else {
                         Ok(Value::Number(l / r))
                     }
                 }
-                BinaryOp::Equal => Ok(Value::Bool(l == r)),
-                BinaryOp::NotEqual => Ok(Value::Bool(l != r)),
-                BinaryOp::Less => Ok(Value::Bool(l < r)),
-                BinaryOp::LessEqual => Ok(Value::Bool(l <= r)),
-                BinaryOp::Greater => Ok(Value::Bool(l > r)),
-                BinaryOp::GreaterEqual => Ok(Value::Bool(l >= r)),
-            },
-            (Value::String(l), Value::String(r)) => match op {
-                BinaryOp::Add => Ok(Value::String(l + &r)),
-                BinaryOp::Equal => Ok(Value::Bool(l == r)),
-                BinaryOp::NotEqual => Ok(Value::Bool(l != r)),
-                _ => Err(format!("Unsupported operation {:?} for strings", op)),
+                BinaryOp::Eq => Ok(Value::Bool(l == r)),
+                BinaryOp::Neq => Ok(Value::Bool(l != r)),
+                BinaryOp::Lt => Ok(Value::Bool(l < r)),
+                BinaryOp::Lte => Ok(Value::Bool(l <= r)),
+                BinaryOp::Gt => Ok(Value::Bool(l > r)),
+                BinaryOp::Gte => Ok(Value::Bool(l >= r)),
+                _ => Err(format!("Unsupported op {:?} for numbers", op)),
             },
             (Value::Bool(l), Value::Bool(r)) => match op {
-                BinaryOp::Equal => Ok(Value::Bool(l == r)),
-                BinaryOp::NotEqual => Ok(Value::Bool(l != r)),
-                BinaryOp::And => Ok(Value::Bool(l && r)),
-                BinaryOp::Or => Ok(Value::Bool(l || r)),
-                _ => Err(format!("Unsupported operation {:?} for booleans", op)),
+                BinaryOp::Eq => Ok(Value::Bool(l == r)),
+                BinaryOp::Neq => Ok(Value::Bool(l != r)),
+                _ => Err(format!("Unsupported op {:?} for bools", op)),
             },
-            _ => Err(format!("Type mismatch for operation {:?}", op)),
+             (Value::String(l), Value::String(r)) => match op {
+                BinaryOp::Eq => Ok(Value::Bool(l == r)),
+                BinaryOp::Neq => Ok(Value::Bool(l != r)),
+                BinaryOp::Add => Ok(Value::String(l + &r)),
+                _ => Err(format!("Unsupported op {:?} for strings", op)),
+            },
+            _ => Err("Type mismatch".to_string()),
         }
     }
 
     fn evaluate_unary_op(&self, op: &UnaryOp, val: Value) -> Result<Value, String> {
         match (op, val) {
-            (UnaryOp::Negate, Value::Number(n)) => Ok(Value::Number(-n)),
+            (UnaryOp::Neg, Value::Number(n)) => Ok(Value::Number(-n)),
             (UnaryOp::Not, Value::Bool(b)) => Ok(Value::Bool(!b)),
-            _ => Err(format!("Unsupported unary operation {:?} for given type", op)),
+            _ => Err(format!("Unsupported unary op {:?}", op)),
         }
     }
 
-    fn evaluate_function_call(&mut self, name: &str, args: &[Expression]) -> Result<Value, String> {
-        // For now, just handle built-in functions
-        match name {
-            "print" => {
-                for arg in args {
-                    let val = self.evaluate_expression(arg)?;
-                    match val {
-                        Value::Number(n) => print!("{}", n),
-                        Value::String(s) => print!("{}", s),
-                        Value::Bool(b) => print!("{}", b),
-                        Value::Unit => print!("()"),
+    fn evaluate_call(&mut self, func: &Expr, args: &[Expr]) -> Result<Value, String> {
+        if let Expr::Identifier(name) = func {
+            match name.as_str() {
+                "print" => {
+                    for arg in args {
+                        let val = self.evaluate_expression(arg)?;
+                        match val {
+                            Value::Number(n) => print!("{}", n),
+                            Value::String(s) => print!("{}", s),
+                            Value::Bool(b) => print!("{}", b),
+                            Value::Unit => print!("()"),
+                        }
                     }
+                    println!();
+                    Ok(Value::Unit)
                 }
-                println!();
-                Ok(Value::Unit)
+                _ => Err(format!("Unknown function: {}", name)),
             }
-            _ => Err(format!("Unknown function: {}", name)),
+        } else {
+             Err("Indirect calls not supported yet".to_string())
         }
     }
 }
