@@ -17,6 +17,12 @@ impl TraceId {
 	}
 }
 
+impl Default for TraceId {
+	fn default() -> Self {
+		Self::new()
+	}
+}
+
 #[derive(Debug, Default)]
 pub struct Logger;
 
@@ -30,16 +36,16 @@ impl Logger {
 static LOGGER: OnceLock<Logger> = OnceLock::new();
 
 pub fn init_global_logger() {
-	LOGGER.get_or_init(|| Logger::default());
+	LOGGER.get_or_init(|| Logger);
 }
 
 #[allow(dead_code)]
 pub fn global_logger() -> &'static Logger {
-	LOGGER.get_or_init(|| Logger::default())
+	LOGGER.get_or_init(|| Logger)
 }
 
 thread_local! {
-	static TRACE: std::cell::RefCell<Option<TraceId>> = std::cell::RefCell::new(None);
+	static TRACE: std::cell::RefCell<Option<TraceId>> = const { std::cell::RefCell::new(None) };
 }
 
 pub fn set_global_trace(id: TraceId) {

@@ -869,7 +869,6 @@ impl Parser {
         } else if self.match_token(TokenType::Ident("false".to_string())) {
             Ok(Expr::Literal(Literal::Bool(false)))
         } else if let TokenType::Number(n) = self.peek().token_type {
-            let n = n;
             self.advance();
             if n.fract() == 0.0 {
                 Ok(Expr::Literal(Literal::Int(n as i64)))
@@ -926,7 +925,6 @@ impl Parser {
         if self.match_token(TokenType::Ident("_".to_string())) {
             Ok(Pattern::Wildcard)
         } else if let TokenType::Number(n) = self.peek().token_type {
-            let n = n;
             self.advance();
             if n.fract() == 0.0 {
                 Ok(Pattern::Literal(Literal::Int(n as i64)))

@@ -49,7 +49,7 @@ impl OmniRoutine {
             let mut batch_results: Vec<(usize, RoutineResult)> = Vec::with_capacity(slice.len());
             thread::scope(|scope| {
                 let mut handles = Vec::with_capacity(slice.len());
-                for (_offset, task) in slice.iter().cloned().enumerate() {
+                for task in slice.iter().cloned() {
                     handles.push(scope.spawn(move || {
                         let start = Instant::now();
                         let out = worker(&task);
