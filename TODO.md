@@ -115,9 +115,9 @@
   - [ ] Add examples for new features
 
 - [ ] **Documentation Enhancements**
-  - [ ] Update `docs/` with new feature guides
+  - [ ] Update `docs/guides/` dengan new feature guides
   - [ ] Add tutorials for pattern matching and lambdas
-  - [ ] Update QUICKSTART.md with examples
+  - [ ] Update QUICKSTART.md dengan examples
 
 ## 📊 Executive Summary
 
