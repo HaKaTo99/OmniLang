@@ -34,7 +34,7 @@ impl ProgramEvaluator {
         Ok(Value::Unit)
     }
 
-    fn evaluate_module(&mut self, _module: &Module) -> Result<(), String> {
+    fn evaluate_module(&mut self, _: &Module) -> Result<(), String> {
         // For MVP, just evaluate items that are statements or expressions if any?
         // Actually AST Module has `items: Vec<Item>`, not statements.
         // We might need an entry point like "main".
