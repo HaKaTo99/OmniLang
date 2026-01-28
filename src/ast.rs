@@ -100,6 +100,7 @@ pub enum Expr {
     If(IfExpr),
     Match(Box<Expr>, Vec<MatchArm>),
     Lambda(Vec<String>, Box<Expr>),
+    Array(Vec<Expr>),
 }
 
 #[derive(Debug, Clone)]
@@ -112,7 +113,7 @@ pub enum Literal {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum BinaryOp {
-    Add, Sub, Mul, Div, Assign, Eq, Neq, Lt, Gt, Lte, Gte,
+    Add, Sub, Mul, Div, Rem, Assign, Eq, Neq, Lt, Gt, Lte, Gte,
 }
 
 #[derive(Debug, Clone, PartialEq)]

@@ -2,20 +2,70 @@
 
 **Target Completion: March 2026** | **Current Status: ~85% Competitiveness**
 
+---
+
+## 🔍 Evaluasi Mendalam OmniLang (Per 2025-12-31)
+
+### Ringkasan Status (Verifikasi File)
+- **Core Engine**: Stabil — `parser.rs`, `lexer.rs`, `program_evaluator.rs`, `ir_interpreter.rs` — semua tests lulus (`cargo test --all`).
+- **Type & Ownership**: Checker + Unifier hadir (`checker.rs`, `types.rs`) — borrow-tracker dan inference dasar ada; butuh stress tests.
+- **Pattern Matching**: Lengkap (parse + check + eval) dan diuji.
+- **Stdlib**: 9 modul inti tersedia (`src/stdlib/*`); secure RNG present (`random_bytes`), crypto hashing/HMAC present; AES/RSA belum.
+- **LSP**: Skeleton implementasi ada (`lsp_server.rs`) — belum fitur UX (diagnostics/completion).
+- **Observability**: `observability.rs` + metrics exporter exist; Prometheus-style exporter present.
+- **CI & Release**: GitHub Actions workflow present; local release artifacts built; tag v1.0.0 dibuat locally.
+
+### Risiko & Temuan Kritikal
+1. **LSP**: Belum siap untuk developer adoption — tanpa itu DX tetap rendah.
+2. **Cryptography**: Secure RNG ok, tetapi cipher suites / signing belum tersedia.
+3. **Robustness**: Borrow-checker & type inference belum diuji di bawah beban konkurensi berat/pola kompleks.
+4. **Networking**: Modul `web` masih mock `file://`. Driver jaringan riil diperlukan untuk integrasi produksi.
+
+### Kelayakan Rilis v1.0.0
+- **Canary**: Codebase siap secara teknis (tests pass; artifacts built). Rilis v1.0.0 aman dari sudut kualitas core.
+- **Catatan**: Publish dengan "Known limitations" (LSP, AES/Asymmetric, HTTP/MQTT, advanced tensor ops).
+
+---
+
+## 🎯 Actionable Checklist (Prioritas Rilis)
+
+### Prioritas 1: Finalisasi Infrastruktur (Sekarang)
+- [x] Perbaiki kesalahan Clippy yang memblokir CI
+- [/] Push branch `release/v1.0` & tag resmi ke remote
+- [/] Buka Pull Request ke `main` dan pastikan CI Hijau
+
+### Prioritas 2: Publikasi (Immediate Post-Release)
+- [ ] Buat GitHub Release resmi v1.0.0 "Eventide"
+- [ ] Unggah artefak build (Native & Wasm)
+- [ ] Publikasikan pengumuman rilis (Announcement)
+
+### Prioritas 3: Peningkatan Core & DX (Q1 2026)
+- [ ] **LSP MVP**: Implementasi Diagnostics, Hover, dan Completion
+- [ ] **Robustness**: Borrow-checker stress tests & fuzzing
+- [ ] **Security**: Implementasi AES/KMS atau integrasi libs
+
+### Prioritas 4: Ekspansi Ekosistem (Q2 2026+)
+- [ ] **Drivers**: HTTP, MQTT, dan ROS2
+- [ ] **Observability**: OTLP Exporter
+- [ ] **Tooling**: VSCode extension packaging & Studio updates
+
+---
+
 ## ⚡ Fast Execution Plan (Prioritized Implementation)
 
 ### 1. Pattern Match + Lambda/HOF (Week 1-2)
-- [ ] **Update Grammar/Parser/AST/Checker/Evaluator**
-  - [ ] Add pattern matching syntax: `match value { pattern => expr, _ => default }`
-  - [ ] Implement lambda expressions: `|x| x * 2` and `|x, y| x + y`
-  - [ ] Add higher-order functions: `map`, `filter`, `reduce`
-  - [ ] Update AST nodes for match/lambda constructs
-  - [ ] Extend type checker for pattern matching exhaustiveness
-  - [ ] Update evaluator to handle lambda execution and HOF calls
+- [x] **Update Grammar/Parser/AST/Checker/Evaluator**
+  - [x] Add pattern matching syntax: `match value { pattern => expr, _ => default }`
+  - [x] Implement lambda expressions: `|x| x * 2` and `|x, y| x + y`
+  - [x] Add higher-order functions: `map`, `filter`, `reduce`
+  - [x] Update AST nodes for match/lambda constructs
+  - [x] Extend type checker for pattern matching exhaustiveness (Partial - inferensi basic)
+  - [x] Update evaluator to handle lambda execution and HOF calls
+  - [x] **Enable Type Checker**: Integrated into `omnilang test` and fixed borrow checker errors. Support `map`/`filter`/`reduce`.
 
-- [ ] **Add New Examples & Regression Tests**
-  - [ ] Create `examples/pattern_matching.omni` with basic match examples
-  - [ ] Create `examples/lambda_hof.omni` with lambda and HOF usage
+- [x] **Add New Examples & Regression Tests**
+  - [x] Create `examples/pattern_matching.omni` with basic match examples
+  - [x] Create `examples/lambda_hof.omni` with lambda and HOF usage
   - [ ] Add regression tests in `tests/parser_pattern_match.rs`
   - [ ] Add regression tests in `tests/evaluator_lambda_hof.rs`
 
@@ -66,9 +116,9 @@
   - [ ] Add examples for new features
 
 - [ ] **Documentation Enhancements**
-  - [ ] Update `docs/` with new feature guides
+  - [ ] Update `docs/guides/` dengan new feature guides
   - [ ] Add tutorials for pattern matching and lambdas
-  - [ ] Update QUICKSTART.md with examples
+  - [ ] Update QUICKSTART.md dengan examples
 
 ## 📊 Executive Summary
 
@@ -236,6 +286,15 @@ This roadmap outlines the comprehensive plan to elevate OmniLang from its curren
   - [ ] Syntax highlighting
   - [ ] Code completion
   - [ ] Refactoring support
+
+### 2. LSP Server (Basic)
+- [x] **Setup LSP Structure**
+  - [x] Implement JSON-RPC over Stdin/Stdout
+  - [x] Handle `initialize` handshake
+  - [x] Handle `textDocument/didOpen` & `textDocument/didChange`
+  - [x] **Integrate Checker**: Parse & Check on change -> Publish Diagnostics
+  - [ ] Implement `textDocument/hover` (Needs Checker to expose location map)
+  - [ ] Implement `textDocument/definition`g
 
 ### 3.3 Development Tools
 - [ ] **Build System**

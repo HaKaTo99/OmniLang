@@ -174,6 +174,7 @@ impl Lexer {
                 ';' => self.add_token(&mut tokens, TokenType::Semicolon, ";"),
                 '&' => self.add_token(&mut tokens, TokenType::Ampersand, "&"),
                 '%' => self.add_token(&mut tokens, TokenType::Percent, "%"),
+                '|' => self.add_token(&mut tokens, TokenType::Pipe, "|"),
                 '"' => {
                     let s = self.read_string()?;
                     tokens.push(Token {

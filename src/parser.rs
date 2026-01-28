@@ -520,7 +520,8 @@ impl Parser {
         if self.is_at_end() {
             return matches!(t, TokenType::Eof);
         }
-        std::mem::discriminant(&self.peek().token_type) == std::mem::discriminant(&t)
+        // Compare the full TokenType (including inner values for Ident/String)
+        self.peek().token_type == t
     }
 
     fn is_at_end(&self) -> bool {
@@ -755,7 +756,7 @@ impl Parser {
         }
     }
 
-    fn parse_expression(&mut self) -> Result<Expr, String> {
+    pub fn parse_expression(&mut self) -> Result<Expr, String> {
         self.parse_equality()
     }
 
@@ -813,10 +814,11 @@ impl Parser {
     fn parse_factor(&mut self) -> Result<Expr, String> {
         let mut expr = self.parse_unary()?;
 
-        while self.match_token(TokenType::Mul) || self.match_token(TokenType::Div) {
+        while self.match_token(TokenType::Mul) || self.match_token(TokenType::Div) || self.match_token(TokenType::Percent) {
             let op = match self.previous().token_type {
                 TokenType::Mul => BinaryOp::Mul,
                 TokenType::Div => BinaryOp::Div,
+                TokenType::Percent => BinaryOp::Rem,
                 _ => unreachable!(),
             };
             let right = self.parse_unary()?;
@@ -868,7 +870,6 @@ impl Parser {
         } else if self.match_token(TokenType::Ident("false".to_string())) {
             Ok(Expr::Literal(Literal::Bool(false)))
         } else if let TokenType::Number(n) = self.peek().token_type {
-            let n = n;
             self.advance();
             if n.fract() == 0.0 {
                 Ok(Expr::Literal(Literal::Int(n as i64)))
@@ -879,11 +880,10 @@ impl Parser {
             let s = s.clone();
             self.advance();
             Ok(Expr::Literal(Literal::Str(s)))
+        } else if self.match_token(TokenType::Match) {
+            self.parse_match()
         } else if let TokenType::Ident(name) = &self.peek().token_type {
-            if name == "match" {
-                self.advance();
-                self.parse_match()
-            } else if name == "if" {
+            if name == "if" {
                 self.advance();
                 self.parse_if()
             } else {
@@ -898,10 +898,28 @@ impl Parser {
             self.consume(TokenType::RParen, "Expected ')' after expression")?;
             Ok(expr)
         } else if self.match_token(TokenType::LBrace) {
-            self.parse_block().map(Expr::Block)
+            let block = self.parse_block()?;
+            self.consume(TokenType::RBrace, "Expected '}' after block")?;
+            Ok(Expr::Block(block))
+        } else if self.match_token(TokenType::LBracket) {
+            self.parse_array()
         } else {
             Err(format!("Expected expression, found {:?}", self.peek().token_type))
         }
+    }
+
+    fn parse_array(&mut self) -> Result<Expr, String> {
+        let mut elements = Vec::new();
+        if !self.check(TokenType::RBracket) {
+            loop {
+                elements.push(self.parse_expression()?);
+                if !self.match_token(TokenType::Comma) {
+                    break;
+                }
+            }
+        }
+        self.consume(TokenType::RBracket, "Expected ']' after array elements")?;
+        Ok(Expr::Array(elements))
     }
 
     fn parse_match(&mut self) -> Result<Expr, String> {
@@ -915,9 +933,7 @@ impl Parser {
             let body = self.parse_expression()?;
             arms.push(MatchArm { pattern, guard: None, body });
 
-            if !self.match_token(TokenType::Comma) && !self.check(TokenType::RBrace) {
-                return Err("Expected ',' or '}' after match arm".to_string());
-            }
+            self.match_token(TokenType::Comma);
         }
 
         self.consume(TokenType::RBrace, "Expected '}' to end match")?;
@@ -928,7 +944,6 @@ impl Parser {
         if self.match_token(TokenType::Ident("_".to_string())) {
             Ok(Pattern::Wildcard)
         } else if let TokenType::Number(n) = self.peek().token_type {
-            let n = n;
             self.advance();
             if n.fract() == 0.0 {
                 Ok(Pattern::Literal(Literal::Int(n as i64)))

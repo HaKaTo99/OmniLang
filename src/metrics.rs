@@ -24,6 +24,7 @@ pub fn record_decision(metrics: &DecisionMetrics) {
 }
 
 /// Export metrics in OpenMetrics text format.
+#[allow(dead_code)]
 pub fn export_openmetrics() -> String {
     let ts = SystemTime::now()
         .duration_since(UNIX_EPOCH)

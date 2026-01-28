@@ -1,0 +1,25 @@
+module HofTest {
+    const run: i32 = {
+        let numbers = [1, 2, 3, 4, 5];
+        
+        // Test Map: double numbers
+        let doubled = map(numbers, |x| x * 2);
+        assert_eq(doubled, [2, 4, 6, 8, 10]);
+        
+        // Test Filter: keep evens
+        let evens = filter(numbers, |x| x % 2 == 0);
+        assert_eq(evens, [2, 4]);
+        
+        // Test Reduce: sum
+        let sum = reduce(numbers, |acc, x| acc + x, 0);
+        assert_eq(sum, 15);
+        
+        // Chaining (variables only for now)
+        let mapped = map(numbers, |x| x + 1);
+        let filtered = filter(mapped, |x| x > 3);
+        assert_eq(filtered, [4, 5, 6]);
+
+        print("HOF Tests Passed");
+        0
+    };
+}
