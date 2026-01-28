@@ -54,17 +54,18 @@
 ## ⚡ Fast Execution Plan (Prioritized Implementation)
 
 ### 1. Pattern Match + Lambda/HOF (Week 1-2)
-- [ ] **Update Grammar/Parser/AST/Checker/Evaluator**
-  - [ ] Add pattern matching syntax: `match value { pattern => expr, _ => default }`
-  - [ ] Implement lambda expressions: `|x| x * 2` and `|x, y| x + y`
-  - [ ] Add higher-order functions: `map`, `filter`, `reduce`
-  - [ ] Update AST nodes for match/lambda constructs
-  - [ ] Extend type checker for pattern matching exhaustiveness
-  - [ ] Update evaluator to handle lambda execution and HOF calls
+- [x] **Update Grammar/Parser/AST/Checker/Evaluator**
+  - [x] Add pattern matching syntax: `match value { pattern => expr, _ => default }`
+  - [x] Implement lambda expressions: `|x| x * 2` and `|x, y| x + y`
+  - [x] Add higher-order functions: `map`, `filter`, `reduce`
+  - [x] Update AST nodes for match/lambda constructs
+  - [x] Extend type checker for pattern matching exhaustiveness (Partial - inferensi basic)
+  - [x] Update evaluator to handle lambda execution and HOF calls
+  - [x] **Enable Type Checker**: Integrated into `omnilang test` and fixed borrow checker errors. Support `map`/`filter`/`reduce`.
 
-- [ ] **Add New Examples & Regression Tests**
-  - [ ] Create `examples/pattern_matching.omni` with basic match examples
-  - [ ] Create `examples/lambda_hof.omni` with lambda and HOF usage
+- [x] **Add New Examples & Regression Tests**
+  - [x] Create `examples/pattern_matching.omni` with basic match examples
+  - [x] Create `examples/lambda_hof.omni` with lambda and HOF usage
   - [ ] Add regression tests in `tests/parser_pattern_match.rs`
   - [ ] Add regression tests in `tests/evaluator_lambda_hof.rs`
 
@@ -285,6 +286,15 @@ This roadmap outlines the comprehensive plan to elevate OmniLang from its curren
   - [ ] Syntax highlighting
   - [ ] Code completion
   - [ ] Refactoring support
+
+### 2. LSP Server (Basic)
+- [x] **Setup LSP Structure**
+  - [x] Implement JSON-RPC over Stdin/Stdout
+  - [x] Handle `initialize` handshake
+  - [x] Handle `textDocument/didOpen` & `textDocument/didChange`
+  - [x] **Integrate Checker**: Parse & Check on change -> Publish Diagnostics
+  - [ ] Implement `textDocument/hover` (Needs Checker to expose location map)
+  - [ ] Implement `textDocument/definition`g
 
 ### 3.3 Development Tools
 - [ ] **Build System**

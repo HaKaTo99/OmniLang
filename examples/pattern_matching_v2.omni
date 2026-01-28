@@ -1,0 +1,36 @@
+module PatternMatchingDemo {
+    const main: i32 = {
+        let status = 200;
+        
+        // Basic integer matching
+        let message = match status {
+            200 => "OK",
+            404 => "Not Found",
+            500 => "Server Error",
+            _   => "Unknown Code"
+        };
+        print(message);
+        assert_eq(message, "OK");
+
+        // String matching
+        let command = "start";
+        let action = match command {
+            "start" => "Starting engine...",
+            "stop"  => "Stopping engine...",
+            _       => "Invalid command"
+        };
+        print(action);
+        assert_eq(action, "Starting engine...");
+
+        // Boolean matching
+        let is_admin = true;
+        let access = match is_admin {
+            true  => "Granted",
+            false => "Denied"
+        };
+        print(access);
+        assert_eq(access, "Granted");
+        
+        0
+    };
+}

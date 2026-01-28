@@ -34,6 +34,7 @@ fn main() {
 		"test" => handle_test(&args[1..]),
 		"metrics" => handle_metrics(),
 		"demo-action" => handle_demo_action(&args[1..]),
+		"lsp" => handle_lsp(),
 		_ => handle_exec(&args[..]),
 	};
 
@@ -174,9 +175,64 @@ fn handle_lint(args: &[String]) -> i32 {
 	0
 }
 
-fn handle_test(_args: &[String]) -> i32 {
-	println!("Running policy tests... (Mocked for v1.1 Demo)");
-	0
+use omnilang_core::checker::Checker;
+use omnilang_core::program_evaluator::ProgramEvaluator;
+
+fn handle_test(args: &[String]) -> i32 {
+	if args.is_empty() {
+		println!("Error: No test file specified.");
+		return 1;
+	}
+
+	let file_path = &args[0];
+	let source = match fs::read_to_string(file_path) {
+		Ok(s) => s,
+		Err(e) => {
+			println!("Error reading file: {}", e);
+			return 1;
+		}
+	};
+
+	let mut lexer = Lexer::new(&source);
+	let tokens = match lexer.tokenize() {
+		Ok(t) => t,
+		Err(e) => {
+			println!("Lexer Error: {}", e);
+			return 1;
+		}
+	};
+
+	let mut parser = Parser::new(tokens);
+	// Tests are treated as Programs (scripts) allowing full language features like modules/functions/assertions
+	let program = match parser.parse_program() {
+		Ok(p) => p,
+		Err(e) => {
+			println!("Parser Error (Evaluator Test Mode): {}", e);
+			return 1;
+		}
+	};
+    
+    // Type Check
+    let mut checker = Checker::new();
+    if let Err(errors) = checker.check_program(&program) {
+        println!("Type Check FAILED: {}", file_path);
+        for err in errors {
+            println!("  - {}", err);
+        }
+        return 1;
+    }
+
+	let mut evaluator = ProgramEvaluator::new();
+	match evaluator.evaluate_program(&program) {
+		Ok(_) => {
+			println!("Test passed: {}", file_path);
+			0
+		}
+		Err(e) => {
+			println!("Test FAILED: {}", e);
+			1
+		}
+	}
 }
 
 fn handle_metrics() -> i32 {
@@ -191,4 +247,9 @@ fn handle_metrics() -> i32 {
 fn handle_demo_action(args: &[String]) -> i32 {
 	println!("Executing live demo action: {}", args.first().unwrap_or(&"ping".to_string()));
 	0
+}
+
+fn handle_lsp() -> i32 {
+    omnilang_core::lsp_server::run_lsp_server();
+    0
 }

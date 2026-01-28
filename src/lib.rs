@@ -1,8 +1,8 @@
 pub mod ast;
-// pub mod checker;
+pub mod checker;
 pub mod lexer;
 pub mod parser;
-// pub mod types;
+pub mod types;
 pub mod evaluator;
 pub mod runtime;
 pub mod ir;
@@ -15,6 +15,7 @@ pub mod omniroutine;
 pub mod observability;
 pub mod action_abi;
 pub mod program_evaluator;
+pub mod lsp_server;
 
 
 pub use error::OmniError;

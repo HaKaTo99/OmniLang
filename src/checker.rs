@@ -1,5 +1,5 @@
 // src/checker.rs
-use crate::ast::*;
+use crate::ast::{Program, Module, Item, FunctionDecl, StructDecl, Stmt, LetStmt, Expr, BlockExpr, IfExpr, MatchArm, Pattern, BinaryOp, UnaryOp, Literal};
 use crate::types::*;
 use std::collections::{HashMap, HashSet};
 use std::rc::Rc;
@@ -102,8 +102,8 @@ impl Checker {
     }
     
     fn register_function(&mut self, func: &FunctionDecl) -> Result<(), Vec<String>> {
-        let params_types = func.params.iter().map(|p| p.param_type.clone()).collect();
-        let return_type = func.return_type.clone().unwrap_or(Type::Unit);
+        let params_types = func.params.iter().map(|p| Type::from_ast_type(&p.param_type)).collect();
+        let return_type = func.return_type.as_ref().map(|t| Type::from_ast_type(t)).unwrap_or(Type::Unit);
         
         let func_type = Type::Function {
             params: params_types,
@@ -139,7 +139,7 @@ impl Checker {
         for param in &func.params {
             let symbol = Symbol {
                 name: param.name.clone(),
-                type_info: param.param_type.clone(),
+                type_info: Type::from_ast_type(&param.param_type),
                 is_mutable: true,
                 status: OwnershipStatus::Owned,
                 defined_at: 0, 
@@ -155,7 +155,7 @@ impl Checker {
         let body_type = self.check_block(&func.body, &mut function_env, &mut function_borrow_tracker)?;
         
         // Verify return type
-        let expected_return_type = func.return_type.clone().unwrap_or(Type::Unit);
+        let expected_return_type = func.return_type.as_ref().map(|t| Type::from_ast_type(t)).unwrap_or(Type::Unit);
         if body_type != expected_return_type {
             self.errors.push(format!(
                 "Mismatched return type for function '{}': expected {:?}, found {:?}",
@@ -197,8 +197,9 @@ impl Checker {
     fn check_let_statement(&mut self, let_stmt: &LetStmt, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<(), Vec<String>> {
         let value_type = self.check_expression(&let_stmt.value, env, borrow_tracker)?;
 
-        if let Some(annot_type) = &let_stmt.type_annotation {
-            if *annot_type != value_type {
+        if let Some(annot_type_ast) = &let_stmt.type_annotation {
+            let annot_type = Type::from_ast_type(annot_type_ast);
+            if annot_type != value_type {
                 self.errors.push(format!(
                     "Type mismatch for variable '{}': expected {:?}, found {:?}",
                     let_stmt.name, annot_type, value_type
@@ -242,6 +243,22 @@ impl Checker {
             Expr::If(if_expr) => self.check_if_expr(if_expr, env, borrow_tracker),
             Expr::Match(value, arms) => self.check_match_expr(value, arms, env, borrow_tracker),
             Expr::Lambda(params, body) => self.check_lambda_expr(params, body, env, borrow_tracker),
+            Expr::Array(elements) => {
+                if elements.is_empty() {
+                    // Empty list, type unknown but technically List<Unknown> or use InferenceVar?
+                    // For now: List(Unknown)
+                    return Ok(Type::List(Box::new(Type::Unknown)));
+                }
+                
+                let first_type = self.check_expression(&elements[0], env, borrow_tracker)?;
+                for elem in &elements[1..] {
+                    let elem_type = self.check_expression(elem, env, borrow_tracker)?;
+                    if elem_type != first_type {
+                        self.errors.push(format!("Array elements must have the same type. Expected {:?}, found {:?}", first_type, elem_type));
+                    }
+                }
+                Ok(Type::List(Box::new(first_type)))
+            }
             _ => {
                 self.errors.push(format!("Unsupported expression: {:?}", expr));
                 Ok(Type::Unknown)
@@ -321,7 +338,7 @@ impl Checker {
         for param in params {
             // For simplicity, assume parameters are of type Unknown
             // In a full implementation, we'd do type inference
-            let param_type = Type::Unknown;
+            let param_type = self.type_unifier.fresh_var();
             param_types.push(param_type.clone());
 
             let symbol = Symbol {
@@ -387,6 +404,91 @@ impl Checker {
 
 
     fn check_call_expr(&mut self, callee: &Expr, args: &[Expr], env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<Type, Vec<String>> {
+        if let Expr::Identifier(name) = callee {
+            match name.as_str() {
+                "print" => {
+                    for arg in args {
+                        self.check_expression(arg, env, borrow_tracker)?;
+                    }
+                    return Ok(Type::Unit);
+                }
+                "assert" => {
+                     if args.len() != 1 { self.errors.push("assert expects 1 arg".to_string()); }
+                     else {
+                         let t = self.check_expression(&args[0], env, borrow_tracker)?;
+                         self.type_unifier.add_constraint(t, Type::Bool);
+                     }
+                     return Ok(Type::Unit);
+                }
+                "assert_eq" => {
+                     if args.len() != 2 { self.errors.push("assert_eq expects 2 args".to_string()); }
+                     else {
+                         let t1 = self.check_expression(&args[0], env, borrow_tracker)?;
+                         let t2 = self.check_expression(&args[1], env, borrow_tracker)?;
+                         self.type_unifier.add_constraint(t1, t2);
+                     }
+                     return Ok(Type::Unit);
+                }
+                "map" => {
+                     if args.len() != 2 { 
+                         self.errors.push("map expects 2 args".to_string()); 
+                         return Ok(Type::Unknown);
+                     }
+                     let list_type = self.check_expression(&args[0], env, borrow_tracker)?;
+                     let func_type = self.check_expression(&args[1], env, borrow_tracker)?;
+                     
+                     // Infer output type
+                     let item_type = self.type_unifier.fresh_var();
+                     let result_type = self.type_unifier.fresh_var();
+                     
+                     // Constraint: list must be List<item_type>
+                     self.type_unifier.add_constraint(list_type, Type::List(Box::new(item_type.clone())));
+                     
+                     // Constraint: func must be item_type -> result_type
+                     let expected_func_type = Type::Function {
+                         params: vec![item_type],
+                         return_type: Box::new(result_type.clone())
+                     };
+                     self.type_unifier.add_constraint(func_type, expected_func_type);
+                     
+                     return Ok(Type::List(Box::new(result_type)));
+                }
+                "filter" => {
+                     if args.len() != 2 { self.errors.push("filter expects 2 args".to_string()); return Ok(Type::Unknown); }
+                     let list_type = self.check_expression(&args[0], env, borrow_tracker)?;
+                     let func_type = self.check_expression(&args[1], env, borrow_tracker)?;
+                     let item_type = self.type_unifier.fresh_var();
+                     
+                     self.type_unifier.add_constraint(list_type, Type::List(Box::new(item_type.clone())));
+                     
+                     let expected_func_type = Type::Function { params: vec![item_type.clone()], return_type: Box::new(Type::Bool) };
+                     self.type_unifier.add_constraint(func_type, expected_func_type);
+                     
+                     return Ok(Type::List(Box::new(item_type)));
+                }
+                "reduce" => {
+                    if args.len() != 3 { self.errors.push("reduce expects 3 args".to_string()); return Ok(Type::Unknown); }
+                    let list_type = self.check_expression(&args[0], env, borrow_tracker)?;
+                    let func_type = self.check_expression(&args[1], env, borrow_tracker)?;
+                    let init_type = self.check_expression(&args[2], env, borrow_tracker)?;
+                    
+                    let item_type = self.type_unifier.fresh_var();
+                    let acc_type = init_type.clone(); // or fresh var and constrain logic? init determines acc type usually.
+                    
+                    self.type_unifier.add_constraint(list_type, Type::List(Box::new(item_type.clone())));
+                     // func: (acc, item) -> acc
+                    let expected_func_type = Type::Function {
+                        params: vec![acc_type.clone(), item_type],
+                        return_type: Box::new(acc_type.clone())
+                    };
+                    self.type_unifier.add_constraint(func_type, expected_func_type);
+                    
+                    return Ok(acc_type);
+                }
+                _ => {} // Fallthrough
+            }
+        }
+
         let callee_type = self.check_expression(callee, env, borrow_tracker)?;
 
         if let Type::Function { params: param_types, return_type } = callee_type {
@@ -401,12 +503,11 @@ impl Checker {
 
             for (i, (arg_expr, expected_type)) in args.iter().zip(param_types.iter()).enumerate() {
                 let arg_type = self.check_expression(arg_expr, env, borrow_tracker)?;
-                if arg_type != *expected_type {
-                    self.errors.push(format!(
-                        "Type mismatch for argument {}: expected {:?}, found {:?}",
-                        i + 1, expected_type, arg_type
-                    ));
-                }
+                // Instead of strict check, add constraint for inference
+                self.type_unifier.add_constraint(arg_type.clone(), expected_type.clone());
+                
+                // Note: strict check removed to allow InferenceVar to unify later.
+                // However, if types are concrete and mismatch, unify will report error later.
 
                 if self.in_ownership_mode && !arg_type.is_copy_type() {
                      if let Expr::Identifier(name) = arg_expr {
@@ -544,11 +645,12 @@ impl BorrowTracker {
             Some(BorrowState::BorrowedMutable) => {
                 Err(format!("Cannot borrow '{}' as {} because it is already borrowed as mutable", name, if is_mutable { "mutable" } else { "immutable" }))
             }
-            Some(BorrowState::BorrowedImmutable) if is_mutable => {
-                Err(format!("Cannot borrow '{}' as mutable because it is also borrowed as immutable", name))
-            }
-            Some(BorrowState::BorrowedImmutable) if !is_mutable => {
-                Ok(())
+            Some(BorrowState::BorrowedImmutable) => {
+                if is_mutable {
+                    Err(format!("Cannot borrow '{}' as mutable because it is also borrowed as immutable", name))
+                } else {
+                    Ok(())
+                }
             }
             Some(BorrowState::Owned) => {
                 let new_state = if is_mutable { BorrowState::BorrowedMutable } else { BorrowState::BorrowedImmutable };

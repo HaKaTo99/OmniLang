@@ -1,0 +1,9 @@
+module Test {
+    const run: i32 = {
+        print(1);
+        assert(true);
+        assert_eq(1 + 1, 2);
+        print("Tests passed");
+        0
+    };
+}

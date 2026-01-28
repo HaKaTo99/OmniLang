@@ -17,7 +17,8 @@ pub enum Type {
         return_type: Box<Type>,
     },
     Reference(Box<Type>, bool), // inner type, is_mutable
-    Array(Box<Type>, usize),
+
+    List(Box<Type>),
     Tuple(Vec<Type>),
     Channel(Box<Type>),
     Tensor(Vec<usize>),
@@ -45,9 +46,24 @@ impl Type {
     pub fn get_inner_type(&self) -> Option<&Type> {
         match self {
             Type::Reference(inner, _) => Some(inner),
-            Type::Array(inner, _) => Some(inner),
+            Type::List(inner) => Some(inner),
             Type::Channel(inner) => Some(inner),
             _ => None,
+        }
+    }
+    
+    pub fn from_ast_type(ast_type: &crate::ast::Type) -> Self {
+         match ast_type {
+            crate::ast::Type::I32 => Type::I32,
+            crate::ast::Type::F64 => Type::F64,
+            crate::ast::Type::Bool => Type::Bool,
+            crate::ast::Type::Named(name) => {
+                if name == "String" {
+                    Type::String
+                } else {
+                    Type::Named(name.clone())
+                }
+            }
         }
     }
 }
@@ -136,7 +152,7 @@ impl TypeUnifier {
     }
     
     pub fn unify(&mut self) -> Result<(), String> {
-        for (mut t1, mut t2) in self.constraints.drain(..) {
+        while let Some((mut t1, mut t2)) = self.constraints.pop() {
             self.substitute(&mut t1);
             self.substitute(&mut t2);
             
@@ -159,6 +175,9 @@ impl TypeUnifier {
                         return Err(format!("Mismatched mutability in reference types"));
                     }
                     self.add_constraint(*inner1.clone(), *inner2.clone());
+                }
+                (Type::List(inner1), Type::List(inner2)) => {
+                   self.add_constraint(*inner1.clone(), *inner2.clone());
                 }
                 (Type::Tuple(types1), Type::Tuple(types2)) => {
                     if types1.len() != types2.len() {
@@ -188,7 +207,7 @@ impl TypeUnifier {
             Type::Reference(inner, _) => {
                 self.substitute(inner);
             }
-            Type::Array(inner, _) => {
+            Type::List(inner) => {
                 self.substitute(inner);
             }
             Type::Tuple(types) => {
@@ -207,7 +226,7 @@ impl TypeUnifier {
         match ty {
             Type::InferenceVar(v) => *v == var,
             Type::Reference(inner, _) => self.occurs_check(var, inner),
-            Type::Array(inner, _) => self.occurs_check(var, inner),
+            Type::List(inner) => self.occurs_check(var, inner),
             Type::Tuple(types) => types.iter().any(|t| self.occurs_check(var, t)),
             Type::Channel(inner) => self.occurs_check(var, inner),
             _ => false,

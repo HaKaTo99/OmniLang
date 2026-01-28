@@ -814,10 +814,11 @@ impl Parser {
     fn parse_factor(&mut self) -> Result<Expr, String> {
         let mut expr = self.parse_unary()?;
 
-        while self.match_token(TokenType::Mul) || self.match_token(TokenType::Div) {
+        while self.match_token(TokenType::Mul) || self.match_token(TokenType::Div) || self.match_token(TokenType::Percent) {
             let op = match self.previous().token_type {
                 TokenType::Mul => BinaryOp::Mul,
                 TokenType::Div => BinaryOp::Div,
+                TokenType::Percent => BinaryOp::Rem,
                 _ => unreachable!(),
             };
             let right = self.parse_unary()?;
@@ -897,10 +898,28 @@ impl Parser {
             self.consume(TokenType::RParen, "Expected ')' after expression")?;
             Ok(expr)
         } else if self.match_token(TokenType::LBrace) {
-            self.parse_block().map(Expr::Block)
+            let block = self.parse_block()?;
+            self.consume(TokenType::RBrace, "Expected '}' after block")?;
+            Ok(Expr::Block(block))
+        } else if self.match_token(TokenType::LBracket) {
+            self.parse_array()
         } else {
             Err(format!("Expected expression, found {:?}", self.peek().token_type))
         }
+    }
+
+    fn parse_array(&mut self) -> Result<Expr, String> {
+        let mut elements = Vec::new();
+        if !self.check(TokenType::RBracket) {
+            loop {
+                elements.push(self.parse_expression()?);
+                if !self.match_token(TokenType::Comma) {
+                    break;
+                }
+            }
+        }
+        self.consume(TokenType::RBracket, "Expected ']' after array elements")?;
+        Ok(Expr::Array(elements))
     }
 
     fn parse_match(&mut self) -> Result<Expr, String> {

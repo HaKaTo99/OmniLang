@@ -1,17 +1,32 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use crate::ast::{Program, Module, Stmt, Expr, Literal, BinaryOp, UnaryOp, MatchArm, Pattern};
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone)]
 pub enum Value {
     Number(f64),
     String(String),
     Bool(bool),
     Unit,
+    Closure(Vec<String>, Box<Expr>, BTreeMap<String, Value>),
+    List(Vec<Value>),
     // Future: Function(FunctionDecl), Struct(StructInstance)
 }
 
+impl PartialEq for Value {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Value::Number(a), Value::Number(b)) => a == b,
+            (Value::String(a), Value::String(b)) => a == b,
+            (Value::Bool(a), Value::Bool(b)) => a == b,
+            (Value::Unit, Value::Unit) => true,
+            (Value::List(a), Value::List(b)) => a == b,
+            _ => false,
+        }
+    }
+}
+
 pub struct ProgramEvaluator {
-    pub environment: HashMap<String, Value>,
+    pub environment: BTreeMap<String, Value>,
 }
 
 impl Default for ProgramEvaluator {
@@ -23,7 +38,7 @@ impl Default for ProgramEvaluator {
 impl ProgramEvaluator {
     pub fn new() -> Self {
         ProgramEvaluator {
-            environment: HashMap::new(),
+            environment: BTreeMap::new(),
         }
     }
 
@@ -81,7 +96,17 @@ impl ProgramEvaluator {
             }
             Expr::Block(block) => self.evaluate_block(block),
             Expr::Match(scrutinee, arms) => self.evaluate_match(scrutinee, arms),
-            _ => Err(format!("Unsupported expression type for evaluation: {:?}", expr)),
+            Expr::Lambda(params, body) => {
+                // Capture current environment (simple clone for MVP)
+                Ok(Value::Closure(params.clone(), body.clone(), self.environment.clone()))
+            }
+            Expr::Array(elements) => {
+                let mut vals = Vec::new();
+                for e in elements {
+                    vals.push(self.evaluate_expression(e)?);
+                }
+                Ok(Value::List(vals))
+            }
         }
     }
 
@@ -160,6 +185,13 @@ impl ProgramEvaluator {
                         Ok(Value::Number(l / r))
                     }
                 }
+                BinaryOp::Rem => {
+                     if r == 0.0 {
+                        Err("Modulo by zero".to_string())
+                    } else {
+                        Ok(Value::Number(l % r))
+                    }
+                }
                 BinaryOp::Eq => Ok(Value::Bool(l == r)),
                 BinaryOp::Neq => Ok(Value::Bool(l != r)),
                 BinaryOp::Lt => Ok(Value::Bool(l < r)),
@@ -202,15 +234,148 @@ impl ProgramEvaluator {
                             Value::String(s) => print!("{}", s),
                             Value::Bool(b) => print!("{}", b),
                             Value::Unit => print!("()"),
+                            _ => print!("{:?}", val),
                         }
                     }
                     println!();
-                    Ok(Value::Unit)
+                    return Ok(Value::Unit);
                 }
-                _ => Err(format!("Unknown function: {}", name)),
+                "assert" => {
+                    if args.len() != 1 {
+                        return Err("assert expects exactly 1 argument".to_string());
+                    }
+                    let val = self.evaluate_expression(&args[0])?;
+                    match val {
+                        Value::Bool(true) => return Ok(Value::Unit),
+                        Value::Bool(false) => return Err("Assertion failed".to_string()),
+                        _ => return Err("assert expects a boolean".to_string()),
+                    }
+                }
+                "assert_eq" => {
+                    if args.len() != 2 {
+                        return Err("assert_eq expects exactly 2 arguments".to_string());
+                    }
+                    let left = self.evaluate_expression(&args[0])?;
+                    let right = self.evaluate_expression(&args[1])?;
+                    if left == right {
+                        return Ok(Value::Unit);
+                    } else {
+                        return Err(format!("Assertion failed: {:?} != {:?}", left, right));
+                    }
+                }
+                "map" => {
+                    if args.len() != 2 { return Err("map expects 2 arguments: list, func".to_string()); }
+                    let list_val = self.evaluate_expression(&args[0])?;
+                    let func_val = self.evaluate_expression(&args[1])?;
+                    
+                    if let Value::List(elements) = list_val {
+                       let mut new_elements = Vec::new();
+                       for elem in elements {
+                           // Apply closure to elem
+                           let res = self.apply_closure_value(&func_val, vec![elem])?;
+                           new_elements.push(res);
+                       }
+                       return Ok(Value::List(new_elements));
+                    } else {
+                        return Err("map expects a list as first argument".to_string());
+                    }
+                }
+                "filter" => {
+                    if args.len() != 2 { return Err("filter expects 2 arguments: list, func".to_string()); }
+                    let list_val = self.evaluate_expression(&args[0])?;
+                    let func_val = self.evaluate_expression(&args[1])?;
+
+                    if let Value::List(elements) = list_val {
+                       let mut new_elements = Vec::new();
+                       for elem in elements {
+                           let res = self.apply_closure_value(&func_val, vec![elem.clone()])?;
+                           if let Value::Bool(true) = res {
+                               new_elements.push(elem);
+                           }
+                       }
+                       return Ok(Value::List(new_elements));
+                    } else {
+                        return Err("filter expects a list as first argument".to_string());
+                    }
+                }
+                "reduce" => {
+                     if args.len() != 3 { return Err("reduce expects 3 arguments: list, func, init".to_string()); }
+                     let list_val = self.evaluate_expression(&args[0])?;
+                     let func_val = self.evaluate_expression(&args[1])?;
+                     let mut acc = self.evaluate_expression(&args[2])?;
+
+                     if let Value::List(elements) = list_val {
+                        for elem in elements {
+                            acc = self.apply_closure_value(&func_val, vec![acc, elem])?;
+                        }
+                        return Ok(acc);
+                     } else {
+                         return Err("reduce expects a list as first argument".to_string());
+                     }
+                }
+                _ => {} // Fallthrough to variable lookup
             }
-        } else {
-             Err("Indirect calls not supported yet".to_string())
+        }
+
+        let func_val = self.evaluate_expression(func)?;
+
+        match func_val {
+            Value::Closure(params, body, captured_env) => {
+                if args.len() != params.len() {
+                    return Err(format!("Expected {} arguments, got {}", params.len(), args.len()));
+                }
+                let mut arg_vals = Vec::new();
+                for arg in args {
+                    arg_vals.push(self.evaluate_expression(arg)?);
+                }
+
+                // Swap environment
+                let previous_env = std::mem::replace(&mut self.environment, captured_env);
+
+                // Bind args
+                for (param, val) in params.iter().zip(arg_vals) {
+                    self.environment.insert(param.clone(), val);
+                }
+
+                // Execute body
+                let result = self.evaluate_expression(&body);
+
+                // Restore environment
+                self.environment = previous_env;
+
+                result
+            }
+            _ => Err(format!("Expression is not callable: {:?}", func_val))
+        }
+    }
+
+    fn apply_closure_value(&mut self, func: &Value, args: Vec<Value>) -> Result<Value, String> {
+        match func {
+            Value::Closure(params, body, captured_env) => {
+                 if args.len() != params.len() {
+                    return Err(format!("Expected {} arguments, got {}", params.len(), args.len()));
+                }
+                
+                // Swap environment
+                // To avoid cloning captured_env repeatedly if possible? No, we need to execute in that env.
+                // We typically need to clone the captured env if we want to support recursion or re-entry properly without consuming it? 
+                // But Value::Closure owns captured_env.
+                // MVP: clone it.
+                
+                let mut exec_env = captured_env.clone();
+                
+                 // Bind args
+                for (param, val) in params.iter().zip(args) {
+                    exec_env.insert(param.clone(), val);
+                }
+                
+                 let previous_env = std::mem::replace(&mut self.environment, exec_env);
+                 let result = self.evaluate_expression(&body);
+                 self.environment = previous_env;
+                 
+                 result
+            }
+             _ => Err(format!("Not a closure: {:?}", func))
         }
     }
 }
