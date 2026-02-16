@@ -501,6 +501,7 @@ OmniLang bukan sekadar bahasa pemrograman—ia adalah **manifesto** dari visi xA
 |----|-------|------------------|-----------|--------|
 | OPT-01 | Constant Folding | 1+2 -> 3 di IR | Tinggi | ✅ Selesai |
 
+
 ## 🚀 Fase 11: Final Audit & Polish (Cyber UI) ✅
 ## 🚀 Fase 12: Visualization & IDE (Workstation) ✅
 
@@ -509,6 +510,14 @@ OmniLang bukan sekadar bahasa pemrograman—ia adalah **manifesto** dari visi xA
 |----|-------|------------------|-----------|--------|
 | VIS-01 | Ratatui Integration | Dashboard interaktif | Tinggi | ✅ Selesai |
 | VIS-02 | Split View | Source/IR/Rust panels | Tinggi | ✅ Selesai |
+| VIS-03 | Interactive Event Loop | Keyboard input | Tinggi | ✅ Selesai |
+
+## 📅 Fase 13: Functional Era (v1.2/v1.1+)
+### 13.1 Pattern Matching
+| ID | Tugas | Kriteria Selesai | Prioritas | Status |
+|----|-------|------------------|-----------|--------|
+| MATCH-01 | Parser Support (`match` keyword) | AST MatchExpr | Tinggi | 🚧 Check |
+| MATCH-02 | Control FLow IR | IR Branching | Tinggi | 📅 Planned |
 | RUST-03 | Dukungan untuk tipe dasar (int, float, string, dll) | Semua tipe terdukung | Tinggi |
 | RUST-04 | Dukungan untuk fungsi dan module | Fungsi dan module terdukung | Tinggi |
 | RUST-05 | Dukungan untuk capability system (via Rust types) | Capability diterjemahkan | Tinggi |
@@ -698,6 +707,15 @@ OmniLang bukan sekadar bahasa pemrograman—ia adalah **manifesto** dari visi xA
 - **v0.5**: 10 kontributor aktif, 100 pengguna awal
 - **v1.0**: 100 kontributor, 1.000 pengguna, 50+ library eksternal
 - **v2.0**: 500 kontributor, 10.000 pengguna, ekosistem matang
+
+## 📅 Backlog 2026 (Strategic Initiatives)
+| ID | Tugas | Estimasi | Prioritas | Status |
+|----|-------|----------|-----------|--------|
+| BKLOG-01 | [LSP] Implementasi Server LSP (`lsp_server.rs`) | 5 hari | Tinggi | 📅 Planned |
+| BKLOG-02 | [Security] Secure RNG & AES-256 | 8 hari | Tinggi | 📅 Planned |
+| BKLOG-03 | [Network] Driver HTTP (`std::net/http`) | 6 hari | Tinggi | 📅 Planned |
+| BKLOG-04 | [Type-System] Generics Support | 12 hari | Sedang | 📅 Planned |
+| BKLOG-05 | [Robotics] ROS2 Runtime Adapter | 10 hari | Sedang | 📅 Planned |
 
 ---
 
