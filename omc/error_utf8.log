@@ -1,0 +1,52 @@
+﻿cargo :     Checking omc v0.1.0 
+(D:\GitHub\OmniLang\omc)
+At line:1 char:1
++ cargo check > error.log 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotS 
+   pecified: (    Checking om...b  
+  \OmniLang\omc):String) [], Rem   
+ oteException
+    + FullyQualifiedErrorId : Nati 
+   veCommandError
+ 
+error[E0433]: failed to resolve: 
+use of undeclared type `Expression`
+  --> src\parser\parser.rs:74:20
+   |
+74 |             value: 
+Expression::Integer(0), // Dummy 
+value
+   |                    ^^^^^^^^^^ 
+use of undeclared type `Expression`
+   |
+help: consider importing this enum 
+through its public re-export
+   |
+ 1 + use crate::parser::Expression;
+   |
+
+warning: unused import: 
+`token::Token`
+ --> src\lexer\mod.rs:4:9
+  |
+4 | pub use token::Token;
+  |         ^^^^^^^^^^^^
+  |
+  = note: 
+`#[warn(unused_imports)]` (part of 
+`#[warn(unused)]`) on by default
+
+warning: unused import: `ast::*`
+ --> src\parser\mod.rs:4:9
+  |
+4 | pub use ast::*;
+  |         ^^^^^^
+
+For more information about this 
+error, try `rustc --explain E0433`.
+warning: `omc` (bin "omc") 
+generated 2 warnings
+error: could not compile `omc` 
+(bin "omc") due to 1 previous 
+error; 2 warnings emitted

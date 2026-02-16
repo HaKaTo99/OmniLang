@@ -1,0 +1,209 @@
+   Compiling omc v0.1.0 (D:\GitHub\OmniLang\omc)
+warning: unused import: `token::Token`
+ --> src\lexer\mod.rs:4:9
+  |
+4 | pub use token::Token;
+  |         ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `ast::*`
+ --> src\parser\mod.rs:4:9
+  |
+4 | pub use ast::*;
+  |         ^^^^^^
+
+warning: unused import: `ir_instr::*`
+ --> src\ir\mod.rs:4:9
+  |
+4 | pub use ir_instr::*;
+  |         ^^^^^^^^^^^
+
+warning: unreachable pattern
+   --> src\semantic\analyzer.rs:131:13
+    |
+131 |             _ => SymbolType::Unknown,
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> src\semantic\analyzer.rs:131:13
+    |
+ 71 |             Expression::Integer(_) => SymbolType::Int,
+    |             ---------------------- matches some of the same values
+ 72 |             Expression::String(_) => SymbolType::String,
+    |             --------------------- matches some of the same values
+ 73 |             Expression::Boolean(_) => SymbolType::Bool,
+    |             ---------------------- matches some of the same values
+ 74 |             Expression::Identifier(name) => {
+    |             ---------------------------- matches some of the same values
+...
+131 |             _ => SymbolType::Unknown,
+    |             ^ ...and 4 other patterns collectively make this unreachable
+    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by default
+
+warning: unreachable pattern
+   --> src\ir\ir_gen.rs:152:13
+    |
+152 |             _ => Value::LiteralInt(0),
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> src\ir\ir_gen.rs:152:13
+    |
+ 70 |             Expression::Integer(i) => {
+    |             ---------------------- matches some of the same values
+...
+ 75 |             Expression::String(s) => {
+    |             --------------------- matches some of the same values
+...
+ 80 |             Expression::Boolean(b) => {
+    |             ---------------------- matches some of the same values
+...
+ 85 |             Expression::Identifier(name) => {
+    |             ---------------------------- matches some of the same values
+...
+152 |             _ => Value::LiteralInt(0),
+    |             ^ ...and 4 other patterns collectively make this unreachable
+
+warning: multiple variants are never constructed
+  --> src\lexer\token.rs:9:5
+   |
+ 5 | pub enum Token {
+   |          ----- variants in this enum
+...
+ 9 |     Mut,
+   |     ^^^
+10 |     Const,
+   |     ^^^^^
+...
+13 |     Match,
+   |     ^^^^^
+14 |     Loop,
+   |     ^^^^
+15 |     For,
+   |     ^^^
+16 |     In,
+   |     ^^
+17 |     Return,
+18 |     Break,
+   |     ^^^^^
+19 |     Continue,
+   |     ^^^^^^^^
+20 |     Import,
+   |     ^^^^^^
+21 |     Pub,
+   |     ^^^
+22 |     Struct,
+   |     ^^^^^^
+23 |     Enum,
+   |     ^^^^
+24 |     Trait,
+   |     ^^^^^
+25 |     Impl,
+   |     ^^^^
+26 |     Go,
+   |     ^^
+27 |     Select,
+   |     ^^^^^^
+28 |     Case,
+   |     ^^^^
+29 |     Default,
+   |     ^^^^^^^
+...
+33 |     TypeFloat,
+   |     ^^^^^^^^^
+34 |     TypeBool,
+   |     ^^^^^^^^
+35 |     TypeChar,
+   |     ^^^^^^^^
+36 |     TypeString,
+37 |     TypeByte,
+   |     ^^^^^^^^
+...
+42 |     Float(f64),
+   |     ^^^^^
+43 |     String(String),
+44 |     Char(char),
+   |     ^^^^
+45 |     Bool(bool),
+   |     ^^^^
+...
+52 |     Percent,
+   |     ^^^^^^^
+...
+60 |     And,
+   |     ^^^
+61 |     Or,
+   |     ^^
+...
+82 |     AtBci,
+   |     ^^^^^
+83 |     AtPqc,
+   |     ^^^^^
+84 |     AtAbility,
+   |     ^^^^^^^^^
+85 |     AtRequires,
+   |     ^^^^^^^^^^
+   |
+   = note: `Token` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `name` is never read
+  --> src\semantic\symbol_table.rs:14:9
+   |
+13 | pub struct Symbol {
+   |            ------ field in this struct
+14 |     pub name: String,
+   |         ^^^^
+   |
+   = note: `Symbol` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: `omc` (bin "omc") generated 7 warnings (run `cargo fix --bin "omc" -p omc` to apply 3 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.67s
+     Running `target\debug\omc.exe`
+OmniLang Compiler v0.3.0 (Semantic Analysis)
+Source code:
+
+        fn add(a: int, b: int) {
+            return a + b;
+        }
+
+        let x = 10;
+        if (x > 5) {
+            let y = x * 2;
+        } else {
+            let y = 0;
+        }
+
+        let result = add(x, 20);
+    
+
+AST Generated. Running Semantic Analysis...
+
+Semantic Analysis Passed!
+
+Generating OmniIR...
+
+OmniIR Output:
+fn add(a, b) {
+  %1 = add a, b
+  ret %1
+}
+  %2 = load 10
+  store x, %2
+  %3 = load 5
+  %4 = gt x, %3
+  cjmp %4, if_true_1, if_false_2
+if_true_1:
+  %5 = load 2
+  %6 = mul x, %5
+  store y, %6
+  jmp if_end_3
+if_false_2:
+  %7 = load 0
+  store y, %7
+  jmp if_end_3
+if_end_3:
+  %8 = load 20
+  %9 = call add(x, %8)
+  store result, %9

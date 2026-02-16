@@ -1,0 +1,281 @@
+warning: unused import: `token::Token`
+ --> src\lexer\mod.rs:4:9
+  |
+4 | pub use token::Token;
+  |         ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `ast::*`
+ --> src\parser\mod.rs:4:9
+  |
+4 | pub use ast::*;
+  |         ^^^^^^
+
+warning: multiple variants are never constructed
+  --> src\lexer\token.rs:9:5
+   |
+ 5 | pub enum Token {
+   |          ----- variants in this enum
+...
+ 9 |     Mut,
+   |     ^^^
+10 |     Const,
+   |     ^^^^^
+...
+13 |     Match,
+   |     ^^^^^
+14 |     Loop,
+   |     ^^^^
+15 |     For,
+   |     ^^^
+16 |     In,
+   |     ^^
+17 |     Return,
+18 |     Break,
+   |     ^^^^^
+19 |     Continue,
+   |     ^^^^^^^^
+20 |     Import,
+   |     ^^^^^^
+21 |     Pub,
+   |     ^^^
+22 |     Struct,
+   |     ^^^^^^
+23 |     Enum,
+   |     ^^^^
+24 |     Trait,
+   |     ^^^^^
+25 |     Impl,
+   |     ^^^^
+26 |     Go,
+   |     ^^
+27 |     Select,
+   |     ^^^^^^
+28 |     Case,
+   |     ^^^^
+29 |     Default,
+   |     ^^^^^^^
+...
+33 |     TypeFloat,
+   |     ^^^^^^^^^
+34 |     TypeBool,
+   |     ^^^^^^^^
+35 |     TypeChar,
+   |     ^^^^^^^^
+36 |     TypeString,
+37 |     TypeByte,
+   |     ^^^^^^^^
+...
+42 |     Float(f64),
+   |     ^^^^^
+43 |     String(String),
+44 |     Char(char),
+   |     ^^^^
+45 |     Bool(bool),
+   |     ^^^^
+...
+52 |     Percent,
+   |     ^^^^^^^
+...
+60 |     And,
+   |     ^^^
+61 |     Or,
+   |     ^^
+...
+82 |     AtBci,
+   |     ^^^^^
+83 |     AtPqc,
+   |     ^^^^^
+84 |     AtAbility,
+   |     ^^^^^^^^^
+85 |     AtRequires,
+   |     ^^^^^^^^^^
+   |
+   = note: `Token` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variants `String`, `Bool`, and `Unknown` are never constructed
+ --> src\semantic\symbol_table.rs:6:5
+  |
+4 | pub enum SymbolType {
+  |          ---------- variants in this enum
+5 |     Int,
+6 |     String,
+  |     ^^^^^^
+7 |     Bool,
+  |     ^^^^
+8 |     Function(Vec<S...
+9 |     Unknown,
+  |     ^^^^^^^
+  |
+  = note: `SymbolType` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: fields `name` and `kind` are never read
+  --> src\semantic\symbol_table.rs:14:9
+   |
+13 | pub struct Symbol {
+   |            ------ fields in this struct
+14 |     pub name: String,
+   |         ^^^^
+15 |     pub kind: SymbolType,
+   |         ^^^^
+   |
+   = note: `Symbol` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: `omc` (bin "omc") generated 5 warnings (run `cargo fix --bin "omc" -p omc` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running `target\debug\omc.exe`
+OmniLang Compiler v0.3.0 (Semantic Analysis)
+Source code:
+
+        fn add(a: int, b: int) {
+            return a + b;
+        }
+
+        let x = 10;
+        if (x > 5) {
+            let y = x * 2;
+        } else {
+            let y = 0;
+        }
+
+        let result = add(x, 20);
+        
+        // Semantic Error Test:
+        let z = unknown_var; 
+    
+
+AST Generated. Running Semantic Analysis...
+DEBUG: Define add in scope.
+DEBUG: Define a in scope.
+DEBUG: Define b in scope.
+DEBUG: Resolve a. Found: true
+DEBUG: Resolve b. Found: true
+DEBUG: Define x in scope.
+DEBUG: Resolve x. Found: true
+DEBUG: Resolve x. Found: false
+DEBUG: Recurse resolve x to outer
+DEBUG: Resolve x. Found: true
+DEBUG: Define y in scope.
+DEBUG: Define y in scope.
+DEBUG: Resolve add. Found: true
+DEBUG: Resolve x. Found: true
+DEBUG: Define result in scope.
+DEBUG: Resolve unknown_var. Found: false
+DEBUG: Define z in scope.
+
+Semantic Errors:
+	Undefined variable: 'unknown_var'
+
+AST:
+Program {
+    statements: [
+        Function {
+            name: "add",
+            params: [
+                (
+                    "a",
+                    "int",
+                ),
+                (
+                    "b",
+                    "int",
+                ),
+            ],
+            return_type: None,
+            body: Block(
+                [
+                    Return(
+                        Some(
+                            Infix {
+                                left: Identifier(
+                                    "a",
+                                ),
+                                operator: Plus,
+                                right: Identifier(
+                                    "b",
+                                ),
+                            },
+                        ),
+                    ),
+                ],
+            ),
+            annotations: [],
+        },
+        Let {
+            name: "x",
+            value: Integer(
+                10,
+            ),
+            kind: None,
+        },
+        Expression(
+            If {
+                condition: Infix {
+                    left: Identifier(
+                        "x",
+                    ),
+                    operator: Gt,
+                    right: Integer(
+                        5,
+                    ),
+                },
+                consequence: Block(
+                    [
+                        Let {
+                            name: "y",
+                            value: Infix {
+                                left: Identifier(
+                                    "x",
+                                ),
+                                operator: Star,
+                                right: Integer(
+                                    2,
+                                ),
+                            },
+                            kind: None,
+                        },
+                    ],
+                ),
+                alternative: Some(
+                    Block(
+                        [
+                            Let {
+                                name: "y",
+                                value: Integer(
+                                    0,
+                                ),
+                                kind: None,
+                            },
+                        ],
+                    ),
+                ),
+            },
+        ),
+        Let {
+            name: "result",
+            value: Call {
+                function: Identifier(
+                    "add",
+                ),
+                arguments: [
+                    Identifier(
+                        "x",
+                    ),
+                    Integer(
+                        20,
+                    ),
+                ],
+            },
+            kind: None,
+        },
+        Let {
+            name: "z",
+            value: Identifier(
+                "unknown_var",
+            ),
+            kind: None,
+        },
+    ],
+}
