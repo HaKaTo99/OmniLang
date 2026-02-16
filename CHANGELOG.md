@@ -1,24 +1,21 @@
-# OmniLang - Changelog
+# Changelog OmniLang (omc)
 
-## [1.0.0] - 2025-12-31
-**Stable Release: The Universal Intent Language**
+Semua perubahan signifikan pada proyek ini akan didokumentasikan di file ini.
 
+## [1.0.0-rc1] - 2024-05-24
 ### Added
-- **Core Engine Stabilization**: Parser, Lexer, and Evaluator fully optimized for high-assurance policy execution.
-- **Pattern Matching**: Implemented `MATCH` expression for complex logic branching.
-- **Looping Constructs**: Native support for `FOR` and `WHILE` loops in the Rust backend.
-- **IR & Runtime**: Complete IR (JSON) emitter and cross-platform runners (Native & WebAssembly).
-- **Standard Library (v1.0)**: 9 core modules including `math`, `crypto`, `tensor`, `web`, and `time`.
-- **Observability**: Integrated Prometheus/OpenMetrics exporting and trace-aware structured logging.
-- **Ecosystem CI**: Automated GitHub Actions workflow for linting, testing, and multi-platform builds.
+- **Phase 1-2**: Lexer & Parser (Hand-written Recursive Descent).
+- **Phase 3**: Semantic Analyzer dengan Symbol Table and scope management.
+- **Phase 4**: OmniIR (Intermediate Representation) dengan dukungan control flow via labels.
+- **Phase 5**: Backend Rust Generator dengan State Machine yang sangat stabil (military-grade).
+- **Phase 6**: CLI Integration yang menghasilkan file `output.rs` yang dapat dikompilasi dengan `rustc`.
+- **Phase 7**: Standard Library dasar: fungsi `print` built-in.
+- **Phase 8**: Optimasi IR: Constant Folding (evaluasi aritmatika saat kompilasi).
 
 ### Changed
-- **Paradigm Shift**: Transitioned from general-purpose programming to **Universal Intent Language** with canonical section validation (`INTENT:`, `ACTOR:`, `RULE:`, etc.).
-- **Backend Overhaul**: Unified AST and refined token-matching for 100% grammar compliance.
+- Refactor `RustGenerator` untuk mendukung variable hoisting (menghindari error scope pada Rust).
+- Perbaikan pada pemetaan tipe data Boolean ke `i64` di IR untuk konsistensi register.
 
----
-
-### [v0.1.0] - 2025-12-10 (Deprecated)
-**Initial General Purpose Prototypes**
-- Initial lexer and AST structures.
-- *Replaced by the v1.0 architecture.*
+### Fixed
+- Perbaikan bug pada penanganan `return` dan `break` di dalam loop state machine.
+- Perbaikan error `Undefined variable` pada fungsi built-in.
