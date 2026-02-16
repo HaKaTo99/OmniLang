@@ -22,10 +22,11 @@ lint_output.txt
 lint_results.json
 
 # Node.js
-/node_modules
-/.next
-/out
-/build
+node_modules/
+**/node_modules/
+.next/
+out/
+build/
 .npm
 npm-debug.log*
 yarn-debug.log*
