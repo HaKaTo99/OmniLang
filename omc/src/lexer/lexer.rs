@@ -167,6 +167,7 @@ impl<'a> Lexer<'a> {
             "return" => Token::Return,
             "int" => Token::TypeInt,
             "string" => Token::TypeString,
+            "match" => Token::Match,
             _ => Token::Ident(literal.to_string()),
         }
     }

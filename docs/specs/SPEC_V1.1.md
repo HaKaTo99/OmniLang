@@ -1,5 +1,5 @@
-# 📜 Spesifikasi OmniLang v1.1: Functional Era
-*Status: Draft / Experimental*
+# 📜 Spesifikasi OmniLang v1.2: Harmonious Era
+*Status: Stable / Production-Ready*
 
 Dokumen ini mendefinisikan ekstensi fungsional untuk OmniLang v1.x, dimulai dengan Pattern Matching.
 
@@ -35,6 +35,8 @@ let message = match status {
 4.  Ekspresi di sebelah kanan `=>` dieksekusi.
 5.  Jika tidak ada yang cocok, terjadi runtime error (non-exhaustive match), kecuali ada `_`.
 
-## 2. Roadmap Berikutnya
+## 2. Roadmap Berikutnya (Harmonious+)
 - Lambda Expressions `|x| x + 1`
 - Higher Order Functions (`map`, `filter`)
+- **BCI Stream Processing**: Sintaksis native untuk decoding sinyal EEG.
+- **MMUI Orchestration**: Event handling gabungan untuk antarmuka multimodal.

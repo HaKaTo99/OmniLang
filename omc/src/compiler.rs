@@ -24,6 +24,14 @@ impl Compiler {
             success: false,
         };
 
+        // 0. Detect Declarative Policy (Intent)
+        let trimmed = input.trim_start();
+        if trimmed.starts_with("INTENT:") || trimmed.starts_with("RULE:") || trimmed.starts_with("POLICY:") {
+            result.errors.push("ERR: Detected declarative policy file.".to_string());
+            result.errors.push("Help: Use 'cargo run -- exec <file>' to evaluate this file with the Core Engine.".to_string());
+            return result;
+        }
+
         // 1. Lexing & Parsing
         let l = Lexer::new(input);
         let mut p = Parser::new(l);

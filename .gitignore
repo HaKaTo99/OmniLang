@@ -1,6 +1,16 @@
 # Rust
-/target
+target/
 Cargo.lock
+**/target/
+
+# Temporary artifacts
+omc/*.txt
+omc/*.log
+omc/*.exe
+omc/*.pdb
+omc/*.error
+omc/*.rs
+!omc/src/**/*.rs
 
 # Python
 __pycache__/

@@ -165,6 +165,66 @@ impl IRGenerator {
                 self.emit(Instruction::Call(reg, func_name, args));
                 Value::Register(reg)
             }
+            Expression::Match(match_expr) => {
+                // 1. Evaluate Scrutinee
+                let val_reg = self.gen_expression(&*match_expr.scrutinee);
+                
+                let match_end_label = self.next_label("match_end");
+                let mut next_check_label = self.next_label("arm_check");
+
+                for (i, arm) in match_expr.arms.iter().enumerate() {
+                    let current_check_label = next_check_label;
+                    next_check_label = self.next_label(&format!("arm_check_{}", i+1));
+                    let body_label = self.next_label(&format!("arm_body_{}", i));
+
+                    // Emit label for this arm's check (except first one which follows immediately? 
+                    // No, simpler to just jump to first check or fallthrough.
+                    // Let's emit Label(current_check_label) if it's not the very first start?
+                    // actually, we fall through from scrutinee evaluation to first check.
+                    // So we don't strictly need a label for the first check unless we jump to it.
+                    // But to be consistent, we can label it.
+                    if i > 0 {
+                        self.emit(Instruction::Label(current_check_label.clone()));
+                    }
+
+                    match &arm.pattern {
+                        crate::parser::ast::Pattern::Literal(lit_expr) => {
+                            // Evaluate literal to a value (optimization: literal should be constant)
+                            // But our gen_expression handles literals by loading them.
+                            let pat_val_reg = self.gen_expression(lit_expr);
+                            
+                            // Emit Check
+                            let cmp_reg = self.next_reg();
+                            self.emit(Instruction::Binary(cmp_reg, IrOp::Eq, val_reg.clone(), pat_val_reg));
+                            
+                            self.emit(Instruction::CondJump(Value::Register(cmp_reg), body_label.clone(), next_check_label.clone()));
+                        }
+                        crate::parser::ast::Pattern::Wildcard | crate::parser::ast::Pattern::Identifier(_) => {
+                            // Wildcard/Ident matches everything. 
+                            // Treat Identifier as wildcard for now (binding not implemented yet)
+                            self.emit(Instruction::Jump(body_label.clone()));
+                        }
+                    }
+
+                    // Body
+                    self.emit(Instruction::Label(body_label));
+                    self.gen_statement(&arm.body);
+                    self.emit(Instruction::Jump(match_end_label.clone()));
+                }
+
+                // If no arms match (and no wildcard), we fall through to next_check_label.
+                // We should probably have a default panic or just end?
+                // Rust requires exhaustive match. For now, just label it and continue.
+                self.emit(Instruction::Label(next_check_label));
+                
+                self.emit(Instruction::Label(match_end_label));
+                
+                // Match is an expression, should return a value.
+                // For now, assume it returns 0/void if we don't have block-returns implemented properly in all cases
+                // Or if the body was a statement block that didn't yield a register.
+                // TODO: Fix expression-block return values in IR
+                Value::LiteralInt(0) 
+            }
         }
     }
 }

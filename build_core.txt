@@ -1,0 +1,113 @@
+warning: unused import: `std::rc::Rc`
+ --> src\checker.rs:5:5
+  |
+5 | use std::rc::Rc;
+  |     ^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::fmt`
+ --> src\types.rs:3:5
+  |
+3 | use std::fmt;
+  |     ^^^^^^^^
+
+warning: unused variable: `trait_decl`
+  --> src\checker.rs:82:29
+   |
+82 |                 Item::Trait(trait_decl) => {
+   |                             ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_trait_decl`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `impl_decl`
+  --> src\checker.rs:85:28
+   |
+85 |                 Item::Impl(impl_decl) => {
+   |                            ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_impl_decl`
+
+warning: unused variable: `const_decl`
+  --> src\checker.rs:88:29
+   |
+88 |                 Item::Const(const_decl) => {
+   |                             ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_const_decl`
+
+warning: unused variable: `struct_type`
+   --> src\checker.rs:128:13
+    |
+128 |         let struct_type = Type::Named(struct_decl.name.clone());
+    |             ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_struct_type`
+
+warning: unused variable: `expr`
+   --> src\checker.rs:190:26
+    |
+190 |             Stmt::Return(expr) => {
+    |                          ^^^^ help: if this is intentional, prefix it with an underscore: `_expr`
+
+warning: unreachable pattern
+   --> src\checker.rs:262:13
+    |
+262 |             _ => {
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> src\checker.rs:262:13
+    |
+237 |             Expr::Literal(lit) => self.check_literal(lit),
+    |             ------------------ matches some of the same values
+238 |             Expr::Identifier(name) => self.check_identifier(name, env, borrow_tracker),
+    |             ---------------------- matches some of the same values
+239 |             Expr::BinaryOp(left, op, right) => self.check_binary_op(left, op, right, env, borrow_tracker),
+    |             ------------------------------- matches some of the same values
+240 |             Expr::UnaryOp(op, operand) => self.check_unary_op(op, operand, env, borrow_tracker),
+    |             -------------------------- matches some of the same values
+...
+262 |             _ => {
+    |             ^ ...and 6 other patterns collectively make this unreachable
+    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `patterns`
+   --> src\checker.rs:397:28
+    |
+397 |             Pattern::Tuple(patterns) => {
+    |                            ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_patterns`
+
+warning: unused variable: `i`
+   --> src\checker.rs:504:18
+    |
+504 |             for (i, (arg_expr, expected_type)) in args.iter().zip(param_types.iter()).enumerate() {
+    |                  ^ help: if this is intentional, prefix it with an underscore: `_i`
+
+warning: unused variable: `name`
+  --> src\types.rs:36:25
+   |
+36 |             Type::Named(name) => {
+   |                         ^^^^ help: if this is intentional, prefix it with an underscore: `_name`
+
+warning: field `warnings` is never read
+  --> src\checker.rs:14:5
+   |
+ 8 | pub struct Checker {
+   |            ------- field in this struct
+...
+14 |     warnings: Vec<String>,
+   |     ^^^^^^^^
+   |
+   = note: `Checker` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `borrow_graph` and `current_scope` are never read
+  --> src\checker.rs:23:5
+   |
+19 | struct BorrowTracker {
+   |        ------------- fields in this struct
+...
+23 |     borrow_graph: HashMap<String, HashSet<String>>,
+   |     ^^^^^^^^^^^^
+24 |     current_scope: Vec<HashSet<String>>,
+   |     ^^^^^^^^^^^^^
+   |
+   = note: `BorrowTracker` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: `omnilang` (lib) generated 13 warnings (run `cargo fix --lib -p omnilang` to apply 10 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.15s

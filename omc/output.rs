@@ -7,28 +7,25 @@ fn print(val: i64) -> i64 {
   val
 }
 
-fn factorial(n: i64) -> i64 {
+fn main() -> i64 {
   let mut _stage = 0;
   loop {
     match _stage {
       0 => { // Label: start
-        let _r1 = 2;
-        let _r2 = if (n as i64) < (_r1 as i64) { 1 } else { 0 };
-        if _r2 != 0 { _stage = 1; } else { _stage = 2; } continue;
+        let _r1 = 10;
+        let _r2 = 10;
+        let _r3 = if (_r1 as i64) == (_r2 as i64) { 1 } else { 0 };
+        if _r3 != 0 { _stage = 1; } else { _stage = 2; } continue;
       }
-      1 => { // Label: if_true_1
-        let _r3 = 1;
-        return _r3;
-      }
-      2 => { // Label: if_false_2
+      1 => { // Label: arm_body_0_4
+        let _r4 = 1;
         _stage = 3; continue;
       }
-      3 => { // Label: if_end_3
-        let _r4 = 1;
-        let _r5 = (n as i64) - (_r4 as i64);
-        let _r6 = factorial(_r5);
-        let _r7 = (n as i64) * (_r6 as i64);
-        return _r7;
+      2 => { // Label: arm_check_1_3
+        _stage = 3; continue;
+      }
+      3 => { // Label: match_end_1
+        break;
       }
       _ => break,
     }
@@ -36,19 +33,3 @@ fn factorial(n: i64) -> i64 {
   0
 }
 
-fn main() {
-  let mut res = 0; // hoisted
-  let mut _stage = 0;
-  loop {
-    match _stage {
-      0 => { // Label: start
-        let _r8 = 5;
-        let _r9 = factorial(_r8);
-        res = _r9;
-        let _r10 = print(res);
-        break;
-      }
-      _ => break,
-    }
-  }
-}

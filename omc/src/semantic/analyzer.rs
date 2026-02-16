@@ -133,6 +133,16 @@ impl SemanticAnalyzer {
                     _ => SymbolType::Unknown,
                 }
             }
+            Expression::Match(match_expr) => {
+                self.analyze_expression(&match_expr.scrutinee);
+                for arm in &match_expr.arms {
+                    // Analyze pattern?
+                    // Analyze body
+                    // self.analyze_statement? No, body is Box<Statement>
+                    self.analyze_statement(&arm.body);
+                }
+                SymbolType::Unknown // TODO: Infer common type of arms
+            }
         }
     }
 

@@ -8,6 +8,9 @@ import { CodeEditorPanel } from "@/components/code-editor-panel";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { CUIPanel } from "@/components/cui-panel";
+import { VUIButton, speak } from "@/components/vui-button";
+import { NUIWrapper, FileDropZone } from "@/components/nui-wrapper";
 
 const initialCode = `// OmniLang Policy Document
 // Define System Intent & Boundaries
@@ -731,6 +734,48 @@ export function OmniLangStudio() {
   const MIN_SIDE = 260;
   const MAX_SIDE = 520;
   const [selectedSample, setSelectedSample] = useState("safety");
+  const [fontSize, setFontSize] = useState(14);
+
+  // VUI voice transcript handler
+  const handleVoiceTranscript = (text: string) => {
+    toast({
+      title: "🎤 Suara terdeteksi",
+      description: text,
+    });
+  };
+
+  // VUI voice command handler
+  const handleVoiceCommand = (command: string) => {
+    if (command === "validate") {
+      handleValidate();
+      speak("Validasi sedang berjalan");
+    } else if (command.startsWith("load")) {
+      const name = command.replace("load ", "").trim();
+      const found = sampleLibrary.find(
+        (s) => s.id === name || s.label.toLowerCase().includes(name)
+      );
+      if (found) {
+        setCode(found.code ?? "");
+        setContext(found.context ?? "");
+        speak(`Memuat contoh ${found.label}`);
+      }
+    } else if (command === "list") {
+      speak(`Ada ${sampleLibrary.length} contoh policy tersedia`);
+    }
+  };
+
+  // NUI handlers
+  const handleFileDrop = (content: string, filename: string) => {
+    setCode(content);
+    toast({
+      title: "📂 File dimuat",
+      description: `${filename} (${content.split("\n").length} baris)`,
+    });
+  };
+
+  const handlePinchIn = () => setFontSize((s) => Math.max(10, s - 1));
+  const handlePinchOut = () => setFontSize((s) => Math.min(24, s + 1));
+  const handleDoubleTap = () => handleValidate();
 
   useEffect(() => {
     const codeFromUrl = searchParams.get("code");
@@ -805,8 +850,8 @@ export function OmniLangStudio() {
           description: data?.actions?.length
             ? `${data.actions.length} action(s) triggered (${data?.engine ?? ""})`
             : ruleCount
-            ? `${ruleCount} rule(s) parsed (${data?.engine ?? ""})`
-            : "No rules detected",
+              ? `${ruleCount} rule(s) parsed (${data?.engine ?? ""})`
+              : "No rules detected",
         });
       }
     } catch (e) {
@@ -822,8 +867,18 @@ export function OmniLangStudio() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
+    <NUIWrapper
+      onPinchIn={handlePinchIn}
+      onPinchOut={handlePinchOut}
+      onDoubleTap={handleDoubleTap}
+      className="flex min-h-screen flex-col bg-slate-50 text-slate-900"
+    >
       <Header code={code} onValidate={handleValidate} isValidating={isValidating} />
+
+      {/* VUI Voice Button — Fixed top-right */}
+      <div className="fixed top-4 right-4 z-40">
+        <VUIButton onTranscript={handleVoiceTranscript} onCommand={handleVoiceCommand} />
+      </div>
 
       <main className="flex flex-1 overflow-hidden">
         <aside className="hidden lg:flex w-80 shrink-0 flex-col border-r bg-white/80 backdrop-blur p-4 gap-4">
@@ -883,21 +938,24 @@ export function OmniLangStudio() {
         <div className="flex-1 overflow-auto">
           <div className="mx-auto flex max-w-7xl flex-col gap-6 p-4 sm:p-6">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-stretch">
-              <div className="flex-1 min-w-0 rounded-xl border border-sky-500 bg-white shadow-sm p-4 space-y-3">
+              <FileDropZone onFileDrop={handleFileDrop} className="flex-1 min-w-0 rounded-xl border border-sky-500 bg-white shadow-sm p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
                     <h2 className="text-sm font-semibold text-slate-800">Policy Editor</h2>
-                    <p className="text-xs text-slate-500">Tulis atau tempel policy OmniLang Anda.</p>
+                    <p className="text-xs text-slate-500">Tulis, tempel, atau drag & drop file .omni Anda.</p>
                   </div>
+                  <span className="text-[10px] text-slate-400">{fontSize}px</span>
                 </div>
-                <CodeEditorPanel
-                  code={code}
-                  setCode={setCode}
-                  validationResult={validationResult}
-                  isValidating={isValidating}
-                  onValidate={handleValidate}
-                />
-              </div>
+                <div style={{ fontSize: `${fontSize}px` }}>
+                  <CodeEditorPanel
+                    code={code}
+                    setCode={setCode}
+                    validationResult={validationResult}
+                    isValidating={isValidating}
+                    onValidate={handleValidate}
+                  />
+                </div>
+              </FileDropZone>
 
               <div
                 className="hidden xl:flex w-2 cursor-col-resize items-stretch justify-center"
@@ -943,6 +1001,15 @@ export function OmniLangStudio() {
           </div>
         </div>
       </main>
-    </div>
+
+      {/* CUI Chatbot — Floating bubble */}
+      <CUIPanel
+        code={code}
+        setCode={setCode}
+        onValidate={handleValidate}
+        sampleLibrary={sampleLibrary}
+        setContext={setContext}
+      />
+    </NUIWrapper>
   );
 }

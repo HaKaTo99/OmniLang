@@ -176,7 +176,8 @@ impl<'a> Parser<'a> {
             Token::Bool(val) => Some(Expression::Boolean(*val)),
             Token::Not | Token::Minus => self.parse_prefix_expression(),
             Token::LParen => self.parse_grouped_expression(),
-            Token::If => self.parse_if_expression(), // New
+            Token::If => self.parse_if_expression(),
+            Token::Match => self.parse_match_expression(),
             _ => None,
         };
 
@@ -186,11 +187,17 @@ impl<'a> Parser<'a> {
                 Token::Plus | Token::Minus | Token::Slash | Token::Star |
                 Token::EqEq | Token::NotEq | Token::Lt | Token::Gt |
                 Token::LtEq | Token::GtEq => {
+                    if left.is_none() {
+                        return None;
+                    }
                     self.next_token();
                     let left_expr = left.unwrap();
                     left = self.parse_infix_expression(left_expr);
                 }
                 Token::LParen => {
+                    if left.is_none() {
+                        return None;
+                    }
                     self.next_token();
                     let function = left.unwrap();
                     left = self.parse_call_expression(function);
@@ -228,6 +235,114 @@ impl<'a> Parser<'a> {
             consequence: Box::new(Statement::Block(consequence)),
             alternative,
         })
+    }
+
+    fn parse_match_expression(&mut self) -> Option<Expression> {
+        self.next_token(); // skip 'match'
+        
+        let scrutinee = self.parse_expression(Precedence::Lowest)?;
+
+        if !self.expect_peek(Token::LBrace) {
+            return None;
+        }
+
+        self.next_token(); // enter LBrace
+
+        let mut arms = vec![];
+
+        while !self.cur_token_is(Token::RBrace) && !self.cur_token_is(Token::Eof) {
+            if let Some(arm) = self.parse_match_arm() {
+                arms.push(arm);
+                // Advance past correct token to start next arm
+                // Actually the arm parsing logic leaves us at the last token of expression/block.
+                // We MUST advance 
+                // But wait, if expression, we are at RParen. next() makes it Comma or newline or match arm?
+                // No, we already handled Comma inside parse_match_arm.
+                // If comma, cur is Comma. next() makes it 10. Correct.
+                // If no comma, cur is RParen. next() makes it 10. Correct.
+                // If block, cur is RBrace. next() makes it 10. Correct.
+                // So yes, we need next_token().
+                self.next_token();
+            } else {
+                 // If we fail to parse an arm, we might be stuck or at end
+                 if self.cur_token_is(Token::RBrace) { break; }
+                 self.next_token(); // skip to avoid infinite loop
+            }
+        }
+
+        Some(Expression::Match(crate::parser::ast::MatchExpr {
+            scrutinee: Box::new(scrutinee),
+            arms,
+        }))
+    }
+
+    fn parse_match_arm(&mut self) -> Option<crate::parser::ast::MatchArm> {
+        // Pattern
+        let pattern = self.parse_pattern()?;
+
+        if !self.expect_peek(Token::FatArrow) {
+            return None;
+        }
+
+        self.next_token(); // move to expression/block
+
+        // The body can be a block or an expression
+        // If it's a block, we parse block. If expression, we parse expression and wrap in statement?
+        // Match arms usually return values in Rust, so body is Expression. 
+        // But our AST defines body as Statement (Block).
+        // Let's check AST definition I just added. I defined it as Box<Statement>.
+        // So we expect a block OR an expression.
+        // If we see LBrace, it's a block.
+        // If not, it's an expression, followed by maybe a comma.
+        
+        let body_stmt = if self.cur_token_is(Token::LBrace) {
+             Statement::Block(self.parse_block_statement())
+        } else {
+             let expr = self.parse_expression(Precedence::Lowest)?;
+             // Optional comma
+             if self.peek_token_is(Token::Comma) {
+                 self.next_token();
+             }
+             Statement::Expression(expr)
+        };
+        
+        // consume comma if present after block too? Rust allows it.
+        // For now, simple.
+
+        // Also, the loop in parse_match_expression expects us to be at the start of next arm or RBrace.
+        // If we consumed comma, we are at next start.
+        // If we are at RBrace, we are done.
+        
+        Some(crate::parser::ast::MatchArm {
+            pattern,
+            body: Box::new(body_stmt),
+        })
+    }
+
+    fn parse_pattern(&mut self) -> Option<crate::parser::ast::Pattern> {
+        match &self.cur_token {
+            Token::Int(val) => {
+                let p = crate::parser::ast::Pattern::Literal(Expression::Integer(*val));
+                // self.next_token(); // Removed
+                Some(p)
+            }
+            Token::String(val) => {
+                 let p = crate::parser::ast::Pattern::Literal(Expression::String(val.clone()));
+                 // self.next_token(); // Removed
+                 Some(p)
+            }
+            Token::Ident(name) => {
+                if name == "_" {
+                    // self.next_token(); // Removed
+                    Some(crate::parser::ast::Pattern::Wildcard)
+                } else {
+                    let p = crate::parser::ast::Pattern::Identifier(name.clone());
+                    // self.next_token(); // Removed
+                    Some(p)
+                }
+            }
+            _ => None 
+        }
     }
 
 

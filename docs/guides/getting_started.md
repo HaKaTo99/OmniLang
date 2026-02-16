@@ -1,6 +1,6 @@
-# Getting Started OmniLang v1.0 (Intent Validator)
+# Getting Started OmniLang v1.2.0 (Harmonious Singularity)
 
-Dokumen ini merangkum langkah cepat untuk memvalidasi berkas `.omni` dengan engine Rust (primer) dan Python (fallback) yang sudah selaras dengan spesifikasi v1.0.
+Dokumen ini merangkum langkah cepat untuk menjalankan OmniLang di berbagai kanal antarmuka, mencakup mode Deklaratif (Core) dan Imperatif (omc).
 
 ## Prasyarat
 - Rust toolchain (stable) dan `cargo`.
@@ -19,34 +19,37 @@ cargo test
 ```
 Menjalankan parser, evaluator, property tests, dan contoh `.omni` termasuk loop guard.
 
-## Menjalankan contoh
+## Cara Menjalankan
+
+### 1. Standard CLI (Imperatif/omc)
 ```bash
-# Rust path
 cargo run -- examples/loop_demo.omni
-
-# Evaluator showcase (IN, array literal, dot path, loop iterator binding)
-cargo run -- exec examples/evaluator_features.omni --context examples/evaluator_features_context.json
-
-# Python fallback (setara v1.0)
-python src/omnilang.py examples/hello.omni
 ```
 
-## Pengujian Python
+### 2. TUI Visual IDE
 ```bash
-python -m unittest discover -s tests
+cargo run -- examples/match_demo.omni --visual
 ```
 
-## Kompilasi ke Native/Wasm
+### 3. Core Engine (Deklaratif)
 ```bash
-# IR (default)
-cargo run -- compile examples/loop_demo.omni --target ir --out target/policy_ir.json
-
-# Native binary runner (embeds IR)
-cargo run -- compile examples/loop_demo.omni --target native --out target/omnilang_native_runner.exe
-
-# WASM (wasi) runner
-cargo run -- compile examples/loop_demo.omni --target wasm --out target/omnilang_wasm_runner.wasm
+cargo run -- exec examples/demo.omni --context examples/context.json
 ```
+
+### 4. Hardware/Serial (HUI)
+```bash
+cargo run -- --hui      # Serial terminal mode
+cargo run -- --headless examples/hello.omni # Headless mode
+```
+
+### 5. Futuristic Interfaces (Experimental)
+```bash
+cargo run -- --bci      # Brain-Computer Interface
+cargo run -- --pui      # Perceptual Interface
+```
+
+## Kompilasi lintas platform
+OmniLang mendukung target Rust Native, WASM, dan roadmap menuju JVM (Android) serta C++ (Legacy Mobile).
 Hasil native/Wasm adalah runner kecil yang memuat IR dan mengeksekusi via interpreter IR.
 
 ## Struktur Penting
