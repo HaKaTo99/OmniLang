@@ -1,0 +1,70 @@
+module RPG_Quest {
+    struct Item {
+        name: String,
+        amount: i32
+    }
+
+    struct Character {
+        name: String,
+        level: i32,
+        inventory: [Item],
+        quest_progress: i32 // 0: Start, 1: Talked to King, 2: Dragon Slain
+    }
+
+    fn add_item(inventory: [Item], new_item_name: String) -> [Item] {
+        let new_item = Item { name: new_item_name, amount: 1 };
+        // Using array spread or push (assuming std support for examples)
+        return inventory + [new_item];
+    }
+
+    fn advance_quest(char: Character, action: String) -> Character {
+        let mut c = char;
+        match c.quest_progress {
+            0 => {
+                if (action == "talk_king") {
+                    c.quest_progress = 1;
+                    print("Quest Updated: Go slay the dragon!");
+                }
+            }
+            1 => {
+                if (action == "slay_dragon") {
+                    c.quest_progress = 2;
+                    print("Quest Complete: Return for reward.");
+                    c.level = c.level + 1;
+                }
+            }
+            _ => {
+                print("Legendary status achieved.");
+            }
+        }
+        return c;
+    }
+
+    const main: i32 = {
+        print("--- OmniLang RPG Quest Engine ---");
+        
+        let mut hero = Character { 
+            name: "AetherKnight", 
+            level: 1, 
+            inventory: [], 
+            quest_progress: 0 
+        };
+
+        print("Hero Quest Progress:");
+        print(hero.quest_progress);
+
+        // Story Beats
+        hero = advance_quest(hero, "talk_king");
+        hero = advance_quest(hero, "slay_dragon");
+        
+        print("Final Hero Level:");
+        print(hero.level);
+        
+        // Final State Check
+        if (hero.quest_progress == 2) {
+            print("Achievement Unlocked: Slayer of Dragons");
+        }
+
+        0
+    };
+}

@@ -1,0 +1,79 @@
+module Platformer2D {
+    struct Vector2 {
+        x: f64,
+        y: f64
+    }
+
+    struct Player {
+        pos: Vector2,
+        vel: Vector2,
+        is_grounded: bool,
+        state: String // "Idle", "Run", "Jump"
+    }
+
+    const GRAVITY: f64 = -0.5;
+    const JUMP_FORCE: f64 = 12.0;
+    const MAX_SPEED: f64 = 5.0;
+
+    fn update_physics(player: Player, dt: f64) -> Player {
+        let mut p = player;
+        
+        // Apply Gravity
+        if (!p.is_grounded) {
+            p.vel.y = p.vel.y + GRAVITY;
+        }
+
+        // Apply Horizontal Friction (simple)
+        p.vel.x = p.vel.x * 0.9;
+
+        // Update Position
+        p.pos.x = p.pos.x + p.vel.x;
+        p.pos.y = p.pos.y + p.vel.y;
+
+        // Simple Collision with Ground (y=0)
+        if (p.pos.y < 0.0) {
+            p.pos.y = 0.0;
+            p.vel.y = 0.0;
+            p.is_grounded = true;
+        }
+
+        return p;
+    }
+
+    fn handle_input(player: Player, key: String) -> Player {
+        let mut p = player;
+        if (key == "Space" && p.is_grounded) {
+            p.vel.y = JUMP_FORCE;
+            p.is_grounded = false;
+            p.state = "Jump";
+        }
+        if (key == "Right") {
+            p.vel.x = MAX_SPEED;
+            p.state = "Run";
+        }
+        if (key == "Left") {
+            p.vel.x = -MAX_SPEED;
+            p.state = "Run";
+        }
+        return p;
+    }
+
+    const main: i32 = {
+        print("--- OmniLang 2D Platformer Engine ---");
+        let start_pos = Vector2 { x: 0.0, y: 10.0 };
+        let start_vel = Vector2 { x: 0.0, y: 0.0 };
+        let mut hero = Player { pos: start_pos, vel: start_vel, is_grounded: false, state: "Idle" };
+
+        // Simulate Jump
+        hero = handle_input(hero, "Space");
+        print("Hero State after Jump:");
+        print(hero.state);
+        
+        // Simulate Physics Steps
+        hero = update_physics(hero, 0.1);
+        print("Hero Y Pos after physics:");
+        print(hero.pos.y);
+        
+        0
+    };
+}

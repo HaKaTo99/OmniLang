@@ -1,0 +1,76 @@
+module PhysicsSimulator {
+    struct Vector2D {
+        x: f64,
+        y: f64
+    }
+
+    struct Body {
+        pos: Vector2D,
+        vel: Vector2D,
+        mass: f64
+    }
+
+    const GRAVITY_CONSTANT: f64 = 6.674e-11;
+    const TIME_STEP: f64 = 1.0;
+
+    fn calculate_gravity_force(b1: Body, b2: Body) -> f64 {
+        let dx = b2.pos.x - b1.pos.x;
+        let dy = b2.pos.y - b1.pos.y;
+        let dist_sq = dx * dx + dy * dy;
+        
+        if (dist_sq < 0.1) {
+            return 0.0;
+        }
+
+        return (GRAVITY_CONSTANT * b1.mass * b2.mass) / dist_sq;
+    }
+
+    fn update_position(b: Body) -> Body {
+        let mut new_b = b;
+        new_b.pos.x = b.pos.x + b.vel.x * TIME_STEP;
+        new_b.pos.y = b.pos.y + b.vel.y * TIME_STEP;
+        return new_b;
+    }
+
+    const main: i32 = {
+        print("--- OmniLang Physics Law Simulator ---");
+
+        let earth_pos = Vector2D { x: 0.0, y: 0.0 };
+        let earth_vel = Vector2D { x: 0.0, y: 0.0 };
+        let earth = Body { pos: earth_pos, vel: earth_vel, mass: 5.972e24 };
+
+        let satellite_pos = Vector2D { x: 40000000.0, y: 0.0 };
+        let satellite_vel = Vector2D { x: 0.0, y: 3000.0 };
+        let mut satellite = Body { pos: satellite_pos, vel: satellite_vel, mass: 1000.0 };
+
+        print("Simulating Satellite Orbit around Earth (10 steps):");
+        
+        let mut i = 0;
+        while (i < 10) {
+            let force = calculate_gravity_force(satellite, earth);
+            
+            // Simplified: apply force to velocity (direction towards earth at 0,0)
+            let dx = earth.pos.x - satellite.pos.x;
+            let dy = earth.pos.y - satellite.pos.y;
+            let dist = 40000000.0; // Fixed for simple demo
+
+            let accel = force / satellite.mass;
+            satellite.vel.x = satellite.vel.x + (accel * (dx / dist)) * TIME_STEP;
+            satellite.vel.y = satellite.vel.y + (accel * (dy / dist)) * TIME_STEP;
+
+            satellite = update_position(satellite);
+            
+            print("Step:");
+            print(i);
+            print("Satellite X:");
+            print(satellite.pos.x);
+            print("Satellite Y:");
+            print(satellite.pos.y);
+
+            i = i + 1;
+        }
+
+        print("Simulation Complete.");
+        0
+    };
+}

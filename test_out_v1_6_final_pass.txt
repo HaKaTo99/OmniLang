@@ -1,0 +1,38 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\blockchain_ledger.omni examples\quantum_ci 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\Omn 
+   iLang):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.49s
+     Running `target\debug\omnilang.exe test 
+examples\blockchain_ledger.omni examples\quantum_circuit.omni 
+examples\bio_genome_editor.omni`
+Type Check FAILED: examples\blockchain_ledger.omni
+  - Field 'hash' of struct 'Block' expects String, found Named("String")
+--- OmniLang Quantum Circuit Simulator ---
+Initial State: |0>
+Applying Hadamard Gate (H)...
+State is now Superposition: (|0> + |1>) / sqrt(2)
+Prob(|0>) = 0.4999999999999999
+Prob(|1>) = 0.4999999999999999
+Applying Pauli-X Gate...
+Measuring Qubit...
+Collapsed State: |1>
+Grover Step (Mock): Amplifying |1>...
+Final Prob(|1>) = 0.9801
+Test PASSED: examples\quantum_circuit.omni
+--- OmniLang Bio-Genome Editor ---
+Original DNA: ATGCGATTACAGTCGTAGCTAGCTGATTACA
+Length: 31 bp
+GC Content: 41.935483870967744%
+CRISPR: Scanning for Target RNA 'GATTACA'...
+CRISPR: Target found. Gene Edited.
+Edited DNA:   ATGCGFP_TAGGTCGTAGCTAGCTGFP_TAG
+Test PASSED: examples\bio_genome_editor.omni
+error: process didn't exit successfully: `target\debug\omnilang.exe test 
+examples\blockchain_ledger.omni examples\quantum_circuit.omni 
+examples\bio_genome_editor.omni` (exit code: 1)

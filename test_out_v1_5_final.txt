@@ -1,0 +1,18 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\ai_neural_net.omni examples\graphic_viz_da 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\Omn 
+   iLang):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.24s
+     Running `target\debug\omnilang.exe test examples\ai_neural_net.omni 
+examples\graphic_viz_dashboard.omni examples\cyber_security_ops.omni`
+Parser Error in examples\ai_neural_net.omni (Evaluator Test Mode): Expected ';' after let statement at line 14 (found LBracket)
+Lexer Error in examples\graphic_viz_dashboard.omni: Unexpected character '\' at line 20
+Parser Error in examples\cyber_security_ops.omni (Evaluator Test Mode): Expected '{' to start function body at line 4 (found LBracket)
+error: process didn't exit successfully: `target\debug\omnilang.exe test 
+examples\ai_neural_net.omni examples\graphic_viz_dashboard.omni 
+examples\cyber_security_ops.omni` (exit code: 1)

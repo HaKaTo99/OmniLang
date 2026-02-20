@@ -1,0 +1,66 @@
+module ScientificCalculator {
+    const PI: f64 = 3.141592653589793;
+    const E: f64 = 2.718281828459045;
+
+    fn power(base: f64, exp: i32) -> f64 {
+        let mut result = 1.0;
+        let mut i = 0;
+        while (i < exp) {
+            result = result * base;
+            i = i + 1;
+        }
+        return result;
+    }
+
+    fn factorial(n: i32) -> i32 {
+        if (n <= 1) {
+            return 1;
+        }
+        return n * factorial(n - 1);
+    }
+
+    fn abs(x: f64) -> f64 {
+        if (x < 0.0) {
+            return 0.0 - x;
+        }
+        return x;
+    }
+
+    const main: i32 = {
+        print("--- OmniLang Scientific Calculator ---");
+        
+        print("Constants:");
+        print("PI:");
+        print(PI);
+        print("E:");
+        print(E);
+
+        print("Calculations:");
+        
+        // Power calculation
+        let p = power(2.0, 10);
+        print("2^10 =");
+        print(p);
+
+        // Factorial calculation
+        let f = factorial(5);
+        print("5! =");
+        print(f);
+
+        // Absolute value
+        let a = abs(-123.456);
+        print("abs(-123.456) =");
+        print(a);
+
+        // Compound interest example
+        let principal = 1000.0;
+        let rate = 0.05;
+        let years = 10;
+        let amount = principal * power(1.0 + rate, years);
+        
+        print("Compound interest (1000 at 5% for 10 years):");
+        print(amount);
+
+        0
+    };
+}

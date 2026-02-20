@@ -1,0 +1,19 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\ai_neural_net.omni examples\graphic_viz_da 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\Omn 
+   iLang):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0425]: cannot find value `ident` in this scope
+   --> src\checker.rs:603:87
+    |
+603 |                     if args.len() != 1 { 
+self.errors.push(format!("{} expects 1 arg", ident)); }
+    |                                                                    
+                   ^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `omnilang` (lib) due to 1 previous error

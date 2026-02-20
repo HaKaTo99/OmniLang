@@ -1,0 +1,94 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test d:\GitHub\OmniLang\examples\scientific_calculator.o ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\OmniLang 
+   ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unreachable pattern
+   --> src\checker.rs:339:13
+    |
+339 |             _ => {
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> src\checker.rs:339:13
+    |
+295 |             Expr::Literal(lit) => self.check_literal(lit),
+    |             ------------------ matches some of the same values
+296 |             Expr::Identifier(name) => self.check_identifier(name, env, 
+borrow_tracker),
+    |             ---------------------- matches some of the same values
+297 |             Expr::BinaryOp(left, op, right) => 
+self.check_binary_op(left, op, right, env, borrow_tracker),
+    |             ------------------------------- matches some of the same 
+values
+298 |             Expr::UnaryOp(op, operand) => self.check_unary_op(op, 
+operand, env, borrow_tracker),
+    |             -------------------------- matches some of the same values
+...
+339 |             _ => {
+    |             ^ ...and 7 other patterns collectively make this unreachable
+    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by 
+default
+
+warning: unused variable: `i`
+   --> src\checker.rs:606:18
+    |
+606 |             for (i, (arg_expr, expected_type)) in 
+args.iter().zip(param_types.iter()).enumerate() {
+    |                  ^ help: if this is intentional, prefix it with an 
+underscore: `_i`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by 
+default
+
+warning: field `warnings` is never read
+  --> src\checker.rs:14:5
+   |
+ 8 | pub struct Checker {
+   |            ------- field in this struct
+...
+14 |     warnings: Vec<String>,
+   |     ^^^^^^^^
+   |
+   = note: `Checker` has a derived impl for the trait `Debug`, but this is 
+intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `borrow_graph` and `current_scope` are never read
+  --> src\checker.rs:24:5
+   |
+20 | struct BorrowTracker {
+   |        ------------- fields in this struct
+...
+24 |     borrow_graph: HashMap<String, HashSet<String>>,
+   |     ^^^^^^^^^^^^
+25 |     current_scope: Vec<HashSet<String>>,
+   |     ^^^^^^^^^^^^^
+   |
+   = note: `BorrowTracker` has derived impls for the traits `Clone` and 
+`Debug`, but these are intentionally ignored during dead code analysis
+
+warning: `omnilang` (lib) generated 4 warnings (run `cargo fix --lib -p 
+omnilang` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.91s
+     Running `target\debug\omnilang.exe test 
+d:\GitHub\OmniLang\examples\scientific_calculator.omni`
+--- OmniLang Scientific Calculator ---
+Constants:
+PI:
+3.141592653589793
+E:
+2.718281828459045
+Calculations:
+2^10 =
+1024
+5! =
+120
+abs(-123.456) =
+123.456
+Compound interest (1000 at 5% for 10 years):
+1628.894626777442
+Test PASSED: d:\GitHub\OmniLang\examples\scientific_calculator.omni

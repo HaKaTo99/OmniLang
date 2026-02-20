@@ -1,0 +1,17 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\comm_serial_bt.omni examples\comm_wifi_lan ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\OmniLang 
+   ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.11s
+     Running `target\debug\omnilang.exe test examples\comm_serial_bt.omni 
+examples\comm_wifi_lan.omni examples\comm_hid_cam.omni`
+Parser Error in examples\comm_serial_bt.omni (Evaluator Test Mode): Expected module declaration, found Ident("fn")
+Parser Error in examples\comm_wifi_lan.omni (Evaluator Test Mode): Expected module declaration, found Ident("fn")
+Parser Error in examples\comm_hid_cam.omni (Evaluator Test Mode): Expected module declaration, found Ident("fn")
+error: process didn't exit successfully: `target\debug\omnilang.exe test 
+examples\comm_serial_bt.omni examples\comm_wifi_lan.omni 
+examples\comm_hid_cam.omni` (exit code: 1)

@@ -1,0 +1,103 @@
+module QuantumCircuit {
+    // 1. Complex Number Structure
+    struct Complex {
+        re: f64,
+        im: f64
+    }
+
+    struct Qubit {
+        alpha: Complex, // Amplitude |0>
+        beta: Complex   // Amplitude |1>
+    }
+
+    // 2. Math Helpers for Complex Numbers
+    fn c_add(c1: Complex, c2: Complex) -> Complex {
+        return Complex { re: c1.re + c2.re, im: c1.im + c2.im };
+    }
+
+    fn c_mul_scalar(c: Complex, s: f64) -> Complex {
+        return Complex { re: c.re * s, im: c.im * s };
+    }
+
+    fn c_mag_sq(c: Complex) -> f64 {
+        return (c.re * c.re) + (c.im * c.im);
+    }
+
+    // 3. Quantum Gates
+    // Hadamard Gate (H): Puts qubit in superposition
+    // H |0> = (|0> + |1>) / sqrt(2)
+    // H |1> = (|0> - |1>) / sqrt(2)
+    fn apply_hadamard(q: Qubit) -> Qubit {
+        let inv_sqrt2 = 1.0 / math_sqrt(2.0);
+        
+        // New alpha = (alpha + beta) / sqrt(2)
+        let sum = c_add(q.alpha, q.beta);
+        let new_alpha = c_mul_scalar(sum, inv_sqrt2);
+
+        // New beta = (alpha - beta) / sqrt(2)
+        // Note: subtraction is add(alpha, -beta)
+        let neg_beta = c_mul_scalar(q.beta, -1.0);
+        let diff = c_add(q.alpha, neg_beta);
+        let new_beta = c_mul_scalar(diff, inv_sqrt2);
+
+        return Qubit { alpha: new_alpha, beta: new_beta };
+    }
+
+    fn apply_pauli_x(q: Qubit) -> Qubit {
+        // X Gate (NOT): Swaps alpha and beta
+        return Qubit { alpha: q.beta, beta: q.alpha };
+    }
+
+    // 4. Measurement
+    // Returns 0 or 1 based on probability
+    fn measure(q: Qubit) -> i32 {
+        let prob_0 = c_mag_sq(q.alpha);
+        let rand = math_random(); // 0.0 to 1.0 (Mock is 0.5)
+
+        if rand < prob_0 {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    const main: i32 = {
+        print("--- OmniLang Quantum Circuit Simulator ---");
+        
+        // Initialize Qubit in state |0>
+        let q0 = Qubit {
+            alpha: Complex { re: 1.0, im: 0.0 }, // 100% |0>
+            beta: Complex { re: 0.0, im: 0.0 }
+        };
+
+        print("Initial State: |0>");
+        
+        // Apply Hadamard Gate -> Superposition
+        print("Applying Hadamard Gate (H)...");
+        let q1 = apply_hadamard(q0);
+        
+        print("State is now Superposition: (|0> + |1>) / sqrt(2)");
+        print("Prob(|0>) = " + c_mag_sq(q1.alpha));
+        print("Prob(|1>) = " + c_mag_sq(q1.beta));
+
+        // Apply Pauli-X (NOT) Gate -> Swaps Amplitudes (Invariant here)
+        print("Applying Pauli-X Gate...");
+        let q2 = apply_pauli_x(q1);
+        
+        // Measure
+        print("Measuring Qubit...");
+        let result = measure(q2);
+        print("Collapsed State: |" + result + ">");
+
+        // Grover's Algorithm (Conceptual Step) -> Amplify Probability
+        // Just simulating the concept of amplitude change
+        let q3 = Qubit {
+            alpha: Complex { re: 0.1, im: 0.0 },
+            beta: Complex { re: 0.99, im: 0.0 } 
+        }; // Skewed state
+        print("Grover Step (Mock): Amplifying |1>...");
+        print("Final Prob(|1>) = " + c_mag_sq(q3.beta));
+
+        0
+    };
+}

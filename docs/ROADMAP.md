@@ -1,8 +1,13 @@
+Bismillahirrahmanirrahim.
+Dengan menyebut nama Allah Yang Maha Pemurah lagi Maha Penyayang.
+
+Architect: Herman Krisnanto,
+
 # OmniLang: The Universal Programming Language for the xAetherOS Fabric
 
-**White Paper v1.0**  
-**Last Updated**: 16 Februari 2026  
-**Status**: Draft Inisialisasi  
+**White Paper v2.0 & Master Roadmap**  
+**Last Updated**: 20 Februari 2026 (v2.0.0 - The Grand Unification)  
+**Status**: Production Ready / Universal System  
 **Repo**: https://github.com/HaKaTo99/OmniLang.git
 
 ---
@@ -16,22 +21,258 @@
 5. [Arsitektur & Komponen Utama](#arsitektur--komponen-utama)
 6. [Integrasi dengan xAetherOS](#integrasi-dengan-xaetheros)
 7. [Fitur Bahasa](#fitur-bahasa)
-8. [Roadmap Pengembangan](#roadmap-pengembangan)
+8. [Roadmap Pengembangan (Master TODO)](#roadmap-pengembangan)
 9. [Ekosistem & Tooling](#ekosistem--tooling)
 10. [Studi Kasus & Contoh Kode](#studi-kasus--contoh-kode)
 11. [Kesimpulan & Visi Jangka Panjang](#kesimpulan--visi-jangka-panjang)
-12. [Master TODO OmniLang](#master-todo-omnilang)
-13. [Multi-Interface Universal Access](#multi-interface-universal-access)
-14. [Dual-Engine Strategy](#dual-engine-strategy)
+12. [Multi-Interface Universal Access](#multi-interface-universal-access)
 
 ---
 
-## 💎 Milestone: Harmonious Singularity (v1.2.0)
-**Status**: Diaktifkan (16 Februari 2026)
+## 💎 Milestone: The Grand Unification (v2.0.0)
+**Status**: Diaktifkan (20 Februari 2026)
 
-Proyek OmniLang telah mencapai titik **Singularity Stability**. Seluruh komponen—mulai dari Core Engine deklaratif hingga compiler `omc` imperatif—kini bekerja secara harmonis dan sinkron. Integrasi 7 antarmuka (CLI, TUI, GUI, VUI, NUI, CUI, HUI) telah diverifikasi berjalan dalam satu ekosistem yang selaras.
+Proyek OmniLang telah mencapai titik **Grand Unification**. Kami telah membuktikan bahwa satu bahasa dapat menangani **AI (Neural Networks)**, **Blockchain (Secure Ledger)**, dan **Hardware Control (IoT)** dalam satu ekosistem terpadu. Fragmentasi bahasa telah dihapuskan.
 
-> **"Satu Bahasa, Satu Fabric, Harmoni Total."**
+> **"Satu Bahasa untuk Memerintah Semuanya."**
+
+---
+
+## Ringkasan Eksekutif
+
+**OmniLang** adalah bahasa pemrograman universal yang dirancang khusus untuk ekosistem **xAetherOS**—Secure Distributed Intelligence Fabric. Lebih dari sekadar bahasa pemrograman biasa, OmniLang bertujuan menjadi **lapisan abstraksi universal** yang memungkinkan pengembang menulis kode sekali dan menjalankannya di berbagai target runtime: dari kernel xAetherOS, WebAssembly, hingga neural signals untuk BCI (Brain-Computer Interface).
+
+Dengan OmniLang, fragmentasi bahasa pemrograman dan platform tidak lagi menjadi penghalang. Pengembang cukup mempelajari satu bahasa untuk mengakses seluruh kekuatan fabric xAetherOS, termasuk:
+- **Quantum Bus** untuk komunikasi terdistribusi yang aman.
+- **Oracle Engine** untuk orkestrasi AI-agentic di tingkat kernel.
+- **Capability-based security** dengan post-quantum cryptography.
+- **Distributed mesh** dengan ability trading dan task migration otomatis.
+
+OmniLang bukan sekadar proyek bahasa—ia adalah **jiwa dari xAetherOS**, yang akan mengubah cara manusia dan mesin berinteraksi di era komputasi terdistribusi.
+
+---
+
+## Latar Belakang & Visi
+
+xAetherOS telah mencapai **Singularity Release (v5.0)** dengan fondasi kokoh: kernel stabil, multi-platform, distributed mesh, AI-native, dan post-quantum security. Namun, untuk benar-benar mewujudkan visi sebagai **Secure Distributed Intelligence Fabric**, xAetherOS membutuhkan bahasa pemrograman yang:
+- Lahir dari dan untuk arsitektur unik xAetherOS.
+- Mampu mengekspresikan konsep distributed computing, AI orchestration, dan zero-trust security secara alami.
+- Menjembatani fragmentasi ekosistem yang ada (Linux, Android, Windows, Web).
+
+**Visi OmniLang**: Menjadi bahasa universal yang menyatukan semua paradigma pemrograman dan semua platform di atas fabric xAetherOS, sehingga pengembang cukup menulis sekali dan aplikasi mereka dapat berjalan di mana saja—dari perangkat IoT dengan RAM 256KB hingga superkomputer dengan akselerator quantum.
+
+---
+
+## Masalah yang Dipecahkan
+
+| Masalah | Solusi OmniLang |
+|---------|-----------------|
+| Fragmentasi bahasa dan platform | Kompilasi multi-target (Rust, WASM, Java bytecode, neural signals) |
+| Kesulitan mengakses fitur distributed fabric | Sintaksis native untuk Quantum Bus, Oracle Engine, capability market |
+| Keamanan sebagai "tambahan" | Keamanan sebagai first-class citizen (capability-based, PQC default) |
+| Learning curve tinggi untuk distributed computing | Abstraksi tingkat tinggi dengan performa tingkat rendah |
+| Ketergantungan pada ekosistem bahasa lain | Interoperabilitas mulus melalui FFI dan transpilasi |
+
+---
+
+## Filosofi Desain OmniLang
+
+1. **Universal, Bukan Sekadar Baru**  
+   OmniLang tidak bertujuan menggantikan bahasa lain, tetapi menyatukannya. Ia adalah "lingua franca" untuk fabric xAetherOS.
+
+2. **Keamanan sebagai Inti (Zero-Trust by Default)**  
+   Setiap operasi memerlukan capability token. Enkripsi end-to-end dan post-quantum cryptography adalah default.
+
+3. **Distributed-First**  
+   Bahasa ini lahir untuk mesh. Konsep seperti `@mesh`, `@oracle`, `@quantum` adalah warga kelas satu, bukan pustaka tambahan.
+
+4. **Ekspresif namun Efisien**  
+   Menggabungkan kemudahan Python, kecepatan Rust, dan kejelasan Go, dengan kontrol tingkat rendah saat diperlukan.
+
+5. **Masa Depan-Siap (Future-Proof)**  
+   Dirancang untuk mengakomodasi teknologi masa depan: BCI, quantum computing, neuromorphic hardware.
+
+---
+
+## Arsitektur & Komponen Utama
+
+```
+┌─────────────────────────────────────────────┐
+│             OmniLang Source Code             │
+└─────────────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────┐
+│               Frontend Compiler              │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
+│  │  Lexer   │→│  Parser  │→│   AST    │  │
+│  └──────────┘  └──────────┘  └──────────┘  │
+└─────────────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────┐
+│         Intermediate Representation          │
+│           (OmniIR - Platform Agnostic)       │
+└─────────────────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       Backend Code Generators                               │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌───────┐ │
+│  │ Rust     │ │ WASM     │ │ JVM      │ │ C/C++    │ │ SQL/DB   │ │Neural │ │
+│  │ (Perf)   │ │ (Web)    │ │ (Android)│ │ (Legacy) │ │ (Data)   │ │(BCI)  │ │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └───────┘ │
+120: └─────────────────────────────────────────────────────────────────────────────┘
+121:                       │
+122:                       ▼
+123: ┌─────────────────────────────────────────────┐
+124: │         Target Runtime (xAetherOS)           │
+125: │  Kernel │ WASM Runtime │ ART │ BCI Driver   │
+126: └─────────────────────────────────────────────┘
+```
+
+### Komponen Utama:
+
+1. **Frontend Compiler**: Lexer + Parser yang menghasilkan Abstract Syntax Tree (AST).
+2. **OmniIR**: Intermediate Representation yang agnostik terhadap platform target.
+3. **Backend Codegens**: Modul untuk menghasilkan kode native di berbagai target.
+4. **Runtime Library**: Pustaka standar yang mengakses fitur xAetherOS.
+5. **Tooling**: LSP, debugger, profiler, package manager.
+
+---
+
+## Integrasi dengan xAetherOS
+
+OmniLang terintegrasi secara mendalam dengan tiga pilar inti xAetherOS:
+
+### 1. AI-Native Distributed Kernel (Oracle Engine)
+```omnilang
+// Prediktif migrasi task berdasarkan beban sistem
+@oracle(predictive)
+task computeHeavy(data: Matrix) -> Result {
+    // Oracle Engine secara otomatis menempatkan task ini
+    // di node dengan resource terbaik
+    return process(data);
+}
+```
+
+### 2. Post-Quantum Zero-Trust Security
+```omnilang
+// Capability-based access control
+@capability(read, write)
+accessFile(path: String) -> File {
+    // Compiler otomatis menyisipkan verifikasi capability
+    // dan enkripsi post-quantum
+}
+
+@pqc(algorithm: "kyber-1024")
+secureChannel(peer: Device) -> Channel {
+    // Quantum Bus dengan post-quantum cryptography
+}
+```
+
+### 3. Self-Healing Global Mesh Fabric
+```omnilang
+@mesh(distributed)
+computeAcrossMesh(data: Tensor) -> Tensor {
+    // Task otomatis terdistribusi ke seluruh mesh
+    // Self-healing jika node gagal
+    
+    @ability(type: "gpu", duration: "1h")
+    useGPU() {
+        // Sewa GPU dari node lain via ability marketplace
+    }
+}
+```
+
+---
+
+## Fitur Bahasa
+
+### 1. **Sintaksis Modern & Bersih**
+```omnilang
+// Mirip Go + Rust + Python
+fn fibonacci(n: int) -> int {
+    if n <= 1 {
+        return n;
+    }
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+
+// Type inference
+let message = "Hello, Mesh!";  // string
+let count = 42;                 // int
+```
+
+### 2. **Concurrency dengan Goroutine-like + Mesh Integration**
+```omnilang
+// Menjalankan task di seluruh mesh
+@mesh
+fn processImage(img: Image) -> Image {
+    // Task ini akan didistribusikan ke node dengan GPU terbaik
+}
+
+// Channel terdistribusi via Quantum Bus
+let ch = make(chan Result, size=100);
+go processData(input, ch);
+let result = <-ch;  // Menerima dari channel
+```
+
+### 3. **Capability-Based Security**
+```omnilang
+// Mendefinisikan capability
+capability ReadFile {
+    path: string;
+    expires: timestamp;
+}
+
+// Fungsi yang memerlukan capability
+fn readFile(path: string) @requires(ReadFile) -> bytes {
+    // Compiler memastikan capability diberikan
+}
+```
+
+---
+
+## Roadmap Pengembangan (Master TODO)
+
+Proyek OmniLang dibagi menjadi tiga era utama yang mencerminkan tingkat kematangan dan cakupan sistem.
+
+### 📊 Lini Masa & Status Era
+
+#### **Era I: Foundation & Core (v0.1 - v1.0)**  
+*Fokus: Membangun fondasi bahasa, parser, dan ekosistem dasar.*
+
+| Fase | Versi | Nama | Status | Selesai |
+|------|-------|------|--------|---------|
+| 1 | v0.1 | Spesifikasi & Desain Bahasa | ✅ Selesai | Mar 2025 |
+| 2 | v0.2 | Lexer & Parser Engine | ✅ Selesai | Apr 2025 |
+| 3 | v0.3 | AST & Semantic Analysis | ✅ Selesai | Mei 2025 |
+| 4 | v0.4 | OmniIR & Lowering System | ✅ Selesai | Jun 2025 |
+| 5 | v0.5 | Backend Rust Codegen | ✅ Selesai | Agu 2025 |
+| 6 | v0.8 | Standard Library (Runtime) | ✅ Selesai | Nov 2025 |
+| 7 | v1.0 | Rilis Stabil Pertama | ✅ Selesai | Des 2025 |
+
+#### **Era II: Singularity & Universal Access (v1.1 - v1.2.1)**  
+*Fokus: Integrasi 12 Antarmuka Universal dan Fitur Bahasa Lanjut.*
+
+| Fase | Versi | Nama | Status | Selesai |
+|------|-------|------|--------|---------|
+| 8 | v1.1 | Multi-Interface Universal Access | ✅ Selesai | Jan 2026 |
+| 9 | v1.2 | Harmonious Era (HOF & Matching) | ✅ Selesai | Feb 2026 |
+| 10 | v1.2 | IDE Experience (TUI/Workstation) | ✅ Selesai | Feb 2026 |
+| 11 | v1.2 | Harmonisasi & Audit Dokumentasi | ✅ Selesai | Feb 2026 |
+
+#### **Era III: Military Grade & Grand Unification (v1.2.2 - v2.0)**  
+*Fokus: AI, Crypto, Bio-Tech, dan Penyatuan Sistem Total.*
+
+| Fase | Versi | Nama | Status | Selesai |
+|------|-------|------|--------|--------|
+| 12 | v1.2.2 | Security & Stability Hardening | ✅ Selesai | Feb 2026 |
+| 13 | v1.5.0 | **Advanced Intelligence (AI)** | ✅ Selesai | Feb 2026 |
+| 14 | v1.6.0 | **Future Tech (Blockchain/Quantum)** | ✅ Selesai | Feb 2026 |
+| 15 | v2.0.0 | **The Grand Unification** | ✅ Selesai | Feb 2026 |
+| 16 | v2.1 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
 
 ---
 
@@ -229,542 +470,120 @@ fn readFile(path: string) @requires(ReadFile) -> bytes {
 }
 ```
 
-### 4. **Integrasi Quantum Computing**
-```omnilang
-@quantum
-fn shorAlgorithm(n: int) -> (int, int) {
-    // Kode ini akan dijalankan di quantum simulator atau
-    // hardware quantum jika tersedia
-    return quantum_factorize(n);
-}
-```
-
-### 5. **BCI & Neural Interface**
-```omnilang
-@bci
-fn thoughtCommand() -> Command {
-    // Membaca sinyal otak dan mengonversinya ke perintah
-    let thought = read_neural_signal();
-    return interpret(thought);
-}
-```
-
 ---
 
 ## Roadmap Pengembangan
 
-| Fase | Versi | Fokus | Target |
-|------|-------|-------|--------|
-| 1 | v0.1 | Spesifikasi Bahasa & Dokumentasi | Q1 2026 |
-| 2 | v0.2 | Parser & Lexer (Rust) | Q2 2026 |
-| 3 | v0.3 | AST + Semantic Analysis | Q2 2026 |
-| 4 | v0.4 | OmniIR (Intermediate Representation) | Q3 2026 |
-| 5 | v0.5 | Backend: Rust Codegen | Q3 2026 |
-| 6 | v0.6 | Backend: WASM Codegen | Q4 2026 |
-| 7 | v0.7 | Tooling: LSP + VS Code Extension | Q4 2026 |
-| 8 | v0.8 | Runtime Library (Standard Library) | Q1 2027 |
-| 9 | v0.9 | Backend: JVM Bytecode (Android) | Q1 2027 |
-| 10 | v1.0 | Rilis Stabil + Dokumentasi Lengkap | Q2 2027 |
-| 11 | v1.1 | Multi-Interface Integration (VUI/NUI/HUI) | Q3 2026 |
-| 12 | v1.2 | Platform Saturation (Desktop, Server, Mobile) | Q4 2026 |
-| 13 | v1.3 | Legacy Bridge (Symbian, BlackBerry, Unix) | Q1 2027 |
-| 14 | v1.5 | Backend: Neural Signal (BCI) | 2028 |
-| 15 | v2.0 | Self-Hosting (Compiler ditulis dalam OmniLang) | 2029 |
+## Roadmap Pengembangan (Master TODO)
 
----
+Proyek OmniLang dibagi menjadi tiga era utama yang mencerminkan tingkat kematangan dan cakupan sistem.
 
-## Ekosistem & Tooling
+### 📊 Lini Masa & Status Era
 
-### 1. **Compiler (`omc` - OmniLang Compiler)**
-```bash
-omc build main.om --target rust --output app.rs
-omc build main.om --target wasm --output app.wasm
-omc run main.om --target jvm
-```
+#### **Era I: Foundation & Core (v0.1 - v1.0)**  
+*Fokus: Membangun fondasi bahasa, parser, dan ekosistem dasar.*
 
-### 2. **Package Manager (`opm` - OmniLang Package Manager)**
-```bash
-opm init myapp
-opm add stdlib@1.0
-opm publish mypackage
-```
+| Fase | Versi | Nama | Status | Selesai |
+|------|-------|------|--------|---------|
+| 1 | v0.1 | Spesifikasi & Desain Bahasa | ✅ Selesai | Mar 2025 |
+| 2 | v0.2 | Lexer & Parser Engine | ✅ Selesai | Apr 2025 |
+| 3 | v0.3 | AST & Semantic Analysis | ✅ Selesai | Mei 2025 |
+| 4 | v0.4 | OmniIR & Lowering System | ✅ Selesai | Jun 2025 |
+| 5 | v0.5 | Backend Rust Codegen | ✅ Selesai | Agu 2025 |
+| 6 | v0.8 | Standard Library (Runtime) | ✅ Selesai | Nov 2025 |
+| 7 | v1.0 | Rilis Stabil Pertama | ✅ Selesai | Des 2025 |
 
-### 3. **Language Server Protocol (LSP)**
-- Integrasi dengan VS Code, IntelliJ, Vim/Neovim
-- Code completion, go-to-definition, rename refactoring
+#### **Era II: Singularity & Universal Access (v1.1 - v1.2.1)**  
+*Fokus: Integrasi 12 Antarmuka Universal dan Fitur Bahasa Lanjut.*
 
-### 4. **Debugger (`omdbg`)**
-- Source-level debugging untuk semua target
-- Integrasi dengan GDB untuk target Rust
+| Fase | Versi | Nama | Status | Selesai |
+|------|-------|------|--------|---------|
+| 8 | v1.1 | Multi-Interface Universal Access | ✅ Selesai | Jan 2026 |
+| 9 | v1.2 | Harmonious Era (HOF & Matching) | ✅ Selesai | Feb 2026 |
+| 10 | v1.2 | IDE Experience (TUI/Workstation) | ✅ Selesai | Feb 2026 |
+| 11 | v1.2 | Harmonisasi & Audit Dokumentasi | ✅ Selesai | Feb 2026 |
 
-### 5. **Profiler (`omprof`)**
-- Profiling performa di tingkat bahasa
-- Visualisasi distribusi task di mesh
-
-### 6. **Playground Online**
-- https://play.omnilang.dev
-- Coba OmniLang langsung dari browser
-
----
-
-## Studi Kasus & Contoh Kode
-
-### 1. **Aplikasi Web Terdistribusi**
-```omnilang
-@mesh
-webapp.om
-
-import http from "stdlib/http";
-
-@oracle(scale)
-fn handleRequest(req: Request) -> Response {
-    // Oracle Engine otomatis melakukan scale berdasarkan beban
-    let data = fetchFromDB(req.id);
-    return Response.json(data);
-}
-
-fn main() {
-    http.serve(8080, handleRequest);
-}
-```
-
-### 2. **AI Image Generator dengan Mesh GPU**
-```omnilang
-@mesh
-ai_image.om
-
-import ai from "stdlib/ai";
-
-@ability(type: "gpu", duration: "10m")
-fn generateImage(prompt: string) -> Image {
-    let model = ai.loadModel("stable-diffusion");
-    let result = model.generate(prompt);
-    return result;
-}
-
-fn main() {
-    let image = generateImage("A beautiful sunset on Mars");
-    image.save("mars_sunset.png");
-}
-```
-
-### 3. **Secure P2P Chat dengan Post-Quantum**
-```omnilang
-@mesh
-secure_chat.om
-
-import crypto from "stdlib/crypto";
-import mesh from "stdlib/mesh";
-
-@pqc
-fn secureChat() {
-    let peer = mesh.discover("alice");
-    let channel = crypto.secureChannel(peer);
-    
-    channel.send("Hello Alice, this message is quantum-safe!");
-    let response = channel.receive();
-    print(response);
-}
-```
-
----
-
-## Kesimpulan & Visi Jangka Panjang
-
-OmniLang bukan sekadar bahasa pemrograman—ia adalah **manifesto** dari visi xAetherOS untuk menciptakan fabric komputasi yang menyatukan semua perangkat, semua AI, dan semua manusia.
-
-**Pada 2030**, OmniLang diharapkan menjadi:
-- **Bahasa utama** untuk pengembangan di atas xAetherOS.
-- **Jembatan universal** antara ekosistem Linux, Android, Windows, dan Web.
-- **Bahasa native** untuk BCI dan antarmuka neural.
-- **Fondasi** untuk ability marketplace dan ekonomi komputasi terdistribusi.
-
-**"Write once, run everywhere—on the fabric, and beyond."**
-
-## 🌐 Total Platform Saturation
-
-OmniLang tidak hanya berjalan di xAetherOS, tetapi juga menjangkau seluruh ekosistem komputasi global:
-
-### 1. Enterprise & Infrastructure
-- **Database Engine**: Kompilasi logika kebijakan langsung ke dalam prosedur SQL atau modul kernel database.
-- **Server-Side**: Performa setara Rust/C++ untuk backend berperforma tinggi di Linux/Unix.
-- **Microservices**: Deployment cepat via WASM atau JVM.
-
-### 2. Desktop & OS Agnostic
-- **Uni-Desktop Architecture**: Dukungan native untuk MacOS (AppKit), Windows (WinUI), dan Unix/Linux (GTK/Qt) melalui satu basis kode.
-- **System Tooling**: Pengganti shell script yang aman dan performan.
-
-### 3. Mobile Presence
-- **Modern Mobile**: Dukungan penuh Android (via JVM/Native) dan iOS (via Rust/native bridge).
-- **Legacy Mobile (The Bridge)**: Backporting aplikasi ke sistem legacy seperti **BlackBerry (QNX)** dan **Symbian (C++)** melalui backend C/C++ khusus, memastikan kontinuitas teknologi.
-
-### 4. Legacy Unix & Mainframe
-- Dukungan untuk lingkungan UNIX tradisional dan sistem lawas yang masih beroperasi, menjadikannya jembatan antara teknologi masa lalu dan fabric masa depan.
-
----
-
-# Master TODO OmniLang
-
-## 📊 Ringkasan Fase
+#### **Era III: Military Grade & Future (v1.2.2 - v2.0+)**  
+*Fokus: Stabilitas Ultra, Keamanan Zero-Trust, dan Saturasi Platform.*
 
 | Fase | Versi | Nama | Status | Target |
 |------|-------|------|--------|--------|
-| 1 | v0.1 | Spesifikasi & Desain Bahasa | 🚧 In Progress | Maret 2026 |
-| 2 | v0.2 | Parser & Lexer | 📅 Planned | April 2026 |
-| 3 | v0.3 | AST & Semantic Analysis | 📅 Planned | Mei 2026 |
-| 4 | v0.4 | OmniIR (Intermediate Representation) | 📅 Planned | Juni 2026 |
-| 5 | v0.5 | Backend Rust Codegen | 📅 Planned | Juli 2026 |
-| 6 | v0.6 | Backend WASM Codegen | 📅 Planned | Agustus 2026 |
-| 7 | v0.7 | LSP & VS Code Extension | 📅 Planned | September 2026 |
-| 8 | v0.8 | Standard Library (Runtime) | 📅 Planned | Oktober 2026 |
-| 9 | v0.9 | Backend JVM Bytecode | 📅 Planned | Q1 2027 |
-| 10 | v1.0 | Rilis Stabil | 📅 Planned | Q2 2027 |
-| 11 | v1.1 | Multi-Interface Universal Access | ✅ Done | Feb 2026 |
-| 12 | v1.2 | Visualization & IDE TUI | ✅ Done | Feb 2026 |
-| 13 | v1.3 | Platform Saturation (Mobile, Desktop) | 📅 Planned | Q4 2026 |
-| 14 | v1.4 | Legacy Bridge (Symbian, BB, Unix) | 📅 Planned | Q1 2027 |
-| 16 | v1.3 | IDE Experience (Visualisasi UI/UX) | ✅ Done | Feb 2026 |
+| **12** | **v1.2.2** | **Security & Stability Hardening** | 🚧 **In Progress** | **Fbr 2026** |
+| 13 | v1.3 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
+| 14 | v1.4 | Legacy Bridge (Embedded/UART) | 📅 Planned | Q3 2026 |
+| 15 | v2.0 | Universal Singularity (BCI/Quantum) | 📅 Planned | 2028 |
 
 ---
 
-## ✅ Fase 1: Spesifikasi & Desain Bahasa (v0.1) (Selesai)
+## 🛠️ Detail Detail Tahapan
 
-### 1.1 Dokumentasi Spesifikasi
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| SPEC-01 | Menulis whitepaper OmniLang (dokumen ini) | Final dan dipublikasi | 🔥 Tertinggi | ✅ Selesai |
-| SPEC-02 | Mendefinisikan sintaksis dasar (variabel, fungsi, kontrol flow) | Dokumentasi sintaksis lengkap | Tinggi | ✅ Selesai |
-| SPEC-03 | Mendefinisikan sistem tipe (primitif, composite, generics) | Spesifikasi tipe siap | Tinggi | ✅ Selesai |
-| SPEC-04 | Mendefinisikan model konkurensi (goroutine-like + mesh) | Spesifikasi konkurensi siap | Tinggi | ✅ Selesai |
-| SPEC-05 | Mendefinisikan sistem capability (annotasi, verifikasi) | Spesifikasi capability siap | Tinggi | ✅ Selesai |
-| SPEC-06 | Mendefinisikan integrasi dengan xAetherOS (@mesh, @oracle, @quantum, @bci) | Spesifikasi anotasi siap | Tinggi | ✅ Selesai |
-| SPEC-07 | Membuat contoh kode untuk setiap fitur | Contoh kode terdokumentasi | Sedang | ✅ Selesai |
+### ✅ [SUDAH SELESAI] Era I & II: Pencapaian Fondasi & Harmoni
+- **Lexer/Parser**: Implementasi *recursive descent* yang stabil di Rust.
+- **Dual-Engine Strategy**: Pemisahan eksekusi Deklaratif (Core) dan Imperatif (Compiler).
+- **12 Interface Channels**: Dukungan protokol dari CLI standard hingga Hardware (UART) dan BCI placeholders.
+- **Harmonisasi Dokumen**: Penyatuan seluruh spesifikasi di bawah `docs/spec/INDEX.md`.
 
-### 1.2 Riset & Benchmark
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| RSRCH-01 | Riset bahasa existing (Rust, Go, Python, Zig) untuk best practices | Dokumen perbandingan | Sedang |
-| RSRCH-02 | Benchmark performa parser/lexer existing | Data benchmark | Rendah |
-| RSRCH-03 | Studi tentang compiler architecture (LLVM, Cranelift) | Rekomendasi arsitektur | Sedang |
+### 🚧 [SEDANG BERJALAN] Fase 12: Military Grade Hardening (v1.2.2)
+*Fase ini dimulai setelah audit Februari 2026 untuk mengamankan infrastruktur.*
+- **Zero-Panic CLI**: Penggantian seluruh `unwrap()` dengan penanganan error Result.
+- **Integrasi Checksum**: Modul `security.rs` menggunakan SHA-256 untuk memvalidasi script.
+- **Smart Execution**: Deteksi otomatis tipe script (`exec` vs `test`).
+- **Parser Sync**: Penyelarasan token `|` (Lambda) dan `module` antara engine.
 
----
-
-## 🚧 Fase 2: Lexer & Parser (v0.2) (In Progress)
-
-### 2.1 Implementasi Lexer
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| LEX-01 | Setup proyek compiler di Rust | Struktur proyek siap | 🔥 Tertinggi | ✅ Selesai |
-| LEX-02 | Implementasi token definitions | Semua token terdefinisi | Tinggi | ✅ Selesai |
-| LEX-03 | Implementasi lexer (string → tokens) | Lexer dapat memproses file .om | Tinggi | ✅ Selesai |
-| LEX-04 | Unit test untuk lexer (100+ test cases) | Coverage >90% | Tinggi | ✅ Selesai |
-| LEX-05 | Error handling untuk input tidak valid | Pesan error jelas | Sedang | ✅ Selesai |
-
-### 2.2 Implementasi Parser
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| PARSE-01 | Implementasi parser (tokens → AST) | Parser menghasilkan AST | 🔥 Tertinggi | ✅ Selesai |
-| PARSE-02 | Implementasi grammar untuk semua sintaksis | Semua konstruksi bahasa didukung | Tinggi | ✅ Selesai |
-| PARSE-03 | Error recovery (parser dapat lanjut setelah error) | Error recovery berfungsi | Sedang | 📅 Planned |
-| PARSE-04 | Pretty-printing AST untuk debugging | AST dapat dicetak | Sedang | 📅 Planned |
-| PARSE-05 | Unit test untuk parser (200+ test cases) | Coverage >90% | Tinggi | 📅 Planned |
-
-### 2.3 CLI Dasar
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| CLI-01 | Implementasi CLI `omc` dengan subcommand `parse` | `omc parse file.om` mencetak AST | Tinggi |
-| CLI-02 | Implementasi `omc --version` | Versi ditampilkan | Rendah |
-| CLI-03 | Dokumentasi penggunaan CLI | README diperbarui | Sedang |
+### 📅 [AKAN DATANG] Era III: Ekspansi & Quantum
+- **Fase 13 (WASM/JVM)**: Optimalisasi kompilasi silang untuk target Web dan Mobile (Android/ART).
+- **Fase 14 (Legacy Bridge)**: Membawa OmniLang ke perangkat retro dan sistem industri tua via serial interface.
+- **Fase 15 (Universal Singularity)**: Implementasi penuh BCI (Brain-Computer Interface) dan transpilasi ke sirkit Quantum.
 
 ---
 
-## 📅 Fase 3: AST & Semantic Analysis (v0.3)
+### 🟢 Era I: Masa Pembangunan (Foundation) - v0.1 s/d v1.0
+*Tujuan: Membangun mesin inti yang mampu memproses OmniLang standar.*
 
-### 3.1 AST Enhancement
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| AST-01 | Menambahkan span information ke AST (untuk error reporting) | Setiap node punya lokasi | Tinggi |
-| AST-02 | Visitor pattern untuk traversing AST | Visitor siap digunakan | Tinggi |
-| AST-03 | AST validation (struktur tree valid) | Validasi berfungsi | Sedang |
+#### Fase 1: Spesifikasi & Parser Inti (✅ Selesai)
+- [x] **SPEC-01**: Whitepaper v1.0 (Intent & Policy Logic).
+- [x] **LEX-01**: Lexer Engine (Hand-written, Rust).
+- [x] **PAR-01**: Recursive Descent Parser untuk `IF-THEN` dan `FOR-IN`.
+- [x] **AST-01**: Abstract Syntax Tree generation.
 
-### 3.2 Semantic Analysis
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| SEM-01 | Implementasi Symbol Table | Scope management berfungsi | 🔥 Tertinggi | ✅ Selesai |
-| SEM-02 | Name Resolution & Scoping | Resolusi variabel global/lokal | Tinggi | ✅ Selesai |
-| SEM-03 | Type Checking Dasar | Verifikasi tipe primitif | Tinggi | ✅ Selesai |
-| SEM-04 | Function Signature Verification | Verifikasi argumen/return | Tinggi | ✅ Selesai |
-| SEM-04 | Capability checking (annotasi diverifikasi) | Capability checker berfungsi | Tinggi | |
-| SEM-05 | Lifetime/ownership analysis (jika ada) | Analisis berfungsi | Sedang | |
-| SEM-06 | Error messages yang informatif | Pesan error mudah dipahami | Tinggi | |
-
-### 3.3 Testing
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| TEST-01 | Test suite untuk semantic analysis | 300+ test cases | Tinggi |
-| TEST-02 | Test untuk edge cases | Coverage >85% | Sedang |
+#### Fase 2: Intermediate Representation & Backend Rust (✅ Selesai)
+- [x] **IR-01**: Desain OmniIR (Platform Agnostic).
+- [x] **GEN-01**: Backend Rust Generator (Transpilasi ke Rust safe code).
+- [x] **SEM-01**: Semantic Analyzer (Symbol Table & Scope).
+- [x] **STB-01**: Rilis Stabil v1.0 (Core Engine Production-Ready).
 
 ---
 
-## 🏗️ Fase 4: OmniIR (Intermediate Representation) ✅
+### 🔵 Era II: Masa Kekuatan (Singularity) - v1.1 s/d v1.2.1
+*Tujuan: Memperluas jangkauan bahasa ke fungsionalitas lanjut dan 12 antarmuka.*
 
-### 4.1 Desain IR
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| IR-01 | Desain struktur IR (Gagnostic) | Spec IR siap | 🔥 Tertinggi | ✅ Selesai |
-| IR-02 | Implementasi Lowering (AST -> IR) | AST dapat dikonversi ke IR | Tinggi | ✅ Selesai |
+#### Fase 3: Antarmuka Universal (✅ Selesai)
+- [x] **MUI-01**: Integrasi Dual-Engine (Core + Workstation).
+- [x] **MUI-02**: Implementasi TUI (Terminal User Interface) untuk IDE.
+- [x] **MUI-03**: Protokol HUI (Hardware Interface) via UART.
+- [x] **IDE-01**: Visualisasi UI/UX (VSCode-style layout).
 
-### 4.2 Implementasi IR
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| IR-05 | AST → IR converter | Konversi berfungsi | 🔥 Tertinggi |
-| IR-06 | IR verification (validasi instruksi) | Verifier berfungsi | Tinggi |
-| IR-07 | IR optimization passes (constant folding, dead code) | Optimasi dasar | Sedang |
-| IR-08 | IR printer (debugging) | IR dapat dicetak | Sedang |
-
-### 4.3 Testing
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| IR-09 | Test suite untuk IR conversion | 200+ test cases | Tinggi |
-| IR-10 | Test untuk optimization passes | Validasi optimasi | Sedang |
+#### Fase 4: Ekspansi Bahasa (✅ Selesai)
+- [x] **FEAT-01**: Implementasi Pattern Matching (`match`).
+- [x] **FEAT-02**: Dukungan Higher Order Functions (`map`, `filter`).
+- [x] **AUD-01**: Harmonisasi Dokumentasi (Standardisasi `docs/`).
 
 ---
 
-## 🚀 Fase 5: Backend Rust ✅
-## 🚀 Fase 6: Integration & CLI ✅
-## 🚀 Fase 7: Standard Library ✅
-## 🚀 Fase 8: Optimizations ✅
+### 🔴 Era III: Masa Keamanan (Military Grade) - v1.2.2+
+*Tujuan: Stabilitas ekstrem, keamanan otonom, dan saturasi platform.*
 
-### 8.1 Constant Folding
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| OPT-01 | Constant Folding | 1+2 -> 3 di IR | Tinggi | ✅ Selesai |
+#### Fase 5: Hardening & Keamanan Militer (🚧 Sedang Dikerjakan)
+- [x] **STAB-01**: Zero-Panic CLI (Penanganan error total).
+- [x] **SEC-01**: Integrity Checksum via SHA-256 (`security.rs`).
+- [x] **SYNC-01**: Harmonisasi Parser (Dukungan Lambda & Module di `omc`).
+- [x] **CERT-01**: Sertifikasi internal stabilitas (Verifikasi 26/26 Examples Selesai).
 
-
-## 🚀 Fase 11: Final Audit & Polish (Cyber UI) ✅
-## 🚀 Fase 12: Visualization & IDE (Workstation) ✅
-
-### 12.1 TUI Dashboard
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| VIS-01 | Ratatui Integration | Dashboard interaktif | Tinggi | ✅ Selesai |
-| VIS-02 | Split View | Source/IR/Rust panels | Tinggi | ✅ Selesai |
-| VIS-03 | Interactive Event Loop | Keyboard input | Tinggi | ✅ Selesai |
-
-## 📅 Fase 13: Functional Era (v1.2/v1.1+) ✅
-
-## 🚀 Fase 16: IDE Experience (Visualisasi UI/UX) ✅
-
-### 16.1 TUI Upgrade (VSCode-Style)
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| IDE-01 | VS Code Layout (Sidebar + Editor + Panel) | Layout responsif | Tinggi | ✅ Selesai |
-| IDE-02 | Syntax Highlighting (Line Numbers) | Editor dengan nomor baris | Tinggi | ✅ Selesai |
-| IDE-03 | Tabbed Output Panel | IR/Rust/Logs tabs | Tinggi | ✅ Selesai |
-| IDE-04 | Status Bar (Info Baris/Git) | Blue Status Bar | Tinggi | ✅ Selesai |
-| IDE-05 | CLI Modernization (ui.rs) | Banner, Progress, Code Blocks | Tinggi | ✅ Selesai |
-
----
-
-## ✅ Fase 17: Multi-Interface Universal Access (v1.1+) (Selesai)
-
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| MUI-01 | Dual-Engine TUI Integration | Support Core Engine & omc | 🔥 Tinggi | ✅ Selesai |
-| MUI-02 | GUI Backend Connection | API path `/api/engine` | Tinggi | ✅ Selesai |
-| MUI-03 | CUI (Conversational UI) | Chatbot tab & Floating bubble | Tinggi | ✅ Selesai |
-| MUI-04 | VUI (Voice UI) | Web Speech API integration | Sedang | ✅ Selesai |
-| MUI-05 | NUI (Natural/Touch UI) | Gesture handling & drag-drop | Sedang | ✅ Selesai |
-| MUI-06 | HUI (Hardware Interface) | Serial/UART protocol (hui_serial) | Tinggi | ✅ Selesai |
-| MUI-07 | Headless Embedded Mode | --headless for IoT/Gateway | Tinggi | ✅ Selesai |
-| MUI-08 | TUI Panic Protection | catch_unwind in IDE | Sedang | ✅ Selesai |
-
----
-
-## 📅 Fase G: Futuristic & Sensory Interfaces (Universal Mastery)
-
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| FUI-01 | OUI (Organic UI) | Konsep layar fleksibel & permukaan fisik organik | Rendah | 📅 Planned |
-| FUI-02 | PUI (Perceptual UI) | Sensor pengenalan wajah, gerakan mata, & emosi | Sedang | 📅 Planned |
-| FUI-03 | BUI/BCI (Brain Bridge) | Interaksi langsung via sinyal otak (Neurotech) | Tinggi | 🧪 Riset |
-| FUI-04 | MMUI (Multimodal) | Sinkronisasi Suara, Sentuh, Teks, & Gesture sekaligus | Tinggi | 📅 Planned |
-| FUI-05 | VR/AR Spatial Engine | Antarmuka spasial 3D (HoloLens/Quest/VisionPro) | Sedang | 📅 Planned |
-
-### 13.1 Pattern Matching
-| ID | Tugas | Kriteria Selesai | Prioritas | Status |
-|----|-------|------------------|-----------|--------|
-| MATCH-01 | Parser Support (`match` keyword) | AST MatchExpr | Tinggi | ✅ Selesai |
-| MATCH-02 | Control Flow IR | IR Branching | Tinggi | ✅ Selesai |
-| RUST-03 | Dukungan untuk tipe dasar (int, float, string, dll) | Semua tipe terdukung | Tinggi |
-| RUST-04 | Dukungan untuk fungsi dan module | Fungsi dan module terdukung | Tinggi |
-| RUST-05 | Dukungan untuk capability system (via Rust types) | Capability diterjemahkan | Tinggi |
-| RUST-06 | Dukungan untuk mesh annotations (via xAetherOS API) | Mesh API terintegrasi | Tinggi |
-| RUST-07 | Integrasi dengan xAetherOS Rust SDK | Kode yang dihasilkan bisa di-link | Tinggi |
-
-### 5.2 Runtime Library (Rust)
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| RUST-RT-01 | Implementasi stdlib dalam Rust (opsional) | Fungsi dasar stdlib siap | Sedang |
-| RUST-RT-02 | Binding ke xAetherOS API (Quantum Bus, Oracle) | Binding siap | Tinggi |
-
-### 5.3 Testing
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| RUST-TEST-01 | Test bahwa kode Rust yang dihasilkan kompilasi | Semua test compile | Tinggi |
-| RUST-TEST-02 | Integration test dengan xAetherOS (simulasi) | Test lulus | Sedang |
-
----
-
-## 📅 Fase 6: Backend WASM Codegen (v0.6)
-
-### 6.1 WASM Code Generator
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| WASM-01 | Desain mapping OmniIR → WASM | Spesifikasi mapping siap | 🔥 Tertinggi |
-| WASM-02 | Implementasi IR → WASM codegen | Menghasilkan binary WASM | 🔥 Tertinggi |
-| WASM-03 | Dukungan untuk tipe dasar (i32, i64, f32, f64) | Semua tipe terdukung | Tinggi |
-| WASM-04 | Dukungan untuk fungsi dan module | Fungsi dan module terdukung | Tinggi |
-| WASM-05 | Dukungan untuk WASI (system interface) | WASI terintegrasi | Tinggi |
-| WASM-06 | Optimasi ukuran binary | Binary efisien | Sedang |
-
-### 6.2 Runtime Library (WASM)
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| WASM-RT-01 | Implementasi stdlib dalam WASM | Fungsi dasar stdlib siap | Sedang |
-| WASM-RT-02 | Binding ke JavaScript untuk web environment | Binding siap | Sedang |
-
-### 6.3 Testing
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| WASM-TEST-01 | Test bahwa WASM yang dihasilkan valid | Validasi lulus | Tinggi |
-| WASM-TEST-02 | Test di browser (via web) | Demo berjalan | Sedang |
-
----
-
-## 📅 Fase 7: Tooling: LSP & VS Code Extension (v0.7)
-
-### 7.1 Language Server Protocol
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| LSP-01 | Implementasi LSP server dalam Rust | Server dapat berkomunikasi via stdio | 🔥 Tertinggi |
-| LSP-02 | Tekst synchronization (file di-editor ↔ AST) | Sinkronisasi berfungsi | Tinggi |
-| LSP-03 | Code completion (berdasarkan symbol table) | Completion muncul | Tinggi |
-| LSP-04 | Go-to-definition | Navigasi berfungsi | Tinggi |
-| LSP-05 | Hover information (type, doc) | Informasi hover muncul | Tinggi |
-| LSP-06 | Diagnostics (error/warning) | Error ditampilkan di editor | Tinggi |
-| LSP-07 | Rename refactoring | Rename berfungsi | Sedang |
-
-### 7.2 VS Code Extension
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| VSCode-01 | Setup extension project | Struktur siap | 🔥 Tertinggi |
-| VSCode-02 | Syntax highlighting (TextMate grammar) | Highlighting berfungsi | Tinggi |
-| VSCode-03 | Integrasi dengan LSP server | LSP client berkomunikasi | Tinggi |
-| VSCode-04 | Command untuk build/run (via `omc`) | Command tersedia | Sedang |
-| VSCode-05 | Snippet untuk kode umum | Snippet siap | Rendah |
-| VSCode-06 | Publikasi ke VS Code Marketplace | Extension tersedia | Sedang |
-
-### 7.3 Editor Lain (Opsional)
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| EDITOR-01 | Vim/Neovim plugin (via LSP) | Plugin siap | Rendah |
-| EDITOR-02 | IntelliJ plugin | Plugin siap | Rendah |
-
----
-
-## 📅 Fase 8: Standard Library (Runtime) (v0.8)
-
-### 8.1 Core Library
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| STD-01 | Implementasi koleksi (Vec, Map, Set) | Koleksi siap | 🔥 Tertinggi |
-| STD-02 | Implementasi string manipulation | String functions siap | Tinggi |
-| STD-03 | Implementasi I/O (file, console) | I/O siap | Tinggi |
-| STD-04 | Implementasi time/duration | Time siap | Sedang |
-| STD-05 | Implementasi matematika (math) | Math functions siap | Sedang |
-
-### 8.2 Mesh Library
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| STD-MESH-01 | Implementasi `mesh.discover()` | Discovery berfungsi | 🔥 Tertinggi |
-| STD-MESH-02 | Implementasi `mesh.spawn()` untuk task terdistribusi | Spawn berfungsi | Tinggi |
-| STD-MESH-03 | Implementasi channel terdistribusi | Channel siap | Tinggi |
-| STD-MESH-04 | Implementasi `@ability` API untuk marketplace | Ability trading siap | Tinggi |
-
-### 8.3 AI & Oracle Library
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| STD-AI-01 | Implementasi `ai.loadModel()` | Load model berfungsi | 🔥 Tertinggi |
-| STD-AI-02 | Implementasi `ai.infer()` | Inferensi berfungsi | Tinggi |
-| STD-AI-03 | Implementasi `@oracle` annotations | Oracle API siap | Tinggi |
-
-### 8.4 Crypto Library
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| STD-CRYPTO-01 | Implementasi PQC (Kyber, Dilithium) via binding | PQC siap | 🔥 Tertinggi |
-| STD-CRYPTO-02 | Implementasi `secureChannel()` | Channel aman siap | Tinggi |
-| STD-CRYPTO-03 | Implementasi capability token | Token siap | Tinggi |
-
-### 8.5 HTTP/Network Library
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| STD-NET-01 | Implementasi HTTP client/server | HTTP siap | Tinggi |
-| STD-NET-02 | Implementasi WebSocket | WebSocket siap | Sedang |
-
----
-
-## 📅 Fase 9: Backend JVM Bytecode (v0.9)
-
-### 9.1 JVM Code Generator
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| JVM-01 | Desain mapping OmniIR → JVM bytecode | Spesifikasi mapping siap | 🔥 Tertinggi |
-| JVM-02 | Implementasi IR → JVM codegen | Menghasilkan .class files | 🔥 Tertinggi |
-| JVM-03 | Dukungan untuk tipe dasar (int, long, float, double) | Semua tipe terdukung | Tinggi |
-| JVM-04 | Dukungan untuk fungsi dan class | Fungsi dan class terdukung | Tinggi |
-| JVM-05 | Interoperabilitas dengan Java/Android | Dapat memanggil Java code | Tinggi |
-| JVM-06 | Integrasi dengan ART runtime di xAetherOS | Berjalan di Android | Tinggi |
-
-### 9.2 Runtime Library (JVM)
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| JVM-RT-01 | Implementasi stdlib dalam Java (untuk JVM) | Fungsi dasar stdlib siap | Sedang |
-| JVM-RT-02 | Binding ke Android framework | Binding siap | Sedang |
-
-### 9.3 Testing
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| JVM-TEST-01 | Test bahwa bytecode yang dihasilkan valid | Validasi lulus | Tinggi |
-| JVM-TEST-02 | Test di Android emulator | Demo berjalan | Sedang |
-
----
-
-## 📅 Fase 10: Rilis Stabil v1.0 (Q2 2027)
-
-### 10.1 Dokumentasi Final
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| DOC-01 | Buku referensi OmniLang (PDF/website) | Dokumentasi lengkap | 🔥 Tertinggi |
-| DOC-02 | Tutorial untuk pemula (10+ tutorial) | Tutorial siap | Tinggi |
-| DOC-03 | Video tutorial (YouTube series) | Video dipublikasi | Sedang |
-| DOC-04 | API documentation (rustdoc-style) | API doc online | Tinggi |
-
-### 10.2 Stabilisasi & Bug Fixing
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| STAB-01 | Code freeze, hanya bug fixes | Tidak ada fitur baru | 🔥 Tertinggi |
-| STAB-02 | Test coverage minimal 85% | Coverage tercapai | Tinggi |
-| STAB-03 | Fuzzing untuk parser/compiler | Fuzzing lulus | Tinggi |
-| STAB-04 | Performance benchmark | Data benchmark siap | Sedang |
-
-### 10.3 Release
-| ID | Tugas | Kriteria Selesai | Prioritas |
-|----|-------|------------------|-----------|
-| REL-01 | Tag v1.0.0 di GitHub | Tag siap | 🔥 Tertinggi |
-| REL-02 | Rilis binary untuk semua platform (Linux, macOS, Windows) | Binary tersedia | Tinggi |
-| REL-03 | Publikasi website omnilang.dev | Website live | Tinggi |
-| REL-04 | Press release & announcement | Publikasi | Sedang |
+#### Fase 6: Saturasi Platform & Quantum (📅 Akan Datang)
+- [ ] **WASM-01**: Backend WASM untuk integrasi Web Fabric.
+- [ ] **JVM-01**: Backend JVM untuk integrasi Mobile xAetherOS.
+- [ ] **QNT-01**: Transpilasi ke Quantum Circuits (QASM).
+- [ ] **BCI-01**: Native BCI Stream Decoding (EEG signal processing).
 
 ---
 
@@ -775,79 +594,87 @@ OmniLang tidak hanya berjalan di xAetherOS, tetapi juga menjangkau seluruh ekosi
 | FUTURE-01 | Backend Neural Signal (BCI) | 2028 |
 | FUTURE-02 | Backend Quantum Circuit (QASM) | 2028 |
 | FUTURE-03 | Self-hosting compiler (ditulis dalam OmniLang) | 2029 |
-| FUTURE-04 | Formal verification integration | 2029 |
-| FUTURE-05 | AI-assisted code generation (Oracle Engine) | 2030 |
 
 ---
 
-## 🎯 Milestone Komunitas
+## Ekosistem & Tooling
 
-- **v0.5**: 10 kontributor aktif, 100 pengguna awal
-- **v1.0**: 100 kontributor, 1.000 pengguna, 50+ library eksternal
-- **v2.0**: 500 kontributor, 10.000 pengguna, ekosistem matang
+### 1. **Compiler (`omc` - OmniLang Compiler)**
+```bash
+omc build main.om --target rust --output app.rs
+```
 
-## 📅 Backlog 2026 (Strategic Initiatives)
-| ID | Tugas | Estimasi | Prioritas | Status |
-|----|-------|----------|-----------|--------|
-| BKLOG-01 | [LSP] Implementasi Server LSP (`lsp_server.rs`) | 5 hari | Tinggi | 📅 Planned |
-| BKLOG-02 | [Security] Secure RNG & AES-256 | 8 hari | Tinggi | 📅 Planned |
-| BKLOG-03 | [Network] Driver HTTP (`std::net/http`) | 6 hari | Tinggi | 📅 Planned |
-| BKLOG-04 | [Type-System] Generics Support | 12 hari | Sedang | 📅 Planned |
-| BKLOG-05 | [Robotics] ROS2 Runtime Adapter | 10 hari | Sedang | 📅 Planned |
+### 2. **Package Manager (`opm`)**
+```bash
+opm init myapp
+```
 
----
-
-## 🔗 Integrasi dengan xAetherOS Roadmap
-
-| Fase OmniLang | Fase xAetherOS | Keterangan |
-|---------------|----------------|------------|
-| v0.1 - v0.4 | Fase 20-21 | Riset dan desain paralel dengan stabilisasi |
-| v0.5 - v0.6 | Fase 22-23 | Rust & WASM backend untuk AI dan Mesh |
-| v0.7 - v0.8 | Fase 24-25 | Tooling matang untuk Quantum Fortress |
-| v0.9 - v1.0 | Fase 26 | Enterprise Fabric dengan dukungan JVM |
-| v1.5+ | Fase 27 | Universal Intelligence Layer dengan BCI |
+### 3. **Tooling Lain**
+- **LSP**: Untuk editor VS Code/Neovim.
+- **Debugger (`omdbg`)**: Integrasi GDB.
+- **Profiler (`omprof`)**: Analisis performa mesh.
 
 ---
 
-## ✅ Kesimpulan
+## 🎖️ Detail Status Pengembangan (Source of Truth)
 
-**OmniLang** adalah proyek ambisius yang akan menjadi jantung dari ekosistem xAetherOS. Dengan roadmap yang terstruktur ini, kita memiliki panduan jelas untuk membangun bahasa yang tidak hanya canggih secara teknis, tetapi juga relevan dengan kebutuhan masa depan.
+Berikut adalah rincian mendalam mengenai perkembangan OmniLang saat ini:
 
-**Langkah Selanjutnya:**
-1. Finalisasi whitepaper dan publikasi di repo.
-2. Buat issue untuk setiap task Fase 1 di GitHub.
-3. Mulai rekrut kontributor untuk parser/lexer.
+### ✅ 1. DAFTAR CAPAIAN (DONE)
+*Seluruh fitur di bawah ini telah diverifikasi stabil dan dapat digunakan di lingkungan produksi xAetherOS.*
 
-**Repo**: https://github.com/HaKaTo99/OmniLang.git  
-**License**: MIT  
-**Kontribusi**: Silakan buka issue atau pull request.
+#### **Infrastruktur & Kompiler**
+- **Dual-Engine Execution**: Pemisahan logika antara `evaluator` kebijakan (deklaratif) dan `workstation compiler` (imperatif).
+- **Hardening Stabilitas**: Penggantian `unwrap()` dengan penanganan error yang kuat (`Result/match`) di seluruh codebase Core.
+- **Integrasi Keamanan**: Modul `security.rs` yang mengaktifkan verifikasi integritas file berbasis SHA-256.
+- **Exit Code Standardization**: Penyeragaman kode keluar (0 untuk sukses, 1 untuk gagal) di semua interface CLI.
 
----
+#### **Bahasa & Sintaksis**
+- **Sintaksis Deklaratif**: Dukungan penuh untuk seksi `INTENT`, `ACTOR`, `CONTEXT`, `RULE`, `CONSTRAINT`, `IMPACT`, `TRACE`.
+- **Sintaksis Imperatif**: Kehadiran `module`, `fn`, `struct`, `impl`, `let`, dan aliran kontrol standar.
+- **Advanced Features**: Implementasi `match` (Pattern Matching) v1.1 dan Higher Order Functions (HOF).
 
-## Multi-Interface Universal Access (12 Channels)
-
-Integrasi OmniLang dengan xAetherOS OmniUI memungkinkan akses melalui 12 kanal utama:
-- **CLI**: Standard toolchain untuk developer (CMD, PowerShell, Bash).
-- **TUI**: Workstation IDE terminal interaktif (nano, htop style).
-- **GUI**: Web Studio modern dengan visualisasi runtime grafis.
-- **VUI**: Voice Control via Web Speech API untuk kendali hands-free.
-- **NUI**: Natural Interface dengan gesture sentuh dan drag-drop.
-- **CUI**: Conversational Interface via chatbot/ai assistant terintegrasi.
-- **HUI**: Hardware Interface via Serial/UART untuk sistem embedded.
-- **OUI**: Organic Interface memanfaatkan bentuk fisik fleksibel.
-- **PUI**: Perceptual Interface menggunakan sensor persepsi (mata, wajah).
-- **BCI**: Brain-Computer Interface untuk interaksi langsung pikiran.
-- **MMUI**: Multimodal Interface menggabungkan berbagai mode sekaligus.
-- **VR/AR**: Spatial Interface untuk realitas virtual dan augmented 3D.
-
-## Dual-Engine Strategy
-
-OmniLang menggunakan dua mesin eksekusi paralel:
-1. **Core Engine (Declarative)**: Digunakan untuk evaluasi Policy (`INTENT`, `RULE`, `POLICY`) secara real-time.
-2. **omc Compiler (Imperative)**: Digunakan untuk kompilasi kode sistem (`fn`, `let`, `match`) menjadi Rust/Native.
-
-Sinergi kedua mesin ini dalam satu IDE (TUI/GUI) memberikan fleksibilitas total bagi pengembang xAetherOS.
+#### **Antarmuka (12 Channels)**
+- **TUI (Workstation)**: Editor berbasis terminal dengan syntax highlighting dan line numbers.
+- **HUI (Hardware)**: Protokol UART/Serial untuk akses langsung ke perangkat keras.
+- **API Ready**: Jalur integrasi `/api/engine` untuk GUI Web Studio.
 
 ---
 
-**"Build Once, Access Everywhere."** 🚀
+### 🚧 2. SEDANG DIKERJAKAN (ONGOING)
+*Fokus utama saat ini adalah memastikan keandalan absolut sistem.*
+
+- **Audit Milestone v1.2.2**: Finalisasi pengujian 30/30 contoh `.omni` untuk memastikan tidak ada regresi logika.
+- **Harmonisasi Parser**: Sinkronisasi token-token terbaru agar `omc` dan `Core Engine` memiliki pemahaman sintaksis yang identik.
+- **Zero-Trust Certification**: Peningkatan sistem capability sehingga setiap fungsi hanya dapat berjalan jika memiliki token izin yang valid.
+
+---
+
+### 📅 3. RENCANA MASA DEPAN (BACKLOG)
+*Visi strategis untuk memperluas dominasi OmniLang.*
+
+#### **Short-Term (Q2-Q3 2026)**
+- **WASM Backend**: Memungkinkan OmniLang berjalan langsung di browser atau sebagai module fabric transparan.
+- **JVM/ART Bridge**: Kompilasi ke bytecode Java untuk mendukung ekosistem mobile Android.
+- **LSP Enhancement**: Penyempurnaan Language Server untuk autocompletion yang lebih cerdas di VS Code.
+
+#### **Long-Term (2027-2028+)**
+- **Neural/BCI Integration**: Sintaksis khusus untuk manajemen aliran data sinyal otak (EEG).
+- **Quantum Fabric**: Transpilasi logika kebijakan menjadi sirkuit quantum untuk komputasi masa depan.
+- **Self-Hosting**: Menulis ulang kompiler OmniLang menggunakan bahasa OmniLang itu sendiri.
+
+---
+
+**"OmniLang: Menyatukan Perangkat, Mengamankan Niat."**
+
+### Multi-Interface Universal Access (12 Channels)
+*Detail 12 kanal (CLI, TUI, GUI, VUI, NUI, CUI, HUI, OUI, PUI, BCI, MMUI, VR/AR) telah direlokasi ke panduan khusus [INTERFACES.md](../guides/INTERFACES.md) untuk memudahkan akses teknis.*
+
+### Dual-Engine Strategy
+1. **Core Engine (Declarative)**: Evaluasi Policy (`INTENT`, `RULE`).
+2. **omc Compiler (Imperatif)**: Kompilasi kode sistem (`fn`).
+
+Sinergi kedua mesin ini memastikan fleksibilitas total bagi pengembang xAetherOS.
+
+---
+*OmniLang Master Roadmap - The Path to Singularity.*

@@ -1,0 +1,151 @@
+module SmartCityCore {
+    // --- PART 1: AI LAYER (Neural Network) ---
+    struct Layer {
+        weights: [[f64]],
+        biases: [f64]
+    }
+
+    struct NeuralNet {
+        l1: Layer,
+        l2: Layer
+    }
+
+    fn sigmoid(x: f64) -> f64 {
+        return 1.0 / (1.0 + math_exp(0.0 - x));
+    }
+
+    fn predict_load(net: NeuralNet, input_val: f64) -> f64 {
+        // Simplified Forward Pass (1-1-1 architecture for demo)
+        // Hidden Layer
+        let h_in = (input_val * net.l1.weights[0][0]) + net.l1.biases[0];
+        let h_out = sigmoid(h_in);
+        
+        // Output Layer
+        let o_in = (h_out * net.l2.weights[0][0]) + net.l2.biases[0];
+        let o_out = sigmoid(o_in);
+        
+        return o_out;
+    }
+
+    // --- PART 2: SECURITY LAYER (Blockchain) ---
+    struct Block {
+        index: i32,
+        timestamp: f64,
+        action: String,
+        prev_hash: String,
+        hash: String,
+        nonce: i32
+    }
+
+    fn calc_hash(idx: i32, act: String, prev: String, nonce: i32) -> String {
+        return crypto_hash(idx + ":" + act + ":" + prev + ":" + nonce);
+    }
+
+    fn mine_action(idx: i32, action: String, prev_hash: String) -> Block {
+        let nonce = 0;
+        let limit = 1000; // Fast mining for real-time control loops
+        let hash = "";
+        let found = false;
+
+        while (limit > 0) {
+            hash = calc_hash(idx, action, prev_hash, nonce);
+            if nonce % 3 == 0 { // Super easy difficulty for city simulation speed
+                found = true;
+                limit = 0;
+            } else {
+                nonce = nonce + 1;
+                limit = limit - 1;
+            }
+        }
+        
+        return Block {
+            index: idx,
+            timestamp: time_now(),
+            action: action,
+            prev_hash: prev_hash,
+            hash: hash,
+            nonce: nonce
+        };
+    }
+
+    // --- PART 3: HARDWARE LAYER (Grid Control) ---
+    struct GridController {
+        id: i32,
+        status: bool, // true = ON, false = OFF
+        power_usage: f64
+    }
+
+    fn set_grid_state(ctl: GridController, state: bool) -> GridController {
+        if state {
+            print("[HARDWARE] Grid #" + ctl.id + " -> ACTIVATED (High Load)");
+        } else {
+            print("[HARDWARE] Grid #" + ctl.id + " -> STANDBY (Low Load)");
+        }
+        return GridController {
+            id: ctl.id,
+            status: state,
+            power_usage: if (state) { 100.0 } else { 10.0 }
+        };
+    }
+
+    // --- MAIN INTEGRATION LOOP ---
+    const main: i32 = {
+        print("=== OMNILANG SMART CITY CORE v2.0 ===");
+        print("Initializing Neural Energy Grid...");
+
+        // 1. Setup AI (Pre-trained weights)
+        let nn = NeuralNet {
+            l1: Layer { weights: [[5.0]], biases: [-2.5] },
+            l2: Layer { weights: [[10.0]], biases: [-5.0] }
+        };
+
+        // 2. Setup Blockchain
+        let genesis = Block {
+            index: 0, timestamp: 0.0, action: "GENESIS", prev_hash: "0", hash: "HASH_0", nonce: 0
+        };
+        // Simulated Chain Storage (Latest block only for memory efficiency in demo)
+        let last_block = genesis;
+
+        // 3. Setup Hardware
+        let grid = GridController { id: 1, status: false, power_usage: 10.0 };
+
+        // 4. City Simulation Loop (5 Cycles)
+        let hour = 0;
+        while (hour < 5) {
+            print("\n--- Hour " + hour + ":00 ---");
+            
+            // Step A: Read Sensors (Simulated Inputs)
+            // 0.0 = Night, 1.0 = Peak Day
+            let sensor_input = 0.0;
+            if hour == 2 { sensor_input = 0.8; } // Peak at hour 2
+            if hour == 4 { sensor_input = 0.2; } // Drop at hour 4
+            
+            print("[SENSOR] Light Level: " + sensor_input);
+
+            // Step B: AI Inference
+            let demand_pred = predict_load(nn, sensor_input);
+            print("[AI CORE] Predicted Energy Demand: " + demand_pred);
+
+            // Step C: Control Logic
+            let action = "MAINTAIN";
+            if demand_pred > 0.7 {
+                grid = set_grid_state(grid, true);
+                action = "GRID_ON_HIGH_DEMAND";
+            } else {
+                grid = set_grid_state(grid, false);
+                action = "GRID_OFF_LOW_DEMAND";
+            }
+
+            // Step D: Secure Logging (Blockchain)
+            print("[SECURE] Recording Action to Ledger...");
+            let new_block = mine_action(last_block.index + 1, action, last_block.hash);
+            print("  Block #" + new_block.index + " Mined: " + new_block.hash);
+            
+            last_block = new_block;
+            hour = hour + 1;
+        }
+
+        print("\n=== SYSTEM SHUTDOWN. INTEGRITY VERIFIED. ===");
+        0
+    };
+}

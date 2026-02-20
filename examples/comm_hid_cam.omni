@@ -1,0 +1,35 @@
+module SecuritySystem {
+    const main: i32 = {
+        print("--- OmniLang Security & Input System ---");
+
+        // 1. Inisialisasi Kamera
+        let cam_stream = cam_capture();
+        print("Camera stream initialized.");
+
+        // 2. Simulasi Input Keypad (Security Code)
+        print("Please enter security code on keypad...");
+        let key1 = hid_get_key(); // Mock input
+        let key2 = hid_get_key();
+        
+        // Anggap kode benar
+        print("Keypad Input received. Validating...");
+        
+        if (key1 == 13.0) { // 13.0 adalah kode mock 'Enter' kita
+            print("Access Granted.");
+            
+            // 3. Ambil Foto dari Stream
+            print("Capturing frame from camera stream...");
+            // Di sistem nyata, Stream bisa diproses lebih lanjut
+            print("Image saved to security_log.jpg");
+        } else {
+            print("Access Denied. Alerting system.");
+        }
+
+        // 4. Keyboard Listener (Simulasi interaksi berkelanjutan)
+        print("");
+        print("Press any key on keyboard to exit...");
+        let exit_key = hid_get_key();
+        print("Exit signal received. Shutting down.");
+        0
+    };
+}

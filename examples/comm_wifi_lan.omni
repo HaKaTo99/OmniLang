@@ -1,0 +1,33 @@
+module NetworkGateway {
+    const main: i32 = {
+        print("--- OmniLang Network Gateway Simulator ---");
+
+        // 1. Koneksi WiFi (Local Sensors)
+        let wifi_port = io_open("wifi://192.168.1.50:8080");
+        print("WiFi connection to Sensor-Node-1 established.");
+
+        // 2. Koneksi LAN (Internal Database Server)
+        let lan_port = io_open("lan://10.0.0.15:5432");
+        print("LAN connection to Data-Server established.");
+
+        // 3. Koneksi WAN (Cloud API for External Access)
+        let wan_port = io_open("wan://api.omnilang.cloud/v1/alert");
+        print("WAN Link to Cloud Endpoint ready.");
+
+        // Simulasi pengolahan data jaringan
+        let sensor_data = io_read(wifi_port);
+        print("Sensor Data received via WiFi: " + sensor_data);
+
+        // Logging ke Database LAN
+        print("Logging data to Internal Server via LAN...");
+        io_write(lan_port, "INSERT INTO logs VALUES ('" + sensor_data + "')");
+
+        // Mengirim Alert ke WAN jika data melebihi ambang batas
+        print("Uploading status to Cloud via WAN...");
+        io_write(wan_port, "{ 'status': 'OK', 'payload': '" + sensor_data + "' }");
+
+        print("");
+        print("Network Operations Cycle Completed.");
+        0
+    };
+}

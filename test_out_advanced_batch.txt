@@ -1,0 +1,88 @@
+﻿cargo : warning: unreachable pattern
+At line:1 char:1
++ cargo run -- test d:\GitHub\OmniLang\examples\scientific_calculator.o ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: unreachable patter    
+n:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   --> src\checker.rs:304:13
+    |
+304 |             _ => {
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> src\checker.rs:304:13
+    |
+260 |             Expr::Literal(lit) => self.check_literal(lit),
+    |             ------------------ matches some of the same values
+261 |             Expr::Identifier(name) => self.check_identifier(name, env, 
+borrow_tracker),
+    |             ---------------------- matches some of the same values
+262 |             Expr::BinaryOp(left, op, right) => 
+self.check_binary_op(left, op, right, env, borrow_tracker),
+    |             ------------------------------- matches some of the same 
+values
+263 |             Expr::UnaryOp(op, operand) => self.check_unary_op(op, 
+operand, env, borrow_tracker),
+    |             -------------------------- matches some of the same values
+...
+304 |             _ => {
+    |             ^ ...and 7 other patterns collectively make this unreachable
+    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by 
+default
+
+warning: unused variable: `i`
+   --> src\checker.rs:571:18
+    |
+571 |             for (i, (arg_expr, expected_type)) in 
+args.iter().zip(param_types.iter()).enumerate() {
+    |                  ^ help: if this is intentional, prefix it with an 
+underscore: `_i`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by 
+default
+
+warning: field `warnings` is never read
+  --> src\checker.rs:14:5
+   |
+ 8 | pub struct Checker {
+   |            ------- field in this struct
+...
+14 |     warnings: Vec<String>,
+   |     ^^^^^^^^
+   |
+   = note: `Checker` has a derived impl for the trait `Debug`, but this is 
+intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `borrow_graph` and `current_scope` are never read
+  --> src\checker.rs:24:5
+   |
+20 | struct BorrowTracker {
+   |        ------------- fields in this struct
+...
+24 |     borrow_graph: HashMap<String, HashSet<String>>,
+   |     ^^^^^^^^^^^^
+25 |     current_scope: Vec<HashSet<String>>,
+   |     ^^^^^^^^^^^^^
+   |
+   = note: `BorrowTracker` has derived impls for the traits `Clone` and 
+`Debug`, but these are intentionally ignored during dead code analysis
+
+warning: `omnilang` (lib) generated 4 warnings (run `cargo fix --lib -p 
+omnilang` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running `target\debug\omnilang.exe test 
+d:\GitHub\OmniLang\examples\scientific_calculator.omni 
+d:\GitHub\OmniLang\examples\physics_laws_sim.omni 
+d:\GitHub\OmniLang\examples\ai_data_analysis.omni`
+Parser Error in d:\GitHub\OmniLang\examples\scientific_calculator.omni (Evaluator Test Mode): Expected expression, found While
+Parser Error in d:\GitHub\OmniLang\examples\physics_laws_sim.omni (Evaluator Test Mode): Expected '}' after struct fields at line 40 (found Number(24.0))
+Type Check FAILED: d:\GitHub\OmniLang\examples\ai_data_analysis.omni
+  - Mismatched return type for function 'calculate_mean': expected F64, found I32
+  - Type mismatch: Function { params: [I32, F64], return_type: F64 } vs Function { params: [I32, F64], return_type: I32 }
+error: process didn't exit successfully: `target\debug\omnilang.exe test 
+d:\GitHub\OmniLang\examples\scientific_calculator.omni 
+d:\GitHub\OmniLang\examples\physics_laws_sim.omni 
+d:\GitHub\OmniLang\examples\ai_data_analysis.omni` (exit code: 1)

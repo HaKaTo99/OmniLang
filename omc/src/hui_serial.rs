@@ -169,7 +169,21 @@ pub fn run_hui_mode() {
 /// Run in headless mode — execute a single file and return result code
 /// This is designed for IoT/embedded deployment where no interactive terminal exists
 pub fn run_headless(file_path: &str) -> i32 {
-    match run_engine("exec", file_path) {
+    let content = match fs::read_to_string(file_path) {
+        Ok(c) => c,
+        Err(e) => {
+            eprintln!("ERR Gagal membaca file {}: {}", file_path, e);
+            return 1;
+        }
+    };
+
+    let command = if content.contains("module ") || content.contains("fn ") {
+        "test"
+    } else {
+        "exec"
+    };
+
+    match run_engine(command, file_path) {
         Ok(result) => {
             println!("{}", result);
             0

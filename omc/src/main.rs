@@ -17,6 +17,10 @@ use std::fs;
 use std::time::Instant;
 
 fn main() {
+    std::process::exit(run_app());
+}
+
+fn run_app() -> i32 {
     let args: Vec<String> = env::args().collect();
     let visual_mode = args.iter().any(|arg| arg == "--visual" || arg == "-v");
     let hui_mode = args.iter().any(|arg| arg == "--hui" || arg == "--serial");
@@ -150,7 +154,7 @@ print(res);"#;
         for err in result.errors {
             println!("  - {}", err);
         }
-        return;
+        return 1;
     }
 
     UI::step(2, 5, "AST & Semantic Analysis [OK]");
@@ -167,7 +171,11 @@ print(res);"#;
             println!("\n  Time: {:.2?}", duration);
             println!("  Target: Rust (v1.0)");
             println!("  Status: Ready to compile with `rustc output.rs`");
+            0
         },
-        Err(e) => UI::error(&format!("Failed to write output file: {}", e)),
+        Err(e) => {
+            UI::error(&format!("Failed to write output file: {}", e));
+            1
+        }
     }
 }

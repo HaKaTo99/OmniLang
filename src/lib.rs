@@ -16,6 +16,7 @@ pub mod observability;
 pub mod action_abi;
 pub mod program_evaluator;
 pub mod lsp_server;
+pub mod security;
 
 
 pub use error::OmniError;

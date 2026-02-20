@@ -23,19 +23,24 @@ use crate::compiler::Compiler;
 enum FileType {
     Declarative,  // INTENT/RULE/POLICY — uses Core Engine
     Imperative,   // fn/let/match — uses omc Compiler
+    Game,         // ENTITY/World — uses Game Simulator
     Unknown,
 }
 
 fn detect_file_type(content: &str) -> FileType {
     let trimmed = content.trim();
+    if trimmed.contains("ENTITY ") || trimmed.contains("ENTITY_") {
+        return FileType::Game;
+    }
     if trimmed.starts_with("INTENT:") || trimmed.starts_with("ACTOR:") || trimmed.starts_with("RULE:") {
         FileType::Declarative
     } else if trimmed.starts_with("fn ") || trimmed.starts_with("let ") || trimmed.starts_with("module ") {
         FileType::Imperative
     } else {
         // Scan first few lines for keywords
-        for line in trimmed.lines().take(5) {
+        for line in trimmed.lines().take(10) {
             let t = line.trim();
+            if t.starts_with("ENTITY ") { return FileType::Game; }
             if t.starts_with("INTENT:") || t.starts_with("ACTOR:") || t.starts_with("CONTEXT:") {
                 return FileType::Declarative;
             }
@@ -154,6 +159,12 @@ impl App {
         let current_file_path = file_path.as_ref().map(|f| PathBuf::from(f));
 
         let tabs = match file_type {
+            FileType::Game => vec![
+                "[1] 3D World".to_string(),
+                "[2] Entities".to_string(),
+                "[3] Logs".to_string(),
+                "[4] Chat".to_string(),
+            ],
             FileType::Declarative => vec![
                 "[1] Runtime".to_string(),
                 "[2] Lint".to_string(),
@@ -219,6 +230,7 @@ impl App {
             for f in &cwd_files {
                 let ft = fs::read_to_string(f).map(|c| detect_file_type(&c)).unwrap_or(FileType::Unknown);
                 let icon = match ft {
+                    FileType::Game => "🎮",
                     FileType::Declarative => "📜",
                     FileType::Imperative => "⚙️",
                     FileType::Unknown => "📄",
@@ -241,6 +253,7 @@ impl App {
                     for f in &files {
                         let ft = fs::read_to_string(f).map(|c| detect_file_type(&c)).unwrap_or(FileType::Unknown);
                         let icon = match ft {
+                            FileType::Game => "🎮",
                             FileType::Declarative => "📜",
                             FileType::Imperative => "⚙️",
                             FileType::Unknown => "📄",
@@ -309,6 +322,12 @@ impl App {
 
                         // Update tabs based on file type
                         self.tabs = match self.file_type {
+                            FileType::Game => vec![
+                                "[1] 3D World".to_string(),
+                                "[2] Entities".to_string(),
+                                "[3] Logs".to_string(),
+                                "[4] Chat".to_string(),
+                            ],
                             FileType::Declarative => vec![
                                 "[1] Runtime".to_string(),
                                 "[2] Lint".to_string(),
@@ -336,6 +355,7 @@ impl App {
     // ─── Dual-Engine Compilation ─────────────────────────────────────
     fn compile(&mut self) {
         match self.file_type {
+            FileType::Game => self.compile_game(),
             FileType::Declarative => self.compile_declarative(),
             FileType::Imperative => self.compile_imperative(),
             FileType::Unknown => {
@@ -346,6 +366,86 @@ impl App {
                 }
             }
         }
+    }
+
+    fn compile_game(&mut self) {
+        self.ir_output = vec!["Game Mode Active".to_string()];
+        self.rust_output = "Entity Data Parsed.".to_string();
+        
+        // Render Game Simulation
+        self.runtime_output = self.render_game_simulation(&self.input);
+        self.lint_output = "No physics lint issues.".to_string(); // Placeholder
+        
+        self.status_msg = format!(
+            "🎮 GAME PREVIEW {} [ECS MODE] | ↑↓: Nav | Enter: Open | q: Quit",
+            self.current_file
+        );
+    }
+
+    fn render_game_simulation(&self, input: &str) -> Vec<String> {
+        // Simple regex-like parsing for ENTITY Position
+        let mut map = vec![vec!['·'; 60]; 25]; // 60x25 grid
+        let center_x = 30;
+        let center_z = 12;
+
+        let mut entities = Vec::new();
+        
+        for line in input.lines() {
+            if line.contains("ENTITY") {
+                let name = line.replace("ENTITY", "").replace("{", "").trim().to_string();
+                entities.push((name, 0.0, 0.0)); // Name, X, Z
+            }
+            if let Some(pos_line) = line.split("Position:").nth(1) {
+                // Parse { x: 0.0, y: 1.5, z: 0.0 }
+                // Very naive parsing for demo purposes
+                // Assuming format { x: V, y: V, z: V }
+                let clean = pos_line.replace("{", "").replace("}", "").replace("x:", "").replace("z:", "").replace(",", "");
+                let parts: Vec<&str> = clean.split_whitespace().collect();
+                // parts[0] is X, parts[1] is y, parts[2] is y_val, parts[3] is z??
+                // Input: { x: 10.0, y: 0.0, z: 5.0 }
+                // clean:  10.0  y: 0.0  5.0
+                // Wait, replace strategy needs to be better.
+                
+                if let Some(last) = entities.last_mut() {
+                    // Extract numbers
+                    let nums: Vec<f32> = line
+                        .split(&['{', '}', ':', ',', 'x', 'y', 'z', ' '][..])
+                        .filter_map(|s| s.parse::<f32>().ok())
+                        .collect();
+                    
+                    if nums.len() >= 3 {
+                        last.1 = nums[0]; // x
+                        last.2 = nums[2]; // z (y is vertical in 3D, z is depth/map y)
+                    }
+                }
+            }
+        }
+
+        // Place on map
+        for (name, x, z) in &entities {
+            let map_x = (center_x as f32 + x).round() as usize;
+            let map_y = (center_z as f32 + z).round() as usize;
+            
+            if map_x < 60 && map_y < 25 {
+                let char_code = name.chars().next().unwrap_or('?');
+                map[map_y][map_x] = char_code;
+            }
+        }
+
+        // Build Output
+        let mut output = Vec::new();
+        output.push("┌────────────────────────────────────────────────────────────┐".to_string());
+        for (y, row) in map.iter().enumerate() {
+            let row_str: String = row.iter().collect();
+            output.push(format!("│{}│", row_str));
+        }
+        output.push("└────────────────────────────────────────────────────────────┘".to_string());
+        output.push(format!("Detected {} entities:", entities.len()));
+        for (name, x, z) in entities {
+            output.push(format!(" - {} at [x:{:.1}, z:{:.1}]", name, x, z));
+        }
+        
+        output
     }
 
     fn compile_declarative(&mut self) {
@@ -468,6 +568,7 @@ impl App {
                 self.compile();
                 self.chat_history.push(format!("🔧 Compiling {}...", self.current_file));
                 self.chat_history.push(format!("  Engine: {}", match self.file_type {
+                    FileType::Game => "OmniGame Simulator (ECS)",
                     FileType::Declarative => "Core Engine (Validator Runtime)",
                     FileType::Imperative => "omc Compiler (Rust Backend)",
                     FileType::Unknown => "Auto-detect",
@@ -487,6 +588,7 @@ impl App {
                 self.chat_history.push(format!("   Type: {:?}", self.file_type));
                 self.chat_history.push(format!("   Lines: {}", self.input.lines().count()));
                 self.chat_history.push(format!("   Engine: {}", match self.file_type {
+                    FileType::Game => "OmniGame Simulator",
                     FileType::Declarative => "Core Engine",
                     FileType::Imperative => "omc Compiler",
                     FileType::Unknown => "Unknown",
@@ -637,6 +739,7 @@ impl App {
         }).collect();
 
         let engine_label = match self.file_type {
+            FileType::Game => " EXPLORER [GAME] ",
             FileType::Declarative => " EXPLORER [CORE] ",
             FileType::Imperative => " EXPLORER [OMC] ",
             FileType::Unknown => " EXPLORER ",
@@ -656,6 +759,7 @@ impl App {
         }).collect();
 
         let type_badge = match self.file_type {
+            FileType::Game => "🎮 ",
             FileType::Declarative => "📜 ",
             FileType::Imperative => "⚙️ ",
             FileType::Unknown => "📄 ",
@@ -664,6 +768,7 @@ impl App {
             .borders(Borders::ALL)
             .title(format!(" {}{} ", type_badge, self.current_file))
             .style(Style::default().fg(match self.file_type {
+                FileType::Game => Color::Magenta,
                 FileType::Declarative => Color::Green,
                 FileType::Imperative => Color::Blue,
                 FileType::Unknown => Color::Gray,
@@ -695,12 +800,14 @@ impl App {
         let content = match self.active_tab {
             0 => {
                 match self.file_type {
+                    FileType::Game => self.runtime_output.join("\n"),
                     FileType::Declarative => self.runtime_output.join("\n"),
                     _ => self.ir_output.join("\n"),
                 }
             }
             1 => {
                 match self.file_type {
+                    FileType::Game => self.lint_output.clone(),
                     FileType::Declarative => self.lint_output.clone(),
                     _ => self.rust_output.clone(),
                 }
@@ -711,6 +818,7 @@ impl App {
                     format!("[log] Type: {:?}", self.file_type),
                     format!("[log] Lines: {}", self.input.lines().count()),
                     format!("[log] Engine: {}", match self.file_type {
+                        FileType::Game => "OmniGame Simulator (ECS)",
                         FileType::Declarative => "Core Engine (Validator Runtime)",
                         FileType::Imperative => "omc Compiler (Rust Backend)",
                         FileType::Unknown => "Auto-detect",
@@ -742,11 +850,13 @@ impl App {
         // ─── 4. Status Bar ───────────────────────────────────────
         let line_count = self.input.lines().count();
         let engine_tag = match self.file_type {
+            FileType::Game => "GAME",
             FileType::Declarative => "CORE",
             FileType::Imperative => "OMC",
             FileType::Unknown => "AUTO",
         };
         let bg_color = match self.file_type {
+            FileType::Game => Color::Magenta,
             FileType::Declarative => Color::Rgb(0, 100, 50),    // Green
             FileType::Imperative => Color::Blue,
             FileType::Unknown => Color::DarkGray,

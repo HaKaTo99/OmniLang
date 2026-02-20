@@ -1,0 +1,46 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\blockchain_ledger.omni examples\quantum_ci 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\Omn 
+   iLang):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.03s
+     Running `target\debug\omnilang.exe test 
+examples\blockchain_ledger.omni examples\quantum_circuit.omni 
+examples\bio_genome_editor.omni`
+--- OmniLang Blockchain Ledger v1.0 ---
+Mining Block 1...
+  Block Mined! Nonce: 0 | Hash: HASH_55_0:Genesis_7_HSAH:boB ot 05 sdnes ecilA :xT:0046888761:1
+Mining Block 2...
+  Block Mined! Nonce: 0 | Hash: HASH_106_0:1:1678886400:Tx: Alice sends 50 to Bob:HASH_7_siseneG:0_55_HSAH:eilrahC ot 01 sdnes boB :xT:0046888761:2
+Blockchain Created. Height: 3
+Validating Chain...
+Status: CHAIN VALID [SECURE]
+Tampering with Block 1 Data...
+Validating Tampered Chain...
+Invalid Block 1: Hash mismatch
+Status: CHAIN COMPROMISED [DETECTED]
+Test PASSED: examples\blockchain_ledger.omni
+--- OmniLang Quantum Circuit Simulator ---
+Initial State: |0>
+Applying Hadamard Gate (H)...
+State is now Superposition: (|0> + |1>) / sqrt(2)
+Prob(|0>) = 0.4999999999999999
+Prob(|1>) = 0.4999999999999999
+Applying Pauli-X Gate...
+Measuring Qubit...
+Collapsed State: |1>
+Grover Step (Mock): Amplifying |1>...
+Final Prob(|1>) = 0.9801
+Test PASSED: examples\quantum_circuit.omni
+--- OmniLang Bio-Genome Editor ---
+Original DNA: ATGCGATTACAGTCGTAGCTAGCTGATTACA
+Length: 31 bp
+GC Content: 41.935483870967744%
+CRISPR: Scanning for Target RNA 'GATTACA'...
+CRISPR: Target found. Gene Edited.
+Edited DNA:   ATGCGFP_TAGGTCGTAGCTAGCTGFP_TAG
+Test PASSED: examples\bio_genome_editor.omni

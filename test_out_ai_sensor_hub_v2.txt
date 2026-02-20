@@ -1,0 +1,15 @@
+﻿cargo :     Finished `dev` profile [unoptimized + debuginfo] target(s) 
+in 0.15s
+At line:1 char:1
++ cargo run -- test d:\GitHub\OmniLang\examples\ai_sensor_fusion_hub.om 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `d...get(s) in 
+0    .15s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+     Running `target\debug\omnilang.exe test 
+d:\GitHub\OmniLang\examples\ai_sensor_fusion_hub.omni`
+Parser Error in d:\GitHub\OmniLang\examples\ai_sensor_fusion_hub.omni (Evaluator Test Mode): Expected expression, found RArrow
+error: process didn't exit successfully: `target\debug\omnilang.exe test 
+d:\GitHub\OmniLang\examples\ai_sensor_fusion_hub.omni` (exit code: 1)

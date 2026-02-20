@@ -1,0 +1,26 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\game_2d_platformer.omni examples\game_3d_a ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\OmniLang 
+   ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0560]: struct `BorrowTracker` has no field named `borrow_graph`
+   --> src\checker.rs:746:13
+    |
+746 |             borrow_graph: HashMap::new(),
+    |             ^^^^^^^^^^^^ `BorrowTracker` does not have this field
+    |
+    = note: all struct fields are already assigned
+
+error[E0560]: struct `BorrowTracker` has no field named `current_scope`
+   --> src\checker.rs:747:13
+    |
+747 |             current_scope: vec![HashSet::new()],
+    |             ^^^^^^^^^^^^^ `BorrowTracker` does not have this field
+    |
+    = note: all struct fields are already assigned
+
+For more information about this error, try `rustc --explain E0560`.
+error: could not compile `omnilang` (lib) due to 2 previous errors

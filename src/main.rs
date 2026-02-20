@@ -125,11 +125,29 @@ fn handle_compile(args: &[String]) -> i32 {
 		return 1;
 	}
 
-	let source = fs::read_to_string(&args[0]).unwrap();
+	let source = match fs::read_to_string(&args[0]) {
+		Ok(s) => s,
+		Err(e) => {
+			println!("Error reading file: {}", e);
+			return 1;
+		}
+	};
 	let mut lexer = Lexer::new(&source);
-	let tokens = lexer.tokenize().unwrap();
+	let tokens = match lexer.tokenize() {
+		Ok(t) => t,
+		Err(e) => {
+			println!("Lexer Error: {}", e);
+			return 1;
+		}
+	};
 	let mut parser = Parser::new(tokens);
-	let policy = parser.parse_policy().unwrap();
+	let policy = match parser.parse_policy() {
+		Ok(p) => p,
+		Err(e) => {
+			println!("Parser Error: {}", e);
+			return 1;
+		}
+	};
 
 	let mut target = CompileTarget::Ir;
 	if args.len() > 2 && args[1] == "--target" && args[2] == "wasm" {
@@ -155,11 +173,29 @@ fn handle_lint(args: &[String]) -> i32 {
 		return 1;
 	}
 
-	let source = fs::read_to_string(&args[0]).unwrap();
+	let source = match fs::read_to_string(&args[0]) {
+		Ok(s) => s,
+		Err(e) => {
+			println!("Error reading file: {}", e);
+			return 1;
+		}
+	};
 	let mut lexer = Lexer::new(&source);
-	let tokens = lexer.tokenize().unwrap();
+	let tokens = match lexer.tokenize() {
+		Ok(t) => t,
+		Err(e) => {
+			println!("Lexer Error: {}", e);
+			return 1;
+		}
+	};
 	let mut parser = Parser::new(tokens);
-	let policy = parser.parse_policy().unwrap();
+	let policy = match parser.parse_policy() {
+		Ok(p) => p,
+		Err(e) => {
+			println!("Parser Error: {}", e);
+			return 1;
+		}
+	};
 
 	let linter = Linter::new();
 	let result = linter.lint_policy(&policy, None);
@@ -184,55 +220,64 @@ fn handle_test(args: &[String]) -> i32 {
 		return 1;
 	}
 
-	let file_path = &args[0];
-	let source = match fs::read_to_string(file_path) {
-		Ok(s) => s,
-		Err(e) => {
-			println!("Error reading file: {}", e);
-			return 1;
-		}
-	};
+    let mut has_failure = false;
 
-	let mut lexer = Lexer::new(&source);
-	let tokens = match lexer.tokenize() {
-		Ok(t) => t,
-		Err(e) => {
-			println!("Lexer Error: {}", e);
-			return 1;
-		}
-	};
+    for file_path in args {
+        let source = match fs::read_to_string(file_path) {
+            Ok(s) => s,
+            Err(e) => {
+                println!("Error reading file {}: {}", file_path, e);
+                has_failure = true;
+                continue;
+            }
+        };
 
-	let mut parser = Parser::new(tokens);
-	// Tests are treated as Programs (scripts) allowing full language features like modules/functions/assertions
-	let program = match parser.parse_program() {
-		Ok(p) => p,
-		Err(e) => {
-			println!("Parser Error (Evaluator Test Mode): {}", e);
-			return 1;
-		}
-	};
-    
-    // Type Check
-    let mut checker = Checker::new();
-    if let Err(errors) = checker.check_program(&program) {
-        println!("Type Check FAILED: {}", file_path);
-        for err in errors {
-            println!("  - {}", err);
+        let mut lexer = Lexer::new(&source);
+        let tokens = match lexer.tokenize() {
+            Ok(t) => t,
+            Err(e) => {
+                println!("Lexer Error in {}: {}", file_path, e);
+                has_failure = true;
+                continue;
+            }
+        };
+
+        let mut parser = Parser::new(tokens);
+        // Tests are treated as Programs (scripts) allowing full language features like modules/functions/assertions
+        let program = match parser.parse_program() {
+            Ok(p) => p,
+            Err(e) => {
+                println!("Parser Error in {} (Evaluator Test Mode): {}", file_path, e);
+                has_failure = true;
+                continue;
+            }
+        };
+        
+        // Type Check
+        let mut checker = Checker::new();
+        if let Err(errors) = checker.check_program(&program) {
+            println!("Type Check FAILED: {}", file_path);
+            for err in errors {
+                println!("  - {}", err);
+            }
+            has_failure = true;
+            continue;
         }
-        return 1;
+
+        let mut evaluator = ProgramEvaluator::new();
+        match evaluator.evaluate_program(&program) {
+            Ok(_) => {
+                println!("Test PASSED: {}", file_path);
+            }
+            Err(e) => {
+                println!("Test FAILED: {}", file_path);
+                println!("  Reason: {}", e);
+                has_failure = true;
+            }
+        }
     }
 
-	let mut evaluator = ProgramEvaluator::new();
-	match evaluator.evaluate_program(&program) {
-		Ok(_) => {
-			println!("Test passed: {}", file_path);
-			0
-		}
-		Err(e) => {
-			println!("Test FAILED: {}", e);
-			1
-		}
-	}
+	if has_failure { 1 } else { 0 }
 }
 
 fn handle_metrics() -> i32 {

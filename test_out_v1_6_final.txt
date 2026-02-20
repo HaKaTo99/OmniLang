@@ -1,0 +1,25 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\blockchain_ledger.omni examples\quantum_ci 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\Omn 
+   iLang):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0599]: no variant or associated item named `String` found for 
+enum `ast::Type` in the current scope
+   --> src\parser.rs:815:22
+    |
+815 |             Ok(Type::String)
+    |                      ^^^^^^ variant or associated item not found 
+in `ast::Type`
+    |
+   ::: src\ast.rs:172:1
+    |
+172 | pub enum Type {
+    | ------------- variant or associated item `String` not found for 
+this enum
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `omnilang` (lib) due to 1 previous error

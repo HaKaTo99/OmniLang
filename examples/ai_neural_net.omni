@@ -1,0 +1,80 @@
+module NeuralNetSim {
+    // Advanced AI: Simple Multi-Layer Perceptron (MLP) Forward Pass
+    
+    // Matrix Multiplication Helper: A (mxn) * B (nxp) -> C (mxp)
+    fn mat_mul(A: [[f64]], B: [[f64]]) -> [[f64]] {
+        // Assume dimensions match for this demo
+        let m = 1; // Single input vector row for simplicity
+        let n = 3; // Hidden layer size
+        let p = 1; // Output size
+        
+        // Hardcoded 1x3 * 3x1 for demo simplicity in OmniLang v1.5
+        // Real implementation would use nested loops based on len()
+        
+        let row = A[0]; // [x1, x2, x3]
+        let col = B[0]; // Simplified: treating B as weight vector for single neuron output
+        
+        // Dot product
+        let dot = reduce(row, |acc, val| acc + val * 0.5, 0.0); // weighted sum dummy
+        return [[dot]];
+    }
+
+    fn sigmoid(x: f64) -> f64 {
+        return 1.0 / (1.0 + math_exp(0.0 - x));
+    }
+
+    fn forward_pass(inputs: [f64], weights_hidden: [f64], weights_output: [f64]) -> f64 {
+        // Input -> Hidden Layer (3 Neurons)
+        let h1_in = inputs[0] * weights_hidden[0] + inputs[1] * weights_hidden[1];
+        let h1_out = sigmoid(h1_in);
+        
+        let h2_in = inputs[0] * weights_hidden[2] + inputs[1] * weights_hidden[3];
+        let h2_out = sigmoid(h2_in);
+        
+        // Hidden -> Output Layer (1 Neuron)
+        let out_in = h1_out * weights_output[0] + h2_out * weights_output[1];
+        let final_out = sigmoid(out_in);
+        
+        return final_out;
+    }
+
+    const main: i32 = {
+        print("--- OmniLang Deep Learning: Simple MLP ---");
+        print("Architecture: 2 Inputs -> 2 Hidden Neurons -> 1 Output (Binary Class)");
+
+        // 1. Initialize Weights (randomly)
+        let w_hidden = [math_random(), math_random(), math_random(), math_random()];
+        let w_output = [math_random(), math_random()];
+        
+        print("Weights Initialized.");
+
+        // 2. Training Data (XOR-like pattern)
+        // [0,0] -> 0
+        // [0,1] -> 1
+        // [1,0] -> 1
+        // [1,1] -> 0
+        
+        print("Inference Test:");
+        
+        let input1 = [0.0, 1.0];
+        print("Input: [0.0, 1.0]");
+        let pred1 = forward_pass(input1, w_hidden, w_output);
+        print("Prediction (Probability):");
+        print(pred1);
+        
+        let input2 = [1.0, 1.0];
+        print("Input: [1.0, 1.0]");
+        let pred2 = forward_pass(input2, w_hidden, w_output);
+        print("Prediction (Probability):");
+        print(pred2);
+        
+        if (pred1 > pred2) {
+             print("Result: Pattern [0,1] is more likely positive class.");
+        } else {
+             print("Result: Pattern [1,1] is more likely positive class.");
+        }
+
+        print("Neural Net Simulation Complete.");
+        0
+    };
+}

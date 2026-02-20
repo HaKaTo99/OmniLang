@@ -2,6 +2,16 @@
 
 Semua perubahan signifikan pada proyek ini akan didokumentasikan di file ini.
 
+## [1.2.1] - 2026-02-19
+### Added
+- **Audit & Synchronization**: Audit menyeluruh terhadap seluruh komponen proyek (Core, omc, Web, Docs).
+- **Stability Phase**: Penambahan Fase 1.3 pada Roadmap untuk perbaikan infrastruktur.
+- **Next Steps Guide**: Pembuatan panduan perbaikan stabilitas di `docs/architecture/NEXT_STEPS.md`.
+
+### Changed
+- **Versioning**: Sinkronisasi versi proyek menjadi 1.2.0 di seluruh tumpukan teknologi.
+- **Documentation Refactor**: Pengarsipan rencana implementasi lama dan harmonisasi narasi strategi.
+
 ## [1.2.0-Harmonious] - 2026-02-16
 ### Added
 - **Harmonious Singularity**: Sinkronisasi penuh antara Core Engine (Deklaratif) dan omc Compiler (Imperatif).

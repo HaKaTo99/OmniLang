@@ -1,0 +1,10 @@
+module GameDemo {
+    const main: i32 = {
+        print("--- 3D Game Physics Demo ---");
+        let dt = 0.016;
+        let gravity = -9.81;
+        let velocity_y = gravity * dt;
+        print(velocity_y);
+        0
+    };
+}

@@ -19,6 +19,12 @@ pub enum TokenType {
     Fase,
     If,
     Then,
+    Else,
+    Return,
+    Let,
+    Mut,
+    True,
+    False,
     Legal,
     Ethical,
     Technical,
@@ -69,6 +75,10 @@ pub enum TokenType {
     Ampersand, // &
     Percent,   // %
     RArrow,    // ->
+    And,       // &&
+    Or,        // ||
+    At,        // @
+    Bang,      // !
 
     Eof,
 }
@@ -143,7 +153,7 @@ impl Lexer {
                         self.advance();
                         self.add_token(&mut tokens, TokenType::Neq, "!=");
                     } else {
-                        return Err(format!("Unexpected character '!' at line {}", self.line));
+                        self.add_token(&mut tokens, TokenType::Bang, "!");
                     }
                 }
                 '<' => {
@@ -172,9 +182,24 @@ impl Lexer {
                 '.' => self.add_token(&mut tokens, TokenType::Dot, "."),
                 ':' => self.add_token(&mut tokens, TokenType::Colon, ":"),
                 ';' => self.add_token(&mut tokens, TokenType::Semicolon, ";"),
-                '&' => self.add_token(&mut tokens, TokenType::Ampersand, "&"),
+                '&' => {
+                    if self.peek() == '&' {
+                        self.advance();
+                        self.add_token(&mut tokens, TokenType::And, "&&");
+                    } else {
+                        self.add_token(&mut tokens, TokenType::Ampersand, "&");
+                    }
+                }
                 '%' => self.add_token(&mut tokens, TokenType::Percent, "%"),
-                '|' => self.add_token(&mut tokens, TokenType::Pipe, "|"),
+                '|' => {
+                    if self.peek() == '|' {
+                        self.advance();
+                        self.add_token(&mut tokens, TokenType::Or, "||");
+                    } else {
+                        self.add_token(&mut tokens, TokenType::Pipe, "|");
+                    }
+                }
+                '@' => self.add_token(&mut tokens, TokenType::At, "@"),
                 '"' => {
                     let s = self.read_string()?;
                     tokens.push(Token {
@@ -215,6 +240,12 @@ impl Lexer {
                         "fase" => TokenType::Fase,
                         "if" => TokenType::If,
                         "then" => TokenType::Then,
+                        "else" => TokenType::Else,
+                        "return" => TokenType::Return,
+                        "let" => TokenType::Let,
+                        "mut" => TokenType::Mut,
+                        "true" => TokenType::True,
+                        "false" => TokenType::False,
                         "legal" => TokenType::Legal,
                         "ethical" => TokenType::Ethical,
                         "technical" => TokenType::Technical,
@@ -308,16 +339,28 @@ impl Lexer {
         {
             self.advance();
         }
+
+        // Handle scientific notation (e.g., 5.972e24 or 6.674e-11)
+        if self.pos < self.input.len() && (self.current_char() == 'e' || self.current_char() == 'E') {
+            self.advance();
+            if self.pos < self.input.len() && (self.current_char() == '+' || self.current_char() == '-') {
+                self.advance();
+            }
+            while self.pos < self.input.len() && self.current_char().is_ascii_digit() {
+                self.advance();
+            }
+        }
+
+        let lexeme_end = self.pos;
         // Consume optional unit/label suffix (e.g., "1m", "1km") but ignore for numeric value
-        let lexeme_end = self.pos; // Mark end of number part before suffix
-        while self.pos < self.input.len() && self.current_char().is_alphabetic() {
+        while self.pos < self.input.len() && self.current_char().is_alphabetic() && 
+              self.current_char() != 'e' && self.current_char() != 'E' {
             self.advance();
         }
+        
         let full_lexeme: String = self.input[start..self.pos].iter().collect();
-        let num_str: String = self.input[start..lexeme_end]
-            .iter()
-            .filter(|c| c.is_ascii_digit() || **c == '.')
-            .collect();
+        let num_str: String = self.input[start..lexeme_end].iter().collect();
+        
         (num_str.parse().unwrap_or(0.0), full_lexeme)
     }
 

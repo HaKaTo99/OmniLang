@@ -1,0 +1,76 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test d:\GitHub\OmniLang\examples\scientific_calculator.o ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\OmniLang 
+   ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unreachable pattern
+   --> src\checker.rs:339:13
+    |
+339 |             _ => {
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> src\checker.rs:339:13
+    |
+295 |             Expr::Literal(lit) => self.check_literal(lit),
+    |             ------------------ matches some of the same values
+296 |             Expr::Identifier(name) => self.check_identifier(name, env, 
+borrow_tracker),
+    |             ---------------------- matches some of the same values
+297 |             Expr::BinaryOp(left, op, right) => 
+self.check_binary_op(left, op, right, env, borrow_tracker),
+    |             ------------------------------- matches some of the same 
+values
+298 |             Expr::UnaryOp(op, operand) => self.check_unary_op(op, 
+operand, env, borrow_tracker),
+    |             -------------------------- matches some of the same values
+...
+339 |             _ => {
+    |             ^ ...and 7 other patterns collectively make this unreachable
+    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by 
+default
+
+warning: unused variable: `i`
+   --> src\checker.rs:606:18
+    |
+606 |             for (i, (arg_expr, expected_type)) in 
+args.iter().zip(param_types.iter()).enumerate() {
+    |                  ^ help: if this is intentional, prefix it with an 
+underscore: `_i`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by 
+default
+
+error[E0382]: borrow of moved value: `arg_vals`
+   --> src\program_evaluator.rs:455:68
+    |
+441 |                 let mut arg_vals = Vec::new();
+    |                     ------------ move occurs because `arg_vals` has 
+type `Vec<program_evaluator::Value>`, which does not implement the `Copy` 
+trait
+...
+450 |                 for (param, val) in params.iter().zip(arg_vals) {
+    |                                                       -------- value 
+moved here
+...
+455 |                 println!("DEBUG: Calling closure with args: {:?}", 
+arg_vals);
+    |                                                                    
+^^^^^^^^ value borrowed here after move
+    |
+    = note: this error originates in the macro `$crate::format_args_nl` which 
+comes from the expansion of the macro `println` (in Nightly builds, run with 
+-Z macro-backtrace for more info)
+help: consider cloning the value if the performance cost is acceptable
+    |
+450 |                 for (param, val) in params.iter().zip(arg_vals.clone()) 
+{
+    |                                                               ++++++++
+
+For more information about this error, try `rustc --explain E0382`.
+warning: `omnilang` (lib) generated 2 warnings
+error: could not compile `omnilang` (lib) due to 1 previous error; 2 warnings 
+emitted

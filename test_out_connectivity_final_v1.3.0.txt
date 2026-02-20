@@ -1,0 +1,56 @@
+﻿cargo :     Finished `dev` profile [unoptimized + debuginfo] target(s) 
+in 0.14s
+At line:1 char:1
++ cargo run -- test examples\comm_serial_bt.omni examples\comm_wifi_lan 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `d...get(s) in 
+    0.14s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+     Running `target\debug\omnilang.exe test 
+examples\comm_serial_bt.omni examples\comm_wifi_lan.omni 
+examples\comm_hid_cam.omni`
+--- OmniLang Serial & Bluetooth Controller ---
+Serial Port COM3 opened.
+Bluetooth Link established.
+
+Iteration: 
+0
+Received from BT: ACK
+Command valid, sending to Robot via Serial...
+[IO] Writing to serial://COM3: String("MOVE_FORWARD")
+Robot Feedback: CMD_OK
+
+Iteration: 
+1
+Received from BT: ACK
+Command valid, sending to Robot via Serial...
+[IO] Writing to serial://COM3: String("MOVE_FORWARD")
+Robot Feedback: CMD_OK
+
+Control Session Finished.
+Test PASSED: examples\comm_serial_bt.omni
+--- OmniLang Network Gateway Simulator ---
+WiFi connection to Sensor-Node-1 established.
+LAN connection to Data-Server established.
+WAN Link to Cloud Endpoint ready.
+Sensor Data received via WiFi: ACK
+Logging data to Internal Server via LAN...
+[IO] Writing to lan://10.0.0.15:5432: String("INSERT INTO logs VALUES ('ACK')")
+Uploading status to Cloud via WAN...
+[IO] Writing to wan://api.omnilang.cloud/v1/alert: String("{ 'status': 'OK', 'payload': 'ACK' }")
+
+Network Operations Cycle Completed.
+Test PASSED: examples\comm_wifi_lan.omni
+--- OmniLang Security & Input System ---
+Camera stream initialized.
+Please enter security code on keypad...
+Keypad Input received. Validating...
+Access Granted.
+Capturing frame from camera stream...
+Image saved to security_log.jpg
+
+Press any key on keyboard to exit...
+Exit signal received. Shutting down.
+Test PASSED: examples\comm_hid_cam.omni

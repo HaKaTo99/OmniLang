@@ -1,8 +1,8 @@
 // src/checker.rs
 use crate::ast::{Program, Module, Item, FunctionDecl, StructDecl, Stmt, LetStmt, Expr, BlockExpr, IfExpr, MatchArm, Pattern, BinaryOp, UnaryOp, Literal};
 use crate::types::*;
-use std::collections::{HashMap, HashSet};
-use std::rc::Rc;
+use std::collections::HashMap;
+
 
 #[derive(Debug)]
 pub struct Checker {
@@ -11,17 +11,14 @@ pub struct Checker {
     in_ownership_mode: bool,
     type_unifier: TypeUnifier,
     errors: Vec<String>,
-    warnings: Vec<String>,
     borrow_tracker: BorrowTracker,
+    structs: HashMap<String, StructDecl>,
 }
 
 #[derive(Debug, Clone)]
 struct BorrowTracker {
     // Tracks variables and their current borrow state
     variables: HashMap<String, BorrowState>,
-    // Tracks which variables are borrowed by whom
-    borrow_graph: HashMap<String, HashSet<String>>,
-    current_scope: Vec<HashSet<String>>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -40,8 +37,8 @@ impl Checker {
             in_ownership_mode: false,
             type_unifier: TypeUnifier::new(),
             errors: Vec::new(),
-            warnings: Vec::new(),
             borrow_tracker: BorrowTracker::new(),
+            structs: HashMap::new(),
         }
     }
     
@@ -79,14 +76,14 @@ impl Checker {
                 Item::Struct(struct_decl) => {
                     self.register_struct(struct_decl)?;
                 }
-                Item::Trait(trait_decl) => {
+                Item::Trait(_trait_decl) => {
                     // self.register_trait(trait_decl)?;
                 }
-                Item::Impl(impl_decl) => {
+                Item::Impl(_impl_decl) => {
                     // self.register_impl(impl_decl)?;
                 }
                 Item::Const(const_decl) => {
-                    // self.register_const(const_decl)?;
+                    self.register_const(const_decl)?;
                 }
             }
         }
@@ -125,9 +122,22 @@ impl Checker {
     }
     
     fn register_struct(&mut self, struct_decl: &StructDecl) -> Result<(), Vec<String>> {
-        let struct_type = Type::Named(struct_decl.name.clone());
-        // We can add more info here, like fields, for richer type info
-        // For now, just registering the name is enough for type checking.
+        self.structs.insert(struct_decl.name.clone(), struct_decl.clone());
+        Ok(())
+    }
+
+    fn register_const(&mut self, const_decl: &crate::ast::ConstDecl) -> Result<(), Vec<String>> {
+        let type_info = Type::from_ast_type(&const_decl.const_type);
+        let symbol = Symbol {
+            name: const_decl.name.clone(),
+            type_info: type_info.clone(),
+            is_mutable: false,
+            status: OwnershipStatus::Owned,
+            defined_at: 0,
+        };
+        if let Err(e) = self.env.insert(symbol) {
+            self.errors.push(e);
+        }
         Ok(())
     }
     
@@ -156,7 +166,7 @@ impl Checker {
         
         // Verify return type
         let expected_return_type = func.return_type.as_ref().map(|t| Type::from_ast_type(t)).unwrap_or(Type::Unit);
-        if body_type != expected_return_type {
+        if body_type != expected_return_type && body_type != Type::Divergent {
             self.errors.push(format!(
                 "Mismatched return type for function '{}': expected {:?}, found {:?}",
                 func.name, expected_return_type, body_type
@@ -168,28 +178,71 @@ impl Checker {
     
     fn check_block(&mut self, block: &BlockExpr, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<Type, Vec<String>> {
         let mut block_env = env.enter_scope();
+        let mut last_return_type = None;
         
         for stmt in &block.statements {
-            self.check_statement(stmt, &mut block_env, borrow_tracker)?;
+            if let Some(t) = self.check_statement(stmt, &mut block_env, borrow_tracker)? {
+                last_return_type = Some(t);
+            }
         }
         
         if let Some(expr) = &block.final_expr {
-            self.check_expression(expr, &mut block_env, borrow_tracker)
+            Ok(self.check_expression(expr, &mut block_env, borrow_tracker)?)
+        } else if let Some(rt) = last_return_type {
+            // If the block ends with a Return (or contains one and no final expr),
+            // it diverges.
+            Ok(rt)
         } else {
             Ok(Type::Unit)
         }
     }
     
-    fn check_statement(&mut self, stmt: &Stmt, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<(), Vec<String>> {
+    fn check_statement(&mut self, stmt: &Stmt, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<Option<Type>, Vec<String>> {
         match stmt {
-            Stmt::Let(let_stmt) => self.check_let_statement(let_stmt, env, borrow_tracker),
+            Stmt::Let(let_stmt) => {
+                self.check_let_statement(let_stmt, env, borrow_tracker)?;
+                Ok(None)
+            }
             Stmt::Expr(expr) => {
                 self.check_expression(expr, env, borrow_tracker)?;
-                Ok(())
+                Ok(None)
             },
             Stmt::Return(expr) => {
-                // Return handling is implicitly done by final_expr in a block
-                Ok(())
+                let _t = self.check_expression(expr, env, borrow_tracker)?;
+                // We should ideally check t against function return type here, 
+                // but let's just return Divergent for now to help with If-checking.
+                Ok(Some(Type::Divergent))
+            }
+            Stmt::While(while_stmt) => {
+                let cond_type = self.check_expression(&while_stmt.condition, env, borrow_tracker)?;
+                if cond_type != Type::Bool {
+                    self.errors.push(format!("While condition must be boolean, found {:?}", cond_type));
+                }
+                self.check_block(&while_stmt.body, env, borrow_tracker)?;
+                Ok(None)
+            }
+            Stmt::For(for_stmt) => {
+                let collection_type = self.check_expression(&for_stmt.collection, env, borrow_tracker)?;
+                if let Type::List(inner_type) = collection_type {
+                    let mut for_env = env.enter_scope();
+                    for_env.insert(Symbol {
+                        name: for_stmt.iterator.clone(),
+                        type_info: (*inner_type).clone(),
+                        is_mutable: false,
+                        status: OwnershipStatus::Owned,
+                        defined_at: 0,
+                    }).map_err(|e| self.errors.push(e)).ok();
+                    
+                    for stmt in &for_stmt.body.statements {
+                        self.check_statement(stmt, &mut for_env, borrow_tracker)?;
+                    }
+                    if let Some(final_expr) = &for_stmt.body.final_expr {
+                        self.check_expression(final_expr, &mut for_env, borrow_tracker)?;
+                    }
+                } else if collection_type != Type::Unknown {
+                    self.errors.push(format!("For collection must be a list, found {:?}", collection_type));
+                }
+                Ok(None)
             }
         }
     }
@@ -239,10 +292,51 @@ impl Checker {
             Expr::BinaryOp(left, op, right) => self.check_binary_op(left, op, right, env, borrow_tracker),
             Expr::UnaryOp(op, operand) => self.check_unary_op(op, operand, env, borrow_tracker),
             Expr::Call(callee, args) => self.check_call_expr(callee, args, env, borrow_tracker),
+            Expr::Index(array_expr, index_expr) => {
+                let array_type = self.check_expression(array_expr, env, borrow_tracker)?;
+                let index_type = self.check_expression(index_expr, env, borrow_tracker)?;
+
+                // Simple check for now: array must be list, index must be numeric (I32 or F64)
+                if matches!(index_type, Type::I32 | Type::F64 | Type::Int) {
+                    if let Type::List(inner) = array_type {
+                        return Ok(*inner);
+                    } else if let Type::InferenceVar(_) = array_type {
+                         // If it's an inference var, assume it's a list of something
+                         let new_var = self.type_unifier.fresh_var();
+                         self.type_unifier.add_constraint(array_type, Type::List(Box::new(new_var.clone())));
+                         return Ok(new_var);
+                    } else {
+                        self.errors.push(format!("Indexing requires a List, found {:?}", array_type));
+                        return Ok(Type::Unknown);
+                    }
+                } else {
+                     self.errors.push(format!("Index must be numeric, found {:?}", index_type));
+                     return Ok(Type::Unknown);
+                }
+            }
             Expr::Block(block_expr) => self.check_block(block_expr, env, borrow_tracker),
             Expr::If(if_expr) => self.check_if_expr(if_expr, env, borrow_tracker),
             Expr::Match(value, arms) => self.check_match_expr(value, arms, env, borrow_tracker),
-            Expr::Lambda(params, body) => self.check_lambda_expr(params, body, env, borrow_tracker),
+            Expr::Lambda(params, body) => self.check_lambda_expr(params, body, env, borrow_tracker, None),
+            Expr::StructInit(name, fields) => {
+                if let Some(s) = self.structs.get(name).cloned() {
+                    for (f_name, f_expr) in fields {
+                        let val_type = self.check_expression(f_expr, env, borrow_tracker)?;
+                        if let Some(target_field) = s.fields.iter().find(|f| f.name == *f_name) {
+                            let target_type = Type::from_ast_type(&target_field.field_type);
+                            if val_type != target_type && val_type != Type::Unknown {
+                                self.errors.push(format!("Field '{}' of struct '{}' expects {:?}, found {:?}", f_name, name, target_type, val_type));
+                            }
+                        } else {
+                            self.errors.push(format!("Struct '{}' has no field named '{}'", name, f_name));
+                        }
+                    }
+                    Ok(Type::Named(name.clone()))
+                } else {
+                    self.errors.push(format!("Undefined struct: '{}'", name));
+                    Ok(Type::Unknown)
+                }
+            }
             Expr::Array(elements) => {
                 if elements.is_empty() {
                     // Empty list, type unknown but technically List<Unknown> or use InferenceVar?
@@ -258,10 +352,6 @@ impl Checker {
                     }
                 }
                 Ok(Type::List(Box::new(first_type)))
-            }
-            _ => {
-                self.errors.push(format!("Unsupported expression: {:?}", expr));
-                Ok(Type::Unknown)
             }
         }
     }
@@ -283,14 +373,14 @@ impl Checker {
             Type::Unit
         };
 
-        if then_type != else_type {
+        if then_type != else_type && then_type != Type::Divergent && else_type != Type::Divergent {
             self.errors.push(format!(
                 "If branches have mismatched types: `then` has type {:?}, but `else` has type {:?}",
                 then_type, else_type
             ));
             Ok(Type::Unknown) // Return Unknown on mismatch
         } else {
-            Ok(then_type) // Both branches have the same type
+            if then_type == Type::Divergent { Ok(else_type) } else { Ok(then_type) }
         }
     }
 
@@ -328,17 +418,19 @@ impl Checker {
         }
     }
 
-    fn check_lambda_expr(&mut self, params: &[String], body: &Expr, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<Type, Vec<String>> {
+    fn check_lambda_expr(&mut self, params: &[String], body: &Expr, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker, optional_param_types: Option<Vec<Type>>) -> Result<Type, Vec<String>> {
         // Create a new scope for lambda parameters
         let mut lambda_env = env.enter_scope();
         let mut lambda_borrow_tracker = borrow_tracker.clone();
 
-        // Register parameters (assume all parameters are of type Unknown for now, or we could infer)
+        // Register parameters
         let mut param_types = Vec::new();
-        for param in params {
-            // For simplicity, assume parameters are of type Unknown
-            // In a full implementation, we'd do type inference
-            let param_type = self.type_unifier.fresh_var();
+        for (i, param) in params.iter().enumerate() {
+            let param_type = if let Some(types) = &optional_param_types {
+                types.get(i).cloned().unwrap_or_else(|| self.type_unifier.fresh_var())
+            } else {
+                self.type_unifier.fresh_var()
+            };
             param_types.push(param_type.clone());
 
             let symbol = Symbol {
@@ -372,7 +464,7 @@ impl Checker {
                     Literal::Int(_) => Type::I32,
                     Literal::Float(_) => Type::F64,
                     Literal::Bool(_) => Type::Bool,
-                    Literal::Str(_) => Type::Named("String".to_string()),
+                    Literal::Str(_) => Type::String,
                 };
                 if &lit_type != expected_type {
                     self.errors.push(format!("Pattern literal type mismatch: expected {:?}, found {:?}", expected_type, lit_type));
@@ -394,7 +486,7 @@ impl Checker {
                 borrow_tracker.declare_variable(name, BorrowState::Owned);
                 Ok(())
             }
-            Pattern::Tuple(patterns) => {
+            Pattern::Tuple(_patterns) => {
                 // For now, assume tuple patterns match any type
                 // In a full implementation, we'd check tuple structure
                 Ok(())
@@ -435,44 +527,67 @@ impl Checker {
                          return Ok(Type::Unknown);
                      }
                      let list_type = self.check_expression(&args[0], env, borrow_tracker)?;
-                     let func_type = self.check_expression(&args[1], env, borrow_tracker)?;
                      
-                     // Infer output type
-                     let item_type = self.type_unifier.fresh_var();
-                     let result_type = self.type_unifier.fresh_var();
-                     
-                     // Constraint: list must be List<item_type>
-                     self.type_unifier.add_constraint(list_type, Type::List(Box::new(item_type.clone())));
-                     
-                     // Constraint: func must be item_type -> result_type
-                     let expected_func_type = Type::Function {
-                         params: vec![item_type],
-                         return_type: Box::new(result_type.clone())
-                     };
-                     self.type_unifier.add_constraint(func_type, expected_func_type);
-                     
-                     return Ok(Type::List(Box::new(result_type)));
+                      let item_type = if let Type::List(inner) = &list_type {
+                          (**inner).clone()
+                      } else {
+                          self.type_unifier.fresh_var()
+                      };
+                      
+                      let func_type = if let Expr::Lambda(params, body) = &args[1] {
+                          self.check_lambda_expr(params, body, env, borrow_tracker, Some(vec![item_type.clone()]))?
+                      } else {
+                          self.check_expression(&args[1], env, borrow_tracker)?
+                      };
+                      
+                      let result_type = self.type_unifier.fresh_var();
+                      let expected_func_type = Type::Function {
+                          params: vec![item_type],
+                          return_type: Box::new(result_type.clone())
+                      };
+                      self.type_unifier.add_constraint(func_type, expected_func_type);
+                      
+                      return Ok(Type::List(Box::new(result_type)));
                 }
                 "filter" => {
                      if args.len() != 2 { self.errors.push("filter expects 2 args".to_string()); return Ok(Type::Unknown); }
                      let list_type = self.check_expression(&args[0], env, borrow_tracker)?;
-                     let func_type = self.check_expression(&args[1], env, borrow_tracker)?;
-                     let item_type = self.type_unifier.fresh_var();
-                     
-                     self.type_unifier.add_constraint(list_type, Type::List(Box::new(item_type.clone())));
-                     
-                     let expected_func_type = Type::Function { params: vec![item_type.clone()], return_type: Box::new(Type::Bool) };
-                     self.type_unifier.add_constraint(func_type, expected_func_type);
+                      let item_type = if let Type::List(inner) = &list_type {
+                          (**inner).clone()
+                      } else {
+                          self.type_unifier.fresh_var()
+                      };
+                      
+                      let func_type = if let Expr::Lambda(params, body) = &args[1] {
+                          self.check_lambda_expr(params, body, env, borrow_tracker, Some(vec![item_type.clone()]))?
+                      } else {
+                          self.check_expression(&args[1], env, borrow_tracker)?
+                      };
+                      
+                      self.type_unifier.add_constraint(list_type, Type::List(Box::new(item_type.clone())));
+                      
+                      let expected_func_type = Type::Function { params: vec![item_type.clone()], return_type: Box::new(Type::Bool) };
+                      self.type_unifier.add_constraint(func_type, expected_func_type);
                      
                      return Ok(Type::List(Box::new(item_type)));
                 }
                 "reduce" => {
                     if args.len() != 3 { self.errors.push("reduce expects 3 args".to_string()); return Ok(Type::Unknown); }
                     let list_type = self.check_expression(&args[0], env, borrow_tracker)?;
-                    let func_type = self.check_expression(&args[1], env, borrow_tracker)?;
                     let init_type = self.check_expression(&args[2], env, borrow_tracker)?;
                     
-                    let item_type = self.type_unifier.fresh_var();
+                      let item_type = if let Type::List(inner) = &list_type {
+                          (**inner).clone()
+                      } else {
+                          self.type_unifier.fresh_var()
+                      };
+                      
+                      let func_type = if let Expr::Lambda(params, body) = &args[1] {
+                          self.check_lambda_expr(params, body, env, borrow_tracker, Some(vec![init_type.clone(), item_type.clone()]))?
+                      } else {
+                          self.check_expression(&args[1], env, borrow_tracker)?
+                      };
+                      
                     let acc_type = init_type.clone(); // or fresh var and constrain logic? init determines acc type usually.
                     
                     self.type_unifier.add_constraint(list_type, Type::List(Box::new(item_type.clone())));
@@ -484,6 +599,55 @@ impl Checker {
                     self.type_unifier.add_constraint(func_type, expected_func_type);
                     
                     return Ok(acc_type);
+                }
+                "io_open" => {
+                    if args.len() != 1 { self.errors.push("io_open expects 1 arg".to_string()); }
+                    return Ok(Type::Port);
+                }
+                "io_write" => {
+                    if args.len() != 2 { self.errors.push("io_write expects 2 args".to_string()); }
+                    return Ok(Type::Bool);
+                }
+                "io_read" => {
+                    if args.len() != 1 { self.errors.push("io_read expects 1 arg".to_string()); }
+                    return Ok(Type::String);
+                }
+                "io_poll" => {
+                    return Ok(Type::Bool);
+                }
+                "hid_get_key" => {
+                    return Ok(Type::F64);
+                }
+                "cam_capture" => {
+                    return Ok(Type::Stream);
+                }
+                "math_exp" | "math_sqrt" | "math_sin" | "math_cos" => {
+                    if args.len() != 1 { self.errors.push(format!("{} expects 1 arg", name)); }
+                    // Should verify arg is number, simple pass for now
+                    return Ok(Type::F64);
+                }
+                "math_random" => {
+                    return Ok(Type::F64);
+                }
+                "crypto_hash" => {
+                    if args.len() != 1 { self.errors.push(format!("{} expects 1 arg", name)); }
+                    // Should check arg type is string
+                    return Ok(Type::String);
+                }
+                "time_now" => {
+                    return Ok(Type::F64);
+                }
+                "str_len" => {
+                    if args.len() != 1 { self.errors.push(format!("{} expects 1 arg", name)); }
+                    return Ok(Type::F64);
+                }
+                "str_sub" => {
+                    if args.len() != 3 { self.errors.push(format!("{} expects 3 args", name)); }
+                    return Ok(Type::String);
+                }
+                "str_replace" => {
+                    if args.len() != 3 { self.errors.push(format!("{} expects 3 args", name)); }
+                    return Ok(Type::String);
                 }
                 _ => {} // Fallthrough
             }
@@ -501,7 +665,7 @@ impl Checker {
                 return Ok(*return_type); // Return expected return type even on error
             }
 
-            for (i, (arg_expr, expected_type)) in args.iter().zip(param_types.iter()).enumerate() {
+            for (_i, (arg_expr, expected_type)) in args.iter().zip(param_types.iter()).enumerate() {
                 let arg_type = self.check_expression(arg_expr, env, borrow_tracker)?;
                 // Instead of strict check, add constraint for inference
                 self.type_unifier.add_constraint(arg_type.clone(), expected_type.clone());
@@ -528,7 +692,7 @@ impl Checker {
             Literal::Int(_) => Ok(Type::I32),
             Literal::Float(_) => Ok(Type::F64),
             Literal::Bool(_) => Ok(Type::Bool),
-            Literal::Str(_) => Ok(Type::Named("String".to_string())),
+            Literal::Str(_) => Ok(Type::String),
         }
     }
     
@@ -552,6 +716,29 @@ impl Checker {
     
     fn check_binary_op(&mut self, left: &Expr, op: &BinaryOp, right: &Expr, env: &mut TypeEnvironment, borrow_tracker: &mut BorrowTracker) -> Result<Type, Vec<String>> {
         let left_type = self.check_expression(left, env, borrow_tracker)?;
+        
+        // For Dot access, we don't evaluate the right side in the environment
+        if *op == BinaryOp::Dot {
+            if let Type::Named(struct_name) = &left_type {
+                if let Expr::Identifier(field_name) = right {
+                    if let Some(s) = self.structs.get(struct_name) {
+                        if let Some(f) = s.fields.iter().find(|f| f.name == *field_name) {
+                            return Ok(Type::from_ast_type(&f.field_type));
+                        } else {
+                            self.errors.push(format!("Struct '{}' has no field '{}'", struct_name, field_name));
+                        }
+                    } else {
+                        self.errors.push(format!("Undefined struct: '{}'", struct_name));
+                    }
+                } else {
+                    self.errors.push(format!("Right side of '.' must be an identifier, found {:?}", right));
+                }
+            } else if left_type != Type::Unknown {
+                self.errors.push(format!("Cannot access field on non-struct type {:?}", left_type));
+            }
+            return Ok(Type::Unknown);
+        }
+
         let right_type = self.check_expression(right, env, borrow_tracker)?;
         
         match op {
@@ -566,14 +753,42 @@ impl Checker {
                 Ok(right_type)
             }
             BinaryOp::Add | BinaryOp::Sub | BinaryOp::Mul | BinaryOp::Div => {
-                if (left_type == Type::I32 && right_type == Type::I32) || (left_type == Type::F64 && right_type == Type::F64) {
-                    Ok(left_type)
+                if left_type == Type::I32 && right_type == Type::I32 {
+                    Ok(Type::I32)
+                } else if (left_type == Type::F64 && right_type == Type::F64) || 
+                          (left_type == Type::F64 && right_type == Type::I32) ||
+                          (left_type == Type::I32 && right_type == Type::F64) {
+                    Ok(Type::F64)
+                } else if *op == BinaryOp::Add {
+                    // String Concatenation Support (Implicit)
+                    let left_is_str = matches!(left_type, Type::String) || matches!(left_type, Type::Named(ref s) if s == "String");
+                    let right_is_str = matches!(right_type, Type::String) || matches!(right_type, Type::Named(ref s) if s == "String");
+                    
+                    if left_is_str || right_is_str {
+                        return Ok(Type::String);
+                    }
+
+                    if let (Type::List(l), Type::List(r)) = (&left_type, &right_type) {
+                        if l == r {
+                            return Ok(left_type.clone());
+                        }
+                    }
+                    self.errors.push(format!("Type mismatch in binary operation: {:?} {:?} {:?}", left_type, op, right_type));
+                    Ok(Type::Unknown)
                 } else {
                     self.errors.push(format!("Type mismatch in binary operation: {:?} {:?} {:?}", left_type, op, right_type));
                     Ok(Type::Unknown)
                 }
             }
-            _ => Ok(Type::Bool), // Assume comparisons return bool
+            BinaryOp::And | BinaryOp::Or => {
+                if left_type == Type::Bool && right_type == Type::Bool {
+                    Ok(Type::Bool)
+                } else {
+                    self.errors.push(format!("Logical operators expect booleans, found {:?} and {:?}", left_type, right_type));
+                    Ok(Type::Unknown)
+                }
+            }
+            _ => Ok(Type::Bool), // Assume comparisons return bool (Eq, Neq, Lt, Gt, etc)
         }
     }
     
@@ -607,8 +822,6 @@ impl BorrowTracker {
     fn new() -> Self {
         BorrowTracker {
             variables: HashMap::new(),
-            borrow_graph: HashMap::new(),
-            current_scope: vec![HashSet::new()],
         }
     }
     

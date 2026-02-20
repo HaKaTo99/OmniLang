@@ -1,0 +1,57 @@
+module MeshMultiplayer {
+    // Annotation @mesh informs the fabric to sync this struct across nodes
+    struct NetworkState {
+        @mesh player_id: i32,
+        @mesh position_x: f64,
+        @mesh position_y: f64,
+        @mesh last_sync: i64
+    }
+
+    struct Peer {
+        id: i32,
+        latency: i32,
+        connected: bool
+    }
+
+    fn sync_authority(master_id: i32, current_id: i32) -> bool {
+        // Simple logic: lower ID has authority in case of conflicts
+        return current_id <= master_id;
+    }
+
+    fn predict_movement(pos_x: f64, vel_x: f64, ping: i32) -> f64 {
+        // Delta prediction based on ping (ms)
+        let ping_sec = ping / 1000;
+        return pos_x + (vel_x * ping_sec);
+    }
+
+    const main: i32 = {
+        print("--- OmniLang Multiplayer Mesh Engine ---");
+        
+        let local_player = NetworkState {
+            player_id: 88,
+            position_x: 100.5,
+            position_y: 20.0,
+            last_sync: 1705920000
+        };
+
+        print("Local Host Player ID:");
+        print(local_player.player_id);
+
+        // Simulate Peer Join
+        let peer_vortex = Peer { id: 101, latency: 45, connected: true };
+        print("Peer Connected. Latency (ms):");
+        print(peer_vortex.latency);
+
+        // Resolve Authority
+        let has_auth = sync_authority(local_player.player_id, peer_vortex.id);
+        print("Local Authority over Peer:");
+        print(has_auth);
+
+        // Prediction
+        let predicted_x = predict_movement(local_player.position_x, 5.0, peer_vortex.latency);
+        print("Predicted Position X for remote peer:");
+        print(predicted_x);
+
+        0
+    };
+}

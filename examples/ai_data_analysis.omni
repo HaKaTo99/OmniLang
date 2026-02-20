@@ -1,0 +1,55 @@
+module AIDataAnalysis {
+    struct DataPoint {
+        x: f64, // Area
+        y: f64  // Price
+    }
+
+    fn calculate_mean(values: [f64]) -> f64 {
+        let sum = reduce(values, |acc, v| acc + v, 0.0);
+        return sum / 5.0; // Fixed for 5 points
+    }
+
+    const main: i32 = {
+        print("--- OmniLang AI Data Analysis ---");
+        print("Task: Simple Linear Regression (Home Price Prediction)");
+
+        // Training Data: [Area (sqm), Price (k$)]
+        let data = [
+            DataPoint { x: 50.0, y: 150.0 },
+            DataPoint { x: 70.0, y: 200.0 },
+            DataPoint { x: 100.0, y: 300.0 },
+            DataPoint { x: 120.0, y: 350.0 },
+            DataPoint { x: 150.0, y: 450.0 }
+        ];
+
+        let xs = map(data, |d| d.x);
+        let ys = map(data, |d| d.y);
+
+        let mean_x = calculate_mean(xs);
+        let mean_y = calculate_mean(ys);
+
+        print("Mean Area:");
+        print(mean_x);
+        print("Mean Price:");
+        print(mean_y);
+
+        // Calculate slope (b1) = sum((x - mean_x) * (y - mean_y)) / sum((x - mean_x)^2)
+        let numerator = reduce(data, |acc, d| acc + (d.x - mean_x) * (d.y - mean_y), 0.0);
+        let denominator = reduce(data, |acc, d| acc + (d.x - mean_x) * (d.x - mean_x), 0.0);
+
+        let b1 = numerator / denominator;
+        let b0 = mean_y - (b1 * mean_x);
+
+        print("Model Parameters:");
+        print("Slope (b1):");
+        print(b1);
+        print("Intercept (b0):");
+        print(b0);
+
+        print("Prediction for 200 sqm house:");
+        let prediction = b0 + b1 * 200.0;
+        print(prediction);
+
+        0
+    };
+}

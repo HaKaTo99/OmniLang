@@ -28,6 +28,7 @@ pub enum Token {
     Select,
     Case,
     Default,
+    Module, // New: Added for program/module support
     
     // Types
     TypeInt,
@@ -63,6 +64,7 @@ pub enum Token {
     Not,
     Arrow, // ->
     FatArrow, // =>
+    Pipe, // New: |
     
     // Punctuation
     LParen,

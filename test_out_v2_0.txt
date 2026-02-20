@@ -1,0 +1,46 @@
+﻿cargo :     Finished `dev` profile [unoptimized + debuginfo] target(s) 
+in 0.17s
+At line:1 char:1
++ cargo run -- test examples\smart_city_core.omni 2>&1 | Out-File -Enco 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Finished `d...get(s) in 
+    0.17s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+     Running `target\debug\omnilang.exe test 
+examples\smart_city_core.omni`
+=== OMNILANG SMART CITY CORE v2.0 ===
+Initializing Neural Energy Grid...
+\n--- Hour 0:00 ---
+[SENSOR] Light Level: 0
+[AI CORE] Predicted Energy Demand: 0.014183118495202287
+[HARDWARE] Grid #1 -> STANDBY (Low Load)
+[SECURE] Recording Action to Ledger...
+  Block #1 Mined: HASH_30_0:0_HSAH:DNAMED_WOL_FFO_DIRG:1
+\n--- Hour 1:00 ---
+[SENSOR] Light Level: 0
+[AI CORE] Predicted Energy Demand: 0.014183118495202287
+[HARDWARE] Grid #1 -> STANDBY (Low Load)
+[SECURE] Recording Action to Ledger...
+  Block #2 Mined: HASH_62_0:1:GRID_OFF_LOW_DEMAND:HASH_0:0_03_HSAH:DNAMED_WOL_FFO_DIRG:2
+\n--- Hour 2:00 ---
+[SENSOR] Light Level: 0.8
+[AI CORE] Predicted Energy Demand: 0.959911237531475
+[HARDWARE] Grid #1 -> ACTIVATED (High Load)
+[SECURE] Recording Action to Ledger...
+  Block #3 Mined: HASH_94_0:2:GRID_OFF_LOW_DEMAND:HASH_30_0:0_HSAH:DNAMED_WOL_FFO_DIRG:1:0_26_HSAH:DNAMED_HGIH_NO_DIRG:3
+\n--- Hour 3:00 ---
+[SENSOR] Light Level: 0
+[AI CORE] Predicted Energy Demand: 0.014183118495202287
+[HARDWARE] Grid #1 -> STANDBY (Low Load)
+[SECURE] Recording Action to Ledger...
+  Block #4 Mined: HASH_126_0:3:GRID_ON_HIGH_DEMAND:HASH_62_0:1:GRID_OFF_LOW_DEMAND:HASH_0:0_03_HSAH:DNAMED_WOL_FFO_DIRG:2:0_49_HSAH:DNAMED_WOL_FFO_DIRG:4
+\n--- Hour 4:00 ---
+[SENSOR] Light Level: 0.2
+[AI CORE] Predicted Energy Demand: 0.04008876246852494
+[HARDWARE] Grid #1 -> STANDBY (Low Load)
+[SECURE] Recording Action to Ledger...
+  Block #5 Mined: HASH_159_0:4:GRID_OFF_LOW_DEMAND:HASH_94_0:2:GRID_OFF_LOW_DEMAND:HASH_30_0:0_HSAH:DNAMED_WOL_FFO_DIRG:1:0_26_HSAH:DNAMED_HGIH_NO_DIRG:3:0_621_HSAH:DNAMED_WOL_FFO_DIRG:5
+\n=== SYSTEM SHUTDOWN. INTEGRITY VERIFIED. ===
+Test PASSED: examples\smart_city_core.omni

@@ -1,0 +1,53 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\ai_neural_net.omni examples\graphic_viz_da ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\OmniLang 
+   ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.72s
+     Running `target\debug\omnilang.exe test examples\ai_neural_net.omni 
+examples\graphic_viz_dashboard.omni examples\cyber_security_ops.omni`
+--- OmniLang Deep Learning: Simple MLP ---
+Architecture: 2 Inputs -> 2 Hidden Neurons -> 1 Output (Binary Class)
+Weights Initialized.
+Inference Test:
+Input: [0.0, 1.0]
+Prediction (Probability):
+0.6507776782147005
+Input: [1.0, 1.0]
+Prediction (Probability):
+0.6750375273768237
+Result: Pattern [1,1] is more likely positive class.
+Neural Net Simulation Complete.
+Test PASSED: examples\ai_neural_net.omni
+Type Check FAILED: examples\graphic_viz_dashboard.omni
+  - Type mismatch in binary operation: Named("String") Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add String
+  - Type mismatch in binary operation: Named("String") Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add String
+  - Type mismatch in binary operation: Named("String") Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add F64
+  - Type mismatch in binary operation: Unknown Add Named("String")
+  - Type mismatch in binary operation: Unknown Add String
+  - Type mismatch in binary operation: Unknown Add Named("String")
+Type Check FAILED: examples\cyber_security_ops.omni
+  - Type mismatch in binary operation: Named("String") Add String
+  - Type mismatch in binary operation: Named("String") Add I32
+error: process didn't exit successfully: `target\debug\omnilang.exe test 
+examples\ai_neural_net.omni examples\graphic_viz_dashboard.omni 
+examples\cyber_security_ops.omni` (exit code: 1)

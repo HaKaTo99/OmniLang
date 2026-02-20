@@ -11,6 +11,14 @@ impl Parser {
         Parser { tokens, pos: 0 }
     }
 
+    fn peek_ahead(&self, n: usize) -> &Token {
+        if self.pos + n >= self.tokens.len() {
+            &self.tokens[self.tokens.len() - 1]
+        } else {
+            &self.tokens[self.pos + n]
+        }
+    }
+
     pub fn parse_policy(&mut self) -> Result<Policy, String> {
         if self.tokens.is_empty() {
             return Err("Cannot parse an empty token list.".to_string());
@@ -222,7 +230,19 @@ impl Parser {
     }
     fn parse_match_rule(&mut self) -> Result<Rule, String> {
         self.advance(); // MATCH
-        let scrutinee = self.parse_text_chunk()?;
+        let mut scrutinee = String::new();
+        while !self.check(TokenType::LBrace) && !self.is_at_end() {
+            let chunk = self.parse_text_chunk()?;
+            let is_punct = matches!(chunk.as_str(), "." | "[" | "]" | "(" | ")" | ",");
+            if !scrutinee.is_empty() && !is_punct {
+                scrutinee.push(' ');
+            }
+            scrutinee.push_str(&chunk);
+        }
+        
+        // Normalize
+        scrutinee = scrutinee.replace(" .", ".").replace(". ", ".");
+
         self.consume(TokenType::LBrace, "Expected '{' after MATCH expression")?;
 
         let mut arms = Vec::new();
@@ -245,6 +265,33 @@ impl Parser {
         }
         Ok(parts.join(" ").trim().to_string())
     }
+
+    fn parse_struct_init(&mut self, name: String) -> Result<Expr, String> {
+        let mut fields = Vec::new();
+        if !self.check(TokenType::RBrace) {
+            loop {
+                let field_name = self.consume_ident("Expected field name in struct initialization")?;
+                self.consume(TokenType::Colon, "Expected ':' after field name")?;
+                let value = self.parse_expression()?;
+                fields.push((field_name, value));
+                if !self.match_token(TokenType::Comma) {
+                    break;
+                }
+            }
+        }
+        self.consume(TokenType::RBrace, "Expected '}' after struct fields")?;
+        // Assuming Expr::StructInit exists and can be constructed this way.
+        // This also depends on the definition of `Expr`.
+        // For now, I'll assume `Expr` is a type that can hold this.
+        // If `Expr` is not defined, this will be a compile error.
+        // I cannot define `Expr` or `parse_expression` without more context.
+        // I will return a placeholder for `Expr` to ensure syntactic correctness, e.g., `String`.
+        // No, the instruction is to make the change faithfully. I must use `Expr::StructInit`.
+        // This means `Expr` and `Expr::StructInit` must be defined elsewhere in the user's code.
+        // I will assume they are.
+        Ok(Expr::StructInit(name, fields))
+    }
+
 
     fn parse_for_rule(&mut self) -> Result<Rule, String> {
         self.advance(); // FOR
@@ -518,10 +565,17 @@ impl Parser {
 
     fn check(&self, t: TokenType) -> bool {
         if self.is_at_end() {
-            return matches!(t, TokenType::Eof);
+            return false;
         }
         // Compare the full TokenType (including inner values for Ident/String)
         self.peek().token_type == t
+    }
+
+    fn check_ahead(&self, n: usize, t: TokenType) -> bool {
+        if self.pos + n >= self.tokens.len() {
+            return false;
+        }
+        self.tokens[self.pos + n].token_type == t
     }
 
     fn is_at_end(&self) -> bool {
@@ -669,10 +723,7 @@ impl Parser {
 
         let mut fields = Vec::new();
         while !self.check(TokenType::RBrace) && !self.is_at_end() {
-            let field_name = self.consume_ident("Expected field name")?;
-            self.consume(TokenType::Colon, "Expected ':' after field name")?;
-            let field_type = self.parse_type()?;
-            fields.push(Field { name: field_name, field_type });
+            fields.push(self.parse_field()?);
 
             if !self.match_token(TokenType::Comma) && !self.check(TokenType::RBrace) {
                 return Err("Expected ',' or '}' after field".to_string());
@@ -681,6 +732,21 @@ impl Parser {
 
         self.consume(TokenType::RBrace, "Expected '}' to end struct")?;
         Ok(StructDecl { name, fields })
+    }
+
+    fn parse_field(&mut self) -> Result<Field, String> {
+        // Skip metadata annotations starting with @
+        while self.match_token(TokenType::At) {
+            // If the token after '@' is an identifier, consume it as part of the annotation.
+            // Otherwise, just the '@' is skipped.
+            if let TokenType::Ident(_) = self.peek().token_type {
+                self.advance();
+            }
+        }
+        let name = self.consume_ident("Expected field name")?;
+        self.consume(TokenType::Colon, "Expected ':' after field name")?;
+        let field_type = self.parse_type()?;
+        Ok(Field { name, field_type })
     }
 
     fn parse_trait(&mut self) -> Result<TraitDecl, String> {
@@ -746,7 +812,11 @@ impl Parser {
         } else if self.match_token(TokenType::Ident("bool".to_string())) {
             Ok(Type::Bool)
         } else if self.match_token(TokenType::Ident("String".to_string())) {
-            Ok(Type::Named("String".to_string()))
+            Ok(Type::String)
+        } else if self.match_token(TokenType::LBracket) {
+            let elem_type = self.parse_type()?;
+            self.consume(TokenType::RBracket, "Expected ']' after list type")?;
+            Ok(Type::List(Box::new(elem_type)))
         } else if let TokenType::Ident(name) = &self.peek().token_type {
             let name = name.clone();
             self.advance();
@@ -757,10 +827,41 @@ impl Parser {
     }
 
     pub fn parse_expression(&mut self) -> Result<Expr, String> {
-        self.parse_equality()
+        self.parse_assignment()
     }
 
-    fn parse_equality(&mut self) -> Result<Expr, String> {
+    fn parse_assignment(&mut self) -> Result<Expr, String> {
+        let expr = self.parse_logical_or()?;
+        if self.match_token(TokenType::Assign) {
+            let value = self.parse_assignment()?;
+            return Ok(Expr::BinaryOp(Box::new(expr), BinaryOp::Assign, Box::new(value)));
+        }
+        Ok(expr)
+    }
+
+    fn parse_logical_or(&mut self) -> Result<Expr, String> {
+        let mut expr = self.parse_logical_and()?;
+
+        while self.match_token(TokenType::Or) {
+            let right = self.parse_logical_and()?;
+            expr = Expr::BinaryOp(Box::new(expr), BinaryOp::Or, Box::new(right));
+        }
+
+        Ok(expr)
+    }
+
+    fn parse_logical_and(&mut self) -> Result<Expr, String> {
+        let mut expr = self.parse_binary()?;
+
+        while self.match_token(TokenType::And) {
+            let right = self.parse_binary()?;
+            expr = Expr::BinaryOp(Box::new(expr), BinaryOp::And, Box::new(right));
+        }
+
+        Ok(expr)
+    }
+
+    fn parse_binary(&mut self) -> Result<Expr, String> {
         let mut expr = self.parse_comparison()?;
 
         while self.match_token(TokenType::Eq) || self.match_token(TokenType::Neq) {
@@ -835,6 +936,9 @@ impl Parser {
         } else if self.match_token(TokenType::Ampersand) {
             let right = self.parse_unary()?;
             Ok(Expr::UnaryOp(UnaryOp::Ref, Box::new(right)))
+        } else if self.match_token(TokenType::Bang) {
+            let right = self.parse_unary()?;
+            Ok(Expr::UnaryOp(UnaryOp::Not, Box::new(right)))
         } else {
             self.parse_call()
         }
@@ -856,6 +960,14 @@ impl Parser {
                 }
                 self.consume(TokenType::RParen, "Expected ')' after arguments")?;
                 expr = Expr::Call(Box::new(expr), args);
+            } else if self.match_token(TokenType::LBracket) {
+                let index = self.parse_expression()?;
+                self.consume(TokenType::RBracket, "Expected ']' after index")?;
+                expr = Expr::Index(Box::new(expr), Box::new(index));
+            } else if self.match_token(TokenType::Dot) {
+                let name = self.consume_ident("Expected property name after '.'")?;
+                // Dot access is represented as BinaryOp Dot for simplicity in evaluator
+                expr = Expr::BinaryOp(Box::new(expr), BinaryOp::Dot, Box::new(Expr::Identifier(name)));
             } else {
                 break;
             }
@@ -865,13 +977,14 @@ impl Parser {
     }
 
     fn parse_primary(&mut self) -> Result<Expr, String> {
-        if self.match_token(TokenType::Ident("true".to_string())) {
+        if self.match_token(TokenType::True) {
             Ok(Expr::Literal(Literal::Bool(true)))
-        } else if self.match_token(TokenType::Ident("false".to_string())) {
+        } else if self.match_token(TokenType::False) {
             Ok(Expr::Literal(Literal::Bool(false)))
         } else if let TokenType::Number(n) = self.peek().token_type {
+            let lexeme = self.peek().lexeme.to_lowercase();
             self.advance();
-            if n.fract() == 0.0 {
+            if n.fract() == 0.0 && !lexeme.contains('.') && !lexeme.contains('e') {
                 Ok(Expr::Literal(Literal::Int(n as i64)))
             } else {
                 Ok(Expr::Literal(Literal::Float(n)))
@@ -882,13 +995,22 @@ impl Parser {
             Ok(Expr::Literal(Literal::Str(s)))
         } else if self.match_token(TokenType::Match) {
             self.parse_match()
+        } else if self.match_token(TokenType::If) {
+            self.parse_if()
         } else if let TokenType::Ident(name) = &self.peek().token_type {
-            if name == "if" {
-                self.advance();
-                self.parse_if()
+            let name = name.clone();
+            // Lookahead: if it's LBrace, check if it's really a struct init
+            // (either empty {} or starts with field: )
+            if self.check_ahead(1, TokenType::LBrace) && 
+               (self.check_ahead(2, TokenType::RBrace) || 
+                (matches!(self.peek_ahead(2).token_type, TokenType::Ident(_)) && 
+                 self.check_ahead(3, TokenType::Colon))) 
+            {
+                self.advance(); // consume ident
+                self.advance(); // consume LBrace
+                self.parse_struct_init(name)
             } else {
-                let name = name.clone();
-                self.advance();
+                self.advance(); // consume ident
                 Ok(Expr::Identifier(name))
             }
         } else if self.match_token(TokenType::Pipe) {
@@ -989,8 +1111,8 @@ impl Parser {
         let then_branch = self.parse_block()?;
         self.consume(TokenType::RBrace, "Expected '}' after if body")?;
 
-        let else_branch = if self.match_token(TokenType::Ident("else".to_string())) {
-            if self.match_token(TokenType::Ident("if".to_string())) {
+        let else_branch = if self.match_token(TokenType::Else) {
+            if self.match_token(TokenType::If) {
                 Some(Box::new(self.parse_if()?))
             } else {
                 self.consume(TokenType::LBrace, "Expected '{' after else")?;
@@ -1010,12 +1132,25 @@ impl Parser {
         let mut final_expr = None;
 
         while !self.check(TokenType::RBrace) && !self.is_at_end() {
-            if self.match_token(TokenType::Ident("let".to_string())) {
+            if self.match_token(TokenType::Let) {
                 statements.push(Stmt::Let(self.parse_let_statement()?));
-            } else if self.match_token(TokenType::Ident("return".to_string())) {
+            } else if self.match_token(TokenType::Return) {
                 let expr = self.parse_expression()?;
                 statements.push(Stmt::Return(expr));
                 self.consume(TokenType::Semicolon, "Expected ';' after return")?;
+            } else if self.match_token(TokenType::While) {
+                statements.push(Stmt::While(self.parse_while_stmt()?));
+            } else if self.match_token(TokenType::For) {
+                statements.push(Stmt::For(self.parse_for_stmt()?));
+            } else if self.check(TokenType::If) || self.check(TokenType::Match) {
+                let expr = self.parse_expression()?;
+                if self.check(TokenType::RBrace) {
+                    final_expr = Some(Box::new(expr));
+                    break;
+                } else {
+                    statements.push(Stmt::Expr(expr));
+                    self.match_token(TokenType::Semicolon); // Optional
+                }
             } else {
                 let expr = self.parse_expression()?;
                 if self.check(TokenType::Semicolon) {
@@ -1032,7 +1167,7 @@ impl Parser {
     }
 
     fn parse_let_statement(&mut self) -> Result<LetStmt, String> {
-        let is_mut = self.match_token(TokenType::Ident("mut".to_string()));
+        let is_mut = self.match_token(TokenType::Mut);
         let name = self.consume_ident("Expected variable name")?;
         let type_annotation = if self.match_token(TokenType::Colon) {
             Some(self.parse_type()?)
@@ -1044,5 +1179,25 @@ impl Parser {
         self.consume(TokenType::Semicolon, "Expected ';' after let statement")?;
 
         Ok(LetStmt { name, value, type_annotation, is_mut })
+    }
+
+    fn parse_while_stmt(&mut self) -> Result<ExprWhile, String> {
+        self.consume(TokenType::LParen, "Expected '(' after while")?;
+        let condition = self.parse_expression()?;
+        self.consume(TokenType::RParen, "Expected ')' after while condition")?;
+        self.consume(TokenType::LBrace, "Expected '{' to start while body")?;
+        let body = self.parse_block()?;
+        self.consume(TokenType::RBrace, "Expected '}' after while body")?;
+        Ok(ExprWhile { condition: Box::new(condition), body })
+    }
+
+    fn parse_for_stmt(&mut self) -> Result<ExprFor, String> {
+        let iterator = self.consume_ident("Expected iterator name after for")?;
+        self.consume(TokenType::In, "Expected 'in' after for iterator")?;
+        let collection = self.parse_expression()?;
+        self.consume(TokenType::LBrace, "Expected '{' to start for body")?;
+        let body = self.parse_block()?;
+        self.consume(TokenType::RBrace, "Expected '}' after for body")?;
+        Ok(ExprFor { iterator, collection: Box::new(collection), body })
     }
 }

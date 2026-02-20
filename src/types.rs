@@ -1,6 +1,6 @@
 // src/types.rs
 use std::collections::HashMap;
-use std::fmt;
+
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Type {
@@ -24,8 +24,11 @@ pub enum Type {
     Tensor(Vec<usize>),
     Unit,
     Unknown,
+    Port,   // For Serial, Socket, Bluetooth
+    Stream, // For Camera, Audio feed
     // For inference during type checking
     InferenceVar(usize),
+    Divergent,
 }
 
 impl Type {
@@ -33,7 +36,7 @@ impl Type {
         match self {
             Type::Int | Type::Float | Type::I32 | Type::F64 | Type::Bool => true,
             Type::Reference(_, _) => true,
-            Type::Named(name) => {
+            Type::Named(_name) => {
                 // TODO: Check if struct has #[derive(Copy)]
                 // For now, assume non-copy by default
                 false
@@ -55,14 +58,16 @@ impl Type {
     pub fn from_ast_type(ast_type: &crate::ast::Type) -> Self {
          match ast_type {
             crate::ast::Type::I32 => Type::I32,
+            crate::ast::Type::I64 => Type::F64, // Runtime uses f64 for numbers
             crate::ast::Type::F64 => Type::F64,
             crate::ast::Type::Bool => Type::Bool,
+            crate::ast::Type::String => Type::String,
+            crate::ast::Type::List(inner) => Type::List(Box::new(Type::from_ast_type(inner))),
             crate::ast::Type::Named(name) => {
                 if name == "String" {
-                    Type::String
-                } else {
-                    Type::Named(name.clone())
+                    return Type::String;
                 }
+                Type::Named(name.clone())
             }
         }
     }

@@ -1,0 +1,141 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test d:\GitHub\OmniLang\examples\scientific_calculator.o ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\OmniLang 
+   ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unreachable pattern
+   --> src\checker.rs:339:13
+    |
+339 |             _ => {
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> src\checker.rs:339:13
+    |
+295 |             Expr::Literal(lit) => self.check_literal(lit),
+    |             ------------------ matches some of the same values
+296 |             Expr::Identifier(name) => self.check_identifier(name, env, 
+borrow_tracker),
+    |             ---------------------- matches some of the same values
+297 |             Expr::BinaryOp(left, op, right) => 
+self.check_binary_op(left, op, right, env, borrow_tracker),
+    |             ------------------------------- matches some of the same 
+values
+298 |             Expr::UnaryOp(op, operand) => self.check_unary_op(op, 
+operand, env, borrow_tracker),
+    |             -------------------------- matches some of the same values
+...
+339 |             _ => {
+    |             ^ ...and 7 other patterns collectively make this unreachable
+    = note: `#[warn(unreachable_patterns)]` (part of `#[warn(unused)]`) on by 
+default
+
+warning: unused variable: `i`
+   --> src\checker.rs:606:18
+    |
+606 |             for (i, (arg_expr, expected_type)) in 
+args.iter().zip(param_types.iter()).enumerate() {
+    |                  ^ help: if this is intentional, prefix it with an 
+underscore: `_i`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by 
+default
+
+warning: field `warnings` is never read
+  --> src\checker.rs:14:5
+   |
+ 8 | pub struct Checker {
+   |            ------- field in this struct
+...
+14 |     warnings: Vec<String>,
+   |     ^^^^^^^^
+   |
+   = note: `Checker` has a derived impl for the trait `Debug`, but this is 
+intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `borrow_graph` and `current_scope` are never read
+  --> src\checker.rs:24:5
+   |
+20 | struct BorrowTracker {
+   |        ------------- fields in this struct
+...
+24 |     borrow_graph: HashMap<String, HashSet<String>>,
+   |     ^^^^^^^^^^^^
+25 |     current_scope: Vec<HashSet<String>>,
+   |     ^^^^^^^^^^^^^
+   |
+   = note: `BorrowTracker` has derived impls for the traits `Clone` and 
+`Debug`, but these are intentionally ignored during dead code analysis
+
+warning: `omnilang` (lib) generated 4 warnings (run `cargo fix --lib -p 
+omnilang` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.17s
+     Running `target\debug\omnilang.exe test 
+d:\GitHub\OmniLang\examples\scientific_calculator.omni`
+--- OmniLang Scientific Calculator ---
+Constants:
+PI:
+3.141592653589793
+E:
+2.718281828459045
+Calculations:
+DEBUG: Calling closure with args: [Number(2.0), Number(10.0)]
+2^10 =
+1024
+DEBUG: Calling closure with args: [Number(5.0)]
+DEBUG: Calling closure with args: [Number(4.0)]
+DEBUG: Calling closure with args: [Number(3.0)]
+DEBUG: Calling closure with args: [Number(2.0)]
+DEBUG: Calling closure with args: [Number(1.0)]
+DEBUG: Calling closure with args: [Number(0.0)]
+DEBUG: Calling closure with args: [Number(-1.0)]
+DEBUG: Calling closure with args: [Number(-2.0)]
+DEBUG: Calling closure with args: [Number(-3.0)]
+DEBUG: Calling closure with args: [Number(-4.0)]
+DEBUG: Calling closure with args: [Number(-5.0)]
+DEBUG: Calling closure with args: [Number(-6.0)]
+DEBUG: Calling closure with args: [Number(-7.0)]
+DEBUG: Calling closure with args: [Number(-8.0)]
+DEBUG: Calling closure with args: [Number(-9.0)]
+DEBUG: Calling closure with args: [Number(-10.0)]
+DEBUG: Calling closure with args: [Number(-11.0)]
+DEBUG: Calling closure with args: [Number(-12.0)]
+DEBUG: Calling closure with args: [Number(-13.0)]
+DEBUG: Calling closure with args: [Number(-14.0)]
+DEBUG: Calling closure with args: [Number(-15.0)]
+DEBUG: Calling closure with args: [Number(-16.0)]
+DEBUG: Calling closure with args: [Number(-17.0)]
+DEBUG: Calling closure with args: [Number(-18.0)]
+DEBUG: Calling closure with args: [Number(-19.0)]
+DEBUG: Calling closure with args: [Number(-20.0)]
+DEBUG: Calling closure with args: [Number(-21.0)]
+DEBUG: Calling closure with args: [Number(-22.0)]
+DEBUG: Calling closure with args: [Number(-23.0)]
+DEBUG: Calling closure with args: [Number(-24.0)]
+DEBUG: Calling closure with args: [Number(-25.0)]
+DEBUG: Calling closure with args: [Number(-26.0)]
+DEBUG: Calling closure with args: [Number(-27.0)]
+DEBUG: Calling closure with args: [Number(-28.0)]
+DEBUG: Calling closure with args: [Number(-29.0)]
+DEBUG: Calling closure with args: [Number(-30.0)]
+DEBUG: Calling closure with args: [Number(-31.0)]
+DEBUG: Calling closure with args: [Number(-32.0)]
+DEBUG: Calling closure with args: [Number(-33.0)]
+DEBUG: Calling closure with args: [Number(-34.0)]
+DEBUG: Calling closure with args: [Number(-35.0)]
+DEBUG: Calling closure with args: [Number(-36.0)]
+DEBUG: Calling closure with args: [Number(-37.0)]
+DEBUG: Calling closure with args: [Number(-38.0)]
+DEBUG: Calling closure with args: [Number(-39.0)]
+DEBUG: Calling closure with args: [Number(-40.0)]
+DEBUG: Calling closure with args: [Number(-41.0)]
+DEBUG: Calling closure with args: [Number(-42.0)]
+
+thread 'main' (2160) has overflowed its stack
+error: process didn't exit successfully: `target\debug\omnilang.exe test 
+d:\GitHub\OmniLang\examples\scientific_calculator.omni` (exit code: 
+0xc00000fd, STATUS_STACK_OVERFLOW)

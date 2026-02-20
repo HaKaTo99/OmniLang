@@ -1,0 +1,90 @@
+module AISensorHub {
+    // 1. Data Structures for Sensor States
+    struct Environmental {
+        temp: f64,
+        humidity: f64,
+        air_quality: f64
+    }
+
+    struct Motion {
+        accel_x: f64,
+        accel_y: f64,
+        accel_z: f64
+    }
+
+    // 2. AI Analytics Functions
+    fn calculate_mean(data: [f64]) -> f64 {
+        let sum = reduce(data, |acc, val| acc + val, 0.0);
+        return sum / 10.0; // Simulated for 10 samples
+    }
+
+    fn predict_anomaly(current: f64, mean: f64) -> bool {
+        let threshold = mean * 1.5;
+        if (current > threshold) {
+            return true;
+        }
+        return false;
+    }
+
+    // 3. Main Intelligent Control Loop
+    const main: i32 = {
+        print("--- OmniLang AI-Powered Sensor Fusion Hub ---");
+
+        // Initialize Ports
+        let env_comm = io_open("serial://COM5");      // Environmental Sensors
+        let motion_comm = io_open("wifi://192.168.1.12"); // Motion Sensors via WiFi
+        let actuator = io_open("bt://00:1A:7D:DA:71:14");  // Control Actuator via BT
+        let cam = cam_capture();                      // Vision Feed
+
+        print("All sensor ports initialized. Starting AI Inference...");
+
+        // Mock Historical Data for Mean calculation
+        let history = [22.5, 23.0, 22.8, 24.1, 23.5, 22.9, 23.2, 23.8, 24.0, 23.1];
+        let baseline_temp = calculate_mean(history);
+        print("Baseline Temperature Mean: ");
+        print(baseline_temp);
+
+        // Single cycle of analysis and control
+        print("");
+        print("--- Real-time Analysis Cycle ---");
+
+        // Read Raw Data
+        let raw_temp = io_read(env_comm);    // Mock returns "ACK" or data
+        let current_temp = 35.2;            // Explicitly simulated for anomaly logic
+        
+        print("Current Temperature: ");
+        print(current_temp);
+
+        // AI Anomaly Detection
+        let is_anomaly = predict_anomaly(current_temp, baseline_temp);
+        
+        if (is_anomaly) {
+            print("ALERT: AI Detected Thermal Anomaly!");
+            
+            // Vision confirmation
+            print("Activating Camera Stream for visual confirmation...");
+            let frame = io_read(cam); 
+            print("Visual feed status: " + frame);
+
+            // Execute Closed-loop Control
+            print("AI Decision: Activating cooling system via Bluetooth...");
+            io_write(actuator, "COOLING_ON_HIGH");
+        } else {
+            print("System stable. AI continuing monitoring...");
+            io_write(actuator, "IDLE");
+        }
+
+        print("");
+        print("--- Motion Logic ---");
+        // Higher-order function usage on multi-sensor stream
+        let accel_data = [0.1, 0.05, -0.1, 1.2, 0.02];
+        let filtered = filter(accel_data, |v| v > 1.0); // Focus on high impact
+        
+        if (reduce(filtered, |acc, v| acc + 1.0, 0.0) > 0.0) {
+            print("Motion Alert: High impact detected via WiFi!");
+        }
+
+        print("Analysis Cycle Completed.");
+        0
+    };
+}

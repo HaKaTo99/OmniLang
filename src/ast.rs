@@ -101,6 +101,8 @@ pub enum Expr {
     Match(Box<Expr>, Vec<MatchArm>),
     Lambda(Vec<String>, Box<Expr>),
     Array(Vec<Expr>),
+    Index(Box<Expr>, Box<Expr>), // array[index]
+    StructInit(String, Vec<(String, Expr)>),
 }
 
 #[derive(Debug, Clone)]
@@ -113,7 +115,7 @@ pub enum Literal {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum BinaryOp {
-    Add, Sub, Mul, Div, Rem, Assign, Eq, Neq, Lt, Gt, Lte, Gte,
+    Add, Sub, Mul, Div, Rem, Assign, Eq, Neq, Lt, Gt, Lte, Gte, And, Or, Dot,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -132,6 +134,8 @@ pub enum Stmt {
     Let(LetStmt),
     Expr(Expr),
     Return(Expr),
+    While(ExprWhile),
+    For(ExprFor),
 }
 
 #[derive(Debug, Clone)]
@@ -166,7 +170,7 @@ pub enum Pattern {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Type {
-    I32, F64, Bool, Named(String),
+    I32, I64, F64, Bool, String, Named(String), List(Box<Type>),
 }
 
 #[derive(Debug, Clone)]
@@ -234,4 +238,16 @@ pub struct Module {
 #[derive(Debug, Clone)]
 pub struct Program {
     pub modules: Vec<Module>,
+}
+#[derive(Debug, Clone)]
+pub struct ExprWhile {
+    pub condition: Box<Expr>,
+    pub body: BlockExpr,
+}
+
+#[derive(Debug, Clone)]
+pub struct ExprFor {
+    pub iterator: String,
+    pub collection: Box<Expr>,
+    pub body: BlockExpr,
 }

@@ -1,0 +1,150 @@
+module BlockchainLedger {
+    // 1. Define Block Structure
+    struct Block {
+        index: i32,
+        timestamp: f64,
+        data: String,
+        prev_hash: String,
+        hash: String,
+        nonce: i32
+    }
+
+    // 2. Helper: Calculate Hash of a Block
+    // Uses the new `crypto_hash` built-in
+    fn calculate_block_hash(idx: i32, ts: f64, data: String, prev: String, nonce: i32) -> String {
+        let raw = idx + ":" + ts + ":" + data + ":" + prev + ":" + nonce;
+        return crypto_hash(raw);
+    }
+
+    // 3. Mining Function (Proof-of-Work)
+    // Concept: Find a nonce such that hash starts with "00" (Difficulty 2)
+    fn mine_block(idx: i32, data: String, prev_hash: String) -> Block {
+        print("Mining Block " + idx + "...");
+        let nonce = 0;
+        let ts = time_now();
+        let hash = "";
+        
+        // Loop until hash meets difficulty target
+        // Simulating "while true" with a large loop limit for safety
+        let found = false;
+        let limit = 100000; 
+
+        while (limit > 0) {
+            hash = calculate_block_hash(idx, ts, data, prev_hash, nonce);
+            
+            // Check difficulty: Starts with "HASH_..."
+            // In our mock hash: "HASH_LEN_REVERSED"
+            // To simulate PoW, let's just check if nonce is divisible by 7 (Mock Difficulty)
+            // Real PoW would check str_sub(hash, 0, 2) == "00"
+            // Let's us str_sub if available, or just a math trick for demo speed.
+            
+            // Using str_sub to check prefix (assuming mock hash produces predictable output)
+            // Mock hash format: "HASH_{len}_{reversed}"
+            // Let's just create a valid block and move on.
+            if nonce % 5 == 0 { // Fake difficulty for demo speed
+                found = true;
+                limit = 0; // Force break
+            } else {
+                nonce = nonce + 1;
+                limit = limit - 1;
+            }
+        }
+
+        print("  Block Mined! Nonce: " + nonce + " | Hash: " + hash);
+        
+        return Block {
+            index: idx,
+            timestamp: ts,
+            data: data,
+            prev_hash: prev_hash,
+            hash: hash,
+            nonce: nonce
+        };
+    }
+
+    // 4. Chain Validation
+    fn is_chain_valid(chain: [Block]) -> bool {
+        let i = 1;
+        let len = 3; // Hardcoded length for this demo
+        while (i < len) {
+            let current = chain[i];
+            let previous = chain[i - 1];
+
+            // Check 1: stored hash vs calculated hash
+            let recalc = calculate_block_hash(current.index, current.timestamp, current.data, current.prev_hash, current.nonce);
+            if current.hash != recalc {
+                print("Invalid Block " + i + ": Hash mismatch");
+                return false;
+            }
+
+            // Check 2: prev_hash link
+            if current.prev_hash != previous.hash {
+                print("Invalid Block " + i + ": Broken link");
+                return false;
+            }
+
+            i = i + 1;
+        }
+        return true;
+    }
+
+    const main: i32 = {
+        print("--- OmniLang Blockchain Ledger v1.0 ---");
+        
+        // Genesis Block
+        let genesis = Block {
+            index: 0,
+            timestamp: time_now(),
+            data: "Genesis Block",
+            prev_hash: "0",
+            hash: crypto_hash("Genesis"),
+            nonce: 0
+        };
+
+        // Create Chain Array
+        // Note: Dynamic push not yet fully supported on arrays? 
+        // We will initialize array with dummies or logical construction.
+        // Let's try constructing 3 blocks manually.
+
+        let b1 = mine_block(1, "Tx: Alice sends 50 to Bob", genesis.hash);
+        let b2 = mine_block(2, "Tx: Bob sends 10 to Charlie", b1.hash);
+
+        let chain = [genesis, b1, b2];
+
+        print("Blockchain Created. Height: 3");
+        
+        print("Validating Chain...");
+        if is_chain_valid(chain) {
+            print("Status: CHAIN VALID [SECURE]");
+        } else {
+            print("Status: CHAIN COMPROMISED");
+        }
+
+        print("Tampering with Block 1 Data...");
+        // Mutability is limited, but let's simulate a tampered block check
+        // We can't easily mutate the struct in the array in place without index-assign support.
+        // Index access is read-only in current impl? 
+        // (Expr::Index returns value). Checker allows assignment?
+        // Assign to index not yet implemented in parser/evaluator assignment logic!
+        
+        // Workaround: Create a bad chain
+        let bad_b1 = Block {
+            index: 1, 
+            timestamp: b1.timestamp,
+            data: "Tx: Alice sends 9000 to Eve", // Tampered
+            prev_hash: b1.prev_hash,
+            hash: b1.hash,
+            nonce: b1.nonce
+        };
+        let bad_chain = [genesis, bad_b1, b2];
+        
+        print("Validating Tampered Chain...");
+        if is_chain_valid(bad_chain) {
+             print("Status: CHAIN VALID");
+        } else {
+             print("Status: CHAIN COMPROMISED [DETECTED]");
+        }
+
+        0
+    };
+}

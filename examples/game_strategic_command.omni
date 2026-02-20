@@ -1,0 +1,65 @@
+module StrategicCommand {
+    struct Resources {
+        gold: i32,
+        mana: i32,
+        population: i32
+    }
+
+    struct Unit {
+        type: String, // "Warrior", "Mage", "Peon"
+        cost: i32,
+        attack: i32,
+        is_ready: bool
+    }
+
+    fn train_unit(res: Resources, unit_type: String) -> Resources {
+        let mut r = res;
+        match unit_type {
+            "Warrior" => {
+                if (r.gold >= 50) {
+                    r.gold = r.gold - 50;
+                    r.population = r.population + 1;
+                    print("Warrior Trained!");
+                }
+            }
+            "Mage" => {
+                if (r.gold >= 100 && r.mana >= 50) {
+                    r.gold = r.gold - 100;
+                    r.mana = r.mana - 50;
+                    r.population = r.population + 1;
+                    print("Mage Trained!");
+                }
+            }
+            _ => {
+                print("Unknown unit type.");
+            }
+        }
+        return r;
+    }
+
+    fn calculate_battle_power(units: [Unit]) -> i32 {
+        let total = reduce(units, |acc, u| acc + u.attack, 0);
+        return total;
+    }
+
+    const main: i32 = {
+        print("--- OmniLang Strategic Command ---");
+        
+        let mut kingdom_res = Resources { gold: 500, mana: 200, population: 0 };
+        
+        print("Starting Gold:");
+        print(kingdom_res.gold);
+
+        // Build Army
+        kingdom_res = train_unit(kingdom_res, "Warrior");
+        kingdom_res = train_unit(kingdom_res, "Mage");
+        
+        print("Resources after Training:");
+        print("Gold:");
+        print(kingdom_res.gold);
+        print("Mana:");
+        print(kingdom_res.mana);
+
+        0
+    };
+}

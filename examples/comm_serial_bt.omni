@@ -1,0 +1,43 @@
+module SerialBluetooth {
+    const main: i32 = {
+        print("--- OmniLang Serial & Bluetooth Controller ---");
+
+        // 1. Inisialisasi Serial Port (Robot Controller)
+        let serial_port = io_open("serial://COM3");
+        print("Serial Port COM3 opened.");
+
+        // 2. Inisialisasi Bluetooth (Mobile App Link)
+        let bt_link = io_open("bt://00:1A:7D:DA:71:13");
+        print("Bluetooth Link established.");
+
+        // Simulasi loop kontrol (2 iterasi)
+        let mut count = 0;
+        while (count < 2) {
+            print("");
+            print("Iteration: ");
+            print(count);
+
+            // Membaca data dari Bluetooth (App Command)
+            let cmd = io_read(bt_link);
+            print("Received from BT: " + cmd);
+
+            // Jika perintah OK, teruskan ke Serial (Robot Execution)
+            if (cmd == "ACK") {
+                print("Command valid, sending to Robot via Serial...");
+                io_write(serial_port, "MOVE_FORWARD");
+                
+                // Baca feedback dari Robot
+                let feedback = io_read(serial_port);
+                print("Robot Feedback: " + feedback);
+            } else {
+                print("Waiting for valid command...");
+            }
+
+            count = count + 1;
+        }
+
+        print("");
+        print("Control Session Finished.");
+        0
+    };
+}

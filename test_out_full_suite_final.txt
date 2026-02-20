@@ -1,0 +1,162 @@
+﻿cargo :    Compiling omnilang v1.2.2 (D:\GitHub\OmniLang)
+At line:1 char:1
++ cargo run -- test examples\game_2d_platformer.omni examples\game_3d_a ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (   Compiling om...itHub\OmniLang 
+   ):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: unused import: `HashSet`
+ --> src\checker.rs:4:33
+  |
+4 | use std::collections::{HashMap, HashSet};
+  |                                 ^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `omnilang` (lib) generated 1 warning (run `cargo fix --lib -p 
+omnilang` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.75s
+     Running `target\debug\omnilang.exe test examples\game_2d_platformer.omni 
+examples\game_3d_arena.omni examples\game_multiplayer_mesh.omni 
+examples\game_rpg_quest.omni examples\game_strategic_command.omni 
+examples\scientific_calculator.omni examples\physics_laws_sim.omni 
+examples\ai_data_analysis.omni`
+--- OmniLang 2D Platformer Engine ---
+Hero State after Jump:
+Idle
+Hero Y Pos after physics:
+9.5
+Test PASSED: examples\game_2d_platformer.omni
+--- OmniLang 3D Arena (ECS Style) ---
+Player HP before damage:
+100
+Player HP after 30 damage (with 20 armor):
+80
+New Player Position X:
+11
+Test PASSED: examples\game_3d_arena.omni
+--- OmniLang Multiplayer Mesh Engine ---
+Local Host Player ID:
+88
+Peer Connected. Latency (ms):
+45
+Local Authority over Peer:
+false
+Predicted Position X for remote peer:
+100.725
+Test PASSED: examples\game_multiplayer_mesh.omni
+--- OmniLang RPG Quest Engine ---
+Hero Quest Progress:
+0
+Quest Updated: Go slay the dragon!
+Quest Complete: Return for reward.
+Final Hero Level:
+2
+Achievement Unlocked: Slayer of Dragons
+Test PASSED: examples\game_rpg_quest.omni
+--- OmniLang Strategic Command ---
+Starting Gold:
+500
+Warrior Trained!
+Mage Trained!
+Resources after Training:
+Gold:
+350
+Mana:
+150
+Test PASSED: examples\game_strategic_command.omni
+--- OmniLang Scientific Calculator ---
+Constants:
+PI:
+3.141592653589793
+E:
+2.718281828459045
+Calculations:
+2^10 =
+1024
+5! =
+120
+abs(-123.456) =
+123.456
+Compound interest (1000 at 5% for 10 years):
+1628.894626777442
+Test PASSED: examples\scientific_calculator.omni
+--- OmniLang Physics Law Simulator ---
+Simulating Satellite Orbit around Earth (10 steps):
+Step:
+0
+Satellite X:
+39999999.75089295
+Satellite Y:
+3000
+Step:
+1
+Satellite X:
+39999999.25267885
+Satellite Y:
+5999.999981316971
+Step:
+2
+Satellite X:
+39999998.5053577
+Satellite Y:
+8999.999925267884
+Step:
+3
+Satellite X:
+39999997.5089295
+Satellite Y:
+11999.99981316971
+Step:
+4
+Satellite X:
+39999996.26339426
+Satellite Y:
+14999.99962633942
+Step:
+5
+Satellite X:
+39999994.76875198
+Satellite Y:
+17999.999346093984
+Step:
+6
+Satellite X:
+39999993.025002666
+Satellite Y:
+20999.99895375037
+Step:
+7
+Satellite X:
+39999991.032146335
+Satellite Y:
+23999.998430625557
+Step:
+8
+Satellite X:
+39999988.790182985
+Satellite Y:
+26999.99775803651
+Step:
+9
+Satellite X:
+39999986.299112625
+Satellite Y:
+29999.996917300195
+Simulation Complete.
+Test PASSED: examples\physics_laws_sim.omni
+--- OmniLang AI Data Analysis ---
+Task: Simple Linear Regression (Home Price Prediction)
+Mean Area:
+98
+Mean Price:
+290
+Model Parameters:
+Slope (b1):
+3.0095541401273884
+Intercept (b0):
+-4.9363057324840725
+Prediction for 200 sqm house:
+596.9745222929937
+Test PASSED: examples\ai_data_analysis.omni

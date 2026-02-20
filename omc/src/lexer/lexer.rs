@@ -76,6 +76,7 @@ impl<'a> Lexer<'a> {
             ';' => Token::Semicolon,
             ':' => Token::Colon,
             '.' => Token::Dot,
+            '|' => Token::Pipe,
             '\0' => Token::Eof,
             '@' => self.read_annotation(),
             '"' => self.read_string(),
@@ -168,6 +169,7 @@ impl<'a> Lexer<'a> {
             "int" => Token::TypeInt,
             "string" => Token::TypeString,
             "match" => Token::Match,
+            "module" => Token::Module,
             _ => Token::Ident(literal.to_string()),
         }
     }
