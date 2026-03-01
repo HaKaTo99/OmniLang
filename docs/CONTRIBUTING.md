@@ -49,4 +49,25 @@ Kami menerima PR yang fokus pada penyempurnaan dan implementasi fitur yang terca
 * **Komentar:** Komentar harus jelas, terutama untuk bagian arsitektur kritis (Borrow Checker, Type Checker).
 * **Test:** Semua fitur dan perbaikan harus disertai dengan *unit tests* yang memadai.
 
+## Area yang Membutuhkan Bantuan
+
+Bagi Anda yang ahli di spesifikasi eksternal, kami mengundang kontribusi untuk:
+- Integrasi Backend WASM.
+- Pengembangan TUI dan integrasi GUI.
+- Template contoh aplikasi _Real-World_ untuk arsitektur IoT.
+
+## 🔥 _Good First Issues_
+
+Belum familiar dengan kompilator Rust? Tim inti rutin membuat label `good first issue` di GitHub untuk memandu pemula masuk ke proyek OmniLang, dengan topik seputar:
+- Menambah persentase _test coverage_.
+- Memperbaiki redaksi *error message* yang membingungkan.
+- Meluruskan dan menerjemahkan dokumen.
+- Membantu konfigurasi *pipeline* GitHub Actions.
+
+## Komunikasi & Diskusi (Community Hub)
+
+Bergabunglah bersama *Brain-Trust* xAetherOS kami!
+* **GitHub Discussions**: Untuk tanya jawab, gagasan fitur, dan dukungan asinkronus (Silakan tabrak tab `Discussions` di repositori kami).
+* *(Tautan Discord/Telegram resmi akan segera menyusul)*.
+
 Terima kasih telah membantu membangun masa depan pemrograman dengan OmniLang!
