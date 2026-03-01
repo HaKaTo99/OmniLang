@@ -38,5 +38,10 @@ fn fetch_weather_data(coord: [f64]) -> [f64];
 **Konfigurasi Parameter:**
 * `target` *(wajib)*: IP dan Port Node Worker tujuan.
 
+**Keamanan & Otorisasi:**
+RPC `@mesh` diluncurkan dengan menyertakan *X-Capability-Token*.
+1. **Sisi Worker**: Dinyalakan dengan flag `--token "secret-key"`. Worker akan menolak request tanpa token yang cocok.
+2. **Sisi Client**: Menggunakan mekanisme *Shadowing Token*. Jika terdapat konstanta global `const X_CAPABILITY_TOKEN: String` di dalam skrip, `ProgramEvaluator` akan otomatis menyisipkan nilai tersebut ke dalam protokol transport.
+
 **Catatan Integrasi:**
 Pada fase awal (v2.1), objek argument dan balasan direduksi dan diserialisasi dengan `serde_json` di *Core Engine*. Sangat disarankan untuk mendefinisikan *Primitive Tying* yang jelas agar konversi kembali deterministik. Tipe data yang kompleks dengan Closure / fungsi didalam parameter *List* belum didukung untuk RPC.

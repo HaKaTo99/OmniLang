@@ -35,9 +35,9 @@ Kami menerima PR yang fokus pada penyempurnaan dan implementasi fitur yang terca
 7.  *Push* *branch* baru Anda ke *fork* Anda di GitHub.
 8.  Buat **Pull Request (PR)** ke *branch* `main` di repositori utama OmniLang.
 
-#### Checklist Cepat (selaras scope v1.0 - validator)
+#### Checklist Cepat (selaras scope v2.1.0 - Distributed Intelligence)
 
-- Pastikan perubahan tidak menambah compiler/stdlib/runtime baru; fokus pada validator (parser/checker/evaluator) atau tooling sekitarnya.
+- Fokus pada penguatan fabric: Mesh (`src/mesh`), AI (`src/onnx_oracle.rs`), atau keamanan (`security.rs`) selain validator inti.
 - Tambahkan/ubah contoh di `examples/` jika ada sintaks atau fitur baru yang disentuh.
 - Tambahkan tes: Rust `tests/` atau API guard rails `tests/api-validate.test.ts` jika relevan.
 - Dokumentasi singkat: perbarui README atau docs/ sesuai perubahan perilaku.

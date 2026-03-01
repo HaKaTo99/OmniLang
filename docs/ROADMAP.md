@@ -29,10 +29,10 @@ Architect: Herman Krisnanto,
 
 ---
 
-## 💎 Milestone: The Grand Unification (v2.0.0)
-**Status**: Diaktifkan (20 Februari 2026)
+## 💎 Milestone: Distributed Intelligence Fabric (v2.1.0)
+**Status**: Diaktifkan (01 Maret 2026)
 
-Proyek OmniLang telah mencapai titik **Grand Unification**. Kami telah membuktikan bahwa satu bahasa dapat menangani **AI (Neural Networks)**, **Blockchain (Secure Ledger)**, dan **Hardware Control (IoT)** dalam satu ekosistem terpadu. Fragmentasi bahasa telah dihapuskan.
+Proyek OmniLang telah mencapai titik **Distributed Intelligence**. Kami telah membuktikan bahwa satu bahasa dapat menangani **AI (Neural Networks)** lintas jaringan mesh secara aman dengan *Capability Tokens*. Fragmentasi keamanan dan distribusi telah dihapuskan.
 
 > **"Satu Bahasa untuk Memerintah Semuanya."**
 

@@ -1,7 +1,7 @@
 # OmniLang Specification: Concurrency Model
 
-**Status**: Draft
-**Version**: v0.1
+**Status**: Stable (Distributed Fabric)
+**Version**: v2.1.0
 
 ## 1. Goroutines (Lightweight Threads)
 
@@ -25,15 +25,12 @@ go fn() {
 let val = <-ch; // Receive
 ```
 
-## 3. Distributed Mesh Integration (`@mesh`)
-
-The `@mesh` annotation automatically distributes execution across the xAetherOS fabric.
+The `@mesh` annotation automatically distributes execution across the xAetherOS fabric via TCP RPC.
 
 ```omni
-@mesh(strategy: "load-balanced")
-fn heavyCompute(data: Matrix) -> Result {
-    // This runs on a node with available resources
-    return calculate(data);
+@mesh(target: "127.0.0.1:8081")
+fn heavyCompute(data: [f64]) -> [f64] {
+    // Forwarded to 127.0.0.1:8081
 }
 ```
 

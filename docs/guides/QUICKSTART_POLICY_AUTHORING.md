@@ -122,7 +122,18 @@ omnilang test your_policy.omni --context context.json
 
 # Get metrics
 omnilang metrics your_policy.omni --format prometheus
+## 🤖 Step 11: Distributed AI Intelligence
+```omni
+// Menggunakan AI dari node lain
+@mesh(target: "127.0.0.1:8081")
+@oracle(model: "traffic_optimizer.onnx")
+fn optimizeFlow(input: [f64]) -> [f64];
+
+RULE:
+- IF TrafficDensity > 90
+- THEN optimizeFlow(LiveData)
 ```
+OmniLang memungkinkan kebijakan Anda memanggil kekuatan AI lintas jaringan secara transparan.
 
 ## 🎯 Common Patterns
 

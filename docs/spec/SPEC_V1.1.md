@@ -1,4 +1,4 @@
-# 📜 Spesifikasi OmniLang v1.2: Harmonious Era
+# 📜 Spesifikasi OmniLang v2.1: Distributed Fabric Era
 *Status: Stable / Production-Ready*
 
 Dokumen ini mendefinisikan ekstensi fungsional untuk OmniLang v1.x, dimulai dengan Pattern Matching.

@@ -44,4 +44,4 @@ Setelah terinstal, Anda bisa langsung membuat file game pertama Anda:
 2. Buat file `hello.omni`.
 3. Jalankan melalui terminal: `omc hello.omni --visual`.
 
-🚀 **AetherOS + OmniLang: The Future of Computing is Harmonious.**
+🚀 **AetherOS + OmniLang: The Future of Distributed Intelligence is Secured.**
