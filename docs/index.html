@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OmniLang v2.1.0 - Distributed Intelligence Fabric. UIL for xAetherOS.">
+    <title>OmniLang: Distributed Intelligence Fabric</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Background Grid -->
+    <div class="cyber-grid"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <h1 class="logo">OMNI<span class="accent">LANG</span></h1>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="https://github.com/HaKaTo99/OmniLang/blob/main/docs/QUICKSTART.md" target="_blank">Quickstart</a></li>
+                <li><a href="https://github.com/HaKaTo99/OmniLang/blob/main/docs/spec/INDEX.md" target="_blank">Documentation</a></li>
+                <li><a href="https://github.com/HaKaTo99/OmniLang" target="_blank" class="btn btn-outline">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="version-badge">v2.1.0 Released</div>
+                <h2 class="title">Distributed<br><span class="gradient-text">Intelligence</span> Fabric</h2>
+                <p class="subtitle">Satu Bahasa, Satu Fabric. Universal Intent Language yang dirancang kustom untuk menyatukan AI, Blockchain, & IoT dalam harmoni xAetherOS.</p>
+                <div class="hero-actions">
+                    <a href="https://github.com/HaKaTo99/OmniLang/blob/main/docs/QUICKSTART.md" class="btn btn-primary">Get Started</a>
+                    <a href="#demo" class="btn btn-secondary">Interactive Demo</a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="terminal-title">omc - node_alpha</span>
+                    </div>
+                    <div class="terminal-body" id="code-display">
+                        <div class="code-line"><span class="keyword">const</span> <span class="property">X_CAPABILITY_TOKEN</span> <span class="operator">=</span> <span class="string">"secure-fabric-key"</span>;</div>
+                        <div class="code-line"><br></div>
+                        <div class="code-line"><span class="comment">// Distributed AI Orchestration</span></div>
+                        <div class="code-line"><span class="decorator">@mesh</span>(target: <span class="string">"127.0.0.1:8081"</span>)</div>
+                        <div class="code-line"><span class="decorator">@oracle</span>(model: <span class="string">"yolov8.onnx"</span>)</div>
+                        <div class="code-line"><span class="keyword">fn</span> <span class="function">detectThreats</span>(videoStream: [<span class="type">f64</span>]) <span class="operator">-></span> [<span class="type">f64</span>];</div>
+                        <div class="code-line"><br></div>
+                        <div class="code-line"><span class="keyword">INTENT</span>: Secure Area Monitoring</div>
+                        <div class="code-line"><span class="keyword">RULE</span>:</div>
+                        <div class="code-line"><span class="operator">-</span> <span class="keyword">IF</span> detectThreats(CameraStream) <span class="operator">></span> <span class="number">0.85</span></div>
+                        <div class="code-line"><span class="operator">-</span> <span class="keyword">THEN</span> TriggerLockdown, AlertControlCenter</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The <span class="accent">Zero-Trust</span> Era</h2>
+                <p class="section-desc">Membangun keandalan setingkat militer dengan abstraksi yang elegan.</p>
+            </div>
+            
+            <div class="feature-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card glass">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>Native AI (<span class="accent">@oracle</span>)</h3>
+                    <p>Mengeksekusi model ONNX secara natif pada runtime tanpa binding C++. Mengusung kemampuan validasi *shape* deterministik lintas node.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card glass">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9zM13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>Secure Mesh (<span class="accent">@mesh</span>)</h3>
+                    <p>RPC (Remote Procedure Call) transparan via TCP yang merekatkan sensor, pekerja AI, dan aktuator ke dalam satu Fabric IoT yang padu.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card glass">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <h3>X-Capability Tokens</h3>
+                    <p>Beroperasi dengan model Zero-Trust by default. Setiap lompatan jaringan diotentikasi dan diamankan. Mencegah ancaman node rogue seketika.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Demo Section -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <div class="demo-layout">
+                <div class="demo-info">
+                    <h2><span class="gradient-text">OODA Loop</span> Otonomi Eksekusi</h2>
+                    <p>OmniLang menyederhanakan siklus kompleks Observe, Orient, Decide, Act menjadi pernyataan kehendak (Intent) yang elegan dan ringkas.</p>
+                    
+                    <ul class="tab-list">
+                        <li class="tab active" data-target="mesh">Distributed Mesh Worker</li>
+                        <li class="tab" data-target="ai">Native ONNX Inference</li>
+                        <li class="tab" data-target="declarative">Declarative Policy</li>
+                    </ul>
+                </div>
+                
+                <div class="demo-window glass">
+                    <div id="snippet-mesh" class="snippet active">
+<pre><code><span class="comment">// 1. Menjadikan Node Lokal sebagai Mesh AI Worker</span>
+<span class="keyword">const</span> <span class="property">X_CAPABILITY_TOKEN</span> <span class="operator">=</span> <span class="string">"alpha-omega-99"</span>;
+
+<span class="decorator">@oracle</span>(model: <span class="string">"models/mobilenet.onnx"</span>)
+<span class="keyword">fn</span> <span class="function">classify_image</span>(pixels: [<span class="type">f64</span>]) <span class="operator">-></span> [<span class="type">f64</span>];
+
+<span class="keyword">fn</span> <span class="function">main</span>() {
+    <span class="function">println</span>(<span class="string">"Menjalankan Daemon AI Mesh..."</span>);
+    <span class="comment">// `$ omnilang serve worker.omni --port 8081`</span>
+}</code></pre>
+                    </div>
+                    <div id="snippet-ai" class="snippet">
+<pre><code><span class="comment">// 2. Implementasi Otoritas Client / Sensor Layer</span>
+<span class="keyword">const</span> <span class="property">X_CAPABILITY_TOKEN</span> <span class="operator">=</span> <span class="string">"alpha-omega-99"</span>;
+
+<span class="decorator">@mesh</span>(target: <span class="string">"18.232.1.9:8081"</span>)
+<span class="keyword">fn</span> <span class="function">classify_image</span>(pixels: [<span class="type">f64</span>]) <span class="operator">-></span> [<span class="type">f64</span>];
+
+<span class="keyword">fn</span> <span class="function">main</span>() {
+    <span class="keyword">let</span> pixels <span class="operator">=</span> <span class="function">capture_camera</span>();
+    <span class="keyword">let</span> ai_result <span class="operator">=</span> <span class="function">classify_image</span>(pixels); 
+    <span class="comment">// Dieksekusi jarak jauh dengan Token secara gaib!</span>
+}</code></pre>
+                    </div>
+                    <div id="snippet-declarative" class="snippet">
+<pre><code><span class="comment">// 3. Kebijakan Niat Manusia (Human Intent)</span>
+<span class="keyword">INTENT</span>: Pengamanan Zona Merah VVIP
+
+<span class="keyword">ACTOR</span>:
+<span class="operator">-</span> Node_Sensor_A
+<span class="operator">-</span> AI_Oracle_Core
+
+<span class="keyword">RULE</span>:
+<span class="operator">-</span> <span class="keyword">IF</span> AI_Oracle_Core.<span class="function">detect_anomaly</span>(Node_Sensor_A.feed) <span class="operator">></span> <span class="number">99</span>
+<span class="operator">-</span> <span class="keyword">THEN</span> CloseGates, SendDroneSectorA</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h2>OMNI<span class="accent">LANG</span></h2>
+                <p>Membangun Bahasa Saraf untuk Mesin Sadar (xAetherOS).</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/HaKaTo99/OmniLang">GitHub</a>
+                <a href="https://github.com/HaKaTo99/OmniLang/blob/main/docs/ROADMAP.md">Roadmap</a>
+                <a href="https://github.com/HaKaTo99/OmniLang/blob/main/docs/spec/INDEX.md">Spesifikasi</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 xAetherOS Team. Dibangun dengan integritas dan kemanusiaan.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
