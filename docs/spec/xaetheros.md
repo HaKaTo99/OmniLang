@@ -1,7 +1,7 @@
 # OmniLang Specification: xAetherOS Integration
 
-**Status**: Stable (v1.2.0-Harmonious integration)
-**Version**: v1.2
+**Status**: Stable (v2.1.0-Distributed Fabric)
+**Version**: v2.1.0
 
 ## 1. Oracle Engine Integration (`@oracle`)
 

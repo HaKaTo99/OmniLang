@@ -46,7 +46,7 @@ OmniLang v1.5.0 memperkenalkan kemampuan matematika matriks untuk membangun Neur
 **Definisi**: AI yang bertindak sendiri (Agentic), hemat daya (Edge AI), dan sosial.
 **Posisi OmniLang**: **LEADER (The Grand Unification)**.
 
-Visi v2.0.0 "Grand Unification" menempatkan OmniLang sebagai **Sistem Saraf** bagi AI masa depan.
+Visi v2.1.0 "Distributed Intelligence Fabric" menempatkan OmniLang sebagai **Sistem Saraf** bagi AI masa depan.
 
 ### A. AI Otonom (Agentic)
 OmniLang dirancang untuk siklus **OODA (Observe-Orient-Decide-Act)**.

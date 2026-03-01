@@ -1,4 +1,4 @@
-# Getting Started OmniLang v1.2.0 (Harmonious Singularity)
+# Getting Started OmniLang v2.1.0 (Distributed Intelligence Fabric)
 
 Dokumen ini merangkum langkah cepat untuk menjalankan OmniLang di berbagai kanal antarmuka, mencakup mode Deklaratif (Core) dan Imperatif (omc).
 

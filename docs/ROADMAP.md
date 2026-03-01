@@ -263,7 +263,7 @@ Proyek OmniLang dibagi menjadi tiga era utama yang mencerminkan tingkat kematang
 | 10 | v1.2 | IDE Experience (TUI/Workstation) | ✅ Selesai | Feb 2026 |
 | 11 | v1.2 | Harmonisasi & Audit Dokumentasi | ✅ Selesai | Feb 2026 |
 
-#### **Era III: Military Grade & Grand Unification (v1.2.2 - v2.0)**  
+#### **Era III: Military Grade & Distributed Fabric (v1.2.2 - v2.1.0+)**  
 *Fokus: AI, Crypto, Bio-Tech, dan Penyatuan Sistem Total.*
 
 | Fase | Versi | Nama | Status | Selesai |
@@ -504,7 +504,7 @@ Proyek OmniLang dibagi menjadi tiga era utama yang mencerminkan tingkat kematang
 | 10 | v1.2 | IDE Experience (TUI/Workstation) | ✅ Selesai | Feb 2026 |
 | 11 | v1.2 | Harmonisasi & Audit Dokumentasi | ✅ Selesai | Feb 2026 |
 
-#### **Era III: Military Grade & Future (v1.2.2 - v2.0+)**  
+#### **Era III: Military Grade & Future (v1.2.2 - v2.1.0+)**  
 *Fokus: Stabilitas Ultra, Keamanan Zero-Trust, dan Saturasi Platform.*
 
 | Fase | Versi | Nama | Status | Target |
@@ -646,7 +646,7 @@ Berikut adalah rincian mendalam mengenai perkembangan OmniLang saat ini:
 ### 🚧 2. SEDANG DIKERJAKAN (ONGOING)
 *Fokus utama saat ini adalah memastikan keandalan absolut sistem.*
 
-- **Audit Milestone v1.2.2**: Finalisasi pengujian 30/30 contoh `.omni` untuk memastikan tidak ada regresi logika.
+- **Audit Milestone v2.1.0**: Pengujian ekstensif simulasi jaringan Mesh (`@mesh`) pada arsitektur OODA Loop untuk validasi determinisme beban kerja AI (`@oracle`).
 - **Harmonisasi Parser**: Sinkronisasi token-token terbaru agar `omc` dan `Core Engine` memiliki pemahaman sintaksis yang identik.
 - **Zero-Trust Certification**: Peningkatan sistem capability sehingga setiap fungsi hanya dapat berjalan jika memiliki token izin yang valid.
 

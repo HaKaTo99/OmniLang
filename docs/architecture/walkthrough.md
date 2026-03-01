@@ -1,4 +1,4 @@
-# Walkthrough: Harmonious Singularity (OmniLang v1.2.0)
+# Walkthrough: Distributed Intelligence Fabric (OmniLang v2.1.0)
 
 Dokumen ini mendokumentasikan pencapaian milestone **Harmonious Singularity**, di mana OmniLang telah berevolusi menjadi ekosistem universal yang mengintegrasikan seluruh kanal interaksi (HCI) dan platform sistem secara selaras.
 
@@ -26,7 +26,7 @@ Dokumen ini mendokumentasikan pencapaian milestone **Harmonious Singularity**, d
 - **Futuristic Context**: Implementasi placeholder `--bci` dan `--pui` telah siap menyambut era interaksi sensorik dan neural.
 
 ## Hasil Akhir
-Ekosistem OmniLang v1.2.0-Harmonious kini berada dalam kondisi **Singularity Stability**. Seluruh engine, dokumentasi, dan antarmuka telah selaras secara total menuju visi xAetherOS.
+Ekosistem OmniLang v2.1.0-Distributed kini berada dalam kondisi **Singularity Stability**. Seluruh engine, dokumentasi, AI dan antarmuka Mesh telah selaras secara total menuju visi xAetherOS.
 
 ![Release Notes Preview](file:///d:/GitHub/OmniLang/docs/RELEASE_NOTES_v1.0.md)
 
