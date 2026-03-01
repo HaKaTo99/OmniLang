@@ -24,6 +24,8 @@ Anotasi khusus `@oracle`, `@quantum`, dan komunikasi Quantum Bus.
 ## 📅 Versi Spesifikasi
 - **[SPEC v1.0](SPEC_V1.0.md)**: Baseline awal untuk Core Engine.
 - **[SPEC v1.1](SPEC_V1.1.md)**: Pengembangan untuk Workstation Compiler (HOF, Pattern Matching).
+- **[ROADMAP v2.0](../ROADMAP.md)**: Titik Singularity & "The Grand Unification"
+- **[API Ref v2.1.0](../api.md)**: Dekorator `@oracle` dan `@mesh` (Distributed Fabric).
 
 ---
 *OmniLang Specs: Presisi dalam setiap baris.*

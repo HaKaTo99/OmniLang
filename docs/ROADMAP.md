@@ -5,8 +5,8 @@ Architect: Herman Krisnanto,
 
 # OmniLang: The Universal Programming Language for the xAetherOS Fabric
 
-**White Paper v2.0 & Master Roadmap**  
-**Last Updated**: 20 Februari 2026 (v2.0.0 - The Grand Unification)  
+**White Paper v2.1 & Master Roadmap**  
+**Last Updated**: 01 Maret 2026 (v2.1.0 - Distributed Intelligence Fabric)  
 **Status**: Production Ready / Universal System  
 **Repo**: https://github.com/HaKaTo99/OmniLang.git
 
@@ -272,7 +272,8 @@ Proyek OmniLang dibagi menjadi tiga era utama yang mencerminkan tingkat kematang
 | 13 | v1.5.0 | **Advanced Intelligence (AI)** | ✅ Selesai | Feb 2026 |
 | 14 | v1.6.0 | **Future Tech (Blockchain/Quantum)** | ✅ Selesai | Feb 2026 |
 | 15 | v2.0.0 | **The Grand Unification** | ✅ Selesai | Feb 2026 |
-| 16 | v2.1 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
+| 16 | v2.1.0 | **Distributed Intelligence Fabric (`@mesh` & `@oracle`)** | ✅ Selesai | Mar 2026 |
+| 17 | v2.2 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
 
 ---
 
@@ -508,9 +509,10 @@ Proyek OmniLang dibagi menjadi tiga era utama yang mencerminkan tingkat kematang
 
 | Fase | Versi | Nama | Status | Target |
 |------|-------|------|--------|--------|
-| **12** | **v1.2.2** | **Security & Stability Hardening** | 🚧 **In Progress** | **Fbr 2026** |
-| 13 | v1.3 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
-| 14 | v1.4 | Legacy Bridge (Embedded/UART) | 📅 Planned | Q3 2026 |
+| **12** | **v1.2.2** | **Security & Stability Hardening** | ✅ Selesai | **Fbr 2026** |
+| 13 | v2.1.0 | Distributed Intelligence Fabric | ✅ Selesai | Mar 2026 |
+| 14 | v2.2 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
+| 15 | v2.3 | Legacy Bridge (Embedded/UART) | 📅 Planned | Q3 2026 |
 | 15 | v2.0 | Universal Singularity (BCI/Quantum) | 📅 Planned | 2028 |
 
 ---

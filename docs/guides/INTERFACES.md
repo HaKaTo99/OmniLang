@@ -4,10 +4,11 @@ OmniLang dirancang dengan visi **Universal Access**, mendukung total 12 kategori
 
 ## 🟢 Kanal Aktif (Siap Pakai)
 
-### 1. CLI (Command Line Interface)
+### 1. CLI (Command Line Interface & Mesh Daemon)
 Antarmuka standar untuk pengoperasian compiler dan eksekusi skrip melalui terminal (CMD, PowerShell, Bash).
-- **Perintah**: `cargo run -- <file.omni>`
-- **Guna**: Kompilasi imperatif ke native Rust.
+- **Perintah Eksekusi**: `cargo run -- test <file.omni>` (Menjalankan fungsi `main`)
+- **Perintah Daemon**: `cargo run -- serve <file.omni> --port 8080` (Berdiri sebagai _Mesh Worker_ TCP)
+- **Guna**: Evaluasi logika, abstraksi OODA Loop, RPC, dan kompilasi imperatif.
 
 ### 2. TUI (Text-based UI / Cyber IDE)
 Dashboard terminal interaktif untuk pengembangan yang lebih visual tanpa meninggalkan shell.

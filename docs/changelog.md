@@ -2,6 +2,17 @@
 
 Semua perubahan signifikan pada proyek ini akan didokumentasikan di file ini.
 
+## [2.1.0-Distributed-Fabric] - 2026-03-01
+### Added
+- **Native AI Inference (`@oracle`)**: Fungsionalitas _proxy engine_ ONNX untuk membedah komputasi Model Jaringan Saraf Tiruan (*Neural Networks*) berbasis tensor. Mendukung sistem deklarasi tanpa bingkai pustaka luar (FFI-less).
+- **Secure Distributed Mesh (`@mesh`)**: Modul pilar arsitektur TCP Remote Procedure Call tersinkronisasi murni di dalam runtime, memfasilitasi komunikasi Client-Worker-Actuator yang independen.
+- **X-Capability Security**: Transmisi pemanggilan jarak jauh disisipi oleh "token kapabilitas" bawaan dari sisi _Client_ dan diverifikasi teguh di sisi Server (_Worker_).
+- **Orchestration Tutorial**: Penambahan panduan resmi _Distributed Mesh_ dan `onnx_10min` di dalam `docs/tutorials`.
+
+### Changed
+- **Argument CLI**: Ekspansi `omnilang serve --port <PORT> --token <TOKEN>` untuk menjadikan OmniLang sebagai daemon pekerja.
+- **Program Evaluator Engine**: Evaluator kini memiliki mode `--worker` dan kemampuan translasi serialisasi JSON AST yang melintasi transport TCP antar port.
+
 ## [1.2.1] - 2026-02-19
 ### Added
 - **Audit & Synchronization**: Audit menyeluruh terhadap seluruh komponen proyek (Core, omc, Web, Docs).

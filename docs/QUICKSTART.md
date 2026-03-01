@@ -1,4 +1,4 @@
-# QUICKSTART (v1.2.1)
+# QUICKSTART (v2.1.0)
 
 Panduan cepat untuk memulai pengembangan dengan OmniLang.
 
@@ -12,26 +12,32 @@ Panduan cepat untuk memulai pengembangan dengan OmniLang.
 git clone https://github.com/HaKaTo99/OmniLang.git
 cd OmniLang
 
-# Build (debug)
+# Build eksekusi
 cargo build
 ```
 
 ## Cara Menjalankan
 OmniLang mendukung 12 antarmuka universal. Untuk detail lengkap setiap kanal, lihat **[Interfaces Guide](guides/INTERFACES.md)**.
 
-### Contoh Eksekusi Dasar (CLI)
+### Contoh Eksekusi Distributed Mesh & AI (OODA Loop)
+Jalankan dua terminal terpisah untuk menguji orkestrasi Jaringan Mesh:
 ```bash
-cargo run -- examples/loop_demo.omni
+# Terminal 1: Nyalakan Worker Node berbekal Neural Network ONNX & Capability Token
+cargo run -- serve examples/multi_node_worker.omni --port 8081 --token "dummy-token"
+
+# Terminal 2: Sensor Node yang meng-intercept eksekusi fungsional jarak jauh
+cargo run -- test examples/multi_node_sensor.omni
+```
+
+### Eksekusi Rutin Dasar (CLI)
+```bash
+cargo run -- test examples/loop_demo.omni
 ```
 
 ### Visual IDE (TUI)
 ```bash
 cargo run -- examples/match_demo.omni --visual
 ```
-
-### Web Studio (GUI)
-1. Jalankan server: `npm run dev`
-2. Buka: [localhost:3000](http://localhost:3000)
 
 ---
 
