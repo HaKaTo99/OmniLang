@@ -1,9 +1,9 @@
 # OmniLang: High-Assurance Policy Language for Autonomous Systems
 *Universal Intent Language (UIL) for the xAetherOS Fabric.*
 
-[![Release](https://img.shields.io/badge/release-v2.0.0-blue.svg)](https://github.com/HaKaTo99/OmniLang/releases)
+[![Release](https://img.shields.io/badge/release-v2.1.0-blue.svg)](https://github.com/HaKaTo99/OmniLang/releases/tag/v2.1.0)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Grand--Unification-success.svg)](docs/ROADMAP.md)
+[![Status](https://img.shields.io/badge/status-Distributed_Intelligence-success.svg)](docs/release_v2.1.0_draft.md)
 
 > **"Satu Bahasa, Satu Fabric. AI, Blockchain, & IoT dalam Harmoni."**
 
@@ -38,6 +38,10 @@ OmniLang menggantikan kebutuhan akan banyak bahasa di tumpukan teknologi Anda de
 OmniLang beroperasi dengan dua mesin eksekusi yang saling melengkapi:
 1. **Core Engine (Declarative)**: Evaluasi kebijakan dinamis (`INTENT`, `RULE`, `POLICY`) secara real-time.
 2. **Workstation Compiler (Imperatif)**: Kompilasi logika sistem (`fn`, `match`, `let`) menjadi Rust/Native.
+
+### Sorotan Fitur v2.1.0
+- **Native AI Inference (`@oracle`)**: Terintegrasi seketika dengan **ONNX Runtime Engine** tanpa C++ bindings yang rumit. [Baca Tutorial 10 Menit ke ONNX](docs/tutorials/onnx_10min.md).
+- **Secure Distributed Mesh (`@mesh`)**: Lakukan RPC Mesh antara node Sensor, Worker, dan Aktuator dengan jaminan TCP *Capability Tokens*. [Panduan Membangun App Terdistribusi](docs/tutorials/distributed_mesh.md).
 
 ---
 

@@ -35,6 +35,7 @@ fn main() {
 		"metrics" => handle_metrics(),
 		"demo-action" => handle_demo_action(&args[1..]),
 		"lsp" => handle_lsp(),
+		"serve" => handle_serve(&args[1..]),
 		_ => handle_exec(&args[..]),
 	};
 
@@ -42,13 +43,14 @@ fn main() {
 }
 
 fn print_usage() {
-	println!("OmniLang CLI v1.1.0");
+	println!("OmniLang CLI v1.2.2");
 	println!("Usage:");
 	println!("  omnilang exec <file.omni> [--context <context.json>]  Execute a policy");
 	println!("  omnilang compile <file.omni> [--target <wasm|json>]   Compile to IR or WASM");
 	println!("  omnilang lint <file.omni>                             Check for policy debt");
 	println!("  omnilang test <file.omni>                             Run policy assertions");
 	println!("  omnilang metrics                                      Show execution performance");
+	println!("  omnilang serve <file.omni> [--port <port>]            Run an RPC Mesh worker");
 }
 
 fn handle_exec(args: &[String]) -> i32 {
@@ -297,4 +299,67 @@ fn handle_demo_action(args: &[String]) -> i32 {
 fn handle_lsp() -> i32 {
     omnilang_core::lsp_server::run_lsp_server();
     0
+}
+
+fn handle_serve(args: &[String]) -> i32 {
+	if args.is_empty() {
+		println!("Error: No policy file specified for worker.");
+		return 1;
+	}
+
+	let file_path = &args[0];
+	let mut port = 8080;
+	let mut token: Option<String> = None;
+
+	let mut i = 1;
+	while i < args.len() {
+		if args[i] == "--port" && i + 1 < args.len() {
+			port = args[i + 1].parse().unwrap_or(8080);
+			i += 2;
+		} else if args[i] == "--token" && i + 1 < args.len() {
+			token = Some(args[i + 1].clone());
+			i += 2;
+		} else {
+			i += 1;
+		}
+	}
+
+	let source = match std::fs::read_to_string(file_path) {
+		Ok(s) => s,
+		Err(e) => {
+			println!("Error reading file: {}", e);
+			return 1;
+		}
+	};
+
+	let mut lexer = omnilang_core::lexer::Lexer::new(&source);
+	let tokens = match lexer.tokenize() {
+		Ok(t) => t,
+		Err(e) => {
+			println!("Lexer Error: {}", e);
+			return 1;
+		}
+	};
+
+	let mut parser = omnilang_core::parser::Parser::new(tokens);
+	let program = match parser.parse_program() {
+		Ok(p) => p,
+		Err(e) => {
+			println!("Parser Error: {}", e);
+			return 1;
+		}
+	};
+
+	let mut evaluator = omnilang_core::program_evaluator::ProgramEvaluator::new();
+	evaluator.is_worker_mode = true;
+	// Evaluate to load functions into globals
+	if let Err(e) = evaluator.evaluate_program(&program) {
+		println!("Worker initialization side-effects (ignored): {}", e);
+	}
+
+	use std::sync::{Arc, Mutex};
+	let shared_evaluator = Arc::new(Mutex::new(evaluator));
+	omnilang_core::mesh::worker::start_worker(port, shared_evaluator, token);
+
+	0
 }

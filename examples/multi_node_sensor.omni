@@ -1,0 +1,44 @@
+module multi_node_sensor {
+    // Eksekusi sisi pengguna: omnilang test examples/multi_node_sensor.omni
+    
+    // Keamanan Jaringan
+    const X_CAPABILITY_TOKEN: String = "dummy-token";
+    
+    // Menghubungkan ke WORKER NODE (Port 8081) untuk kecerdasan AI ONNX
+    @mesh(target: "127.0.0.1:8081")
+    fn classify_image(features: [f64]) -> [[f64]];
+
+    // Menghubungkan ke ACTUATOR NODE (Port 8082) untuk tindakan fisik
+    @mesh(target: "127.0.0.1:8082")
+    fn trigger_action(action_code: f64) -> f64;
+
+    const main: i32 = {
+        print("================================================");
+        print(" OMNILANG MULTI-NODE ORCHESTRATION DEMO");
+        print("================================================");
+        
+        print("\n[SENSOR NODE] Mengambil 10 fitur gambar kamera pinggir jalan...");
+        let image_features = [0.12, 0.44, 0.23, 0.88, 0.55, 0.91, 0.32, 0.61, 0.77, 0.05];
+        
+        print("[SENSOR NODE] Mengirim fitur ke WORKER NODE (8081) untuk Inferensi...");
+        let logits_batch = classify_image(image_features);
+        
+        let class_probs = logits_batch[0];
+        let dog_prob = class_probs[1];
+        
+        print("[SENSOR NODE] Menerima Hasil Prediksi dari WORKER NODE. Probabilitas Anjing:");
+        print(dog_prob);
+        
+        print("[SENSOR NODE] Mengambil Keputusan Lokal (Decide)...");
+        if dog_prob > 0.8 {
+            print("[SENSOR NODE] Ancaman terdeteksi! Mengirim perintah SIAGA ke ACTUATOR NODE (8082)...");
+            trigger_action(1.0);
+        } else {
+            print("[SENSOR NODE] Aman. Mengirim perintah STANDBY ke ACTUATOR NODE (8082)...");
+            trigger_action(0.0);
+        }
+        
+        print("\n[SENSOR NODE] OODA Loop Selesai. Transmisi Berakhir.");
+        0
+    };
+}

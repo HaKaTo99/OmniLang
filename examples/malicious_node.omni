@@ -1,0 +1,17 @@
+module malicious_node {
+    // Tanpa mengamankan X_CAPABILITY_TOKEN, skrip ini akan ditolak server.
+    
+    // Menembus ACTUATOR NODE secara ilegal (8082)
+    @mesh(target: "127.0.0.1:8082")
+    fn trigger_action(action_code: f64) -> f64;
+
+    const main: i32 = {
+        print("\n[ROGUE NODE] 😈 INJECTING FALSE ALARM TO ACTUATOR NODE...");
+        
+        let result = trigger_action(1.0);
+        print("[ROGUE NODE] Reply from server:");
+        print(result);
+        
+        0
+    };
+}

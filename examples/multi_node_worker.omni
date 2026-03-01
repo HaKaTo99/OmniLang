@@ -1,0 +1,9 @@
+module multi_node_worker {
+    // File ini akan dijalankan sebagai Mesh Worker di Pelabuhan 8081
+    // Command: omnilang serve examples/multi_node_worker.omni --port 8081
+    
+    // Worker ini bertugas sebagai sentra Komputasi Intelijen (AI Inference)
+    // Sensor yang butuh analisa gambar akan menembus TCP ke port ini.
+    @oracle(format: "onnx", model: "examples/dummy_mobilenet.onnx", shape: "1,10")
+    fn classify_image(features: [f64]) -> [[f64]];
+}

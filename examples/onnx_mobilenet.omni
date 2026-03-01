@@ -1,0 +1,47 @@
+module onnx_mobilenet_test {
+    // Simulasi model ONNX Image Classification 
+    // Input: Vector ciri gambar, output: Logit probabilitas kelas.
+    // Shape input "1,10", output "1,3" -> Kita ambil 1 array dengan 3 element
+    @oracle(format: "onnx", model: "examples/dummy_mobilenet.onnx", shape: "1,10")
+    fn classify_image(features: [f64]) -> [[f64]];
+
+    const main: i32 = {
+        print("--- 10 Minutes to ONNX: OmniLang Image Classification ---");
+        
+        // 1. Ekstraksi fitur kamera disimulasikan sebagai list 10 angka acak (0-1)
+        print("[SENSOR] Capturing image features...");
+        let image_features = [0.12, 0.44, 0.23, 0.88, 0.55, 0.91, 0.32, 0.61, 0.77, 0.05];
+        
+        // 2. Kirim fitur ke model AI secara mulus layaknya fungsi lokal
+        print("[AI] Running MobileNet Inference via ONNX Proxy...");
+        let logits_batch = classify_image(image_features);
+        
+        // 3. Output batch [0] yang terdiri dari 3 list kemungkinan probabilitas kelas:
+        // [Kucing, Anjing, Burung]
+        let class_probs = logits_batch[0];
+        print("Class Probabilities (Cat, Dog, Bird):");
+        print(class_probs);
+        
+        let cat_prob = class_probs[0];
+        let dog_prob = class_probs[1];
+        let bird_prob = class_probs[2];
+        
+        // Simpel ArgMax manual (hanya ilustrasi)
+        if dog_prob > cat_prob {
+            if dog_prob > bird_prob {
+                print(">> PREDICTION: DOG Detected! (Confidence High)");
+            } else {
+                print(">> PREDICTION: BIRD Detected!");
+            }
+        } else {
+            if cat_prob > bird_prob {
+                 print(">> PREDICTION: CAT Detected!");
+            } else {
+                 print(">> PREDICTION: BIRD Detected!");
+            }
+        }
+        
+        print("--- Classification Test PASSED ---");
+        0
+    };
+}

@@ -670,8 +670,15 @@ impl Parser {
     }
 
     fn parse_item(&mut self) -> Result<Item, String> {
+        let mut decorators = Vec::new();
+        while self.match_token(TokenType::At) {
+            decorators.push(self.parse_decorator()?);
+        }
+
         if self.match_token(TokenType::Ident("fn".to_string())) {
-            Ok(Item::Function(self.parse_function()?))
+            let mut func = self.parse_function()?;
+            func.decorators = decorators;
+            Ok(Item::Function(func))
         } else if self.match_token(TokenType::Ident("struct".to_string())) {
             Ok(Item::Struct(self.parse_struct()?))
         } else if self.match_token(TokenType::Ident("trait".to_string())) {
@@ -683,6 +690,38 @@ impl Parser {
         } else {
             Err(format!("Expected item, found {:?}", self.peek().token_type))
         }
+    }
+
+    fn parse_decorator(&mut self) -> Result<Decorator, String> {
+        let name = self.consume_ident("Expected decorator name after '@'")?;
+        let mut args = std::collections::BTreeMap::new();
+        
+        if self.match_token(TokenType::LParen) {
+            if !self.check(TokenType::RParen) {
+                loop {
+                    let key = self.consume_ident("Expected argument name in decorator")?;
+                    self.consume(TokenType::Colon, "Expected ':' after decorator argument name")?;
+                    let value = if let TokenType::String(s) = &self.peek().token_type {
+                        let val = s.clone();
+                        self.advance();
+                        val
+                    } else if let TokenType::Ident(s) = &self.peek().token_type {
+                        let val = s.clone();
+                        self.advance();
+                        val
+                    } else {
+                        return Err(format!("Expected string or identifier for decorator argument value, found {:?}", self.peek().token_type));
+                    };
+                    args.insert(key, value);
+                    if !self.match_token(TokenType::Comma) {
+                        break;
+                    }
+                }
+            }
+            self.consume(TokenType::RParen, "Expected ')' after decorator arguments")?;
+        }
+        
+        Ok(Decorator { name, args })
     }
 
     fn parse_function(&mut self) -> Result<FunctionDecl, String> {
@@ -710,11 +749,16 @@ impl Parser {
             None
         };
 
-        self.consume(TokenType::LBrace, "Expected '{' to start function body")?;
-        let body = self.parse_block()?;
-        self.consume(TokenType::RBrace, "Expected '}' to end function body")?;
+        let body = if self.match_token(TokenType::Semicolon) {
+            None
+        } else {
+            self.consume(TokenType::LBrace, "Expected '{' to start function body or ';' to end declaration")?;
+            let b = self.parse_block()?;
+            self.consume(TokenType::RBrace, "Expected '}' to end function body")?;
+            Some(b)
+        };
 
-        Ok(FunctionDecl { name, params, return_type, body })
+        Ok(FunctionDecl { decorators: Vec::new(), name, params, return_type, body })
     }
 
     fn parse_struct(&mut self) -> Result<StructDecl, String> {
@@ -755,8 +799,14 @@ impl Parser {
 
         let mut methods = Vec::new();
         while !self.check(TokenType::RBrace) && !self.is_at_end() {
+            let mut decorators = Vec::new();
+            while self.match_token(TokenType::At) {
+                decorators.push(self.parse_decorator()?);
+            }
             if self.match_token(TokenType::Ident("fn".to_string())) {
-                methods.push(self.parse_function()?);
+                let mut func = self.parse_function()?;
+                func.decorators = decorators;
+                methods.push(func);
             } else {
                 return Err("Expected function in trait".to_string());
             }
@@ -782,8 +832,14 @@ impl Parser {
 
         let mut methods = Vec::new();
         while !self.check(TokenType::RBrace) && !self.is_at_end() {
+            let mut decorators = Vec::new();
+            while self.match_token(TokenType::At) {
+                decorators.push(self.parse_decorator()?);
+            }
             if self.match_token(TokenType::Ident("fn".to_string())) {
-                methods.push(self.parse_function()?);
+                let mut func = self.parse_function()?;
+                func.decorators = decorators;
+                methods.push(func);
             } else {
                 return Err("Expected function in impl".to_string());
             }

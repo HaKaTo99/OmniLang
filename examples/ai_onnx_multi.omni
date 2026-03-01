@@ -1,0 +1,30 @@
+module ai_onnx_multi_test {
+    // Model expecting exactly shape [1,2] for input 'A' and [1,2] for input 'B'.
+    // `shape: "1,2|1,2"` tells the oracle the dimension of each list arg.
+    @oracle(format: "onnx", model: "examples/multi_io.onnx", shape: "1,2|1,2")
+    fn compute_sum_diff(a: [f64], b: [f64]) -> [[f64]];
+
+    const main: i32 = {
+        print("--- AI ONNX Multi-I/O Proxy Test ---");
+        
+        let a = [10.0, 5.0];
+        let b =  [2.0, 3.0];
+        
+        print("Input A:"); print(a);
+        print("Input B:"); print(b);
+        
+        // Memanggil fungsi dengan dekorator @oracle, multi argumen
+        let results = compute_sum_diff(a, b);
+        
+        print("Results (Sum, Diff):");
+        print(results);
+        
+        // Sum: [10+2, 5+3] = [12.0, 8.0]
+        // Diff: [10-2, 5-3] = [8.0, 2.0]
+        // Berbentuk list of list (Value::List(Value::List(...)))
+        assert_eq(results, [[12.0, 8.0], [8.0, 2.0]]);
+        
+        print("ONNX Multi I/O test PASSED!");
+        0
+    };
+}

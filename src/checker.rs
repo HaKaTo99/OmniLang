@@ -162,7 +162,12 @@ impl Checker {
         }
         
         // Check function body with the new environment
-        let body_type = self.check_block(&func.body, &mut function_env, &mut function_borrow_tracker)?;
+        let body_type = if let Some(ref body) = func.body {
+            self.check_block(body, &mut function_env, &mut function_borrow_tracker)?
+        } else {
+            // Evaluator just checks the return type if no body is provided (oracle/extern fn)
+            func.return_type.as_ref().map(|t| Type::from_ast_type(t)).unwrap_or(Type::Unit)
+        };
         
         // Verify return type
         let expected_return_type = func.return_type.as_ref().map(|t| Type::from_ast_type(t)).unwrap_or(Type::Unit);

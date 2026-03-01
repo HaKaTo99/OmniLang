@@ -8,6 +8,8 @@ pub enum Value {
     Bool(bool),
     Unit,
     Closure(Vec<String>, Box<Expr>, BTreeMap<String, Value>),
+    OracleFunction(crate::ast::FunctionDecl),
+    MeshFunction(crate::ast::FunctionDecl),
     List(Vec<Value>),
     Object(BTreeMap<String, Value>),
     Identifier(String),
@@ -22,6 +24,8 @@ impl PartialEq for Value {
             (Value::String(a), Value::String(b)) => a == b,
             (Value::Bool(a), Value::Bool(b)) => a == b,
             (Value::Unit, Value::Unit) => true,
+            (Value::OracleFunction(a), Value::OracleFunction(b)) => a.name == b.name,
+            (Value::MeshFunction(a), Value::MeshFunction(b)) => a.name == b.name,
             (Value::List(a), Value::List(b)) => a == b,
             (Value::Object(a), Value::Object(b)) => a == b,
             (Value::Identifier(a), Value::Identifier(b)) => a == b,
@@ -36,6 +40,7 @@ pub struct ProgramEvaluator {
     pub globals: BTreeMap<String, Value>,
     pub environment: BTreeMap<String, Value>,
     pub return_signal: Option<Value>,
+    pub is_worker_mode: bool,
 }
 
 impl Default for ProgramEvaluator {
@@ -50,6 +55,7 @@ impl ProgramEvaluator {
             globals: BTreeMap::new(),
             environment: BTreeMap::new(),
             return_signal: None,
+            is_worker_mode: false,
         }
     }
 
@@ -60,16 +66,33 @@ impl ProgramEvaluator {
         Ok(Value::Unit)
     }
 
+    pub fn call_function_by_name(&mut self, name: &str, args: Vec<Value>) -> Result<Value, String> {
+        if let Some(func) = self.globals.get(name).cloned() {
+            self.apply_closure_value(&func, args)
+        } else {
+            Err(format!("Function {} not found securely mapped", name))
+        }
+    }
+
     fn evaluate_module(&mut self, module: &Module) -> Result<(), String> {
         for item in &module.items {
             match item {
                 crate::ast::Item::Function(func) => {
-                    let closure = Value::Closure(
-                        func.params.iter().map(|p| p.name.clone()).collect(),
-                        Box::new(Expr::Block(func.body.clone())),
-                        BTreeMap::new(), 
-                    );
-                    self.globals.insert(func.name.clone(), closure);
+                    let is_oracle = func.decorators.iter().any(|d| d.name == "oracle");
+                    let is_mesh = func.decorators.iter().any(|d| d.name == "mesh");
+                    
+                    if is_oracle {
+                        self.globals.insert(func.name.clone(), Value::OracleFunction(func.clone()));
+                    } else if is_mesh {
+                        self.globals.insert(func.name.clone(), Value::MeshFunction(func.clone()));
+                    } else if let Some(body) = &func.body {
+                        let closure = Value::Closure(
+                            func.params.iter().map(|p| p.name.clone()).collect(),
+                            Box::new(Expr::Block(body.clone())),
+                            BTreeMap::new(), 
+                        );
+                        self.globals.insert(func.name.clone(), closure);
+                    }
                 }
                 crate::ast::Item::Const(c) => {
                     let val = self.evaluate_expression(&c.value)?;
@@ -605,44 +628,15 @@ impl ProgramEvaluator {
 
         let func_val = self.evaluate_expression(func)?;
 
-        match func_val {
-            Value::Closure(params, body, captured_env) => {
-                if args.len() != params.len() {
-                    return Err(format!("Expected {} arguments, got {}", params.len(), args.len()));
-                }
-                let mut arg_vals = Vec::new();
-                for arg in args {
-                    arg_vals.push(self.evaluate_expression(arg)?);
-                }
-
-                // Swap environment
-                let previous_env = std::mem::replace(&mut self.environment, captured_env);
-
-                // Bind args
-                for (param, val) in params.iter().zip(arg_vals) {
-                    self.environment.insert(param.clone(), val);
-                }
-
-                // Execute body
-                let body_res = self.evaluate_expression(&body);
-
-                // If a return signal was set, that's our result
-                let final_result = if let Some(val) = self.return_signal.take() {
-                    Ok(val)
-                } else {
-                    body_res
-                };
-
-                // Restore environment
-                self.environment = previous_env;
-
-                final_result
-            }
-            _ => Err(format!("Expression is not callable: {:?}", func_val))
+        let mut arg_vals = Vec::new();
+        for arg in args {
+            arg_vals.push(self.evaluate_expression(arg)?);
         }
+
+        self.apply_closure_value(&func_val, arg_vals)
     }
 
-    fn apply_closure_value(&mut self, func: &Value, args: Vec<Value>) -> Result<Value, String> {
+    pub fn apply_closure_value(&mut self, func: &Value, args: Vec<Value>) -> Result<Value, String> {
         match func {
             Value::Closure(params, body, captured_env) => {
                  if args.len() != params.len() {
@@ -668,7 +662,105 @@ impl ProgramEvaluator {
                  
                  result
             }
-             _ => Err(format!("Not a closure: {:?}", func))
+            Value::OracleFunction(func) => {
+                let oracle_deco = func.decorators.iter().find(|d| d.name == "oracle").unwrap();
+                let format = oracle_deco.args.get("format").map(|s| s.as_str()).unwrap_or("");
+                let model_path = oracle_deco.args.get("model").map(|s| s.as_str()).ok_or("Oracle decorator missing 'model' arg")?;
+                
+                if format == "onnx" {
+                    let start_time = std::time::Instant::now();
+                    
+                    let shapes_str = oracle_deco.args.get("shape").map(|s| s.as_str()).unwrap_or("");
+                    let shape_parts: Vec<&str> = if shapes_str.is_empty() { Vec::new() } else { shapes_str.split('|').collect() };
+                    
+                    let mut inputs_data = Vec::new();
+                    for (i, input_val) in args.into_iter().enumerate() {
+                        let mut flat_data = Vec::new();
+                        if let Value::List(list) = input_val {
+                            for item in list {
+                                if let Value::Number(n) = item {
+                                    flat_data.push(n as f32);
+                                } else {
+                                    return Err("ONNX input must be a list of numbers".to_string());
+                                }
+                            }
+                        } else {
+                            return Err("ONNX input must be a list of numbers".to_string());
+                        }
+                        
+                        let shape = if i < shape_parts.len() && !shape_parts[i].is_empty() {
+                            shape_parts[i].split(',').map(|dim| dim.trim().parse::<usize>().unwrap_or(0)).collect::<Vec<usize>>()
+                        } else {
+                            vec![1, flat_data.len()]
+                        };
+                        inputs_data.push((shape, flat_data));
+                    }
+                    
+                    match crate::onnx_oracle::run_inference(std::path::Path::new(model_path), inputs_data) {
+                        Ok(out_data) => {
+                            let elapsed = start_time.elapsed();
+                            println!("[ORACLE TIMER] Inference ran in {:.2?}", elapsed);
+                            
+                            let mut rust_outputs = Vec::new();
+                            for tensor_out in out_data {
+                                let mut vals = Vec::new();
+                                for f in tensor_out {
+                                    vals.push(Value::Number(f as f64));
+                                }
+                                rust_outputs.push(Value::List(vals));
+                            }
+                            
+                            Ok(Value::List(rust_outputs))
+                        }
+                        Err(e) => Err(format!("ONNX Inference Failed: {}", e))
+                    }
+                } else {
+                    Err(format!("Unsupported oracle format: {}", format))
+                }
+            }
+            Value::MeshFunction(func) => {
+                if self.is_worker_mode {
+                    // Eksekusi fungsi sebagai fungsi lokal
+                    let params: Vec<String> = func.params.iter().map(|p| p.name.clone()).collect();
+                    if args.len() != params.len() {
+                        return Err(format!("Expected {} arguments, got {}", params.len(), args.len()));
+                    }
+                    
+                    let exec_env = self.environment.clone();
+                    let previous_env = std::mem::replace(&mut self.environment, exec_env);
+                    
+                    for (param, val) in params.iter().zip(args) {
+                        self.environment.insert(param.clone(), val);
+                    }
+                    
+                    let iter_body = func.body.clone();
+                    let result = if let Some(b) = iter_body {
+                        let body_expr = Expr::Block(b);
+                        self.evaluate_expression(&body_expr)
+                    } else {
+                        Ok(Value::Unit)
+                    };
+                    let final_res = if let Some(val) = self.return_signal.take() {
+                        Ok(val)
+                    } else {
+                        result
+                    };
+                    self.environment = previous_env;
+                    final_res
+                } else {
+                    // Forward sebagai klien RPC
+                    let mesh_deco = func.decorators.iter().find(|d| d.name == "mesh").unwrap();
+                    let target = mesh_deco.args.get("target").map(|s| s.as_str()).unwrap_or("127.0.0.1:8080");
+                    
+                    let token = self.environment.get("X_CAPABILITY_TOKEN")
+                        .or_else(|| self.globals.get("X_CAPABILITY_TOKEN"))
+                        .and_then(|v| if let Value::String(s) = v { Some(s.clone()) } else { None });
+                    
+                    println!("[MESH] Forwarding execution of '{}' to {}", func.name, target);
+                    crate::mesh::transport::send_mesh_request(target, &func.name, &args, token)
+                }
+            }
+             _ => Err(format!("Not a closure/callable: {:?}", func))
         }
     }
 }

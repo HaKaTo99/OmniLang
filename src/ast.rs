@@ -174,11 +174,18 @@ pub enum Type {
 }
 
 #[derive(Debug, Clone)]
+pub struct Decorator {
+    pub name: String,
+    pub args: std::collections::BTreeMap<String, String>,
+}
+
+#[derive(Debug, Clone)]
 pub struct FunctionDecl {
+    pub decorators: Vec<Decorator>,
     pub name: String,
     pub params: Vec<Param>,
     pub return_type: Option<Type>,
-    pub body: BlockExpr,
+    pub body: Option<BlockExpr>,
 }
 
 #[derive(Debug, Clone)]

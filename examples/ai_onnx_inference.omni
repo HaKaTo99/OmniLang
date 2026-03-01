@@ -1,0 +1,21 @@
+module ai_onnx_inference {
+    @oracle(format: "onnx", model: "examples/multiply_by_two.onnx", shape: "1,2")
+    fn multiply_by_two(input: [f64]) -> [f64];
+
+    const main: i32 = {
+        print("--- AI ONNX Inference Proxy Test (Proof of Concept) ---");
+        
+        let input_data = [1.5, 4.0];
+        print("Input to ONNX model:");
+        print(input_data);
+        
+        let result = multiply_by_two(input_data);
+        print("Result from ONNX model (Input * 2):");
+        print(result);
+        
+        assert_eq(result, [[3.0, 8.0]]);
+        
+        print("ONNX Proxy test PASSED!");
+        0
+    };
+}

@@ -1,0 +1,16 @@
+module multi_node_actuator {
+    // File ini akan dijalankan sebagai Mesh Worker di Pelabuhan 8082
+    // Command: omnilang serve examples/multi_node_actuator.omni --port 8082
+    
+    fn trigger_action(action_code: f64) -> f64 {
+        if action_code > 0.5 {
+            print("[ACTUATOR NODE: 8082] 🚨 ALERT! INTRUDER (DOG) DETECTED!");
+            print("[ACTUATOR NODE: 8082] SOUNDING ALARM & FLASHING RED LED! 🚨");
+        } else {
+            print("[ACTUATOR NODE: 8082] ✅ ALL CLEAR. GREEN LED SOLID. ✅");
+        }
+        
+        // Return 1.0 sebagai status OK
+        1.0
+    }
+}

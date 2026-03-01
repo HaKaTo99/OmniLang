@@ -17,7 +17,8 @@ pub mod action_abi;
 pub mod program_evaluator;
 pub mod lsp_server;
 pub mod security;
-
+pub mod onnx_oracle;
+pub mod mesh;
 
 pub use error::OmniError;
 pub use omniroutine::{OmniRoutine, RoutineResult, RoutineTask};

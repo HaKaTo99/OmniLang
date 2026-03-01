@@ -1,0 +1,38 @@
+module mesh_oracle_test {
+    // Fungsi ini akan dieksekusi di Target Mesin Pekerja (Worker Node)
+    @mesh(target: "127.0.0.1:8081")
+    fn detect_objects(image_data: [f64]) -> [[f64]] {
+        print("[MESH WORKER] Request received at node! Running YOLO simulation...");
+        let result = local_yolo_inference(image_data);
+        print("[MESH WORKER] Inference success, sending result back to local node...");
+        result
+    }
+
+    // Helper lokal untuk worker node. 
+    @oracle(model: "dummy_yolo.onnx", format: "onnx", shape: "1,10")
+    fn local_yolo_inference(image_data: [f64]) -> [[f64]];
+
+    // Sisi Client
+    const main: i32 = {
+        print("--- OMNILANG DISTRIBUTED AI SIMULATION ---");
+        print("[CLIENT] Preparing simulated camera image (1x10 tensor features)");
+        
+        let dummy_image = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+        let detections = detect_objects(dummy_image);
+        
+        print("[CLIENT] Received detections back from Mesh Worker:");
+        
+        let first_box = detections[0];
+        let confidence = first_box[4];
+        
+        if confidence > 0.8 {
+            print("[CLIENT] HIGH CONFIDENCE TARGET DETECTED!");
+            print("[CLIENT] Triggering LOCAL actuator hardware... (Simulated)");
+            print("[HARDWARE] LED BLINK RED x5");
+        } else {
+            print("[CLIENT] Normal operations.");
+        }
+        
+        0
+    };
+}
