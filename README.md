@@ -14,6 +14,7 @@
 ## 📋 Navigasi Cepat
 - **[Visi & Filosofi](#-visi--filosofi)**: Mengapa OmniLang ada.
 - **[Quickstart](docs/QUICKSTART.md)**: Instalasi dan cara menjalankan dalam 5 menit.
+- **[CLI Cheatsheet](docs/cli.md)**: Daftar referensi perintah dasar, mesh, GUI, dan parameter eksekusi.
 - **[Roadmap](docs/ROADMAP.md)**: Status pengembangan dan rencana masa depan.
 - **[Interfaces Guide](docs/guides/INTERFACES.md)**: Panduan lengkap 12 antarmuka universal (CLI, TUI, GUI, BCI, dll).
 - **[Language Specs](docs/spec/INDEX.md)**: Spesifikasi teknis sintaksis, tipe data, dan keamanan.
