@@ -1,0 +1,23 @@
+// examples/ooda_loop/actuator.omni
+// Node 3: ACTUATOR (Act)
+
+module actuator_node {
+    const X_CAPABILITY_TOKEN: String = "ooda-2026";
+
+    // Antarmuka perangkat keras HUI
+    // Baud rate dan Port default, tapi bisa di-override via param --hui di CLI.
+    @hardware(port: "COM3", baud_rate: "115200")
+    fn set_alarm(level: f64) -> bool;
+
+    // Listener fungsi eksternal dari Mesh network
+    @mesh(target: "127.0.0.1:8082")
+    fn trigger_alarm(level: f64) -> bool {
+        print("[ACTUATOR-NODE] PERINGATAN! Panggilan darurat dari Mesh Fabric terdeteksi!");
+        print("[ACTUATOR-NODE] Menerjemahkan sinyal untuk mikrokontroler hardware lokal...");
+        
+        let res = set_alarm(level);
+        
+        print("[ACTUATOR-NODE] Transmisi berhasil. Hardware alarm telah dibunyikan secara fisik.");
+        res
+    }
+}

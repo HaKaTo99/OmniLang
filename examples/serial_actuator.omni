@@ -1,0 +1,13 @@
+// examples/serial_actuator.omni
+// Simulasi v2.2.0 - Actuator Hardware Expansion
+
+module main {
+    @hardware(port: "COM3", baud_rate: "115200")
+    fn set_servo_angle(angle: f64) -> bool;
+
+    const main: i32 = {
+        // Memutar servo (Virtual) 
+        let res = set_servo_angle(90.0);
+        0
+    };
+}

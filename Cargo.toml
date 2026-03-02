@@ -16,6 +16,7 @@ base64 = "0.22"
 rand = "0.8"
 ort = { version = "2.0.0-rc.11", default-features = false, features = ["load-dynamic"] }
 anyhow = "1.0.102"
+serialport = "4.3"
 
 [dev-dependencies]
 proptest = "1.1.0"

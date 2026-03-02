@@ -1,0 +1,22 @@
+// examples/ooda_loop/ai_worker.omni
+// Node 2: AI ORACLE (Decide)
+
+module ai_oracle_node {
+    const X_CAPABILITY_TOKEN: String = "ooda-2026";
+
+    // Native interop ke ONNX Engine
+    @oracle(model: "examples/ooda_loop/anomaly_detector.onnx", format: "onnx", shape: "1,5")
+    fn predict_anomaly(data: [f64]) -> [[f64]];
+
+    // Menerima panggilan dari perangkat eksternal melalui protokol Mesh
+    @mesh(target: "127.0.0.1:8081")
+    fn analyze_temperature(data: [f64]) -> [[f64]] {
+        print("[AI-WORKER] Incoming RPC request. Data suhu termal diterima.");
+        print("[AI-WORKER] Meneruskan data ke Jaringan Saraf Tiruan (ONNX)...");
+        
+        let prediction = predict_anomaly(data);
+        
+        print("[AI-WORKER] Analisis rampung. Target probabilitas anomali ditemukan. Merespons ke Sensor.");
+        prediction
+    }
+}

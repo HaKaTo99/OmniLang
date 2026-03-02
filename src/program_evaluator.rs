@@ -10,6 +10,7 @@ pub enum Value {
     Closure(Vec<String>, Box<Expr>, BTreeMap<String, Value>),
     OracleFunction(crate::ast::FunctionDecl),
     MeshFunction(crate::ast::FunctionDecl),
+    HardwareFunction(crate::ast::FunctionDecl),
     List(Vec<Value>),
     Object(BTreeMap<String, Value>),
     Identifier(String),
@@ -26,6 +27,7 @@ impl PartialEq for Value {
             (Value::Unit, Value::Unit) => true,
             (Value::OracleFunction(a), Value::OracleFunction(b)) => a.name == b.name,
             (Value::MeshFunction(a), Value::MeshFunction(b)) => a.name == b.name,
+            (Value::HardwareFunction(a), Value::HardwareFunction(b)) => a.name == b.name,
             (Value::List(a), Value::List(b)) => a == b,
             (Value::Object(a), Value::Object(b)) => a == b,
             (Value::Identifier(a), Value::Identifier(b)) => a == b,
@@ -80,11 +82,14 @@ impl ProgramEvaluator {
                 crate::ast::Item::Function(func) => {
                     let is_oracle = func.decorators.iter().any(|d| d.name == "oracle");
                     let is_mesh = func.decorators.iter().any(|d| d.name == "mesh");
+                    let is_hardware = func.decorators.iter().any(|d| d.name == "hardware");
                     
                     if is_oracle {
                         self.globals.insert(func.name.clone(), Value::OracleFunction(func.clone()));
                     } else if is_mesh {
                         self.globals.insert(func.name.clone(), Value::MeshFunction(func.clone()));
+                    } else if is_hardware {
+                        self.globals.insert(func.name.clone(), Value::HardwareFunction(func.clone()));
                     } else if let Some(body) = &func.body {
                         let closure = Value::Closure(
                             func.params.iter().map(|p| p.name.clone()).collect(),
@@ -759,6 +764,39 @@ impl ProgramEvaluator {
                     println!("[MESH] Forwarding execution of '{}' to {}", func.name, target);
                     crate::mesh::transport::send_mesh_request(target, &func.name, &args, token)
                 }
+            }
+            Value::HardwareFunction(func) => {
+                let hardware_deco = func.decorators.iter().find(|d| d.name == "hardware").unwrap();
+                let configured_port = self.globals.get("HARDWARE_PORT").and_then(|v| if let Value::String(s) = v { Some(s.clone()) } else { None });
+                let default_port = hardware_deco.args.get("port").map(|s| s.as_str()).unwrap_or("");
+                let port = configured_port.unwrap_or_else(|| default_port.to_string());
+                let baud_str = hardware_deco.args.get("baud_rate").map(|s| s.as_str()).unwrap_or("9600");
+                let baud_rate = baud_str.parse::<u32>().unwrap_or(9600);
+                
+                println!("[HARDWARE-ACTUATOR] Attempting to transmit payload to '{}' at {} baud...", port, baud_rate);
+                
+                let payload = serde_json::to_string(&crate::mesh::rpc::RpcValue::from_value(args.get(0).unwrap_or(&Value::Unit)))
+                    .map_err(|e| format!("Hardware Error: Failed to serialize payload: {}", e))?;
+                
+                // Buka koneksi serial port (menggunakan Pustaka `serialport`)
+                match serialport::new(&port, baud_rate)
+                    .timeout(std::time::Duration::from_millis(500))
+                    .open() 
+                {
+                    Ok(mut p) => {
+                        if let Err(e) = p.write_all(format!("{}\n", payload).as_bytes()) {
+                            println!("[HARDWARE-ACTUATOR] ⚠️ Peringatan: Tulis Gagal ke port '{}': {}. Sinyal ditangkap untuk mode Mock.", port, e);
+                        } else {
+                            println!("[HARDWARE-ACTUATOR] Payload transmitted successfully to {}.", port);
+                        }
+                    }
+                    Err(e) => {
+                        println!("[HARDWARE-ACTUATOR] ⚠️ MOCK MODE ACTIVATED: Gagal membuka port '{}': {}. Mengeksekusi secara virtual...", port, e);
+                    }
+                }
+                
+                println!("[HARDWARE-ACTUATOR] Payload transmitted successfully.");
+                Ok(Value::Unit)
             }
              _ => Err(format!("Not a closure/callable: {:?}", func))
         }

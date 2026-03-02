@@ -1,0 +1,40 @@
+// examples/ooda_loop/sensor.omni
+// Node 1: SENSOR (Observe & Orient)
+
+module sensor_node {
+    const X_CAPABILITY_TOKEN: String = "ooda-2026";
+
+    // Proxy fungsi ke AI Worker (Decide)
+    @mesh(target: "127.0.0.1:8081")
+    fn analyze_temperature(data: [f64]) -> [[f64]];
+    
+    // Proxy fungsi ke Actuator Hardware (Act)
+    @mesh(target: "127.0.0.1:8082")
+    fn trigger_alarm(level: f64) -> bool;
+
+    const main: i32 = {
+        print("");
+        print("====== SISTEM SENSOR PABRIK ======");
+        print("[OBSERVE] Mendeteksi dan membaca sensor boiler industri...");
+        
+        let suhu = [36.5, 37.0, 38.2, 39.5, 40.1]; 
+        
+        print("[ORIENT] Mengirim vektor termal (5 data point) ke Node AI Pekerja via Mesh...");
+        let hasil = analyze_temperature(suhu);
+        
+        print("[DECIDE] Menerima balasan dari AI Oracle.");
+        let prob = hasil[0][0];
+        let severity = hasil[0][1];
+        
+        if prob > 0.8 {
+            print("[ACT] ANOMALI KRITIS TERDETEKSI! Probabilitas kebakaran tinggi.");
+            print("[ACT] Menembakkan transmisi protokol ke Actuator Node (Perangkat Keras)!");
+            trigger_alarm(severity);
+        } else {
+            print("[ACT] Suhu dalam batas aman. Melanjutkan pemantauan standar.");
+        }
+        
+        print("====== SELESAI ======");
+        0
+    };
+}

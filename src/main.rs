@@ -50,7 +50,7 @@ fn print_usage() {
 	println!("  omnilang lint <file.omni>                             Check for policy debt");
 	println!("  omnilang test <file.omni>                             Run policy assertions");
 	println!("  omnilang metrics                                      Show execution performance");
-	println!("  omnilang serve <file.omni> [--port <port>]            Run an RPC Mesh worker");
+	println!("  omnilang serve <file.omni> [--port <port>] [--hui <port>] Run an RPC Mesh worker");
 }
 
 fn handle_exec(args: &[String]) -> i32 {
@@ -310,6 +310,7 @@ fn handle_serve(args: &[String]) -> i32 {
 	let file_path = &args[0];
 	let mut port = 8080;
 	let mut token: Option<String> = None;
+	let mut hui_port: Option<String> = None;
 
 	let mut i = 1;
 	while i < args.len() {
@@ -318,6 +319,9 @@ fn handle_serve(args: &[String]) -> i32 {
 			i += 2;
 		} else if args[i] == "--token" && i + 1 < args.len() {
 			token = Some(args[i + 1].clone());
+			i += 2;
+		} else if args[i] == "--hui" && i + 1 < args.len() {
+			hui_port = Some(args[i + 1].clone());
 			i += 2;
 		} else {
 			i += 1;
@@ -352,6 +356,12 @@ fn handle_serve(args: &[String]) -> i32 {
 
 	let mut evaluator = omnilang_core::program_evaluator::ProgramEvaluator::new();
 	evaluator.is_worker_mode = true;
+	
+	if let Some(h) = hui_port {
+		evaluator.globals.insert("HARDWARE_PORT".to_string(), omnilang_core::program_evaluator::Value::String(h.clone()));
+		println!("[HUI] Hardware UI dynamic override active on port: {}", h);
+	}
+	
 	// Evaluate to load functions into globals
 	if let Err(e) = evaluator.evaluate_program(&program) {
 		println!("Worker initialization side-effects (ignored): {}", e);
