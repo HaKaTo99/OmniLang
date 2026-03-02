@@ -273,7 +273,8 @@ Proyek OmniLang dibagi menjadi tiga era utama yang mencerminkan tingkat kematang
 | 14 | v1.6.0 | **Future Tech (Blockchain/Quantum)** | ✅ Selesai | Feb 2026 |
 | 15 | v2.0.0 | **The Grand Unification** | ✅ Selesai | Feb 2026 |
 | 16 | v2.1.0 | **Distributed Intelligence Fabric (`@mesh` & `@oracle`)** | ✅ Selesai | Mar 2026 |
-| 17 | v2.2 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
+| 17 | v2.2.0 | **Actuator Hardware Node (HUI Expansion)** | ✅ Selesai | Mar 2026 |
+| 18 | v2.3.0 | Platform Saturation (WASM/JVM) | 📅 Planned | Q2 2026 |
 
 ---
 

@@ -1,4 +1,4 @@
-# QUICKSTART (v2.1.0)
+# QUICKSTART (v2.2.0)
 
 Panduan cepat untuk memulai pengembangan dengan OmniLang.
 
@@ -19,14 +19,17 @@ cargo build
 ## Cara Menjalankan
 OmniLang mendukung 12 antarmuka universal. Untuk detail lengkap setiap kanal, lihat **[Interfaces Guide](guides/INTERFACES.md)**.
 
-### Contoh Eksekusi Distributed Mesh & AI (OODA Loop)
-Jalankan dua terminal terpisah untuk menguji orkestrasi Jaringan Mesh:
+### Contoh Eksekusi OODA Loop (Mesh AI & Hardware Actuator)
+Jalankan tiga terminal terpisah untuk menguji orkestrasi Jaringan Mesh End-to-End:
 ```bash
 # Terminal 1: Nyalakan Worker Node berbekal Neural Network ONNX & Capability Token
-cargo run -- serve examples/multi_node_worker.omni --port 8081 --token "dummy-token"
+cargo run -- serve examples/ooda_loop/ai_worker.omni --port 8081 --token "ooda-2026"
 
-# Terminal 2: Sensor Node yang meng-intercept eksekusi fungsional jarak jauh
-cargo run -- test examples/multi_node_sensor.omni
+# Terminal 2: Nyalakan Actuator Node (HUI) yang menghubungkan port COM3 ke aktuator fisik
+cargo run -- serve examples/ooda_loop/actuator.omni --port 8082 --token "ooda-2026" --hui COM3
+
+# Terminal 3: Sensor Node yang meng-intercept deteksi dan memicu Rantai Eksekusi Jarak Jauh
+cargo run -- test examples/ooda_loop/sensor.omni
 ```
 
 ### Eksekusi Rutin Dasar (CLI)
