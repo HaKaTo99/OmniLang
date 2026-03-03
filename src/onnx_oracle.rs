@@ -36,7 +36,7 @@ pub fn run_inference(
     }
 
     let mut input_values = Vec::new();
-    for (i, (expected, (in_shape, in_data))) in expected_inputs.iter().zip(inputs_data.into_iter()).enumerate() {
+    for (_i, (expected, (in_shape, in_data))) in expected_inputs.iter().zip(inputs_data.into_iter()).enumerate() {
         // Build tensor
         let shape_i64: Vec<i64> = in_shape.iter().map(|&x| x as i64).collect();
         let tensor = Value::from_array((shape_i64, in_data))?;

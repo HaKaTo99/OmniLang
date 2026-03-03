@@ -17,8 +17,19 @@ pub mod action_abi;
 pub mod program_evaluator;
 pub mod lsp_server;
 pub mod security;
+#[cfg(not(target_arch = "wasm32"))]
 pub mod onnx_oracle;
+#[cfg(not(target_arch = "wasm32"))]
 pub mod mesh;
+
+#[cfg(target_arch = "wasm32")]
+pub mod wasm_bindings;
+
+#[cfg(any(target_os = "android", feature = "jni_bridge"))]
+pub mod jni_bindings;
+
+#[cfg(feature = "c_bridge")]
+pub mod c_bindings;
 
 pub use error::OmniError;
 pub use omniroutine::{OmniRoutine, RoutineResult, RoutineTask};

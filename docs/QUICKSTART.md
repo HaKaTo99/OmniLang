@@ -1,6 +1,6 @@
 # QUICKSTART (v2.2.0)
 
-Panduan cepat untuk memulai pengembangan dengan OmniLang.
+Panduan cepat untuk memulai pengembangan dengan OmniLang. Untuk tinjauan mendalam tentang kemajuan pengembangan terbaru, lihat **[Walkthrough Pengembangan](WALKTHROUGH.md)**.
 
 ## Prasyarat
 - Rust toolchain (stable) dengan `cargo` terinstal.
@@ -15,6 +15,27 @@ cd OmniLang
 # Build eksekusi
 cargo build
 ```
+
+---
+
+## 🎢 Jalur Belajar Bertingkat (Learning Path)
+Untuk mempermudah adaptasi, pelajari OmniLang sesuai waktu yang Anda miliki:
+
+### 🟢 5 Menit: Halo Dunia & Logika Dasar
+Pengenalan kilat kompilator OmniLang dan uji program deklaratif minimal:
+```bash
+cargo run -- test examples/loop_demo.omni
+```
+
+### 🟡 30 Menit: Integrasi Native ONNX (Artificial Intelligence)
+Mengasah deklarasi `@oracle` untuk memproses Tensor tanpa campur tangan C++.
+*   Baca tutorial: **[10 Menit ke ONNX](tutorials/onnx_10min.md)**
+
+### 🔴 1 Jam: End-to-End OODA Loop (Sensor → AI → Hardware)
+Menghidupkan *Sistem Saraf Universal* penuh menggunakan transmisi RPC berteknologi *Zero-Trust*.
+*   Jalankan simulasi 3 Terminal: **[Distributed Mesh Guide](tutorials/distributed_mesh.md)**
+
+---
 
 ## Cara Menjalankan
 OmniLang mendukung 12 antarmuka universal. Untuk detail lengkap setiap kanal, lihat **[Interfaces Guide](guides/INTERFACES.md)**.

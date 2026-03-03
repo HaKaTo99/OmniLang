@@ -1,0 +1,107 @@
+// rocket_launch_3d.omni
+// Advanced Aerospace Simulation: Multi-Stage Rocket Launch
+// Domain: Aerospace & Defense (xAetherOS Strategic Module)
+
+module RocketAerospace {
+
+    struct Vector3 { x: f64, y: f64, z: f64 }
+
+    struct RocketStage {
+        name: String,
+        is_active: bool,
+        fuel_kg: f64,
+        thrust_kn: f64,
+        dry_mass_kg: f64
+    }
+
+    struct Rocket {
+        id: String,
+        position: Vector3,
+        velocity: Vector3,
+        acceleration: Vector3,
+        total_mass_kg: f64,
+        stages: [RocketStage]
+    }
+
+    // --- PHYSICS HELPERS ---
+    
+    fn compute_gravity(alt: f64) -> f64 {
+        // Simple Earth gravity model: g = g0 * (R / (R + alt))^2
+        let g0 = 9.806;
+        let r = 6371000.0; // Earth radius in meters
+        let factor = r / (r + alt);
+        return g0 * factor * factor;
+    }
+
+    // --- MISSION ORACLE ---
+    @oracle(format: "onnx", model: "examples/orbital_mechanics.onnx", shape: "1,8")
+    fn predict_trajectory(state: [f64]) -> [f64];
+
+    // --- MAIN LAUNCH SEQUENCE ---
+
+    const main: i32 = {
+        print("🚀 [OMNILANG] AEROSPACE - MISSION CONTROL");
+        print("Rocket ID: OMNI-STAR-1 | Target: Low Earth Orbit");
+        print("--------------------------------------------------");
+
+        // Stage 1: Booster
+        let s1 = RocketStage {
+            name: "Booster-1",
+            is_active: true,
+            fuel_kg: 500000.0,
+            thrust_kn: 7600.0,
+            dry_mass_kg: 30000.0
+        };
+
+        // Stage 2: Orbiter
+        let s2 = RocketStage {
+            name: "Orbiter-Alpha",
+            is_active: false,
+            fuel_kg: 100000.0,
+            thrust_kn: 900.0,
+            dry_mass_kg: 5000.0
+        };
+
+        let falcon = Rocket {
+            id: "STAR-1",
+            position: Vector3 { x: 0.0, y: 0.0, z: 0.0 },
+            velocity: Vector3 { x: 0.0, y: 0.0, z: 0.0 },
+            acceleration: Vector3 { x: 0.0, y: 0.0, z: 0.0 },
+            total_mass_kg: 635000.0,
+            stages: [s1, s2]
+        };
+
+        // --- T+ 10 Seconds ---
+        let altitude = 15000.0; // meters
+        let g_eff = compute_gravity(altitude);
+        
+        print("[T+10s] Altitude: " + altitude/1000.0 + " km");
+        print("[PHYSICS] Effective Gravity: " + g_eff + " m/s^2");
+
+        // Simple TWR (Thrust-to-Weight Ratio)
+        let total_thrust = s1.thrust_kn * 1000.0; // to Newtons
+        let twr = total_thrust / (falcon.total_mass_kg * g_eff);
+        print("[ENGINES] Thrust-to-Weight Ratio: " + twr);
+
+        let status = match twr > 1.2 {
+            true  => "NOMINAL_ASCENT",
+            false => "LOW_THRUST_ABORT"
+        };
+        print("[DECIDE] Rocket Status: " + status);
+
+        // Visualisasi Output Launch
+        print("");
+        print("      /\\      ");
+        print("     /  \\      [MISSION STATUS]");
+        print("    |    |    Mode: ASCENT");
+        print("    | " + falcon.id + " |    Alt:  " + altitude + "m");
+        print("    |____|    V:    450m/s");
+        print("   /      \\   TWR:  " + twr);
+        print("  |   🔥🔥   |  Status: " + status);
+        print("  |__________|");
+        print("");
+        print("[TRACE] Safety Level: ISO-26262 | OS: xAetherOS-AERO");
+
+        0
+    };
+}

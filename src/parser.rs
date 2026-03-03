@@ -11,12 +11,17 @@ impl Parser {
         Parser { tokens, pos: 0 }
     }
 
-    fn peek_ahead(&self, n: usize) -> &Token {
+    pub fn peek_ahead(&self, n: usize) -> &Token {
         if self.pos + n >= self.tokens.len() {
             &self.tokens[self.tokens.len() - 1]
         } else {
             &self.tokens[self.pos + n]
         }
+    }
+
+    pub fn parse_error(&self, msg: &str) -> String {
+        let t = self.peek();
+        format!("[Line {}, Col {}] {}", t.line, t.column, msg)
     }
 
     pub fn parse_policy(&mut self) -> Result<Policy, String> {
@@ -534,7 +539,9 @@ impl Parser {
             TokenType::LBracket => Ok("[".to_string()),
             TokenType::RBracket => Ok("]".to_string()),
             TokenType::Colon => Ok(":".to_string()),
-            _ => Ok("".to_string()),
+            TokenType::True => Ok("True".to_string()),
+            TokenType::False => Ok("False".to_string()),
+            _ => Ok(t.lexeme.clone()),
         }
     }
     fn is_section_header(&self, t: &Token) -> bool {
@@ -584,7 +591,7 @@ impl Parser {
             || self.peek().token_type == TokenType::Eof
     }
 
-    fn peek(&self) -> &Token {
+    pub fn peek(&self) -> &Token {
         if self.pos >= self.tokens.len() {
             return &self.tokens[self.tokens.len() - 1];
         }
@@ -611,12 +618,7 @@ impl Parser {
         if self.check(t) {
             Ok(self.advance())
         } else {
-            Err(format!(
-                "{} at line {} (found {:?})",
-                msg,
-                self.peek().line,
-                self.peek().token_type
-            ))
+            Err(self.parse_error(&format!("{} (found {:?})", msg, self.peek().token_type)))
         }
     }
 
@@ -626,7 +628,7 @@ impl Parser {
             self.advance();
             Ok(s)
         } else {
-            Err(format!("{} at line {}", msg, self.peek().line))
+            Err(self.parse_error(msg))
         }
     }
 
@@ -635,7 +637,7 @@ impl Parser {
         let mut modules = Vec::new();
 
         while !self.is_at_end() {
-            if self.match_token(TokenType::Ident("module".to_string())) {
+            if self.match_token(TokenType::Module) {
                 modules.push(self.parse_module()?);
             } else {
                 return Err(format!("Expected module declaration, found {:?}", self.peek().token_type));
@@ -675,17 +677,17 @@ impl Parser {
             decorators.push(self.parse_decorator()?);
         }
 
-        if self.match_token(TokenType::Ident("fn".to_string())) {
+        if self.match_token(TokenType::Fn) {
             let mut func = self.parse_function()?;
             func.decorators = decorators;
             Ok(Item::Function(func))
-        } else if self.match_token(TokenType::Ident("struct".to_string())) {
+        } else if self.match_token(TokenType::Struct) {
             Ok(Item::Struct(self.parse_struct()?))
-        } else if self.match_token(TokenType::Ident("trait".to_string())) {
+        } else if self.match_token(TokenType::Trait) {
             Ok(Item::Trait(self.parse_trait()?))
-        } else if self.match_token(TokenType::Ident("impl".to_string())) {
+        } else if self.match_token(TokenType::Impl) {
             Ok(Item::Impl(self.parse_impl()?))
-        } else if self.match_token(TokenType::Ident("const".to_string())) {
+        } else if self.match_token(TokenType::Const) {
             Ok(Item::Const(self.parse_const()?))
         } else {
             Err(format!("Expected item, found {:?}", self.peek().token_type))
@@ -1132,9 +1134,9 @@ impl Parser {
             let s = s.clone();
             self.advance();
             Ok(Pattern::Literal(Literal::Str(s)))
-        } else if self.match_token(TokenType::Ident("true".to_string())) {
+        } else if self.match_token(TokenType::True) {
             Ok(Pattern::Literal(Literal::Bool(true)))
-        } else if self.match_token(TokenType::Ident("false".to_string())) {
+        } else if self.match_token(TokenType::False) {
             Ok(Pattern::Literal(Literal::Bool(false)))
         } else if let TokenType::Ident(name) = &self.peek().token_type {
             let name = name.clone();

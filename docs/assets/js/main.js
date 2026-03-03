@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+import init, { run_omnilang } from '../../pkg/omnilang_core.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
     // Interaktivitas Tab Kode Demo
     const tabs = document.querySelectorAll('.tab');
     const snippets = document.querySelectorAll('.snippet');
@@ -30,5 +32,44 @@ document.addEventListener('DOMContentLoaded', () => {
             heroVisual.style.opacity = '1';
             heroVisual.style.transform = 'translateY(0)';
         }, 300);
+    }
+
+    // Inisialisasi WASM Playground
+    const runBtn = document.getElementById('run-wasm-btn');
+    const editor = document.getElementById('omnilang-editor');
+    const outputConsole = document.getElementById('omnilang-output');
+
+    if (runBtn && editor && outputConsole) {
+        try {
+            outputConsole.textContent = "// Memuat Modul WebAssembly...";
+            await init();
+            outputConsole.textContent = "// Modul WebAssembly siap. Silakan eksekusi kode Anda.\n";
+
+            runBtn.addEventListener('click', () => {
+                const sourceCode = editor.value;
+                if (!sourceCode.trim()) return;
+
+                outputConsole.textContent = "⚙️ Mengeksekusi...\n";
+                runBtn.disabled = true;
+                runBtn.textContent = "Running...";
+
+                setTimeout(() => {
+                    try {
+                        const t0 = performance.now();
+                        const result = run_omnilang(sourceCode);
+                        const t1 = performance.now();
+
+                        outputConsole.textContent = `✅ Selesai dalam ${(t1 - t0).toFixed(2)}ms\n\n---------------- OUTPUT ----------------\n${result}`;
+                    } catch (err) {
+                        outputConsole.textContent = `❌ Terjadi Kesalahan:\n${err}`;
+                    } finally {
+                        runBtn.disabled = false;
+                        runBtn.textContent = "Run Code";
+                    }
+                }, 50);
+            });
+        } catch (e) {
+            outputConsole.textContent = `❌ Gagal memuat WASM: ${e.message}`;
+        }
     }
 });

@@ -1,0 +1,55 @@
+// mobile_edge_ai_patrol.omni
+// Contoh skrip yang menggabungkan seluruh kemajuan pengembangan 2 hari terakhir:
+// 1. Sintaks Module (Hybrid CLI Mode)
+// 2. Integrasi AI Oracle (@oracle)
+// 3. Stabilitas Pattern Matching (Boolean true/false fix)
+// 4. Struktur Data (Struct/Object)
+
+module MobileEdgePatrol {
+
+    struct DetectionResult {
+        label: String,
+        confidence: f64,
+        is_threat: bool
+    }
+
+    // Mendefinisikan model AI untuk deteksi objek (MobileNet/YOLO)
+    @oracle(format: "onnx", model: "examples/dummy_mobilenet.onnx", shape: "1,10")
+    fn analyze_frame(frame_data: [f64]) -> [f64];
+
+    const main: i32 = {
+        print("--- OmniLang Mobile Edge AI Patrol System ---");
+        print("Status: Stable (Military Grade)");
+
+        // Simulasi input dari sensor kamera mobile (10 elemen sesuai model)
+        let dummy_frame = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]; 
+        
+        print("[OBSERVE] Menganalisis frame kamera via AI Oracle...");
+        let ai_raw_output = analyze_frame(dummy_frame);
+
+        // Simulasi data terstruktur yang dihasilkan dari interpretasi AI
+        let detection = DetectionResult {
+            label: "Unmanned Vehicle",
+            confidence: 0.98,
+            is_threat: true // Mendemonstrasikan dukungan boolean pasca audit stabilitas
+        };
+
+        print("[ORIENT] Objek Terdeteksi: " + detection.label);
+        print("[DECIDE] Menentukan tindakan berdasarkan status ancaman...");
+
+        // Mendemonstrasikan perbaikan Pattern Matching Boolean yang baru kita terapkan
+        let action = match detection.is_threat {
+            true  => "LOCK_ON_AND_TRACK",
+            false => "CONTINUE_PATROL"
+        };
+
+        print("Keputusan: " + action);
+
+        // Contoh evaluasi kondisi stabil (fix ir_snapshot logic)
+        if detection.confidence > 0.90 && detection.is_threat == true {
+             print("[ACT] PROTOKOL KEAMANAN AKTIF: Mengirim sinyal ke Android/HarmonyOS Actuator.");
+        }
+
+        0 // Exit code sukses
+    };
+}

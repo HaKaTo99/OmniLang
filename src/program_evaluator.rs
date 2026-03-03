@@ -665,7 +665,11 @@ impl ProgramEvaluator {
                  let result = self.evaluate_expression(&body);
                  self.environment = previous_env;
                  
-                 result
+                 if let Some(val) = self.return_signal.take() {
+                     Ok(val)
+                 } else {
+                     result
+                 }
             }
             Value::OracleFunction(func) => {
                 let oracle_deco = func.decorators.iter().find(|d| d.name == "oracle").unwrap();
@@ -701,23 +705,31 @@ impl ProgramEvaluator {
                         inputs_data.push((shape, flat_data));
                     }
                     
-                    match crate::onnx_oracle::run_inference(std::path::Path::new(model_path), inputs_data) {
-                        Ok(out_data) => {
-                            let elapsed = start_time.elapsed();
-                            println!("[ORACLE TIMER] Inference ran in {:.2?}", elapsed);
-                            
-                            let mut rust_outputs = Vec::new();
-                            for tensor_out in out_data {
-                                let mut vals = Vec::new();
-                                for f in tensor_out {
-                                    vals.push(Value::Number(f as f64));
+                    #[cfg(not(target_arch = "wasm32"))]
+                    {
+                        match crate::onnx_oracle::run_inference(std::path::Path::new(model_path), inputs_data) {
+                            Ok(out_data) => {
+                                let elapsed = start_time.elapsed();
+                                println!("[ORACLE TIMER] Inference ran in {:.2?}", elapsed);
+                                
+                                let mut rust_outputs = Vec::new();
+                                for tensor_out in out_data {
+                                    let mut vals = Vec::new();
+                                    for f in tensor_out {
+                                        vals.push(Value::Number(f as f64));
+                                    }
+                                    rust_outputs.push(Value::List(vals));
                                 }
-                                rust_outputs.push(Value::List(vals));
+                                
+                                Ok(Value::List(rust_outputs))
                             }
-                            
-                            Ok(Value::List(rust_outputs))
+                            Err(e) => Err(format!("ONNX Inference Failed: {}", e))
                         }
-                        Err(e) => Err(format!("ONNX Inference Failed: {}", e))
+                    }
+                    #[cfg(target_arch = "wasm32")]
+                    {
+                        println!("[ORACLE EMULATION] Simulating ONNX Oracle evaluation for model: {}", model_path);
+                        Ok(Value::List(vec![Value::List(vec![Value::Number(0.99)])]))
                     }
                 } else {
                     Err(format!("Unsupported oracle format: {}", format))
@@ -762,7 +774,16 @@ impl ProgramEvaluator {
                         .and_then(|v| if let Value::String(s) = v { Some(s.clone()) } else { None });
                     
                     println!("[MESH] Forwarding execution of '{}' to {}", func.name, target);
-                    crate::mesh::transport::send_mesh_request(target, &func.name, &args, token)
+                    
+                    #[cfg(not(target_arch = "wasm32"))]
+                    {
+                        crate::mesh::transport::send_mesh_request(target, &func.name, &args, token)
+                    }
+                    #[cfg(target_arch = "wasm32")]
+                    {
+                        println!("[MESH EMULATION] Simulating RPC TCP dispatch to target: {}", target);
+                        Ok(Value::Unit)
+                    }
                 }
             }
             Value::HardwareFunction(func) => {
@@ -775,24 +796,32 @@ impl ProgramEvaluator {
                 
                 println!("[HARDWARE-ACTUATOR] Attempting to transmit payload to '{}' at {} baud...", port, baud_rate);
                 
-                let payload = serde_json::to_string(&crate::mesh::rpc::RpcValue::from_value(args.get(0).unwrap_or(&Value::Unit)))
-                    .map_err(|e| format!("Hardware Error: Failed to serialize payload: {}", e))?;
-                
-                // Buka koneksi serial port (menggunakan Pustaka `serialport`)
-                match serialport::new(&port, baud_rate)
-                    .timeout(std::time::Duration::from_millis(500))
-                    .open() 
+                #[cfg(not(target_arch = "wasm32"))]
                 {
-                    Ok(mut p) => {
-                        if let Err(e) = p.write_all(format!("{}\n", payload).as_bytes()) {
-                            println!("[HARDWARE-ACTUATOR] ⚠️ Peringatan: Tulis Gagal ke port '{}': {}. Sinyal ditangkap untuk mode Mock.", port, e);
-                        } else {
-                            println!("[HARDWARE-ACTUATOR] Payload transmitted successfully to {}.", port);
+                    let payload = serde_json::to_string(&crate::mesh::rpc::RpcValue::from_value(args.get(0).unwrap_or(&Value::Unit)))
+                        .map_err(|e| format!("Hardware Error: Failed to serialize payload: {}", e))?;
+                    
+                    // Buka koneksi serial port (menggunakan Pustaka `serialport`)
+                    match serialport::new(&port, baud_rate)
+                        .timeout(std::time::Duration::from_millis(500))
+                        .open() 
+                    {
+                        Ok(mut p) => {
+                            if let Err(e) = p.write_all(format!("{}\n", payload).as_bytes()) {
+                                println!("[HARDWARE-ACTUATOR] ⚠️ Peringatan: Tulis Gagal ke port '{}': {}. Sinyal ditangkap untuk mode Mock.", port, e);
+                            } else {
+                                println!("[HARDWARE-ACTUATOR] Payload transmitted successfully to {}.", port);
+                            }
+                        }
+                        Err(e) => {
+                            println!("[HARDWARE-ACTUATOR] ⚠️ MOCK MODE ACTIVATED: Gagal membuka port '{}': {}. Mengeksekusi secara virtual...", port, e);
                         }
                     }
-                    Err(e) => {
-                        println!("[HARDWARE-ACTUATOR] ⚠️ MOCK MODE ACTIVATED: Gagal membuka port '{}': {}. Mengeksekusi secara virtual...", port, e);
-                    }
+                }
+                
+                #[cfg(target_arch = "wasm32")]
+                {
+                    println!("[HARDWARE EMULATION] Simulating Hardware Sensor/Actuator UART write to port '{}' at {} baud...", port, baud_rate);
                 }
                 
                 println!("[HARDWARE-ACTUATOR] Payload transmitted successfully.");

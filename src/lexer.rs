@@ -45,6 +45,15 @@ pub enum TokenType {
     Arrow,     // =>
     Pipe,      // |
 
+    // Programming Language Keywords
+    Module,
+    Fn,
+    Struct,
+    Trait,
+    Impl,
+    Const,
+    Enum,
+
     // Identifiers & Literals
     Ident(String),
     Number(f64),
@@ -88,6 +97,7 @@ pub enum TokenType {
 pub struct Token {
     pub token_type: TokenType,
     pub line: usize,
+    pub column: usize,
     pub lexeme: String,
 }
 
@@ -95,6 +105,7 @@ pub struct Lexer {
     input: Vec<char>,
     pos: usize,
     line: usize,
+    column: usize,
 }
 
 impl Lexer {
@@ -103,6 +114,7 @@ impl Lexer {
             input: input.chars().collect(),
             pos: 0,
             line: 1,
+            column: 1,
         }
     }
 
@@ -117,7 +129,6 @@ impl Lexer {
                     self.advance();
                 }
                 '\n' => {
-                    self.line += 1;
                     self.advance();
                 }
                 '/' if self.peek() == '/' => {
@@ -126,97 +137,112 @@ impl Lexer {
                         self.advance();
                     }
                 }
-                '+' => self.add_token(&mut tokens, TokenType::Plus, "+"),
+                '+' => { let c=self.column; self.add_token(&mut tokens, TokenType::Plus, "+", c) }
                 '-' => {
+                    let c=self.column;
                     if self.peek() == '>' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::RArrow, "->");
+                        self.add_token(&mut tokens, TokenType::RArrow, "->", c);
                     } else {
-                        self.add_token(&mut tokens, TokenType::Minus, "-");
+                        self.add_token(&mut tokens, TokenType::Minus, "-", c);
                     }
                 }
-                '*' => self.add_token(&mut tokens, TokenType::Mul, "*"),
-                '/' => self.add_token(&mut tokens, TokenType::Div, "/"),
+                '*' => { let c=self.column; self.add_token(&mut tokens, TokenType::Mul, "*", c) }
+                '/' => { let c=self.column; self.add_token(&mut tokens, TokenType::Div, "/", c) }
                 '=' => {
+                    let c=self.column;
                     if self.peek() == '=' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::Eq, "==");
+                        self.add_token(&mut tokens, TokenType::Eq, "==", c);
                     } else if self.peek() == '>' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::Arrow, "=>");
+                        self.add_token(&mut tokens, TokenType::Arrow, "=>", c);
                     } else {
-                        self.add_token(&mut tokens, TokenType::Assign, "=");
+                        self.add_token(&mut tokens, TokenType::Assign, "=", c);
                     }
                 }
                 '!' => {
+                    let c=self.column;
                     if self.peek() == '=' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::Neq, "!=");
+                        self.add_token(&mut tokens, TokenType::Neq, "!=", c);
                     } else {
-                        self.add_token(&mut tokens, TokenType::Bang, "!");
+                        self.add_token(&mut tokens, TokenType::Bang, "!", c);
                     }
                 }
                 '<' => {
+                    let c=self.column;
                     if self.peek() == '=' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::Lte, "<=");
+                        self.add_token(&mut tokens, TokenType::Lte, "<=", c);
                     } else {
-                        self.add_token(&mut tokens, TokenType::Lt, "<");
+                        self.add_token(&mut tokens, TokenType::Lt, "<", c);
                     }
                 }
                 '>' => {
+                    let c=self.column;
                     if self.peek() == '=' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::Gte, ">=");
+                        self.add_token(&mut tokens, TokenType::Gte, ">=", c);
                     } else {
-                        self.add_token(&mut tokens, TokenType::Gt, ">");
+                        self.add_token(&mut tokens, TokenType::Gt, ">", c);
                     }
                 }
-                '(' => self.add_token(&mut tokens, TokenType::LParen, "("),
-                ')' => self.add_token(&mut tokens, TokenType::RParen, ")"),
-                '{' => self.add_token(&mut tokens, TokenType::LBrace, "{"),
-                '}' => self.add_token(&mut tokens, TokenType::RBrace, "}"),
-                '[' => self.add_token(&mut tokens, TokenType::LBracket, "["),
-                ']' => self.add_token(&mut tokens, TokenType::RBracket, "]"),
-                ',' => self.add_token(&mut tokens, TokenType::Comma, ","),
-                '.' => self.add_token(&mut tokens, TokenType::Dot, "."),
-                ':' => self.add_token(&mut tokens, TokenType::Colon, ":"),
-                ';' => self.add_token(&mut tokens, TokenType::Semicolon, ";"),
+                '(' => { let c=self.column; self.add_token(&mut tokens, TokenType::LParen, "(", c) }
+                ')' => { let c=self.column; self.add_token(&mut tokens, TokenType::RParen, ")", c) }
+                '{' => { let c=self.column; self.add_token(&mut tokens, TokenType::LBrace, "{", c) }
+                '}' => { let c=self.column; self.add_token(&mut tokens, TokenType::RBrace, "}", c) }
+                '[' => { let c=self.column; self.add_token(&mut tokens, TokenType::LBracket, "[", c) }
+                ']' => { let c=self.column; self.add_token(&mut tokens, TokenType::RBracket, "]", c) }
+                ',' => { let c=self.column; self.add_token(&mut tokens, TokenType::Comma, ",", c) }
+                '.' => { let c=self.column; self.add_token(&mut tokens, TokenType::Dot, ".", c) }
+                ':' => { let c=self.column; self.add_token(&mut tokens, TokenType::Colon, ":", c) }
+                ';' => { let c=self.column; self.add_token(&mut tokens, TokenType::Semicolon, ";", c) }
                 '&' => {
+                    let c=self.column;
                     if self.peek() == '&' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::And, "&&");
+                        self.add_token(&mut tokens, TokenType::And, "&&", c);
                     } else {
-                        self.add_token(&mut tokens, TokenType::Ampersand, "&");
+                        self.add_token(&mut tokens, TokenType::Ampersand, "&", c);
                     }
                 }
-                '%' => self.add_token(&mut tokens, TokenType::Percent, "%"),
+                '%' => { let c=self.column; self.add_token(&mut tokens, TokenType::Percent, "%", c) }
                 '|' => {
+                    let c=self.column;
                     if self.peek() == '|' {
                         self.advance();
-                        self.add_token(&mut tokens, TokenType::Or, "||");
+                        self.add_token(&mut tokens, TokenType::Or, "||", c);
                     } else {
-                        self.add_token(&mut tokens, TokenType::Pipe, "|");
+                        self.add_token(&mut tokens, TokenType::Pipe, "|", c);
                     }
                 }
-                '@' => self.add_token(&mut tokens, TokenType::At, "@"),
+                '@' => { let c=self.column; self.add_token(&mut tokens, TokenType::At, "@", c) }
                 '"' => {
+                    let start_col = self.column;
+                    let start_line = self.line;
                     let s = self.read_string()?;
                     tokens.push(Token {
                         token_type: TokenType::String(s.clone()),
-                        line: self.line,
+                        line: start_line,
+                        column: start_col,
                         lexeme: s,
                     });
                 }
                 c if c.is_ascii_digit() => {
+                    let start_col = self.column;
+                    let start_line = self.line;
                     let (n, s) = self.read_number();
                     tokens.push(Token {
                         token_type: TokenType::Number(n),
-                        line: self.line,
+                        line: start_line,
+                        column: start_col,
                         lexeme: s,
                     });
                 }
                 c if c.is_alphabetic() || c == '_' => {
+                    let start_col = self.column;
+                    let start_line = self.line;
                     let s = self.read_identifier();
                     let s_lower = s.to_lowercase();
                     let next_non_ws = self.peek_non_whitespace();
@@ -260,13 +286,20 @@ impl Lexer {
                         "while" => TokenType::While,
                         "in" => TokenType::In,
                         "match" => TokenType::Match,
+                        "module" => TokenType::Module,
+                        "fn" => TokenType::Fn,
+                        "struct" => TokenType::Struct,
+                        "trait" => TokenType::Trait,
+                        "impl" => TokenType::Impl,
+                        "const" => TokenType::Const,
+                        "enum" => TokenType::Enum,
 
                         _ => TokenType::Ident(s.clone()),
                     };
-                    // println!("DEBUG LEXER: '{}' -> {:?}", s, token_type); 
                     tokens.push(Token {
                         token_type,
-                        line: self.line,
+                        line: start_line,
+                        column: start_col,
                         lexeme: s,
                     });
                 }
@@ -282,6 +315,7 @@ impl Lexer {
         tokens.push(Token {
             token_type: TokenType::Eof,
             line: self.line,
+            column: self.column,
             lexeme: "".to_string(),
         });
 
@@ -289,7 +323,15 @@ impl Lexer {
     }
 
     fn advance(&mut self) {
-        self.pos += 1;
+        if self.pos < self.input.len() {
+            if self.input[self.pos] == '\n' {
+                self.line += 1;
+                self.column = 1;
+            } else {
+                self.column += 1;
+            }
+            self.pos += 1;
+        }
     }
 
     fn current_char(&self) -> char {
@@ -304,10 +346,11 @@ impl Lexer {
         }
     }
 
-    fn add_token(&mut self, tokens: &mut Vec<Token>, token_type: TokenType, lexeme: &str) {
+    fn add_token(&mut self, tokens: &mut Vec<Token>, token_type: TokenType, lexeme: &str, col: usize) {
         tokens.push(Token {
             token_type,
             line: self.line,
+            column: col,
             lexeme: lexeme.to_string(),
         });
         self.advance();
@@ -317,9 +360,6 @@ impl Lexer {
         self.advance(); // Skip opening quote
         let start = self.pos;
         while self.pos < self.input.len() && self.current_char() != '"' {
-            if self.current_char() == '\n' {
-                self.line += 1;
-            }
             self.advance();
         }
 

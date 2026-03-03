@@ -1,0 +1,53 @@
+{
+    "name": "omnilang",
+    "displayName": "OmniLang",
+    "description": "Language support and LSP for OmniLang",
+    "version": "2.4.0",
+    "publisher": "HaKaTo99",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Linters"
+    ],
+    "activationEvents": [
+        "onLanguage:omnilang"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "omnilang",
+                "aliases": [
+                    "OmniLang",
+                    "omnilang"
+                ],
+                "extensions": [
+                    ".omni"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "omnilang",
+                "scopeName": "source.omni",
+                "path": "./syntaxes/omnilang.tmLanguage.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^9.0.1"
+    },
+    "devDependencies": {
+        "@types/node": "18.x",
+        "@types/vscode": "^1.80.0",
+        "typescript": "^5.1.3"
+    }
+}

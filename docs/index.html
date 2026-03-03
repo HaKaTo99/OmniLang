@@ -73,7 +73,8 @@
                                 class="string">"yolov8.onnx"</span>)</div>
                         <div class="code-line"><span class="keyword">fn</span> <span
                                 class="function">detectThreats</span>(videoStream: [<span class="type">f64</span>])
-                            <span class="operator">-></span> [<span class="type">f64</span>];</div>
+                            <span class="operator">-></span> [<span class="type">f64</span>];
+                        </div>
                         <div class="code-line"><br></div>
                         <div class="code-line"><span class="keyword">INTENT</span>: Secure Area Monitoring</div>
                         <div class="code-line"><span class="keyword">RULE</span>:</div>
@@ -147,6 +148,50 @@
                     <h3>Actuator HUI (<span class="accent">@hardware</span>)</h3>
                     <p>Lakukan intervensi fisik pada sirkuit riil (`COM`/`UART`) lewat ekstensi aktuator. Bypass
                         recompile secara dinamis dengan `--hui` CLI argument.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WASM Playground Section -->
+    <section id="playground" class="playground">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Live <span class="accent">WASM</span> Playground</h2>
+                <p class="section-desc">Coba ketik dan evaluasi kode OmniLang langsung di browser Anda, didukung oleh
+                    mesin WebAssembly 100% Native Rust.</p>
+            </div>
+
+            <div class="playground-window glass">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">omnilang-wasm-session</span>
+                    <div style="margin-left: auto;">
+                        <button id="run-wasm-btn" class="btn btn-primary"
+                            style="padding: 0.3rem 1rem; font-size: 0.8rem;">Run Code</button>
+                    </div>
+                </div>
+                <div class="playground-body">
+                    <div class="editor-container">
+                        <textarea id="omnilang-editor" spellcheck="false">// Ketik kode OmniLang Anda di sini...
+fn cetak_info(nama: string, daya: i32) -> bool {
+    let stat = "Daya: " + daya;
+    println("Identitas: " + nama + " | " + stat);
+    return true;
+}
+
+fn main() {
+    println("--- OmniLang WebAssembly VM ---");
+    let hasil = cetak_info("Node_Alpha_7", 9000);
+    println("Status Eksekusi: " + hasil);
+}</textarea>
+                    </div>
+                    <div class="output-container">
+                        <div class="output-label">Terminal Output</div>
+                        <pre id="omnilang-output" class="output-console">// Memuat Modul WebAssembly...</pre>
+                    </div>
                 </div>
             </div>
         </div>
@@ -243,7 +288,7 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 
 </html>

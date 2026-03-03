@@ -8,6 +8,24 @@ use crate::parser::Parser;
 use crate::checker::Checker;
 use std::collections::HashMap;
 
+fn extract_line_col_message(err: &str) -> (u32, u32, String) {
+    if err.starts_with("[Line ") {
+        if let Some(end_bracket) = err.find("] ") {
+            let inner = &err[6..end_bracket];
+            let parts: Vec<&str> = inner.split(", Col ").collect();
+            if parts.len() == 2 {
+                if let (Ok(line), Ok(col)) = (parts[0].parse::<u32>(), parts[1].parse::<u32>()) {
+                    let msg = err[end_bracket + 2..].to_string();
+                    let lsp_line = if line > 0 { line - 1 } else { 0 };
+                    let lsp_col = if col > 0 { col - 1 } else { 0 };
+                    return (lsp_line, lsp_col, msg);
+                }
+            }
+        }
+    }
+    (0, 0, err.to_string())
+}
+
 /// LSP Server implementation for OmniLang
 pub struct LspServer {
     is_running: bool,
@@ -144,41 +162,42 @@ impl LspServer {
                             let mut checker = Checker::new();
                             if let Err(errors) = checker.check_program(&program) {
                                 for err in errors {
-                                    // Checker errors are just strings for now, no line info exposed easily
-                                    // TODO: Improve checker error reporting to include line numbers
+                                    let (err_line, err_col, msg) = extract_line_col_message(&err);
                                     diagnostics.push(serde_json::json!({
                                         "range": {
-                                            "start": { "line": 0, "character": 0 },
-                                            "end": { "line": 0, "character": 0 }
+                                            "start": { "line": err_line, "character": err_col },
+                                            "end": { "line": err_line, "character": err_col }
                                         },
                                         "severity": 1, // Error
-                                        "message": err
+                                        "message": msg
                                     }));
                                 }
                             }
                         }
                         Err(e) => {
+                            let (err_line, err_col, msg) = extract_line_col_message(&e);
                             // Parser error (string)
                             diagnostics.push(serde_json::json!({
                                 "range": {
-                                    "start": { "line": 0, "character": 0 },
-                                    "end": { "line": 0, "character": 0 }
+                                    "start": { "line": err_line, "character": err_col },
+                                    "end": { "line": err_line, "character": err_col }
                                 },
                                 "severity": 1, 
-                                "message": format!("Parser Error: {}", e)
+                                "message": format!("Parser Error: {}", msg)
                             }));
                         }
                     }
                 }
                 Err(e) => {
+                     let (err_line, err_col, msg) = extract_line_col_message(&e);
                      // Lexer error
                      diagnostics.push(serde_json::json!({
                         "range": {
-                            "start": { "line": 0, "character": 0 },
-                            "end": { "line": 0, "character": 0 }
+                            "start": { "line": err_line, "character": err_col },
+                            "end": { "line": err_line, "character": err_col }
                         },
                         "severity": 1, 
-                        "message": format!("Lexer Error: {}", e)
+                        "message": format!("Lexer Error: {}", msg)
                     }));
                 }
             }

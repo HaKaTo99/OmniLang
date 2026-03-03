@@ -91,10 +91,43 @@ fn handle_exec(args: &[String]) -> i32 {
 	};
 
 	let mut parser = Parser::new(tokens);
+	
+	// Mode Detection: Peek at the first token
+	let first_token = parser.peek();
+	if matches!(first_token.token_type, omnilang_core::lexer::TokenType::Module) {
+		// Execute as Program
+		let program = match parser.parse_program() {
+			Ok(p) => p,
+			Err(e) => {
+				println!("Program Parser Error: {}", e);
+				return 1;
+			}
+		};
+
+		let mut evaluator = omnilang_core::program_evaluator::ProgramEvaluator::new();
+		if let Err(e) = evaluator.evaluate_program(&program) {
+			println!("Execution Error: {}", e);
+			return 1;
+		}
+
+		// Try to call main: i32 if it exists
+		match evaluator.call_function_by_name("main", vec![]) {
+			Ok(omnilang_core::program_evaluator::Value::Number(exit_code)) => {
+				return exit_code as i32;
+			}
+			Ok(_) => return 0,
+			Err(_) => {
+				// No main found, or it's just a library of modules
+				return 0;
+			}
+		}
+	}
+
+	// Default to Policy execution
 	let policy = match parser.parse_policy() {
 		Ok(p) => p,
 		Err(e) => {
-			println!("Parser Error: {}", e);
+			println!("Policy Parser Error: {}", e);
 			return 1;
 		}
 	};
