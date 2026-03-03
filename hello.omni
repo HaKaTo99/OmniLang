@@ -1,4 +1,0 @@
-module demo {
-    let msg = "Halo, OmniLang!";
-    println(msg);
-}
