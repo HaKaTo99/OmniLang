@@ -334,3 +334,42 @@ Membuktikan fleksibilitas OmniLang dalam menangani logika sistem warisan (*legac
 
 ![Retro Windows 3.x VMM Interface](assets/images/retro_win3x.png)
 *Visualisasi konsep Retro-VMM pada xAetherOS v10.0, menampilkan emulasi Windows 3.11 yang diatur oleh logika OmniLang.*
+
+---
+
+## 🎨 Galeri Showcase & Contoh Skrip Terpasang (v2.3.0)
+
+Berikut adalah daftar lengkap aset visual (`.png`) dan logika pendukungnya (`.omni`) yang telah terintegrasi dalam fabric OmniLang untuk demonstrasi multifungsi:
+
+| Kategori | Gambar Showcase (Aset) | Skrip Logika (Examples) | Deskripsi Singkat |
+| :--- | :--- | :--- | :--- |
+| **Smart Factory** | [showcase_smart_factory.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_smart_factory.png) | [digital_twin_3d_pro.omni](file:///d:/GitHub/OmniLang/examples/digital_twin_3d_pro.omni) | Simulasi Digital Twin 3D untuk pabrik pintar. |
+| **Aerospace** | [showcase_aerospace.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_aerospace.png) | [rocket_launch_3d.omni](file:///d:/GitHub/OmniLang/examples/rocket_launch_3d.omni) | Kalkulasi telemetri dan manajemen peluncuran roket. |
+| **Robotics Arm** | [showcase_robotics_arm.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_robotics_arm.png) | [robotics_arm_control.omni](file:///d:/GitHub/OmniLang/examples/robotics_arm_control.omni) | Kontrol Inverse Kinematics untuk lengan robot 6-DOF. |
+| **Satellite Recon** | [showcase_satellite_recon.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_satellite_recon.png) | [satellite_orbital_recon.omni](file:///d:/GitHub/OmniLang/examples/satellite_orbital_recon.omni) | Pelacakan orbital satelit dan misi pengintaian bumi. |
+| **Autonomous Vehicle** | [showcase_autodrive.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_autodrive.png) | [autonomous_vehicle_3d.omni](file:///d:/GitHub/OmniLang/examples/autonomous_vehicle_3d.omni) | Navigasi otonom dan penghindaran hambatan AI. |
+| **Iron Dome Jakarta** | [showcase_iron_dome.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_iron_dome.png) | [iron_dome_defense_3d.omni](file:///d:/GitHub/OmniLang/examples/iron_dome_defense_3d.omni) | Sistem pertahanan rudal presisi tinggi untuk Jakarta. |
+| **Unix-Core Kernel** | [showcase_unix_kernel.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_unix_kernel.png) | [unix_kernel_sim.omni](file:///d:/GitHub/OmniLang/examples/unix_kernel_sim.omni) | Simulasi kernel POSIX dan manajemen proses. |
+| **Retro Windows 3.x** | [showcase_retro_os.png](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_retro_os.png) | [retro_win3x_sim.omni](file:///d:/GitHub/OmniLang/examples/retro_win3x_sim.omni) | Emulasi logika OS klasik dalam runtime modern. |
+
+### Visualisasi Kolektif
+
+````carousel
+![Smart Factory](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_smart_factory.png)
+<!-- slide -->
+![Aerospace](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_aerospace.png)
+<!-- slide -->
+![Robotics Arm](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_robotics_arm.png)
+<!-- slide -->
+![Satellite Recon](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_satellite_recon.png)
+<!-- slide -->
+![Autonomous Vehicle](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_autodrive.png)
+<!-- slide -->
+![Iron Dome](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_iron_dome.png)
+<!-- slide -->
+![Unix-Core](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_unix_kernel.png)
+<!-- slide -->
+![Retro OS](file:///d:/GitHub/OmniLang/docs/assets/images/showcase_retro_os.png)
+````
+
+OmniLang terus berkembang untuk mencakup lebih banyak simulasi industri dan teknologi masa depan. 🚀
