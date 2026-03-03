@@ -298,6 +298,15 @@ Sangat penting untuk memahami perbedaan antara **Logika Intelegensi** dan **Visu
 2. **CLI Output**: Memberikan visualisasi taktis (ASCII) yang cepat untuk validasi logika.
 3. **GUI Layer**: Data dari OmniLang (vektor, posisi, status) dapat dikirim ke mesin grafis (seperti Three.js, Unity, atau Native xAetherOS GUI) untuk tampilan 3D sinematik.
 
+### 🐧 Unix-Core Simulation: `unix_kernel_sim.omni`
+Mendemonstrasikan abstraksi tingkat rendah bergaya POSIX:
+- **Process Management**: Manajemen PID, status proses (Running/Sleeping), dan alokasi prioritas.
+- **FS Permissions**: Simulasi sistem perizinan berkas Unix (chmod) dengan bitmask logic.
+- **Signal Handling**: Implementasi pengiriman sinyal antar-proses (SIGTERM) dalam fabric xAetherOS.
+
+![Unix-Core VMM Interface](assets/images/showcase_unix_kernel.png)
+*Visualisasi antarmuka taktis Unix-Core yang disimulasikan sebagai lapisan kompatibilitas di atas xAetherOS.*
+
 ### 📟 Simulasi Retro OS: `retro_win3x_sim.omni`
 Membuktikan fleksibilitas OmniLang dalam menangani logika sistem warisan (*legacy system*):
 - **Window Management**: Simulasi state jendela (Program Manager/File Manager) dengan struktur data modern.

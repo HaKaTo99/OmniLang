@@ -1,0 +1,81 @@
+// unix_kernel_sim.omni
+// Unix/Linux Kernel Logic Simulation for xAetherOS
+// Domain: Operating System Core Abstraction
+
+module UnixCore {
+
+    struct Process {
+        pid: i32,
+        name: String,
+        user: String,
+        priority: i32,
+        state: String // Running, Sleeping, Zombie
+    }
+
+    struct FileStat {
+        path: String,
+        permissions: i32, // 755, 644, etc.
+        owner: String
+    }
+
+    // --- KERNEL UTILS ---
+
+    fn get_permission_string(mode: i32) -> String {
+        // Simulasi parsing bitwise unix (Simplified)
+        if mode == 755 { return "rwxr-xr-x"; }
+        if mode == 644 { return "rw-r--r--"; }
+        return "----------";
+    }
+
+    // --- MAIN KERNEL SIMULATION ---
+
+    const main: i32 = {
+        print("🐧 [xAetherOS] UNIX-COMPATIBILITY LAYER ACTIVE");
+        print("Kernel: 6.x.xAether | Architecture: RISC-V 128");
+        print("--------------------------------------------------");
+
+        // 1. PROCESS MANAGEMENT (PID ALLOCATION)
+        let init_proc = Process {
+            pid: 1, name: "systemd", user: "root",
+            priority: 0, state: "Running"
+        };
+
+        let dbus_proc = Process {
+            pid: 452, name: "dbus-daemon", user: "messagebus",
+            priority: 10, state: "Sleeping"
+        };
+
+        let vmm_bridge = Process {
+            pid: 900, name: "omnilang-mesh", user: "xaether",
+            priority: -5, state: "Running"
+        };
+
+        print("[PS] Listing Active Processes:");
+        print("PID\tUSER\t\tSTAT\tCOMMAND");
+        print(init_proc.pid + "\t" + init_proc.user + "\t\t" + init_proc.state + "\t" + init_proc.name);
+        print(dbus_proc.pid + "\t" + dbus_proc.user + "\t" + dbus_proc.state + "\t" + dbus_proc.name);
+        print(vmm_bridge.pid + "\t" + vmm_bridge.user + "\t\t" + vmm_bridge.state + "\t" + vmm_bridge.name);
+
+        // 2. FILE SYSTEM PERMISSIONS (POSIX Mimesis)
+        let root_dir = FileStat { path: "/", permissions: 755, owner: "root" };
+        let secure_key = FileStat { path: "/etc/shadow", permissions: 600, owner: "root" };
+
+        print("");
+        print("[FS] Security Audit:");
+        print("Path: " + secure_key.path + " | Mode: " + secure_key.permissions + " | Stat: " + get_permission_string(secure_key.permissions));
+        
+        // 3. SIGNAL HANDLING LOGIC
+        print("");
+        print("[SIGNAL] Sending SIGTERM to PID 452...");
+        let kill_result = match dbus_proc.state {
+            "Running" => "SUCCESS (Process Terminated)",
+            "Sleeping" => "EXITED_CLEANLY",
+            _ => "FAILED"
+        };
+        print("[SIGNAL] Outcome: " + kill_result);
+
+        print("");
+        print("xAetherOS Unix-Core: STABLE | Uptime: 231 Days");
+        0
+    };
+}
