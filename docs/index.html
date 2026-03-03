@@ -89,65 +89,151 @@
         </div>
     </header>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
+    <!-- Why OmniLang Section -->
+    <section class="why-omnilang">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">The <span class="accent">Zero-Trust</span> Era</h2>
-                <p class="section-desc">Membangun keandalan setingkat militer dengan abstraksi yang elegan.</p>
+                <h2 class="section-title">Why <span class="accent">OmniLang?</span></h2>
+                <p class="section-desc">Keunggulan strategis untuk infrastruktur digital masa depan.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card glass">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 004 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+                        </svg>
+                    </div>
+                    <h3>Distributed by Design</h3>
+                    <p>Arsitektur mesh-native yang memungkinkan eksekusi logika terdistribusi tanpa kompleksitas
+                        jaringan manual.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3>Military-Grade Security</h3>
+                    <p>Sistem keamanan berbasis Capability Token (Zero-Trust) yang terpasang langsung di lapisan bahasa.
+                    </p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" class="icon" stroke="currentColor" stroke-width="2">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3>High Performance</h3>
+                    <p>Runtime berbasis Rust yang sangat optimal dengan overhead minimal, siap untuk sistem real-time
+                        kritis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications Showcase Section -->
+    <section id="showcase" class="showcase">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Applications & <span class="accent">Case Studies</span></h2>
+                <p class="section-desc">Melihat OmniLang beraksi dalam skenario dunia nyata yang kompleks.</p>
             </div>
 
-            <div class="feature-grid">
-                <!-- Feature 1 -->
-                <div class="feature-card glass">
-                    <div class="icon-wrapper">
-                        <svg viewBox="0 0 24 24" fill="none" class="icon">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+            <div class="showcase-grid">
+                <!-- Smart Factory -->
+                <div class="showcase-card glass">
+                    <div class="showcase-img-container">
+                        <img src="assets/images/showcase_smart_factory.png" alt="Smart Factory Digital Twin"
+                            class="showcase-img">
+                        <div class="showcase-overlay"></div>
                     </div>
-                    <h3>Native AI (<span class="accent">@oracle</span>)</h3>
-                    <p>Mengeksekusi model ONNX secara natif pada runtime tanpa binding C++. Mengusung kemampuan validasi
-                        *shape* deterministik lintas node.</p>
+                    <div class="showcase-content">
+                        <span class="showcase-tag">Industrial IoT</span>
+                        <h3>Smart Factory Digital Twin</h3>
+                        <p>Orkestrasi AGV, Drone, dan Lengan Robotik secara real-time dengan sinkronisasi spasial 3D
+                            yang presisi.</p>
+                        <div class="showcase-footer">
+                            <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/digital_twin_3d_pro.omni"
+                                target="_blank" class="showcase-link">View Script &rarr;</a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Feature 2 -->
-                <div class="feature-card glass">
-                    <div class="icon-wrapper">
-                        <svg viewBox="0 0 24 24" fill="none" class="icon">
-                            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9zM13.73 21a2 2 0 01-3.46 0"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                <!-- Aerospace -->
+                <div class="showcase-card glass">
+                    <div class="showcase-img-container">
+                        <img src="assets/images/showcase_aerospace.png" alt="Aerospace Mission Control"
+                            class="showcase-img">
+                        <div class="showcase-overlay"></div>
                     </div>
-                    <h3>Secure Mesh (<span class="accent">@mesh</span>)</h3>
-                    <p>RPC (Remote Procedure Call) transparan via TCP yang merekatkan sensor, pekerja AI, dan aktuator
-                        ke dalam satu Fabric IoT yang padu.</p>
+                    <div class="showcase-content">
+                        <span class="showcase-tag">Aerospace</span>
+                        <h3>Rocket Launch Simulation</h3>
+                        <p>Kalkulasi fisika peluncuran roket multi-stage, perhitungan TWR, dan optimasi trajektori
+                            orbital.</p>
+                        <div class="showcase-footer">
+                            <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/rocket_launch_3d.omni"
+                                target="_blank" class="showcase-link">View Script &rarr;</a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Feature 3 -->
-                <div class="feature-card glass">
-                    <div class="icon-wrapper">
-                        <svg viewBox="0 0 24 24" fill="none" class="icon">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                <!-- AutoDrive -->
+                <div class="showcase-card glass">
+                    <div class="showcase-img-container">
+                        <img src="assets/images/showcase_autodrive.png" alt="Autonomous Driving HUD"
+                            class="showcase-img">
+                        <div class="showcase-overlay"></div>
                     </div>
-                    <h3>X-Capability Tokens</h3>
-                    <p>Beroperasi dengan model Zero-Trust by default. Setiap lompatan jaringan diotentikasi dan
-                        diamankan. Mencegah ancaman node rogue seketika.</p>
+                    <div class="showcase-content">
+                        <span class="showcase-tag">Automotive AI</span>
+                        <h3>Autonomous Vehicle HUD</h3>
+                        <p>Sistem persepsi kendaraan otonom berbasis Lidar dan deteksi objek AI Oracle untuk navigasi
+                            aman.</p>
+                        <div class="showcase-footer">
+                            <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/autonomous_vehicle_3d.omni"
+                                target="_blank" class="showcase-link">View Script &rarr;</a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Feature 4 -->
-                <div class="feature-card glass">
-                    <div class="icon-wrapper">
-                        <svg viewBox="0 0 24 24" fill="none" class="icon">
-                            <path d="M4 4h16v16H4V4zm4 4h8v8H8V8zm-4 4h4m8 0h4m-6-6v4m0 8v-4" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                <!-- Iron Dome -->
+                <div class="showcase-card glass">
+                    <div class="showcase-img-container">
+                        <img src="assets/images/showcase_iron_dome.png" alt="Sentinel Jakarta Defense"
+                            class="showcase-img">
+                        <div class="showcase-overlay"></div>
                     </div>
-                    <h3>Actuator HUI (<span class="accent">@hardware</span>)</h3>
-                    <p>Lakukan intervensi fisik pada sirkuit riil (`COM`/`UART`) lewat ekstensi aktuator. Bypass
-                        recompile secara dinamis dengan `--hui` CLI argument.</p>
+                    <div class="showcase-content">
+                        <span class="showcase-tag">Military Defense</span>
+                        <h3>Sentinel Jakarta Iron Dome</h3>
+                        <p>Sistem pertahanan udara taktis yang memproteksi wilayah Jakarta Metropolitan dengan
+                            intersepsi otomatis.</p>
+                        <div class="showcase-footer">
+                            <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/iron_dome_defense_3d.omni"
+                                target="_blank" class="showcase-link">View Script &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retro OS -->
+                <div class="showcase-card glass">
+                    <div class="showcase-img-container">
+                        <img src="assets/images/showcase_retro_os.png" alt="Windows 3.x Emulation" class="showcase-img">
+                        <div class="showcase-overlay"></div>
+                    </div>
+                    <div class="showcase-content">
+                        <span class="showcase-tag">Legacy Systems</span>
+                        <h3>Retro OS Emulation</h3>
+                        <p>Membangkitkan kembali Windows 3.1 melalui simulasi Window Manager dan alokasi memori 16-bit
+                            klasik.</p>
+                        <div class="showcase-footer">
+                            <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/retro_win3x_sim.omni"
+                                target="_blank" class="showcase-link">View Script &rarr;</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
