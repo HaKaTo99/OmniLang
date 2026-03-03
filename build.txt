@@ -1,0 +1,5857 @@
+﻿cargo :     Checking once_cell v1.21.3
+At line:1 char:1
++ cargo check --target wasm32-unknown-unknown 2>&1 | Out-File 
+-FilePath ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking once_ 
+   cell v1.21.3:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   Compiling wasm-bindgen-macro v0.2.114
+    Checking serde v1.0.217
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:12:1
+   |
+12 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+12 - //!
+12 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:13:1
+   |
+13 | //! `once_cell` provides two new cell-like types, 
+[`unsync::OnceCell`] and
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+13 - //! `once_cell` provides two new cell-like types, 
+[`unsync::OnceCell`] and
+13 + // `once_cell` provides two new cell-like types, 
+[`unsync::OnceCell`] and
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:14:1
+   |
+14 | //! [`sync::OnceCell`]. A `OnceCell` might store arbitrary 
+non-`Copy` types, can
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+14 - //! [`sync::OnceCell`]. A `OnceCell` might store arbitrary 
+non-`Copy` types, can
+14 + // [`sync::OnceCell`]. A `OnceCell` might store arbitrary 
+non-`Copy` types, can
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:15:1
+   |
+15 | //! be assigned to at most once and provides direct access 
+to the stored
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+15 - //! be assigned to at most once and provides direct access 
+to the stored
+15 + // be assigned to at most once and provides direct access 
+to the stored
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:16:1
+   |
+16 | //! contents. The core API looks *roughly* like this (and 
+there's much more
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+16 - //! contents. The core API looks *roughly* like this (and 
+there's much more
+16 + // contents. The core API looks *roughly* like this (and 
+there's much more
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:17:1
+   |
+17 | //! inside, read on!):
+   | ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+17 - //! inside, read on!):
+17 + // inside, read on!):
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:18:1
+   |
+18 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+18 - //!
+18 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:19:1
+   |
+19 | //! ```rust,ignore
+   | ^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+19 - //! ```rust,ignore
+19 + // ```rust,ignore
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:20:1
+   |
+20 | //! impl<T> OnceCell<T> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+20 - //! impl<T> OnceCell<T> {
+20 + // impl<T> OnceCell<T> {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:21:1
+   |
+21 | //!     const fn new() -> OnceCell<T> { ... }
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+21 - //!     const fn new() -> OnceCell<T> { ... }
+21 + //     const fn new() -> OnceCell<T> { ... }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:22:1
+   |
+22 | //!     fn set(&self, value: T) -> Result<(), T> { ... }
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+22 - //!     fn set(&self, value: T) -> Result<(), T> { ... }
+22 + //     fn set(&self, value: T) -> Result<(), T> { ... }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:23:1
+   |
+23 | //!     fn get(&self) -> Option<&T> { ... }
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+23 - //!     fn get(&self) -> Option<&T> { ... }
+23 + //     fn get(&self) -> Option<&T> { ... }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:24:1
+   |
+24 | //! }
+   | ^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+24 - //! }
+24 + // }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:25:1
+   |
+25 | //! ```
+   | ^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+25 - //! ```
+25 + // ```
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:26:1
+   |
+26 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+26 - //!
+26 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:27:1
+   |
+27 | //! Note that, like with [`RefCell`] and [`Mutex`], the 
+`set` method requires
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+27 - //! Note that, like with [`RefCell`] and [`Mutex`], the 
+`set` method requires
+27 + // Note that, like with [`RefCell`] and [`Mutex`], the 
+`set` method requires
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:28:1
+   |
+28 | //! only a shared reference. Because of the single 
+assignment restriction `get`
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+28 - //! only a shared reference. Because of the single 
+assignment restriction `get`
+28 + // only a shared reference. Because of the single 
+assignment restriction `get`
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:29:1
+   |
+29 | //! can return a `&T` instead of `Ref<T>` or 
+`MutexGuard<T>`.
+   | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+29 - //! can return a `&T` instead of `Ref<T>` or 
+`MutexGuard<T>`.
+29 + // can return a `&T` instead of `Ref<T>` or 
+`MutexGuard<T>`.
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:30:1
+   |
+30 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+30 - //!
+30 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:31:1
+   |
+31 | //! The `sync` flavor is thread-safe (that is, implements 
+the [`Sync`] trait),
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+31 - //! The `sync` flavor is thread-safe (that is, implements 
+the [`Sync`] trait),
+31 + // The `sync` flavor is thread-safe (that is, implements 
+the [`Sync`] trait),
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:32:1
+   |
+32 | //! while the `unsync` one is not.
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+32 - //! while the `unsync` one is not.
+32 + // while the `unsync` one is not.
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:33:1
+   |
+33 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+33 - //!
+33 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:34:1
+   |
+34 | //! [`unsync::OnceCell`]: unsync/struct.OnceCell.html
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+34 - //! [`unsync::OnceCell`]: unsync/struct.OnceCell.html
+34 + // [`unsync::OnceCell`]: unsync/struct.OnceCell.html
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:35:1
+   |
+35 | //! [`sync::OnceCell`]: sync/struct.OnceCell.html
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+35 - //! [`sync::OnceCell`]: sync/struct.OnceCell.html
+35 + // [`sync::OnceCell`]: sync/struct.OnceCell.html
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:36:1
+   |
+36 | //! [`RefCell`]: 
+https://doc.rust-lang.org/std/cell/struct.RefCell.html
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+36 - //! [`RefCell`]: 
+https://doc.rust-lang.org/std/cell/struct.RefCell.html
+36 + // [`RefCell`]: 
+https://doc.rust-lang.org/std/cell/struct.RefCell.html
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:37:1
+   |
+37 | //! [`Mutex`]: 
+https://doc.rust-lang.org/std/sync/struct.Mutex.html
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+37 - //! [`Mutex`]: 
+https://doc.rust-lang.org/std/sync/struct.Mutex.html
+37 + // [`Mutex`]: 
+https://doc.rust-lang.org/std/sync/struct.Mutex.html
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:38:1
+   |
+38 | //! [`Sync`]: 
+https://doc.rust-lang.org/std/marker/trait.Sync.html
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+38 - //! [`Sync`]: 
+https://doc.rust-lang.org/std/marker/trait.Sync.html
+38 + // [`Sync`]: 
+https://doc.rust-lang.org/std/marker/trait.Sync.html
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:39:1
+   |
+39 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+39 - //!
+39 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:40:1
+   |
+40 | //! # Recipes
+   | ^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+40 - //! # Recipes
+40 + // # Recipes
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:41:1
+   |
+41 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+41 - //!
+41 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:42:1
+   |
+42 | //! `OnceCell` might be useful for a variety of patterns.
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+42 - //! `OnceCell` might be useful for a variety of patterns.
+42 + // `OnceCell` might be useful for a variety of patterns.
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:43:1
+   |
+43 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+43 - //!
+43 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:44:1
+   |
+44 | //! ## Safe Initialization of Global Data
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+44 - //! ## Safe Initialization of Global Data
+44 + // ## Safe Initialization of Global Data
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:45:1
+   |
+45 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+45 - //!
+45 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:46:1
+   |
+46 | //! ```rust
+   | ^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+46 - //! ```rust
+46 + // ```rust
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:47:1
+   |
+47 | //! use std::{env, io};
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+47 - //! use std::{env, io};
+47 + // use std::{env, io};
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:48:1
+   |
+48 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+48 - //!
+48 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:49:1
+   |
+49 | //! use once_cell::sync::OnceCell;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+49 - //! use once_cell::sync::OnceCell;
+49 + // use once_cell::sync::OnceCell;
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:50:1
+   |
+50 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+50 - //!
+50 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:51:1
+   |
+51 | //! #[derive(Debug)]
+   | ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+51 - //! #[derive(Debug)]
+51 + // #[derive(Debug)]
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:52:1
+   |
+52 | //! pub struct Logger {
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+52 - //! pub struct Logger {
+52 + // pub struct Logger {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:53:1
+   |
+53 | //!     // ...
+   | ^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+53 - //!     // ...
+53 + //     // ...
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:54:1
+   |
+54 | //! }
+   | ^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+54 - //! }
+54 + // }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:55:1
+   |
+55 | //! static INSTANCE: OnceCell<Logger> = OnceCell::new();
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+55 - //! static INSTANCE: OnceCell<Logger> = OnceCell::new();
+55 + // static INSTANCE: OnceCell<Logger> = OnceCell::new();
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:56:1
+   |
+56 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+56 - //!
+56 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:57:1
+   |
+57 | //! impl Logger {
+   | ^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+57 - //! impl Logger {
+57 + // impl Logger {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:58:1
+   |
+58 | //!     pub fn global() -> &'static Logger {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+58 - //!     pub fn global() -> &'static Logger {
+58 + //     pub fn global() -> &'static Logger {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:59:1
+   |
+59 | //!         INSTANCE.get().expect("logger is not 
+initialized")
+   | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+59 - //!         INSTANCE.get().expect("logger is not 
+initialized")
+59 + //         INSTANCE.get().expect("logger is not 
+initialized")
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:60:1
+   |
+60 | //!     }
+   | ^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+60 - //!     }
+60 + //     }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:61:1
+   |
+61 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+61 - //!
+61 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:62:1
+   |
+62 | //!     fn from_cli(args: env::Args) -> Result<Logger, 
+std::io::Error> {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+62 - //!     fn from_cli(args: env::Args) -> Result<Logger, 
+std::io::Error> {
+62 + //     fn from_cli(args: env::Args) -> Result<Logger, 
+std::io::Error> {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:63:1
+   |
+63 | //!        // ...
+   | ^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+63 - //!        // ...
+63 + //        // ...
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:64:1
+   |
+64 | //! #      Ok(Logger {})
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+64 - //! #      Ok(Logger {})
+64 + // #      Ok(Logger {})
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:65:1
+   |
+65 | //!     }
+   | ^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+65 - //!     }
+65 + //     }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:66:1
+   |
+66 | //! }
+   | ^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+66 - //! }
+66 + // }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:67:1
+   |
+67 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+67 - //!
+67 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:68:1
+   |
+68 | //! fn main() {
+   | ^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+68 - //! fn main() {
+68 + // fn main() {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:69:1
+   |
+69 | //!     let logger = 
+Logger::from_cli(env::args()).unwrap();
+   | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+69 - //!     let logger = 
+Logger::from_cli(env::args()).unwrap();
+69 + //     let logger = Logger::from_cli(env::args()).unwrap();
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:70:1
+   |
+70 | //!     INSTANCE.set(logger).unwrap();
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+70 - //!     INSTANCE.set(logger).unwrap();
+70 + //     INSTANCE.set(logger).unwrap();
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:71:1
+   |
+71 | //!     // use `Logger::global()` from now on
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+71 - //!     // use `Logger::global()` from now on
+71 + //     // use `Logger::global()` from now on
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:72:1
+   |
+72 | //! }
+   | ^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+72 - //! }
+72 + // }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:73:1
+   |
+73 | //! ```
+   | ^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+73 - //! ```
+73 + // ```
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:74:1
+   |
+74 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+74 - //!
+74 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:75:1
+   |
+75 | //! ## Lazy Initialized Global Data
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+75 - //! ## Lazy Initialized Global Data
+75 + // ## Lazy Initialized Global Data
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:76:1
+   |
+76 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+76 - //!
+76 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:77:1
+   |
+77 | //! This is essentially the `lazy_static!` macro, but 
+without a macro.
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+77 - //! This is essentially the `lazy_static!` macro, but 
+without a macro.
+77 + // This is essentially the `lazy_static!` macro, but 
+without a macro.
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:78:1
+   |
+78 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+78 - //!
+78 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:79:1
+   |
+79 | //! ```rust
+   | ^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+79 - //! ```rust
+79 + // ```rust
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:80:1
+   |
+80 | //! use std::{sync::Mutex, collections::HashMap};
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+80 - //! use std::{sync::Mutex, collections::HashMap};
+80 + // use std::{sync::Mutex, collections::HashMap};
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:81:1
+   |
+81 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+81 - //!
+81 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:82:1
+   |
+82 | //! use once_cell::sync::OnceCell;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+82 - //! use once_cell::sync::OnceCell;
+82 + // use once_cell::sync::OnceCell;
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:83:1
+   |
+83 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+83 - //!
+83 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:84:1
+   |
+84 | //! fn global_data() -> &'static Mutex<HashMap<i32, 
+String>> {
+   | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+84 - //! fn global_data() -> &'static Mutex<HashMap<i32, 
+String>> {
+84 + // fn global_data() -> &'static Mutex<HashMap<i32, 
+String>> {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:85:1
+   |
+85 | //!     static INSTANCE: OnceCell<Mutex<HashMap<i32, 
+String>>> = OnceCell::new();
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+85 - //!     static INSTANCE: OnceCell<Mutex<HashMap<i32, 
+String>>> = OnceCell::new();
+85 + //     static INSTANCE: OnceCell<Mutex<HashMap<i32, 
+String>>> = OnceCell::new();
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:86:1
+   |
+86 | //!     INSTANCE.get_or_init(|| {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+86 - //!     INSTANCE.get_or_init(|| {
+86 + //     INSTANCE.get_or_init(|| {
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:87:1
+   |
+87 | //!         let mut m = HashMap::new();
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+87 - //!         let mut m = HashMap::new();
+87 + //         let mut m = HashMap::new();
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:88:1
+   |
+88 | //!         m.insert(13, "Spica".to_string());
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+88 - //!         m.insert(13, "Spica".to_string());
+88 + //         m.insert(13, "Spica".to_string());
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:89:1
+   |
+89 | //!         m.insert(74, "Hoyten".to_string());
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+89 - //!         m.insert(74, "Hoyten".to_string());
+89 + //         m.insert(74, "Hoyten".to_string());
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:90:1
+   |
+90 | //!         Mutex::new(m)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+90 - //!         Mutex::new(m)
+90 + //         Mutex::new(m)
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:91:1
+   |
+91 | //!     })
+   | ^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+91 - //!     })
+91 + //     })
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:92:1
+   |
+92 | //! }
+   | ^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+92 - //! }
+92 + // }
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:93:1
+   |
+93 | //! ```
+   | ^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+93 - //! ```
+93 + // ```
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:94:1
+   |
+94 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+94 - //!
+94 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:95:1
+   |
+95 | //! There are also the [`sync::Lazy`] and [`unsync::Lazy`] 
+convenience types to
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+95 - //! There are also the [`sync::Lazy`] and [`unsync::Lazy`] 
+convenience types to
+95 + // There are also the [`sync::Lazy`] and [`unsync::Lazy`] 
+convenience types to
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:96:1
+   |
+96 | //! streamline this pattern:
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+96 - //! streamline this pattern:
+96 + // streamline this pattern:
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:97:1
+   |
+97 | //!
+   | ^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+97 - //!
+97 + //
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:98:1
+   |
+98 | //! ```rust
+   | ^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+98 - //! ```rust
+98 + // ```rust
+   |
+
+error[E0753]: expected outer doc comment
+  --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf8
+c6b5b557f\once_cell-1.21.3\src\lib.rs:99:1
+   |
+99 | //! use std::{sync::Mutex, collections::HashMap};
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: inner doc comments like this (starting with `//!` or 
+`/*!`) can only appear before items
+help: you might have meant to write a regular comment
+   |
+99 - //! use std::{sync::Mutex, collections::HashMap};
+99 + // use std::{sync::Mutex, collections::HashMap};
+   |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:100:1
+    |
+100 | //! use once_cell::sync::Lazy;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+100 - //! use once_cell::sync::Lazy;
+100 + // use once_cell::sync::Lazy;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:101:1
+    |
+101 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+101 - //!
+101 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:102:1
+    |
+102 | //! static GLOBAL_DATA: Lazy<Mutex<HashMap<i32, String>>> 
+= Lazy::new(|| {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+102 - //! static GLOBAL_DATA: Lazy<Mutex<HashMap<i32, String>>> 
+= Lazy::new(|| {
+102 + // static GLOBAL_DATA: Lazy<Mutex<HashMap<i32, String>>> 
+= Lazy::new(|| {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:103:1
+    |
+103 | //!     let mut m = HashMap::new();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+103 - //!     let mut m = HashMap::new();
+103 + //     let mut m = HashMap::new();
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:104:1
+    |
+104 | //!     m.insert(13, "Spica".to_string());
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+104 - //!     m.insert(13, "Spica".to_string());
+104 + //     m.insert(13, "Spica".to_string());
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:105:1
+    |
+105 | //!     m.insert(74, "Hoyten".to_string());
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+105 - //!     m.insert(74, "Hoyten".to_string());
+105 + //     m.insert(74, "Hoyten".to_string());
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:106:1
+    |
+106 | //!     Mutex::new(m)
+    | ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+106 - //!     Mutex::new(m)
+106 + //     Mutex::new(m)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:107:1
+    |
+107 | //! });
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+107 - //! });
+107 + // });
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:108:1
+    |
+108 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+108 - //!
+108 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:109:1
+    |
+109 | //! fn main() {
+    | ^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+109 - //! fn main() {
+109 + // fn main() {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:110:1
+    |
+110 | //!     println!("{:?}", GLOBAL_DATA.lock().unwrap());
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+110 - //!     println!("{:?}", GLOBAL_DATA.lock().unwrap());
+110 + //     println!("{:?}", GLOBAL_DATA.lock().unwrap());
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:111:1
+    |
+111 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+111 - //! }
+111 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:112:1
+    |
+112 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+112 - //! ```
+112 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:113:1
+    |
+113 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+113 - //!
+113 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:114:1
+    |
+114 | //! Note that the variable that holds `Lazy` is declared 
+as `static`, *not*
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+114 - //! Note that the variable that holds `Lazy` is declared 
+as `static`, *not*
+114 + // Note that the variable that holds `Lazy` is declared 
+as `static`, *not*
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:115:1
+    |
+115 | //! `const`. This is important: using `const` instead 
+compiles, but works wrong.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+115 - //! `const`. This is important: using `const` instead 
+compiles, but works wrong.
+115 + // `const`. This is important: using `const` instead 
+compiles, but works wrong.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:116:1
+    |
+116 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+116 - //!
+116 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:117:1
+    |
+117 | //! [`sync::Lazy`]: sync/struct.Lazy.html
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+117 - //! [`sync::Lazy`]: sync/struct.Lazy.html
+117 + // [`sync::Lazy`]: sync/struct.Lazy.html
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:118:1
+    |
+118 | //! [`unsync::Lazy`]: unsync/struct.Lazy.html
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+118 - //! [`unsync::Lazy`]: unsync/struct.Lazy.html
+118 + // [`unsync::Lazy`]: unsync/struct.Lazy.html
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:119:1
+    |
+119 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+119 - //!
+119 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:120:1
+    |
+120 | //! ## General purpose lazy evaluation
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+120 - //! ## General purpose lazy evaluation
+120 + // ## General purpose lazy evaluation
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:121:1
+    |
+121 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+121 - //!
+121 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:122:1
+    |
+122 | //! Unlike `lazy_static!`, `Lazy` works with local 
+variables.
+    | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+122 - //! Unlike `lazy_static!`, `Lazy` works with local 
+variables.
+122 + // Unlike `lazy_static!`, `Lazy` works with local 
+variables.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:123:1
+    |
+123 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+123 - //!
+123 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:124:1
+    |
+124 | //! ```rust
+    | ^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+124 - //! ```rust
+124 + // ```rust
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:125:1
+    |
+125 | //! use once_cell::unsync::Lazy;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+125 - //! use once_cell::unsync::Lazy;
+125 + // use once_cell::unsync::Lazy;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:126:1
+    |
+126 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+126 - //!
+126 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:127:1
+    |
+127 | //! fn main() {
+    | ^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+127 - //! fn main() {
+127 + // fn main() {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:128:1
+    |
+128 | //!     let ctx = vec![1, 2, 3];
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+128 - //!     let ctx = vec![1, 2, 3];
+128 + //     let ctx = vec![1, 2, 3];
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:129:1
+    |
+129 | //!     let thunk = Lazy::new(|| {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+129 - //!     let thunk = Lazy::new(|| {
+129 + //     let thunk = Lazy::new(|| {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:130:1
+    |
+130 | //!         ctx.iter().sum::<i32>()
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+130 - //!         ctx.iter().sum::<i32>()
+130 + //         ctx.iter().sum::<i32>()
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:131:1
+    |
+131 | //!     });
+    | ^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+131 - //!     });
+131 + //     });
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:132:1
+    |
+132 | //!     assert_eq!(*thunk, 6);
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+132 - //!     assert_eq!(*thunk, 6);
+132 + //     assert_eq!(*thunk, 6);
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:133:1
+    |
+133 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+133 - //! }
+133 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:134:1
+    |
+134 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+134 - //! ```
+134 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:135:1
+    |
+135 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+135 - //!
+135 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:136:1
+    |
+136 | //! If you need a lazy field in a struct, you probably 
+should use `OnceCell`
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+136 - //! If you need a lazy field in a struct, you probably 
+should use `OnceCell`
+136 + // If you need a lazy field in a struct, you probably 
+should use `OnceCell`
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:137:1
+    |
+137 | //! directly, because that will allow you to access 
+`self` during
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+137 - //! directly, because that will allow you to access 
+`self` during
+137 + // directly, because that will allow you to access `self` 
+during
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:138:1
+    |
+138 | //! initialization.
+    | ^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+138 - //! initialization.
+138 + // initialization.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:139:1
+    |
+139 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+139 - //!
+139 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:140:1
+    |
+140 | //! ```rust
+    | ^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+140 - //! ```rust
+140 + // ```rust
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:141:1
+    |
+141 | //! use std::{fs, path::PathBuf};
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+141 - //! use std::{fs, path::PathBuf};
+141 + // use std::{fs, path::PathBuf};
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:142:1
+    |
+142 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+142 - //!
+142 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:143:1
+    |
+143 | //! use once_cell::unsync::OnceCell;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+143 - //! use once_cell::unsync::OnceCell;
+143 + // use once_cell::unsync::OnceCell;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:144:1
+    |
+144 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+144 - //!
+144 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:145:1
+    |
+145 | //! struct Ctx {
+    | ^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+145 - //! struct Ctx {
+145 + // struct Ctx {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:146:1
+    |
+146 | //!     config_path: PathBuf,
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+146 - //!     config_path: PathBuf,
+146 + //     config_path: PathBuf,
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:147:1
+    |
+147 | //!     config: OnceCell<String>,
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+147 - //!     config: OnceCell<String>,
+147 + //     config: OnceCell<String>,
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:148:1
+    |
+148 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+148 - //! }
+148 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:149:1
+    |
+149 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+149 - //!
+149 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:150:1
+    |
+150 | //! impl Ctx {
+    | ^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+150 - //! impl Ctx {
+150 + // impl Ctx {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:151:1
+    |
+151 | //!     pub fn get_config(&self) -> Result<&str, 
+std::io::Error> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+151 - //!     pub fn get_config(&self) -> Result<&str, 
+std::io::Error> {
+151 + //     pub fn get_config(&self) -> Result<&str, 
+std::io::Error> {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:152:1
+    |
+152 | //!         let cfg = self.config.get_or_try_init(|| {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+152 - //!         let cfg = self.config.get_or_try_init(|| {
+152 + //         let cfg = self.config.get_or_try_init(|| {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:153:1
+    |
+153 | //!             fs::read_to_string(&self.config_path)
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+153 - //!             fs::read_to_string(&self.config_path)
+153 + //             fs::read_to_string(&self.config_path)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:154:1
+    |
+154 | //!         })?;
+    | ^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+154 - //!         })?;
+154 + //         })?;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:155:1
+    |
+155 | //!         Ok(cfg.as_str())
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+155 - //!         Ok(cfg.as_str())
+155 + //         Ok(cfg.as_str())
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:156:1
+    |
+156 | //!     }
+    | ^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+156 - //!     }
+156 + //     }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:157:1
+    |
+157 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+157 - //! }
+157 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:158:1
+    |
+158 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+158 - //! ```
+158 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:159:1
+    |
+159 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+159 - //!
+159 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:160:1
+    |
+160 | //! ## Lazily Compiled Regex
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+160 - //! ## Lazily Compiled Regex
+160 + // ## Lazily Compiled Regex
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:161:1
+    |
+161 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+161 - //!
+161 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:162:1
+    |
+162 | //! This is a `regex!` macro which takes a string literal 
+and returns an
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+162 - //! This is a `regex!` macro which takes a string literal 
+and returns an
+162 + // This is a `regex!` macro which takes a string literal 
+and returns an
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:163:1
+    |
+163 | //! *expression* that evaluates to a `&'static Regex`:
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+163 - //! *expression* that evaluates to a `&'static Regex`:
+163 + // *expression* that evaluates to a `&'static Regex`:
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:164:1
+    |
+164 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+164 - //!
+164 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:165:1
+    |
+165 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+165 - //! ```
+165 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:166:1
+    |
+166 | //! macro_rules! regex {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+166 - //! macro_rules! regex {
+166 + // macro_rules! regex {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:167:1
+    |
+167 | //!     ($re:literal $(,)?) => {{
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+167 - //!     ($re:literal $(,)?) => {{
+167 + //     ($re:literal $(,)?) => {{
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:168:1
+    |
+168 | //!         static RE: 
+once_cell::sync::OnceCell<regex::Regex> = 
+once_cell::sync::OnceCell::new();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+168 - //!         static RE: 
+once_cell::sync::OnceCell<regex::Regex> = 
+once_cell::sync::OnceCell::new();
+168 + //         static RE: 
+once_cell::sync::OnceCell<regex::Regex> = 
+once_cell::sync::OnceCell::new();
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:169:1
+    |
+169 | //!         RE.get_or_init(|| 
+regex::Regex::new($re).unwrap())
+    | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+169 - //!         RE.get_or_init(|| 
+regex::Regex::new($re).unwrap())
+169 + //         RE.get_or_init(|| 
+regex::Regex::new($re).unwrap())
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:170:1
+    |
+170 | //!     }};
+    | ^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+170 - //!     }};
+170 + //     }};
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:171:1
+    |
+171 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+171 - //! }
+171 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:172:1
+    |
+172 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+172 - //! ```
+172 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:173:1
+    |
+173 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+173 - //!
+173 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:174:1
+    |
+174 | //! This macro can be useful to avoid the "compile regex 
+on every loop
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+174 - //! This macro can be useful to avoid the "compile regex 
+on every loop
+174 + // This macro can be useful to avoid the "compile regex 
+on every loop
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:175:1
+    |
+175 | //! iteration" problem.
+    | ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+175 - //! iteration" problem.
+175 + // iteration" problem.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:176:1
+    |
+176 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+176 - //!
+176 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:177:1
+    |
+177 | //! ## Runtime `include_bytes!`
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+177 - //! ## Runtime `include_bytes!`
+177 + // ## Runtime `include_bytes!`
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:178:1
+    |
+178 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+178 - //!
+178 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:179:1
+    |
+179 | //! The `include_bytes` macro is useful to include test 
+resources, but it slows
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+179 - //! The `include_bytes` macro is useful to include test 
+resources, but it slows
+179 + // The `include_bytes` macro is useful to include test 
+resources, but it slows
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:180:1
+    |
+180 | //! down test compilation a lot. An alternative is to 
+load the resources at
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+180 - //! down test compilation a lot. An alternative is to 
+load the resources at
+180 + // down test compilation a lot. An alternative is to load 
+the resources at
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:181:1
+    |
+181 | //! runtime:
+    | ^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+181 - //! runtime:
+181 + // runtime:
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:182:1
+    |
+182 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+182 - //!
+182 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:183:1
+    |
+183 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+183 - //! ```
+183 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:184:1
+    |
+184 | //! use std::path::Path;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+184 - //! use std::path::Path;
+184 + // use std::path::Path;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:185:1
+    |
+185 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+185 - //!
+185 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:186:1
+    |
+186 | //! use once_cell::sync::OnceCell;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+186 - //! use once_cell::sync::OnceCell;
+186 + // use once_cell::sync::OnceCell;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:187:1
+    |
+187 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+187 - //!
+187 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:188:1
+    |
+188 | //! pub struct TestResource {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+188 - //! pub struct TestResource {
+188 + // pub struct TestResource {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:189:1
+    |
+189 | //!     path: &'static str,
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+189 - //!     path: &'static str,
+189 + //     path: &'static str,
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:190:1
+    |
+190 | //!     cell: OnceCell<Vec<u8>>,
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+190 - //!     cell: OnceCell<Vec<u8>>,
+190 + //     cell: OnceCell<Vec<u8>>,
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:191:1
+    |
+191 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+191 - //! }
+191 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:192:1
+    |
+192 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+192 - //!
+192 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:193:1
+    |
+193 | //! impl TestResource {
+    | ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+193 - //! impl TestResource {
+193 + // impl TestResource {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:194:1
+    |
+194 | //!     pub const fn new(path: &'static str) -> 
+TestResource {
+    | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+194 - //!     pub const fn new(path: &'static str) -> 
+TestResource {
+194 + //     pub const fn new(path: &'static str) -> 
+TestResource {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:195:1
+    |
+195 | //!         TestResource { path, cell: OnceCell::new() }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+195 - //!         TestResource { path, cell: OnceCell::new() }
+195 + //         TestResource { path, cell: OnceCell::new() }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:196:1
+    |
+196 | //!     }
+    | ^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+196 - //!     }
+196 + //     }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:197:1
+    |
+197 | //!     pub fn bytes(&self) -> &[u8] {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+197 - //!     pub fn bytes(&self) -> &[u8] {
+197 + //     pub fn bytes(&self) -> &[u8] {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:198:1
+    |
+198 | //!         self.cell.get_or_init(|| {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+198 - //!         self.cell.get_or_init(|| {
+198 + //         self.cell.get_or_init(|| {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:199:1
+    |
+199 | //!             let dir = 
+std::env::var("CARGO_MANIFEST_DIR").unwrap();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+199 - //!             let dir = 
+std::env::var("CARGO_MANIFEST_DIR").unwrap();
+199 + //             let dir = 
+std::env::var("CARGO_MANIFEST_DIR").unwrap();
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:200:1
+    |
+200 | //!             let path = 
+Path::new(dir.as_str()).join(self.path);
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+200 - //!             let path = 
+Path::new(dir.as_str()).join(self.path);
+200 + //             let path = 
+Path::new(dir.as_str()).join(self.path);
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:201:1
+    |
+201 | //!             
+std::fs::read(&path).unwrap_or_else(|_err| {
+    | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+201 - //!             
+std::fs::read(&path).unwrap_or_else(|_err| {
+201 + //             std::fs::read(&path).unwrap_or_else(|_err| 
+{
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:202:1
+    |
+202 | //!                 panic!("failed to load test resource: 
+{}", path.display())
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+202 - //!                 panic!("failed to load test resource: 
+{}", path.display())
+202 + //                 panic!("failed to load test resource: 
+{}", path.display())
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:203:1
+    |
+203 | //!             })
+    | ^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+203 - //!             })
+203 + //             })
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:204:1
+    |
+204 | //!         }).as_slice()
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+204 - //!         }).as_slice()
+204 + //         }).as_slice()
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:205:1
+    |
+205 | //!     }
+    | ^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+205 - //!     }
+205 + //     }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:206:1
+    |
+206 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+206 - //! }
+206 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:207:1
+    |
+207 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+207 - //!
+207 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:208:1
+    |
+208 | //! static TEST_IMAGE: TestResource = 
+TestResource::new("test_data/lena.png");
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+208 - //! static TEST_IMAGE: TestResource = 
+TestResource::new("test_data/lena.png");
+208 + // static TEST_IMAGE: TestResource = 
+TestResource::new("test_data/lena.png");
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:209:1
+    |
+209 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+209 - //!
+209 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:210:1
+    |
+210 | //! #[test]
+    | ^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+210 - //! #[test]
+210 + // #[test]
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:211:1
+    |
+211 | //! fn test_sobel_filter() {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+211 - //! fn test_sobel_filter() {
+211 + // fn test_sobel_filter() {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:212:1
+    |
+212 | //!     let rgb: &[u8] = TEST_IMAGE.bytes();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+212 - //!     let rgb: &[u8] = TEST_IMAGE.bytes();
+212 + //     let rgb: &[u8] = TEST_IMAGE.bytes();
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:213:1
+    |
+213 | //!     // ...
+    | ^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+213 - //!     // ...
+213 + //     // ...
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:214:1
+    |
+214 | //! # drop(rgb);
+    | ^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+214 - //! # drop(rgb);
+214 + // # drop(rgb);
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:215:1
+    |
+215 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+215 - //! }
+215 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:216:1
+    |
+216 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+216 - //! ```
+216 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:217:1
+    |
+217 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+217 - //!
+217 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:218:1
+    |
+218 | //! ## `lateinit`
+    | ^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+218 - //! ## `lateinit`
+218 + // ## `lateinit`
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:219:1
+    |
+219 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+219 - //!
+219 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:220:1
+    |
+220 | //! `LateInit` type for delayed initialization. It is 
+reminiscent of Kotlin's
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+220 - //! `LateInit` type for delayed initialization. It is 
+reminiscent of Kotlin's
+220 + // `LateInit` type for delayed initialization. It is 
+reminiscent of Kotlin's
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:221:1
+    |
+221 | //! `lateinit` keyword and allows construction of cyclic 
+data structures:
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+221 - //! `lateinit` keyword and allows construction of cyclic 
+data structures:
+221 + // `lateinit` keyword and allows construction of cyclic 
+data structures:
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:222:1
+    |
+222 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+222 - //!
+222 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:223:1
+    |
+223 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+223 - //!
+223 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:224:1
+    |
+224 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+224 - //! ```
+224 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:225:1
+    |
+225 | //! use once_cell::sync::OnceCell;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+225 - //! use once_cell::sync::OnceCell;
+225 + // use once_cell::sync::OnceCell;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:226:1
+    |
+226 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+226 - //!
+226 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:227:1
+    |
+227 | //! pub struct LateInit<T> { cell: OnceCell<T> }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+227 - //! pub struct LateInit<T> { cell: OnceCell<T> }
+227 + // pub struct LateInit<T> { cell: OnceCell<T> }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:228:1
+    |
+228 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+228 - //!
+228 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:229:1
+    |
+229 | //! impl<T> LateInit<T> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+229 - //! impl<T> LateInit<T> {
+229 + // impl<T> LateInit<T> {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:230:1
+    |
+230 | //!     pub fn init(&self, value: T) {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+230 - //!     pub fn init(&self, value: T) {
+230 + //     pub fn init(&self, value: T) {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:231:1
+    |
+231 | //!         assert!(self.cell.set(value).is_ok())
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+231 - //!         assert!(self.cell.set(value).is_ok())
+231 + //         assert!(self.cell.set(value).is_ok())
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:232:1
+    |
+232 | //!     }
+    | ^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+232 - //!     }
+232 + //     }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:233:1
+    |
+233 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+233 - //! }
+233 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:234:1
+    |
+234 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+234 - //!
+234 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:235:1
+    |
+235 | //! impl<T> Default for LateInit<T> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+235 - //! impl<T> Default for LateInit<T> {
+235 + // impl<T> Default for LateInit<T> {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:236:1
+    |
+236 | //!     fn default() -> Self { LateInit { cell: 
+OnceCell::default() } }
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+236 - //!     fn default() -> Self { LateInit { cell: 
+OnceCell::default() } }
+236 + //     fn default() -> Self { LateInit { cell: 
+OnceCell::default() } }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:237:1
+    |
+237 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+237 - //! }
+237 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:238:1
+    |
+238 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+238 - //!
+238 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:239:1
+    |
+239 | //! impl<T> std::ops::Deref for LateInit<T> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+239 - //! impl<T> std::ops::Deref for LateInit<T> {
+239 + // impl<T> std::ops::Deref for LateInit<T> {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:240:1
+    |
+240 | //!     type Target = T;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+240 - //!     type Target = T;
+240 + //     type Target = T;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:241:1
+    |
+241 | //!     fn deref(&self) -> &T {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+241 - //!     fn deref(&self) -> &T {
+241 + //     fn deref(&self) -> &T {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:242:1
+    |
+242 | //!         self.cell.get().unwrap()
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+242 - //!         self.cell.get().unwrap()
+242 + //         self.cell.get().unwrap()
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:243:1
+    |
+243 | //!     }
+    | ^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+243 - //!     }
+243 + //     }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:244:1
+    |
+244 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+244 - //! }
+244 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:245:1
+    |
+245 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+245 - //!
+245 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:246:1
+    |
+246 | //! #[derive(Default)]
+    | ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+246 - //! #[derive(Default)]
+246 + // #[derive(Default)]
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:247:1
+    |
+247 | //! struct A<'a> {
+    | ^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+247 - //! struct A<'a> {
+247 + // struct A<'a> {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:248:1
+    |
+248 | //!     b: LateInit<&'a B<'a>>,
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+248 - //!     b: LateInit<&'a B<'a>>,
+248 + //     b: LateInit<&'a B<'a>>,
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:249:1
+    |
+249 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+249 - //! }
+249 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:250:1
+    |
+250 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+250 - //!
+250 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:251:1
+    |
+251 | //! #[derive(Default)]
+    | ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+251 - //! #[derive(Default)]
+251 + // #[derive(Default)]
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:252:1
+    |
+252 | //! struct B<'a> {
+    | ^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+252 - //! struct B<'a> {
+252 + // struct B<'a> {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:253:1
+    |
+253 | //!     a: LateInit<&'a A<'a>>
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+253 - //!     a: LateInit<&'a A<'a>>
+253 + //     a: LateInit<&'a A<'a>>
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:254:1
+    |
+254 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+254 - //! }
+254 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:255:1
+    |
+255 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+255 - //!
+255 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:256:1
+    |
+256 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+256 - //!
+256 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:257:1
+    |
+257 | //! fn build_cycle() {
+    | ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+257 - //! fn build_cycle() {
+257 + // fn build_cycle() {
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:258:1
+    |
+258 | //!     let a = A::default();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+258 - //!     let a = A::default();
+258 + //     let a = A::default();
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:259:1
+    |
+259 | //!     let b = B::default();
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+259 - //!     let b = B::default();
+259 + //     let b = B::default();
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:260:1
+    |
+260 | //!     a.b.init(&b);
+    | ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+260 - //!     a.b.init(&b);
+260 + //     a.b.init(&b);
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:261:1
+    |
+261 | //!     b.a.init(&a);
+    | ^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+261 - //!     b.a.init(&a);
+261 + //     b.a.init(&a);
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:262:1
+    |
+262 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+262 - //!
+262 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:263:1
+    |
+263 | //!     let _a = &a.b.a.b.a;
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+263 - //!     let _a = &a.b.a.b.a;
+263 + //     let _a = &a.b.a.b.a;
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:264:1
+    |
+264 | //! }
+    | ^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+264 - //! }
+264 + // }
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:265:1
+    |
+265 | //! ```
+    | ^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+265 - //! ```
+265 + // ```
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:266:1
+    |
+266 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+266 - //!
+266 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:267:1
+    |
+267 | //! # Comparison with std
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+267 - //! # Comparison with std
+267 + // # Comparison with std
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:268:1
+    |
+268 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+268 - //!
+268 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:269:1
+    |
+269 | //! |`!Sync` types         | Access Mode            | 
+Drawbacks                                     |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+269 - //! |`!Sync` types         | Access Mode            | 
+Drawbacks                                     |
+269 + // |`!Sync` types         | Access Mode            | 
+Drawbacks                                     |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:270:1
+    |
+270 | //! |----------------------|------------------------|-----
+------------------------------------------|
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+270 - //! |----------------------|------------------------|-----
+------------------------------------------|
+270 + // |----------------------|------------------------|------
+-----------------------------------------|
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:271:1
+    |
+271 | //! |`Cell<T>`             | `T`                    | 
+requires `T: Copy` for `get`                  |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+271 - //! |`Cell<T>`             | `T`                    | 
+requires `T: Copy` for `get`                  |
+271 + // |`Cell<T>`             | `T`                    | 
+requires `T: Copy` for `get`                  |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:272:1
+    |
+272 | //! |`RefCell<T>`          | `RefMut<T>` / `Ref<T>` | may 
+panic at runtime                          |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+272 - //! |`RefCell<T>`          | `RefMut<T>` / `Ref<T>` | may 
+panic at runtime                          |
+272 + // |`RefCell<T>`          | `RefMut<T>` / `Ref<T>` | may 
+panic at runtime                          |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:273:1
+    |
+273 | //! |`unsync::OnceCell<T>` | `&T`                   | 
+assignable only once                          |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+273 - //! |`unsync::OnceCell<T>` | `&T`                   | 
+assignable only once                          |
+273 + // |`unsync::OnceCell<T>` | `&T`                   | 
+assignable only once                          |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:274:1
+    |
+274 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+274 - //!
+274 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:275:1
+    |
+275 | //! |`Sync` types          | Access Mode            | 
+Drawbacks                                     |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+275 - //! |`Sync` types          | Access Mode            | 
+Drawbacks                                     |
+275 + // |`Sync` types          | Access Mode            | 
+Drawbacks                                     |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:276:1
+    |
+276 | //! |----------------------|------------------------|-----
+------------------------------------------|
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+276 - //! |----------------------|------------------------|-----
+------------------------------------------|
+276 + // |----------------------|------------------------|------
+-----------------------------------------|
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:277:1
+    |
+277 | //! |`AtomicT`             | `T`                    | 
+works only with certain `Copy` types          |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+277 - //! |`AtomicT`             | `T`                    | 
+works only with certain `Copy` types          |
+277 + // |`AtomicT`             | `T`                    | 
+works only with certain `Copy` types          |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:278:1
+    |
+278 | //! |`Mutex<T>`            | `MutexGuard<T>`        | may 
+deadlock at runtime, may block the thread |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+278 - //! |`Mutex<T>`            | `MutexGuard<T>`        | may 
+deadlock at runtime, may block the thread |
+278 + // |`Mutex<T>`            | `MutexGuard<T>`        | may 
+deadlock at runtime, may block the thread |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:279:1
+    |
+279 | //! |`sync::OnceCell<T>`   | `&T`                   | 
+assignable only once, may block the thread    |
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+279 - //! |`sync::OnceCell<T>`   | `&T`                   | 
+assignable only once, may block the thread    |
+279 + // |`sync::OnceCell<T>`   | `&T`                   | 
+assignable only once, may block the thread    |
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:280:1
+    |
+280 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+280 - //!
+280 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:281:1
+    |
+281 | //! Technically, calling `get_or_init` will also cause a 
+panic or a deadlock if
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+281 - //! Technically, calling `get_or_init` will also cause a 
+panic or a deadlock if
+281 + // Technically, calling `get_or_init` will also cause a 
+panic or a deadlock if
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:282:1
+    |
+282 | //! it recursively calls itself. However, because the 
+assignment can happen only
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+282 - //! it recursively calls itself. However, because the 
+assignment can happen only
+282 + // it recursively calls itself. However, because the 
+assignment can happen only
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:283:1
+    |
+283 | //! once, such cases should be more rare than equivalents 
+with `RefCell` and
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+283 - //! once, such cases should be more rare than equivalents 
+with `RefCell` and
+283 + // once, such cases should be more rare than equivalents 
+with `RefCell` and
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:284:1
+    |
+284 | //! `Mutex`.
+    | ^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+284 - //! `Mutex`.
+284 + // `Mutex`.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:285:1
+    |
+285 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+285 - //!
+285 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:286:1
+    |
+286 | //! # Minimum Supported `rustc` Version
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+286 - //! # Minimum Supported `rustc` Version
+286 + // # Minimum Supported `rustc` Version
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:287:1
+    |
+287 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+287 - //!
+287 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:288:1
+    |
+288 | //! If only the `std`, `alloc`, or `race` features are 
+enabled, MSRV will be
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+288 - //! If only the `std`, `alloc`, or `race` features are 
+enabled, MSRV will be
+288 + // If only the `std`, `alloc`, or `race` features are 
+enabled, MSRV will be
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:289:1
+    |
+289 | //! updated conservatively, supporting at least latest 8 
+versions of the compiler.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+289 - //! updated conservatively, supporting at least latest 8 
+versions of the compiler.
+289 + // updated conservatively, supporting at least latest 8 
+versions of the compiler.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:290:1
+    |
+290 | //! When using other features, like `parking_lot`, MSRV 
+might be updated more
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+290 - //! When using other features, like `parking_lot`, MSRV 
+might be updated more
+290 + // When using other features, like `parking_lot`, MSRV 
+might be updated more
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:291:1
+    |
+291 | //! frequently, up to the latest stable. In both cases, 
+increasing MSRV is *not*
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+291 - //! frequently, up to the latest stable. In both cases, 
+increasing MSRV is *not*
+291 + // frequently, up to the latest stable. In both cases, 
+increasing MSRV is *not*
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:292:1
+    |
+292 | //! considered a semver-breaking change and requires only 
+a minor version bump.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+292 - //! considered a semver-breaking change and requires only 
+a minor version bump.
+292 + // considered a semver-breaking change and requires only 
+a minor version bump.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:293:1
+    |
+293 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+293 - //!
+293 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:294:1
+    |
+294 | //! # Implementation details
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+294 - //! # Implementation details
+294 + // # Implementation details
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:295:1
+    |
+295 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+295 - //!
+295 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:296:1
+    |
+296 | //! The implementation is based on the
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+296 - //! The implementation is based on the
+296 + // The implementation is based on the
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:297:1
+    |
+297 | //! [`lazy_static`](https://github.com/rust-lang-nursery/l
+azy-static.rs/) and
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+297 - //! [`lazy_static`](https://github.com/rust-lang-nursery/l
+azy-static.rs/) and
+297 + // [`lazy_static`](https://github.com/rust-lang-nursery/la
+zy-static.rs/) and
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:298:1
+    |
+298 | //! [`lazy_cell`](https://github.com/indiv0/lazycell/) 
+crates and
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+298 - //! [`lazy_cell`](https://github.com/indiv0/lazycell/) 
+crates and
+298 + // [`lazy_cell`](https://github.com/indiv0/lazycell/) 
+crates and
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:299:1
+    |
+299 | //! [`std::sync::Once`]. In some sense, `once_cell` just 
+streamlines and unifies
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+299 - //! [`std::sync::Once`]. In some sense, `once_cell` just 
+streamlines and unifies
+299 + // [`std::sync::Once`]. In some sense, `once_cell` just 
+streamlines and unifies
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:300:1
+    |
+300 | //! those APIs.
+    | ^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+300 - //! those APIs.
+300 + // those APIs.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:301:1
+    |
+301 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+301 - //!
+301 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:302:1
+    |
+302 | //! To implement a sync flavor of `OnceCell`, this crates 
+uses either a custom
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+302 - //! To implement a sync flavor of `OnceCell`, this crates 
+uses either a custom
+302 + // To implement a sync flavor of `OnceCell`, this crates 
+uses either a custom
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:303:1
+    |
+303 | //! re-implementation of `std::sync::Once` or 
+`parking_lot::Mutex`. This is
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+303 - //! re-implementation of `std::sync::Once` or 
+`parking_lot::Mutex`. This is
+303 + // re-implementation of `std::sync::Once` or 
+`parking_lot::Mutex`. This is
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:304:1
+    |
+304 | //! controlled by the `parking_lot` feature (disabled by 
+default). Performance
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+304 - //! controlled by the `parking_lot` feature (disabled by 
+default). Performance
+304 + // controlled by the `parking_lot` feature (disabled by 
+default). Performance
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:305:1
+    |
+305 | //! is the same for both cases, but the `parking_lot` 
+based `OnceCell<T>` is
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+305 - //! is the same for both cases, but the `parking_lot` 
+based `OnceCell<T>` is
+305 + // is the same for both cases, but the `parking_lot` 
+based `OnceCell<T>` is
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:306:1
+    |
+306 | //! smaller by up to 16 bytes.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+306 - //! smaller by up to 16 bytes.
+306 + // smaller by up to 16 bytes.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:307:1
+    |
+307 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+307 - //!
+307 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:308:1
+    |
+308 | //! This crate uses `unsafe`.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+308 - //! This crate uses `unsafe`.
+308 + // This crate uses `unsafe`.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:309:1
+    |
+309 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+309 - //!
+309 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:310:1
+    |
+310 | //! [`std::sync::Once`]: 
+https://doc.rust-lang.org/std/sync/struct.Once.html
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+310 - //! [`std::sync::Once`]: 
+https://doc.rust-lang.org/std/sync/struct.Once.html
+310 + // [`std::sync::Once`]: 
+https://doc.rust-lang.org/std/sync/struct.Once.html
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:311:1
+    |
+311 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+311 - //!
+311 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:312:1
+    |
+312 | //! # F.A.Q.
+    | ^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+312 - //! # F.A.Q.
+312 + // # F.A.Q.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:313:1
+    |
+313 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+313 - //!
+313 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:314:1
+    |
+314 | //! **Should I use the sync or unsync flavor?**
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+314 - //! **Should I use the sync or unsync flavor?**
+314 + // **Should I use the sync or unsync flavor?**
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:315:1
+    |
+315 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+315 - //!
+315 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:316:1
+    |
+316 | //! Because Rust compiler checks thread safety for you, 
+it's impossible to
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+316 - //! Because Rust compiler checks thread safety for you, 
+it's impossible to
+316 + // Because Rust compiler checks thread safety for you, 
+it's impossible to
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:317:1
+    |
+317 | //! accidentally use `unsync` where `sync` is required. 
+So, use `unsync` in
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+317 - //! accidentally use `unsync` where `sync` is required. 
+So, use `unsync` in
+317 + // accidentally use `unsync` where `sync` is required. 
+So, use `unsync` in
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:318:1
+    |
+318 | //! single-threaded code and `sync` in multi-threaded. 
+It's easy to switch
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+318 - //! single-threaded code and `sync` in multi-threaded. 
+It's easy to switch
+318 + // single-threaded code and `sync` in multi-threaded. 
+It's easy to switch
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:319:1
+    |
+319 | //! between the two if code becomes multi-threaded later.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+319 - //! between the two if code becomes multi-threaded later.
+319 + // between the two if code becomes multi-threaded later.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:320:1
+    |
+320 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+320 - //!
+320 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:321:1
+    |
+321 | //! At the moment, `unsync` has an additional benefit 
+that reentrant
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+321 - //! At the moment, `unsync` has an additional benefit 
+that reentrant
+321 + // At the moment, `unsync` has an additional benefit that 
+reentrant
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:322:1
+    |
+322 | //! initialization causes a panic, which might be easier 
+to debug than a
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+322 - //! initialization causes a panic, which might be easier 
+to debug than a
+322 + // initialization causes a panic, which might be easier 
+to debug than a
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:323:1
+    |
+323 | //! deadlock.
+    | ^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+323 - //! deadlock.
+323 + // deadlock.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:324:1
+    |
+324 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+324 - //!
+324 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:325:1
+    |
+325 | //! **Does this crate support async?**
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+325 - //! **Does this crate support async?**
+325 + // **Does this crate support async?**
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:326:1
+    |
+326 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+326 - //!
+326 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:327:1
+    |
+327 | //! No, but you can use
+    | ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+327 - //! No, but you can use
+327 + // No, but you can use
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:328:1
+    |
+328 | //! 
+[`async_once_cell`](https://crates.io/crates/async_once_cell) 
+instead.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+328 - //! 
+[`async_once_cell`](https://crates.io/crates/async_once_cell) 
+instead.
+328 + // 
+[`async_once_cell`](https://crates.io/crates/async_once_cell) 
+instead.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:329:1
+    |
+329 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+329 - //!
+329 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:330:1
+    |
+330 | //! **Does this crate support `no_std`?**
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+330 - //! **Does this crate support `no_std`?**
+330 + // **Does this crate support `no_std`?**
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:331:1
+    |
+331 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+331 - //!
+331 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:332:1
+    |
+332 | //! Yes, but with caveats. `OnceCell` is a 
+synchronization primitive which
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+332 - //! Yes, but with caveats. `OnceCell` is a 
+synchronization primitive which
+332 + // Yes, but with caveats. `OnceCell` is a synchronization 
+primitive which
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:333:1
+    |
+333 | //! _semantically_ relies on blocking. `OnceCell` 
+guarantees that at most one
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+333 - //! _semantically_ relies on blocking. `OnceCell` 
+guarantees that at most one
+333 + // _semantically_ relies on blocking. `OnceCell` 
+guarantees that at most one
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:334:1
+    |
+334 | //! `f` will be called to compute the value. If two 
+threads of execution call
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+334 - //! `f` will be called to compute the value. If two 
+threads of execution call
+334 + // `f` will be called to compute the value. If two 
+threads of execution call
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:335:1
+    |
+335 | //! `get_or_init` concurrently, one of them has to wait.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+335 - //! `get_or_init` concurrently, one of them has to wait.
+335 + // `get_or_init` concurrently, one of them has to wait.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:336:1
+    |
+336 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+336 - //!
+336 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:337:1
+    |
+337 | //! Waiting fundamentally requires OS support. Execution 
+environment needs to
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+337 - //! Waiting fundamentally requires OS support. Execution 
+environment needs to
+337 + // Waiting fundamentally requires OS support. Execution 
+environment needs to
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:338:1
+    |
+338 | //! understand who waits on whom to prevent deadlocks due 
+to priority inversion.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+338 - //! understand who waits on whom to prevent deadlocks due 
+to priority inversion.
+338 + // understand who waits on whom to prevent deadlocks due 
+to priority inversion.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:339:1
+    |
+339 | //! You _could_ make code to compile by blindly using 
+pure spinlocks, but the
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+339 - //! You _could_ make code to compile by blindly using 
+pure spinlocks, but the
+339 + // You _could_ make code to compile by blindly using pure 
+spinlocks, but the
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:340:1
+    |
+340 | //! runtime behavior would be subtly wrong.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+340 - //! runtime behavior would be subtly wrong.
+340 + // runtime behavior would be subtly wrong.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:341:1
+    |
+341 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+341 - //!
+341 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:342:1
+    |
+342 | //! Given these constraints, `once_cell` provides the 
+following options:
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+342 - //! Given these constraints, `once_cell` provides the 
+following options:
+342 + // Given these constraints, `once_cell` provides the 
+following options:
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:343:1
+    |
+343 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+343 - //!
+343 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:344:1
+    |
+344 | //! - The `race` module provides similar, but distinct 
+synchronization primitive
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+344 - //! - The `race` module provides similar, but distinct 
+synchronization primitive
+344 + // - The `race` module provides similar, but distinct 
+synchronization primitive
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:345:1
+    |
+345 | //!   which is compatible with `no_std`. With `race`, the 
+`f` function can be
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+345 - //!   which is compatible with `no_std`. With `race`, the 
+`f` function can be
+345 + //   which is compatible with `no_std`. With `race`, the 
+`f` function can be
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:346:1
+    |
+346 | //!   called multiple times by different threads, but 
+only one thread will win
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+346 - //!   called multiple times by different threads, but 
+only one thread will win
+346 + //   called multiple times by different threads, but only 
+one thread will win
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:347:1
+    |
+347 | //!   to install the value.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+347 - //!   to install the value.
+347 + //   to install the value.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:348:1
+    |
+348 | //! - `critical-section` feature (with a `-`, not `_`) 
+uses `critical_section`
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+348 - //! - `critical-section` feature (with a `-`, not `_`) 
+uses `critical_section`
+348 + // - `critical-section` feature (with a `-`, not `_`) 
+uses `critical_section`
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:349:1
+    |
+349 | //!   to implement blocking.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+349 - //!   to implement blocking.
+349 + //   to implement blocking.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:350:1
+    |
+350 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+350 - //!
+350 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:351:1
+    |
+351 | //! **Can I bring my own mutex?**
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+351 - //! **Can I bring my own mutex?**
+351 + // **Can I bring my own mutex?**
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:352:1
+    |
+352 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+352 - //!
+352 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:353:1
+    |
+353 | //! There is 
+[generic_once_cell](https://crates.io/crates/generic_once_cell) 
+to
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+353 - //! There is 
+[generic_once_cell](https://crates.io/crates/generic_once_cell) 
+to
+353 + // There is 
+[generic_once_cell](https://crates.io/crates/generic_once_cell) 
+to
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:354:1
+    |
+354 | //! allow just that.
+    | ^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+354 - //! allow just that.
+354 + // allow just that.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:355:1
+    |
+355 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+355 - //!
+355 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:356:1
+    |
+356 | //! **Should I use `std::cell::OnceCell`, `once_cell`, or 
+`lazy_static`?**
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+356 - //! **Should I use `std::cell::OnceCell`, `once_cell`, or 
+`lazy_static`?**
+356 + // **Should I use `std::cell::OnceCell`, `once_cell`, or 
+`lazy_static`?**
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:357:1
+    |
+357 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+357 - //!
+357 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:358:1
+    |
+358 | //! If you can use `std` version (your MSRV is at least 
+1.70, and you don't need
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+358 - //! If you can use `std` version (your MSRV is at least 
+1.70, and you don't need
+358 + // If you can use `std` version (your MSRV is at least 
+1.70, and you don't need
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:359:1
+    |
+359 | //! extra features `once_cell` provides), use `std`. 
+Otherwise, use `once_cell`.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+359 - //! extra features `once_cell` provides), use `std`. 
+Otherwise, use `once_cell`.
+359 + // extra features `once_cell` provides), use `std`. 
+Otherwise, use `once_cell`.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:360:1
+    |
+360 | //! Don't use `lazy_static`.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+360 - //! Don't use `lazy_static`.
+360 + // Don't use `lazy_static`.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:361:1
+    |
+361 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+361 - //!
+361 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:362:1
+    |
+362 | //! # Related crates
+    | ^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+362 - //! # Related crates
+362 + // # Related crates
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:363:1
+    |
+363 | //!
+    | ^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+363 - //!
+363 + //
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:364:1
+    |
+364 | //! * Most of this crate's functionality is available in 
+`std` starting with
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+364 - //! * Most of this crate's functionality is available in 
+`std` starting with
+364 + // * Most of this crate's functionality is available in 
+`std` starting with
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:365:1
+    |
+365 | //!   Rust 1.70. See `std::cell::OnceCell` and 
+`std::sync::OnceLock`.
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+365 - //!   Rust 1.70. See `std::cell::OnceCell` and 
+`std::sync::OnceLock`.
+365 + //   Rust 1.70. See `std::cell::OnceCell` and 
+`std::sync::OnceLock`.
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:366:1
+    |
+366 | //! * [double-checked-cell](https://github.com/niklasf/dou
+ble-checked-cell)
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+366 - //! * [double-checked-cell](https://github.com/niklasf/dou
+ble-checked-cell)
+366 + // * [double-checked-cell](https://github.com/niklasf/doub
+le-checked-cell)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:367:1
+    |
+367 | //! * [lazy-init](https://crates.io/crates/lazy-init)
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+367 - //! * [lazy-init](https://crates.io/crates/lazy-init)
+367 + // * [lazy-init](https://crates.io/crates/lazy-init)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:368:1
+    |
+368 | //! * [lazycell](https://crates.io/crates/lazycell)
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+368 - //! * [lazycell](https://crates.io/crates/lazycell)
+368 + // * [lazycell](https://crates.io/crates/lazycell)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:369:1
+    |
+369 | //! * 
+[mitochondria](https://crates.io/crates/mitochondria)
+    | 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+369 - //! * 
+[mitochondria](https://crates.io/crates/mitochondria)
+369 + // * [mitochondria](https://crates.io/crates/mitochondria)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:370:1
+    |
+370 | //! * [lazy_static](https://crates.io/crates/lazy_static)
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+370 - //! * [lazy_static](https://crates.io/crates/lazy_static)
+370 + // * [lazy_static](https://crates.io/crates/lazy_static)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:371:1
+    |
+371 | //! * 
+[async_once_cell](https://crates.io/crates/async_once_cell)
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+371 - //! * 
+[async_once_cell](https://crates.io/crates/async_once_cell)
+371 + // * 
+[async_once_cell](https://crates.io/crates/async_once_cell)
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:372:1
+    |
+372 | //! * 
+[generic_once_cell](https://crates.io/crates/generic_once_cell) 
+(bring
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
+    |
+    = note: inner doc comments like this (starting with `//!` 
+or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+    |
+372 - //! * 
+[generic_once_cell](https://crates.io/crates/generic_once_cell) 
+(bring
+372 + // * 
+[generic_once_cell](https://crates.io/crates/generic_once_cell) 
+(bring
+    |
+
+error[E0753]: expected outer doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:373:1
+    |
+373 | //!   your own mutex)
+    | ^^^^^^^^^^^^^^^^^^^^^
+...
+378 | extern crate alloc;
+    | ------------------- the inner doc comment doesn't 
+annotate this extern crate
+    |
+help: to annotate the extern crate, change the doc comment from 
+inner to outer style
+    |
+373 - //!   your own mutex)
+373 + ///   your own mutex)
+    |
+
+error: an inner attribute is not permitted following an outer 
+doc comment
+   --> C:\Users\hkris\.cargo\registry\src\index.crates.io-1949cf
+8c6b5b557f\once_cell-1.21.3\src\lib.rs:375:1
+    |
+373 | //!   your own mutex)
+    | --------------------- previous doc comment
+374 |
+375 | #![cfg_attr(not(feature = "std"), no_std)]
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ not permitted 
+following an outer doc comment
+...
+378 | extern crate alloc;
+    | ------------------- the inner attribute doesn't annotate 
+this extern crate
+    |
+    = note: inner attributes, like `#![no_std]`, annotate the 
+item enclosing them, and are usually found at the beginning of 
+source files
+help: to annotate the extern crate, change the attribute from 
+inner to outer style
+    |
+375 - #![cfg_attr(not(feature = "std"), no_std)]
+375 + #[cfg_attr(not(feature = "std"), no_std)]
+    |
+
+For more information about this error, try `rustc --explain 
+E0753`.
+error: could not compile `once_cell` (lib) due to 363 previous 
+errors
+warning: build failed, waiting for other jobs to finish...

@@ -331,7 +331,9 @@
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
                     <span class="terminal-title">omnilang-wasm-session</span>
-                    <div style="margin-left: auto;">
+                    <div style="margin-left: auto; display: flex; gap: 0.5rem;">
+                        <button id="clear-editor-btn" class="btn btn-secondary"
+                            style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Clear Editor</button>
                         <button id="run-wasm-btn" class="btn btn-primary"
                             style="padding: 0.3rem 1rem; font-size: 0.8rem;">Run Code</button>
                     </div>
@@ -352,7 +354,13 @@ fn main() {
 }</textarea>
                     </div>
                     <div class="output-container">
-                        <div class="output-label">Terminal Output</div>
+                        <div class="output-header"
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <div class="output-label">Terminal Output</div>
+                            <button id="clear-console-btn" class="btn btn-secondary"
+                                style="padding: 0.2rem 0.6rem; font-size: 0.6rem; border-radius: 4px;">Clear
+                                Console</button>
+                        </div>
                         <pre id="omnilang-output" class="output-console">// Memuat Modul WebAssembly...</pre>
                     </div>
                 </div>
@@ -389,6 +397,8 @@ fn main() {
     <span class="function">println</span>(<span class="string">"Menjalankan Daemon AI Mesh..."</span>);
     <span class="comment">// `$ omnilang serve worker.omni --port 8081`</span>
 }</code></pre>
+                        <button class="load-sample-btn demo-try-btn" data-sample="demo_mesh">Try in Playground
+                            &rarr;</button>
                     </div>
                     <div id="snippet-ai" class="snippet">
                         <pre><code><span class="comment">// 2. Implementasi Otoritas Client / Sensor Layer</span>
@@ -402,6 +412,8 @@ fn main() {
     <span class="keyword">let</span> ai_result <span class="operator">=</span> <span class="function">classify_image</span>(pixels); 
     <span class="comment">// Dieksekusi jarak jauh dengan Token secara gaib!</span>
 }</code></pre>
+                        <button class="load-sample-btn demo-try-btn" data-sample="demo_ai">Try in Playground
+                            &rarr;</button>
                     </div>
                     <div id="snippet-hardware" class="snippet">
                         <pre><code><span class="comment">// 3. Memicu Ekspansi Node Aktuator (HUI)</span>
@@ -415,6 +427,8 @@ fn main() {
     }
 }
 <span class="comment">// `$ omnilang serve actuator.omni --port 8082 --hui COM3`</span></code></pre>
+                        <button class="load-sample-btn demo-try-btn" data-sample="demo_hardware">Try in Playground
+                            &rarr;</button>
                     </div>
                     <div id="snippet-declarative" class="snippet">
                         <pre><code><span class="comment">// 3. Kebijakan Niat Manusia (Human Intent)</span>

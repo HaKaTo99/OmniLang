@@ -57,7 +57,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         'autonomous_vehicle_3d': `@oracle(model="yolo_v8")\nfn detect_objects(frame: [f64]) -> [String];\n\nconst main: i32 = {\n    print("🚗 AutoDrive: Scanning road...");\n    let detected = detect_objects([]);\n    print("Obstacles: " + detected);\n    0\n};`,
         'unix_kernel_sim': `const main: i32 = {\n    print("🐧 [xAetherOS] UNIX-Compatibility Layer");\n    print("PID: 1 | COMMAND: systemd");\n    print("Stat: /etc/shadow -> 600");\n    0\n};`,
         'retro_win3x_sim': `const main: i32 = {\n    print("📟 Windows 3.11 Startup...");\n    print("Memory: 640KB Baseline");\n    print("ProgMan: Running.");\n    0\n};`,
-        'iron_dome_defense_3d': `const main: i32 = {\n    print("🛡️ Sentinel Jakarta: Active");\n    print("Threat: SCUD-B Detected (North)");\n    print("Action: Intercepting...");\n    0\n};`
+        'iron_dome_defense_3d': `const main: i32 = {\n    print("🛡️ Sentinel Jakarta: Active");\n    print("Threat: SCUD-B Detected (North)");\n    print("Action: Intercepting...");\n    0\n};`,
+        // OODA Demo Snippets
+        'demo_mesh': `@oracle(model: "models/mobilenet.onnx")\nfn classify_image(pixels: [f64]) -> [f64];\n\nfn main() {\n    println("Menjalankan Daemon AI Mesh...");\n    // $ omnilang serve worker.omni --port 8081\n}`,
+        'demo_ai': `@mesh(target: "18.232.1.9:8081")\nfn classify_image(pixels: [f64]) -> [f64];\n\nfn main() {\n    let pixels = capture_camera();\n    let ai_result = classify_image(pixels);\n    println("Hasil AI Terdistribusi: " + ai_result);\n}`,
+        'demo_hardware': `@hardware(port: "COM3", baud_rate: "115200")\nfn trigger_alarm(severity: i32) -> bool;\n\n@mesh(target: "127.0.0.1:8082")\nfn main() {\n    if detect_anomaly() > 99.0 {\n        trigger_alarm(1);\n    }\n}`
     };
 
     const runBtn = document.getElementById('run-wasm-btn');
