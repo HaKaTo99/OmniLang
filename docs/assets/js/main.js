@@ -82,66 +82,81 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Flash effect on editor
                 editor.style.background = 'rgba(0, 240, 255, 0.1)';
                 setTimeout(() => { editor.style.background = 'transparent'; }, 500);
+
+                // Auto-run after a short delay for scroll finish
+                if (runBtn && !runBtn.disabled) {
+                    setTimeout(() => {
+                        runBtn.click();
+                    }, 800);
+                }
             }
         });
     });
-
-    if (clearEditorBtn) {
-        clearEditorBtn.addEventListener('click', () => { editor.value = ''; editor.focus(); });
+    // Auto-run if possible
+    if (runBtn && !runBtn.disabled) {
+        setTimeout(() => {
+            runBtn.click();
+        }, 600); // Wait for scroll to finish
     }
-
-    if (clearConsoleBtn) {
-        clearConsoleBtn.addEventListener('click', () => { outputConsole.textContent = '> Console cleared.\n'; });
-    }
-
-    // WASM Init
-    if (runBtn && editor && outputConsole) {
-        try {
-            outputConsole.textContent = "// Memuat Modul WebAssembly...";
-            await init();
-            outputConsole.textContent = "// Modul WebAssembly siap.\n";
-
-            runBtn.addEventListener('click', () => {
-                const sourceCode = editor.value;
-                if (!sourceCode.trim()) return;
-
-                outputConsole.textContent += "\n⚙️ Mengeksekusi...\n";
-                runBtn.disabled = true;
-                const originalText = runBtn.textContent;
-                runBtn.textContent = "...";
-
-                setTimeout(() => {
-                    try {
-                        const t0 = performance.now();
-                        const result = run_omnilang(sourceCode);
-                        const t1 = performance.now();
-
-                        outputConsole.textContent += `✅ Selesai dalam ${(t1 - t0).toFixed(2)}ms\n----------------\n${result}\n`;
-                        outputConsole.scrollTop = outputConsole.scrollHeight;
-                    } catch (err) {
-                        outputConsole.textContent += `❌ Kesalahan: ${err}\n`;
-                    } finally {
-                        runBtn.disabled = false;
-                        runBtn.textContent = originalText;
-                    }
-                }, 50);
-            });
-        } catch (e) {
-            outputConsole.textContent = `❌ WASM Error: ${e.message}`;
-        }
-    }
-
-    // --- 4. Demo Tabs ---
-    const tabs = document.querySelectorAll('.tab');
-    const snippets = document.querySelectorAll('.snippet');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            snippets.forEach(s => s.classList.remove('active'));
-            tab.classList.add('active');
-            const targetId = tab.getAttribute('data-target');
-            document.getElementById(`snippet-${targetId}`).classList.add('active');
-        });
+});
     });
+
+if (clearEditorBtn) {
+    clearEditorBtn.addEventListener('click', () => { editor.value = ''; editor.focus(); });
+}
+
+if (clearConsoleBtn) {
+    clearConsoleBtn.addEventListener('click', () => { outputConsole.textContent = '> Console cleared.\n'; });
+}
+
+// WASM Init
+if (runBtn && editor && outputConsole) {
+    try {
+        outputConsole.textContent = "// Memuat Modul WebAssembly...";
+        await init();
+        outputConsole.textContent = "// Modul WebAssembly siap.\n";
+
+        runBtn.addEventListener('click', () => {
+            const sourceCode = editor.value;
+            if (!sourceCode.trim()) return;
+
+            outputConsole.textContent += "\n⚙️ Mengeksekusi...\n";
+            runBtn.disabled = true;
+            const originalText = runBtn.textContent;
+            runBtn.textContent = "...";
+
+            setTimeout(() => {
+                try {
+                    const t0 = performance.now();
+                    const result = run_omnilang(sourceCode);
+                    const t1 = performance.now();
+
+                    outputConsole.textContent += `✅ Selesai dalam ${(t1 - t0).toFixed(2)}ms\n----------------\n${result}\n`;
+                    outputConsole.scrollTop = outputConsole.scrollHeight;
+                } catch (err) {
+                    outputConsole.textContent += `❌ Kesalahan: ${err}\n`;
+                } finally {
+                    runBtn.disabled = false;
+                    runBtn.textContent = originalText;
+                }
+            }, 50);
+        });
+    } catch (e) {
+        outputConsole.textContent = `❌ WASM Error: ${e.message}`;
+    }
+}
+
+// --- 4. Demo Tabs ---
+const tabs = document.querySelectorAll('.tab');
+const snippets = document.querySelectorAll('.snippet');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        snippets.forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        const targetId = tab.getAttribute('data-target');
+        document.getElementById(`snippet-${targetId}`).classList.add('active');
+    });
+});
 });
