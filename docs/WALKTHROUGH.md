@@ -298,10 +298,12 @@ Sangat penting untuk memahami perbedaan antara **Logika Intelegensi** dan **Visu
 2. **CLI Output**: Memberikan visualisasi taktis (ASCII) yang cepat untuk validasi logika.
 3. **GUI Layer**: Data dari OmniLang (vektor, posisi, status) dapat dikirim ke mesin grafis (seperti Three.js, Unity, atau Native xAetherOS GUI) untuk tampilan 3D sinematik.
 
-### 🏙️ Sentinel Jakarta (Implementasi Regional)
-Sebagai demonstrasi kustomisasi aset, kami telah menyesuaikan sistem untuk **Jakarta Metropolitan**:
-- **Pusat Komando Monas**: Menggunakan Monas sebagai titik koordinat `(0,0,0)` untuk baterai pertahanan `BATTERY-MONAS-01`.
-- **Proyeksi Geografis**: Simulasi ancaman yang datang dari arah Teluk Jakarta (Utara) dengan kalkulasi trajektori yang presisi.
+### 📟 Simulasi Retro OS: `retro_win3x_sim.omni`
+Membuktikan fleksibilitas OmniLang dalam menangani logika sistem warisan (*legacy system*):
+- **Window Management**: Simulasi state jendela (Program Manager/File Manager) dengan struktur data modern.
+- **Memory Logic**: Implementasi model alokasi memori klasik 16-bit dalam lingkungan runtime kontemporer.
+- **Classic UI Mimesis**: Antarmuka terminal ASCII yang memetakan elemen visual Windows 3.1 secara presisi.
+- **Retro-VMM GUI**: Visualisasi konsep dashboard modern xAetherOS yang menjalankan instance Windows 3.1 secara virtual.
 
-![Sentinel Jakarta Defense Interface](assets/images/iron_dome_jakarta.png)
-*Visualisasi antarmuka taktis Sentinel-Prime yang diproyeksikan untuk area Jakarta, menampilkan landmark Monas dan Sudirman dalam peta spasial 3D.*
+![Retro Windows 3.x VMM Interface](assets/images/retro_win3x.png)
+*Visualisasi konsep Retro-VMM pada xAetherOS v10.0, menampilkan emulasi Windows 3.11 yang diatur oleh logika OmniLang.*
