@@ -298,6 +298,23 @@ Sangat penting untuk memahami perbedaan antara **Logika Intelegensi** dan **Visu
 2. **CLI Output**: Memberikan visualisasi taktis (ASCII) yang cepat untuk validasi logika.
 3. **GUI Layer**: Data dari OmniLang (vektor, posisi, status) dapat dikirim ke mesin grafis (seperti Three.js, Unity, atau Native xAetherOS GUI) untuk tampilan 3D sinematik.
 
+### 🤖 Advanced Robotics Arm: `robotics_arm_control.omni`
+Optimasi logika kontrol untuk industri manufaktur presisi:
+- **Inverse Kinematics (IK)**: Menggunakan AI Oracle untuk menghitung trayektori sendi robot 6-DOF.
+- **Precision Automation**: Simulasi feedback sensor torsi dan suhu untuk keandalan operasional.
+
+![Kinematics Arm Control Interface](assets/images/showcase_robotics_arm.png)
+*Visualisasi antarmuka kontrol Robotic Arm Cobot-X1 yang diatur oleh mesin logika OmniLang.*
+
+### 🛰️ Satellite Orbital Recon: `satellite_orbital_recon.omni`
+Memperluas jangkauan OmniLang ke infrastruktur luar angkasa:
+- **Orbital Propagation**: Simulasi posisi satelit secara real-time di orbit LEO.
+- **Ground Track Overlay**: Melacak koordinat area target (seperti Jakarta) melalui sensor optik multi-spectral.
+- **Power Budget Management**: Optimasi pengambilan keputusan berdasarkan level baterai dan paparan sinar matahari.
+
+![Satellite Orbital Recon Interface](assets/images/showcase_satellite_recon.png)
+*Visualisasi dashboard Sentinel-Satellite Mission Control untuk navigasi dan transmisi data luar angkasa.*
+
 ### 🐧 Unix-Core Simulation: `unix_kernel_sim.omni`
 Mendemonstrasikan abstraksi tingkat rendah bergaya POSIX:
 - **Process Management**: Manajemen PID, status proses (Running/Sleeping), dan alokasi prioritas.
