@@ -141,9 +141,18 @@
                 <p class="section-desc">Melihat OmniLang beraksi dalam skenario dunia nyata yang kompleks.</p>
             </div>
 
+            <!-- Showcase Filter -->
+            <div class="showcase-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ai">AI & Analytics</button>
+                <button class="filter-btn" data-filter="iot">IoT & Robotics</button>
+                <button class="filter-btn" data-filter="space">Aerospace</button>
+                <button class="filter-btn" data-filter="os">System & OS</button>
+            </div>
+
             <div class="showcase-grid">
                 <!-- Smart Factory -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="iot">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_smart_factory.png" alt="Smart Factory Digital Twin"
                             class="showcase-img">
@@ -157,12 +166,13 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/digital_twin_3d_pro.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="digital_twin_3d_pro">Try in Playground</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Aerospace -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="space">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_aerospace.png" alt="Aerospace Mission Control"
                             class="showcase-img">
@@ -176,12 +186,13 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/rocket_launch_3d.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="rocket_launch_3d">Try in Playground</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Robotics -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="iot">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_robotics_arm.png" alt="Robotic Arm Control"
                             class="showcase-img">
@@ -195,12 +206,14 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/robotics_arm_control.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="robotics_arm_control">Try in
+                                Playground</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Satellite -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="space">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_satellite_recon.png" alt="Satellite Recon Mission"
                             class="showcase-img">
@@ -214,12 +227,14 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/satellite_orbital_recon.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="satellite_orbital_recon">Try in
+                                Playground</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- AutoDrive -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="ai">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_autodrive.png" alt="Autonomous Driving HUD"
                             class="showcase-img">
@@ -233,12 +248,14 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/autonomous_vehicle_3d.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="autonomous_vehicle_3d">Try in
+                                Playground</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Iron Dome -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="ai">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_iron_dome.png" alt="Sentinel Jakarta Defense"
                             class="showcase-img">
@@ -252,12 +269,14 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/iron_dome_defense_3d.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="iron_dome_defense_3d">Try in
+                                Playground</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Unix Core -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="os">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_unix_kernel.png" alt="Unix Core Simulation"
                             class="showcase-img">
@@ -271,12 +290,12 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/unix_kernel_sim.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="unix_kernel_sim">Try in Playground</button>
                         </div>
                     </div>
                 </div>
-
                 <!-- Retro OS -->
-                <div class="showcase-card glass">
+                <div class="showcase-card glass" data-category="os">
                     <div class="showcase-img-container">
                         <img src="assets/images/showcase_retro_os.png" alt="Windows 3.x Emulation" class="showcase-img">
                         <div class="showcase-overlay"></div>
@@ -289,6 +308,7 @@
                         <div class="showcase-footer">
                             <a href="https://github.com/HaKaTo99/OmniLang/blob/main/examples/retro_win3x_sim.omni"
                                 target="_blank" class="showcase-link">View Script &rarr;</a>
+                            <button class="load-sample-btn" data-sample="retro_win3x_sim">Try in Playground</button>
                         </div>
                     </div>
                 </div>
