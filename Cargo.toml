@@ -25,6 +25,8 @@ anyhow = "1.0.102"
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 ort = { version = "2.0.0-rc.11", default-features = false, features = ["load-dynamic"] }
 serialport = "4.3"
+android_logger = "0.13"
+log = "0.4"
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 proptest = "1.1.0"
