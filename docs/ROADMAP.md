@@ -305,6 +305,7 @@ OmniLang bukan sekadar bahasa pemrograman; ia adalah **Neuro-Language** yang mam
 | **Windows OS** | ✅ **Production Ready** | • Binary standalone (`omnilang.exe`) <br> • Build dari source dengan Rust toolchain <br> • WASM Playground | ✅ **Selesai** (v2.2.1) |
 | **Linux OS** | ✅ **Production Ready** | • Binary standalone (`omnilang`) <br> • Package manager (`.deb`/`.rpm` via `opm` nanti) <br> • Build dari source | ✅ **Selesai** (v2.2.1) |
 | **macOS** | ✅ **Production Ready** | • Binary standalone (`omnilang`) <br> • Homebrew tap (rencana) <br> • Build dari source | ✅ **Selesai** (v2.2.1) |
+| **iOS / iPadOS** | 🏗️ **Terencana / FFI** | • **C-ABI / Swift Bridge** untuk integrasi Native Apple App <br> • Target komposit Rust (`aarch64-apple-ios`) | **Q4 2026** |
 | **Web OS** (Browser) | ✅ **Production Ready** | • **WASM Playground** (live di browser) <br> • Integrasi website via JavaScript bindings | ✅ **Selesai** (v2.2.1) |
 | **Android** | ✅ **Production Ready** | • **Android SDK (Gradle)** via `omnilang-sdk` <br> • **JVM/ART Bridge** (JNI FFI Bindings ke C-Dynamic Rust) <br> • Aplikasi Android *native backend* OmniLang | ✅ **Selesai** (v2.3.0) |
 | **HarmonyOS** | 🏗️ **v2.3.5 Prototype** | • Integrasi via **NAPI / C-ABI** (ArkCompiler) <br> • Dukungan penuh untuk ekosistem Huawei / HarmonyOS Next | **Q4 2026** (v2.3.5) |
