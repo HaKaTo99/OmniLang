@@ -401,7 +401,16 @@ Memperluas jangkauan OmniLang ke infrastruktur luar angkasa:
 ![Satellite Orbital Recon Interface](assets/images/showcase_satellite_recon.png)
 *Visualisasi dashboard Sentinel-Satellite Mission Control untuk navigasi dan transmisi data luar angkasa.*
 
-### 🐧 Unix-Core Simulation: `unix_kernel_sim.omni`
+### �️ Iron Dome Jakarta Defense System: `iron_dome_defense_3d.omni`
+Menyimulasikan sistem pertahanan udara metrik (Counter-RAM) otonom berpresisi tinggi:
+- **Radar Trajectory Tracking**: Integrasi AI Oracle untuk memprediksi lintasan parabola balistik proyektil ancaman.
+- **Interception Vector**: Komputasi trigonometri ruang vektor tiga dimensi guna menentukan titik temu pencegatan optimal.
+- **Automated Firing Protocol**: Siklus *OODA Loop* yang seketika mengunci target dan meluncurkan rudal pencegat secara mandiri tanpa sela intervensi siluman.
+
+![Iron Dome Jakarta Interface](assets/images/showcase_iron_dome.png)
+*Visualisasi radar pencegatan dan peluncur rudal pintar pelindung ruang udara metropolis Jakarta.*
+
+### �🐧 Unix-Core Simulation: `unix_kernel_sim.omni`
 Mendemonstrasikan abstraksi tingkat rendah bergaya POSIX:
 - **Process Management**: Manajemen PID, status proses (Running/Sleeping), dan alokasi prioritas.
 - **FS Permissions**: Simulasi sistem perizinan berkas Unix (chmod) dengan bitmask logic.
