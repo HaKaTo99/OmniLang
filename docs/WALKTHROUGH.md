@@ -264,12 +264,31 @@ Sebagai kelanjutan dari integrasi JVM Android (JNI) dan didasari oleh prinsip ko
 ### 1. Peluruhan Panggil C-Murni (Native FFI)
 Berbeda dari pembungkus *header* rumit JVM JNI, kerangka HarmonyOS didesain menjamah C-Biner Murni (Native C-ABI FFI) menggunakan antarmuka `src/c_bindings.rs`. Blok kode ini membukakan pintu *pointer* lewat makro khusus `extern "C" fn omnilang_eval()` yang menjamin lalu lintas memori perantara Rust tetap terisolasi aman, sekaligus memitigasi anomali _double-free_ dengan pembersih pengangkut tunggal `omnilang_free_string()`.
 
+Memasuki v2.3.5, C-ABI FFI diperkeras dengan perlindungan **Military Grade Anti-Panic Guard** (`panic::catch_unwind`). Ini mengartikan tidak peduli seberapa fatal error kompilasi kode OmniLang, OS *Host* (HarmonyOS) tidak akan ikut tumbang.
+
 ### 2. Modul C++ & Prototipe ArkTS NAPI
 Berlokasi di direktori perintis `/bindings/harmonyos`, arsitektur ganda `napi_init.cpp` dan `OmniLang.ets` telah bertengger utuh.
 1. Berkas C++ **`napi_init.cpp`** berperan krusial merampas deret *ArkTS String Argument*, melungsurkannya ke jembatan evaluasi C-ABI gubahan mesin Rust Core, lalu memformat balikan jawaban untuk mesin kompilator *Node-API*.
 2. File deklaratif ArkTS **`OmniLang.ets`** melengkapi persembahan _Developer Experience_ sebagai lapisan antarmuka atas bahasa TypeScript/eTS yang lazim digabungkan pada *Declarative UI* kerangka perwajahan Harmony.
 
-Seluruh purwarupa jembatan lintas sistem operasi (*Cross-OS FFI target*) telah tervalidasi sukses melalui gerbang deteksi eror `cargo check --features c_bridge`. Keterpaduan fase ini menjadi saksi solid ketangguhan OmniLang menjelajahi platform ketiga sesudah iOS (Terminal/Linux) dan Android!
+---
+
+## Milestone VII: Universal Edge SDK & Military Grade Expansion (Fase 19.6)
+
+Dukungan OmniLang bagi iOS (Apple) dan QNX (BlackBerry) secara teknis telah sah melintasi jembatan `c_bindings.rs`. Untuk mengukuhkan dominasi atas setiap lingkungan OS ekstrem di bumi, purwarupa **Universal Edge SDK** dibangun pada **v2.3.5**.
+
+Ekspansi ini menuntut pendekatan isolasi memori kelas berat (Military-Grade) demi memenuhi standar absolut industri otomotif, penerbangan, maupun lingkungan Apple yang nir-toleransi terhadap *memory-leak*:
+
+### 1. Apple Ecosystem (iOS & iPadOS Native Bridge)
+OmniLang menyediakan antarmuka ganda dalam direktori `bindings/ios/`:
+- **C-Header (`omnilang_ios.h`)**: Abstraksi eksklusif Apple Clang untuk mengakses `omnilang_eval` Native Engine.
+- **Swift ARC Memory-Safe Bridge (`OmniLangBridge.swift`)**: Kelas *wrapper* Swift murni yang membungkus siklus FFI OmniLang menggunakan blok memori serapan (*Scoped allocation*). Skrip memastikan perintah pelepasan *deallocate* (`omnilang_free_string`) senantiasa terpanggil tanpa gagal, mengharmonikan pengelolaan Native Rust dengan mesin *Automatic Reference Counting* Swift.
+
+### 2. BlackBerry QNX & Industrial RTOS Bridge
+Sistem deterministik tertaut-waktu seperti BlackBerry QNX memerlukan alokasi yang tidak pernah memeleset dari komando waktu.
+- Prototipe **C++ RAII Wrapper** berdiri megah di `bindings/blackberry/omnilang_qnx.cpp`. Membungkus pertukaran *foreign string* via objek C++ deterministik (`std::string`) yang akan mengeksekusi penghancuran di luar _scope_, sepenuhnya merawat *Memory Leak Zero Tolerance Policy*.
+
+Dengan selesainya babak Universal Mobile SDK dan Universal Edge SDK, **OmniLang menegaskan hakikat dirinya tak tertandingi di lini 9 OS: xAetherOS, Windows, Linux, macOS, iOS, Android, HarmonyOS, BlackBerry, dan WASM!**
 
 ---
 
