@@ -1,9 +1,17 @@
 use std::ffi::{CStr, CString};
 use std::os::raw::c_char;
+use std::panic;
 
 use crate::lexer::Lexer;
 use crate::parser::Parser;
 use crate::program_evaluator::ProgramEvaluator;
+
+/// Return the native Rust version to the C-ABI caller
+#[no_mangle]
+pub extern "C" fn omnilang_get_native_version() -> *mut c_char {
+    let version = format!("OmniLang Engine Core v{}", env!("CARGO_PKG_VERSION"));
+    CString::new(version).unwrap().into_raw()
+}
 
 /// Exposes OmniLang evaluation to C-compatible hosts (like HarmonyOS NAPI C++).
 /// Takes a null-terminated C string, evaluates it, and returns a newly allocated
@@ -19,42 +27,53 @@ pub unsafe extern "C" fn omnilang_eval(code: *const c_char) -> *mut c_char {
         return err.into_raw();
     }
 
-    let c_str = CStr::from_ptr(code);
-    let str_slice = match c_str.to_str() {
-        Ok(s) => s,
+    // High Stability: Catch panics to prevent the C++ host (HarmonyOS) from crashing.
+    let result = panic::catch_unwind(|| {
+        let c_str = CStr::from_ptr(code);
+        let str_slice = match c_str.to_str() {
+            Ok(s) => s,
+            Err(_) => {
+                let err = CString::new("Error: Invalid UTF-8 sequence").unwrap();
+                return err.into_raw();
+            }
+        };
+
+        let mut lexer = Lexer::new(str_slice);
+        let tokens = match lexer.tokenize() {
+            Ok(t) => t,
+            Err(e) => {
+                let err_str = format!("Lexer Error: {}", e);
+                return CString::new(err_str).unwrap_or_else(|_| CString::new("Lexer Error").unwrap()).into_raw();
+            }
+        };
+
+        let mut parser = Parser::new(tokens);
+        let program = match parser.parse_program() {
+            Ok(p) => p,
+            Err(e) => {
+                let err_str = format!("Parser Error: {}", e);
+                return CString::new(err_str).unwrap_or_else(|_| CString::new("Parser Error").unwrap()).into_raw();
+            }
+        };
+
+        let mut evaluator = ProgramEvaluator::new();
+        match evaluator.evaluate_program(&program) {
+            Ok(result) => {
+                 let out = format!("{:?}", result);
+                 CString::new(out).unwrap_or_else(|_| CString::new("Evaluation Success, serialization failed").unwrap()).into_raw()
+            }
+            Err(e) => {
+                let err_str = format!("Runtime Error: {:?}", e);
+                CString::new(err_str).unwrap_or_else(|_| CString::new("Runtime Error").unwrap()).into_raw()
+            }
+        }
+    });
+
+    match result {
+        Ok(ptr) => ptr,
         Err(_) => {
-            let err = CString::new("Error: Invalid UTF-8 sequence").unwrap();
-            return err.into_raw();
-        }
-    };
-
-    let mut lexer = Lexer::new(str_slice);
-    let tokens = match lexer.tokenize() {
-        Ok(t) => t,
-        Err(e) => {
-            let err_str = format!("Lexer Error: {}", e);
-            return CString::new(err_str).unwrap_or_else(|_| CString::new("Lexer Error").unwrap()).into_raw();
-        }
-    };
-
-    let mut parser = Parser::new(tokens);
-    let program = match parser.parse_program() {
-        Ok(p) => p,
-        Err(e) => {
-            let err_str = format!("Parser Error: {}", e);
-            return CString::new(err_str).unwrap_or_else(|_| CString::new("Parser Error").unwrap()).into_raw();
-        }
-    };
-
-    let mut evaluator = ProgramEvaluator::new();
-    match evaluator.evaluate_program(&program) {
-        Ok(result) => {
-             let out = format!("{:?}", result);
-             CString::new(out).unwrap_or_else(|_| CString::new("Evaluation Success, serialization failed").unwrap()).into_raw()
-        }
-        Err(e) => {
-            let err_str = format!("Runtime Error: {:?}", e);
-            CString::new(err_str).unwrap_or_else(|_| CString::new("Runtime Error").unwrap()).into_raw()
+            // Military-grade safety: Ensure even catastrophic Rust panics don't tear down the host OS
+            CString::new("Fatal C-ABI Rust Panic Occurred").unwrap().into_raw()
         }
     }
 }

@@ -10,7 +10,7 @@ OmniLang v2.3.0 menandai lonjakan stabilitas untuk ekosistem Android. Kami telah
 3. **Kotlin Coroutines Support (`Async Eval`)**: SDK Kotlin sekarang mendukung pola asinkronus `evaluateAsync`. Eksekusi skrip OmniLang berjalan di `Dispatchers.Default`, menjamin UI aplikasi Android tetap responsif dan bebas *lag*.
 4. **Structured JSON API**: Komunikasi antara Rust dan JVM kini menggunakan format JSON yang mencakup status eksekusi, pesan error terperinci, dan metadata hasil.
 
-OmniLang telah resmi dapat dieksekusi 100% secara _Native_ di dalam peramban web (*browser*), serta siap diedarkan tanpa membutuhkan instalasi Cargo berkat modul pembangunan biner tertanam.
+OmniLang telah resmi dapat dieksekusi 100% secara _Native_ di dalam peramban web (*browser*), perangkat bergerak (Android), serta siap untuk ekspansi ke **HarmonyOS** dan **BlackBerry** melalui jembatan C-ABI yang universal. Bahasa ini didesain sebagai *Universal Runtime* yang melintasi batas-batas sistem operasi tradisional.
 
 ### 1. Kompilasi WebAssembly (WASM) & Playground Interaktif
 - **Direktif Kompilasi Bersyarat**: Pemisahan yang rapi atas kebergantungan fungsi bawaan Sistem Operasi (`ort` untuk AI, `serialport` untuk Perangkat Keras, dan TCP Soket) menggunakan pragmas Rust `#[cfg(not(target_arch = "wasm32"))]`.

@@ -5,8 +5,8 @@ Architect: Herman Krisnanto,
 
 # OmniLang: The Universal Programming Language for the xAetherOS Fabric
 
-**White Paper v2.3 & Master Roadmap**  
-**Last Updated**: 03 Maret 2026 (v2.3.0 - Supreme Stability Release)  
+**White Paper v2.3.5 & Master Roadmap**  
+**Last Updated**: 04 Maret 2026 (v2.3.5 - Universal Mobile Bridge Release)  
 **Status**: Production Ready / Distributed Intelligence Fabric  
 **Repo**: [https://github.com/HaKaTo99/OmniLang.git](https://github.com/HaKaTo99/OmniLang.git)
 
@@ -318,10 +318,10 @@ OmniLang bukan sekadar bahasa pemrograman; ia adalah **Neuro-Language** yang mam
 |------|-------|--------|----------|----------|--------|
 | 18 | v2.2.1 | **WASM Backend & Standalone** | Web/PC | Mar 2026 | ✅ Selesai |
 | 19 | v2.3.0 | **Android SDK & JVM Bridge (Supreme Stability)** | Android (JVM) | April 2026 | ✅ Selesai |
-| **19.5**| **v2.3.5-alpha** | **HarmonyOS Native Bridge (C-ABI + NAPI)**| HarmonyOS | **Mei 2026** | ✅ Prototipe C-ABI|
-| 20 | v2.3.0 | **Transpilasi JVM Penuh + Android SDK** | Android | Juni 2026 | Menunggu |
-| 21 | v2.4.0 | **Package Manager (`opm`) MVP** | PC / Web | Juli 2026 | Menunggu |
-| 22 | v2.4.0 | **LSP & VS Code Extension** | Desktop | Agustus 2026 | ✅ Prototipe LSP |
+| **19.5**| **v2.3.5** | **Universal Mobile Bridge (Android + HarmonyOS)** | Multi-Mobile | Mei 2026 | ✅ Selesai |
+| 20 | v2.4.0 | **Transpilasi JVM Penuh** | Android | Juni 2026 | Menunggu |
+| 21 | v2.5.0 | **Package Manager (`opm`) MVP** | PC / Web | Juli 2026 | Menunggu |
+| 22 | v2.6.0 | **LSP & VS Code Extension** | Desktop | Agustus 2026 | ✅ Prototipe LSP |
 
 **Mengapa**:  
 - WASM membuka adopsi web dan demo interaktif.  
