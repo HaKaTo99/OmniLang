@@ -677,7 +677,11 @@ impl Parser {
             decorators.push(self.parse_decorator()?);
         }
 
-        if self.match_token(TokenType::Fn) {
+        if self.match_token(TokenType::Import) {
+            // Need to back up because parse_import expects to consume the 'import' token itself.
+            self.pos -= 1; 
+            Ok(Item::Import(self.parse_import()?))
+        } else if self.match_token(TokenType::Fn) {
             let mut func = self.parse_function()?;
             func.decorators = decorators;
             Ok(Item::Function(func))
@@ -724,6 +728,26 @@ impl Parser {
         }
         
         Ok(Decorator { name, args })
+    }
+
+    fn parse_import(&mut self) -> Result<ImportDecl, String> {
+        self.consume(TokenType::Import, "Expected 'import'")?;
+        
+        let path = if let TokenType::String(s) = &self.peek().token_type {
+            let val = s.clone();
+            self.advance();
+            val
+        } else if let TokenType::Ident(s) = &self.peek().token_type {
+            let val = s.clone();
+            self.advance();
+            val
+        } else {
+            return Err(self.parse_error("Expected string or identifier for import path"));
+        };
+        
+        self.consume(TokenType::Semicolon, "Expected ';' after import statement")?;
+        
+        Ok(ImportDecl { path })
     }
 
     fn parse_function(&mut self) -> Result<FunctionDecl, String> {

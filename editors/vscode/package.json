@@ -7,6 +7,11 @@
     "engines": {
         "vscode": "^1.80.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HaKaTo99/OmniLang"
+    },
+    "license": "MIT",
     "categories": [
         "Programming Languages",
         "Linters"

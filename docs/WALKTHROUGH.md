@@ -292,6 +292,72 @@ Dengan selesainya babak Universal Mobile SDK dan Universal Edge SDK, **OmniLang 
 
 ---
 
+## Milestone VIII: Kemunculan OmniLang Package Manager (`opm`) MVP (Fase 24 / v2.4.0)
+
+Sebagai jembatan menuju terbentuknya komunitas terbuka (*open-source ecosystem*), OmniLang v2.4.0 merilis **Package Manager MVP (`opm`)**. MVP ini memperkenalkan standar arsitektur berbagi kode yang terdesentralisasi, diikat oleh manifes `Omni.toml`.
+
+### 1. Struktur Proyek & Terminal CLI (`opm`)
+Command `opm` tersedia di engine utama dengan pemanggilan praktis:
+```bash
+$ omnilang pkg init my_app
+[opm] Berhasil membuat Omni.toml untuk 'my_app'.
+[opm] Menghasilkan kerangka kerja src/main.omni.
+```
+Format manifes `.toml` menangkap standar resolusi dependensi jarak jauh (Git) maupun repositori lokal:
+```toml
+[package]
+name = "my_app"
+version = "0.1.0"
+
+[dependencies]
+math_engine = { path = "../math_engine" }
+```
+
+### 2. Evaluasi Resolusi Modular Inti (Native Import)
+Eksekusi pengunduhan dikonfigurasikan luring (*offline symlink*) menggunakan:
+```bash
+$ omnilang pkg install
+[opm] Menautkan lokal module `math_engine` ...
+[opm] Semua dependensi selesai dikonfigurasi.
+```
+
+Keberhasilan fitur terpenting dari `opm` divalidasi dengan dimodifikasinya **AST (Abstract Syntax Tree) Parser** serta Mesin Eksekusi untuk membaca token sintaks baru: `import`.
+
+```omnilang
+module main {
+    import math_engine;
+
+    fn main() {
+        print("[my_app] Modul terhubung dengan library eksternal!");
+    }
+}
+```
+Ketika diuji:
+```bash
+$ omnilang exec src/main.omni
+[Engine] Successfully imported module 'math_engine'
+[my_app] Modul terhubung dengan library eksternal!
+```
+Infrastruktur fundamental komunitas *Package Manager* kini nyata berdiri dan beroperasi dengan kecepatan *native layer*!
+
+---
+
+## Milestone IX: Language Server Protocol (LSP) & IDE Integration (Fase 25 / v2.4.0)
+
+Menyempurnakan fondasi *Developer Experience* OmniLang, arsitektur *Language Server Protocol* (LSP) telah dirombak menggunakan **`tower-lsp`** dan **`tokio`** *asynchronous runtime*. Langkah ini mendongkrak utilitas perkakas dari prototipe sinkron menjadi pelayan analitik kelas enterprise berskala *multi-threaded*.
+
+### 1. Injeksi Analisis Lintas AST
+Pelayan LSP kini menjerat langsung event `did_open` dan `did_change` secara instan, menyintesis ulang *Virtual File System* asinkron di dalam memori (`tokio::sync::RwLock`).
+Mekanisme ini tidak sekadar membaca karakter, melainkan menembakkan:
+1. Lexer (Scanner)
+2. Parser (Abstract Syntax Tree Generation)
+3. Checker (Semantic & Type Validator)
+
+Hasil olahan ini dikompilasi ke dalam format tipe `Diagnostic` standar industri, memungkinkan Visual Studio Code untuk menyajikan pratinjau garis kesalahan (Red Squiggly Lines) tepat saat kode diketik sebelum dikompilasi!
+
+### 2. Implementasi VS Code Client (`omnilang-2.4.0.vsix`)
+Cetak biru ekstensi VS Code resmi telah dipulihkan. Skrip TypeScripts dalam `/editors/vscode` memastikan editor meluncurkan `omnilang --lsp` pada mode *background daemon*. Ekstensi dibungkus utuh menjadi `.vsix` tanpa peringatan (`npm run compile` sukses), siap diluncurkan untuk publik!
+
 ## 🧪 Fase 23: Pengujian Massal & Mode Hibrida CLI
 
 Kami telah melakukan pengujian menyeluruh terhadap seluruh folder `examples/` (62 file) untuk memastikan kompatibilitas sistem.

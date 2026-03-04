@@ -321,9 +321,13 @@ OmniLang bukan sekadar bahasa pemrograman; ia adalah **Neuro-Language** yang mam
 | 18 | v2.2.1 | **WASM Backend & Standalone** | Web/PC | Mar 2026 | ✅ Selesai |
 | 19 | v2.3.0 | **Android SDK & JVM Bridge (Supreme Stability)** | Android (JVM) | April 2026 | ✅ Selesai |
 | **19.5**| **v2.3.5** | **Universal Mobile Bridge (Android + HarmonyOS)** | Multi-Mobile | Mei 2026 | ✅ Selesai |
-| 20 | v2.4.0 | **Transpilasi JVM Penuh** | Android | Juni 2026 | Menunggu |
-| 21 | v2.5.0 | **Package Manager (`opm`) MVP** | PC / Web | Juli 2026 | Menunggu |
-| 22 | v2.6.0 | **LSP & VS Code Extension** | Desktop | Agustus 2026 | ✅ Prototipe LSP |
+| 20 | v2.4.0 | **Package Manager (`opm`) MVP** | PC / Web | Maret 2026 | ✅ Selesai |
+| 21 | v2.5.0 | **Transpilasi JVM Penuh** | Android | Q3 2026 | Menunggu |
+| 22 | v2.6.0 | **LSP & VS Code Extension** | Desktop | Agustus 2026 | ✅ Selesai (v2.4.0) |
+| 26 | v2.5.0 | **LSP IntelliSense & Navigasi Mendalam** | Ekstensi | Q2 2026 | Merencanakan |
+| 27 | v2.6.0 | **OPM Security (`Omni.lock`)** | CLI | Q2 2026 | Menunggu |
+| 28 | v2.7.0 | **Asynchronous Runtime & `net/http`** | Core | Q3 2026 | Menunggu |
+| 29 | v2.8.0 | **Ironclad Security & Sandboxing** | Runtime | Q3 2026 | Menunggu |
 
 **Mengapa**:  
 - WASM membuka adopsi web dan demo interaktif.  
@@ -336,10 +340,10 @@ OmniLang bukan sekadar bahasa pemrograman; ia adalah **Neuro-Language** yang mam
 
 | Fase | Versi | Target | Estimasi |
 |------|-------|--------|----------|
-| 22 | v2.5.0 | **Legacy Bridge** – Dukungan perangkat industri tua (UART, Modbus) | Q4 2026 |
-| 23 | v2.6.0 | **Studio Visual** – GUI drag‑and‑drop untuk kebijakan IoT | Q1 2027 |
-| 24 | v2.7.0 | **OmniLang Playground Online** – Coba langsung dari browser | Q2 2027 |
-| 25 | v3.0.0 | **Rilis Stabil dengan Ekosistem Penuh** | Q3 2027 |
+| 30 | v2.9.0 | **Legacy Bridge** – Dukungan perangkat industri tua (UART, Modbus) | Q4 2026 |
+| 31 | v3.0.0 | **Studio Visual** – GUI drag‑and‑drop untuk kebijakan IoT | Q1 2027 |
+| 32 | v3.1.0 | **OmniLang Playground Online** – Coba langsung dari browser | Q2 2027 |
+| 33 | v3.5.0 | **Rilis Stabil dengan Ekosistem Penuh** | Q3 2027 |
 
 **Fokus**: Memperluas adopsi industri, mempermudah pengembangan, dan membangun komunitas kontributor.
 
@@ -349,9 +353,9 @@ OmniLang bukan sekadar bahasa pemrograman; ia adalah **Neuro-Language** yang mam
 
 | Fase | Versi | Target | Estimasi |
 |------|-------|--------|----------|
-| 26 | v4.0.0 | **BCI (Brain‑Computer Interface)** – Integrasi sinyal neural | 2028 |
-| 27 | v5.0.0 | **Quantum Fabric** – Transpilasi ke sirkuit quantum (QASM) | 2029 |
-| 28 | v6.0.0 | **Self‑hosting Compiler** – Kompiler ditulis dalam OmniLang | 2030 |
+| 34 | v4.0.0 | **BCI (Brain‑Computer Interface)** – Integrasi sinyal neural | 2028 |
+| 35 | v5.0.0 | **Quantum Fabric** – Transpilasi ke sirkuit quantum (QASM) | 2029 |
+| 36 | v6.0.0 | **Self‑hosting Compiler** – Kompiler ditulis dalam OmniLang | 2030 |
 
 **Misi Akhir**: Menjadi **satu‑satunya bahasa** yang mampu mengekspresikan komputasi di semua skala—dari neuron biologis hingga partikel quantum.
 
@@ -472,8 +476,8 @@ Dengan visi jangka panjang hingga BCI dan Quantum, OmniLang dirancang untuk teta
 |-------|---------|--------|
 | 2025 | Q1‑Q4 | Foundation (v0.1‑v1.0) ✅ |
 | 2026 | Q1 | Distributed Fabric (v2.0‑v2.2) ✅ |
-| 2026 | Q2 | WASM, JVM, LSP (v2.3) |
-| 2026 | Q3 | Package Manager, Studio Visual (v2.4) |
+| 2026 | Q2 | Package Manager MVP (opm) (v2.4.0) ✅ |
+| 2026 | Q3 | Transpilasi JVM Penuh, LSP |
 | 2026 | Q4 | Legacy Bridge (v2.5) |
 | 2027 | Q1‑Q2 | Playground Online, Rilis Stabil (v3.0) |
 | 2028+ | - | BCI, Quantum, Self‑hosting |

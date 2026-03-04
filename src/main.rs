@@ -36,6 +36,20 @@ fn main() {
 		"demo-action" => handle_demo_action(&args[1..]),
 		"lsp" => handle_lsp(),
 		"serve" => handle_serve(&args[1..]),
+		"pkg" | "opm" => {
+			#[cfg(not(target_arch = "wasm32"))]
+			{
+				if let Err(e) = omnilang_core::opm::cli::handle_opm_command(&args[1..]) {
+					println!("opm error: {:?}", e);
+				}
+				0
+			}
+			#[cfg(target_arch = "wasm32")]
+			{
+				println!("Package manager is not supported on WASM targets.");
+				0
+			}
+		},
 		_ => handle_exec(&args[..]),
 	};
 
@@ -51,6 +65,7 @@ fn print_usage() {
 	println!("  omnilang test <file.omni>                             Run policy assertions");
 	println!("  omnilang metrics                                      Show execution performance");
 	println!("  omnilang serve <file.omni> [--port <port>] [--hui <port>] Run an RPC Mesh worker");
+	println!("  omnilang pkg <init|install|build>                     OmniLang Package Manager");
 }
 
 fn handle_exec(args: &[String]) -> i32 {
@@ -330,8 +345,19 @@ fn handle_demo_action(args: &[String]) -> i32 {
 }
 
 fn handle_lsp() -> i32 {
-    omnilang_core::lsp_server::run_lsp_server();
-    0
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(async {
+            omnilang_core::lsp_server::run_lsp_server_async().await;
+        });
+        0
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        println!("LSP is not supported on WASM targets.");
+        0
+    }
 }
 
 fn handle_serve(args: &[String]) -> i32 {

@@ -1,0 +1,7 @@
+module main {
+    import my_lib;
+
+    fn main() {
+        print("[my_app] OmniLang Package Manager is working! Found my_lib.");
+    }
+}

@@ -1,0 +1,5 @@
+module my_lib {
+    fn main() {
+        print("[my_lib] This is a library module.");
+    }
+}

@@ -103,7 +103,43 @@ impl ProgramEvaluator {
                     let val = self.evaluate_expression(&c.value)?;
                     self.globals.insert(c.name.clone(), val);
                 }
-                _ => {} // Structs are currently types only, not runtime values
+                crate::ast::Item::Import(imp) => {
+                    // MVP Implementation: Load imported modules at runtime by evaluating their source
+                    let module_name = &imp.path;
+                    let module_path = std::path::PathBuf::from(".omni_modules").join(module_name).join("src").join("main.omni");
+                    
+                    if module_path.exists() {
+                        let source = std::fs::read_to_string(&module_path)
+                            .map_err(|e| format!("Error reading imported module '{}': {}", module_name, e))?;
+                        
+                        let mut lexer = crate::lexer::Lexer::new(&source);
+                        let tokens = lexer.tokenize().map_err(|e| format!("Lexer Error in '{}': {}", module_name, e))?;
+                        
+                        let mut parser = crate::parser::Parser::new(tokens);
+                        let program = parser.parse_program().map_err(|e| format!("Parser Error in '{}': {}", module_name, e))?;
+                        
+                        // Recursive evaluation to pull in globals
+                        self.evaluate_program(&program)?;
+                        println!("[Engine] Successfully imported module '{}'", module_name);
+                    } else if std::path::PathBuf::from(module_name).exists() {
+                        // Support local file imports (e.g. `import "utils.omni";`)
+                        let source = std::fs::read_to_string(module_name)
+                            .map_err(|e| format!("Error reading file '{}': {}", module_name, e))?;
+                        
+                        let mut lexer = crate::lexer::Lexer::new(&source);
+                        let tokens = lexer.tokenize().map_err(|e| format!("Lexer Error in '{}': {}", module_name, e))?;
+                        
+                        let mut parser = crate::parser::Parser::new(tokens);
+                        let program = parser.parse_program().map_err(|e| format!("Parser Error in '{}': {}", module_name, e))?;
+                        
+                        // Recursive evaluation to pull in globals
+                        self.evaluate_program(&program)?;
+                        println!("[Engine] Successfully imported file '{}'", module_name);
+                    } else {
+                        return Err(format!("Import target '{}' not found. Have you run 'omnilang pkg install'?", imp.path));
+                    }
+                }
+                _ => {} // Structs, etc.
             }
         }
         

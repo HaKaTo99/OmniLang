@@ -233,6 +233,12 @@ pub enum Item {
     Trait(TraitDecl),
     Impl(ImplDecl),
     Const(ConstDecl),
+    Import(ImportDecl),
+}
+
+#[derive(Debug, Clone)]
+pub struct ImportDecl {
+    pub path: String,
 }
 
 #[derive(Debug, Clone)]

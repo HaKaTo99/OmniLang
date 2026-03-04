@@ -15,12 +15,15 @@ pub mod omniroutine;
 pub mod observability;
 pub mod action_abi;
 pub mod program_evaluator;
+#[cfg(not(target_arch = "wasm32"))]
 pub mod lsp_server;
 pub mod security;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod onnx_oracle;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod mesh;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod opm;
 
 #[cfg(target_arch = "wasm32")]
 pub mod wasm_bindings;

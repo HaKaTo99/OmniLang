@@ -1,12 +1,13 @@
 // src/lsp_server.rs
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use std::io::{self, BufRead, Write, Read};
+use tower_lsp::jsonrpc::Result;
+use tower_lsp::lsp_types::*;
+use tower_lsp::{Client, LanguageServer, LspService, Server};
+use std::collections::HashMap;
+use tokio::sync::RwLock;
 
 use crate::lexer::Lexer;
 use crate::parser::Parser;
 use crate::checker::Checker;
-use std::collections::HashMap;
 
 fn extract_line_col_message(err: &str) -> (u32, u32, String) {
     if err.starts_with("[Line ") {
@@ -26,219 +27,129 @@ fn extract_line_col_message(err: &str) -> (u32, u32, String) {
     (0, 0, err.to_string())
 }
 
-/// LSP Server implementation for OmniLang
-pub struct LspServer {
-    is_running: bool,
-    documents: HashMap<String, String>,
+#[derive(Debug)]
+pub struct Backend {
+    client: Client,
+    document_map: RwLock<HashMap<String, String>>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct LspMessage {
-    pub jsonrpc: String,
-    pub method: Option<String>,
-    pub id: Option<Value>,
-    pub params: Option<Value>,
-}
-
-impl LspServer {
-    pub fn new() -> Self {
-        LspServer { 
-            is_running: true,
-            documents: HashMap::new(),
-        }
+#[tower_lsp::async_trait]
+impl LanguageServer for Backend {
+    async fn initialize(&self, _: InitializeParams) -> Result<InitializeResult> {
+        Ok(InitializeResult {
+            capabilities: ServerCapabilities {
+                text_document_sync: Some(TextDocumentSyncCapability::Kind(TextDocumentSyncKind::FULL)),
+                hover_provider: Some(HoverProviderCapability::Simple(true)),
+                ..Default::default()
+            },
+            ..Default::default()
+        })
     }
 
-    pub fn start(&mut self) -> io::Result<()> {
-        let stdin = io::stdin();
-        let mut reader = stdin.lock();
+    async fn initialized(&self, _: InitializedParams) {
+        self.client
+            .log_message(MessageType::INFO, "OmniLang LSP server initialized!")
+            .await;
+    }
 
-        loop {
-            // 1. Read Content-Length header
-            let mut size = 0;
-            let mut line = String::new();
-            match reader.read_line(&mut line) {
-                Ok(0) => break, // EOF
-                Ok(_) => {
-                    let parts: Vec<&str> = line.trim().split(": ").collect();
-                    if parts.len() == 2 && parts[0] == "Content-Length" {
-                         size = parts[1].parse().unwrap_or(0);
-                    }
-                }
-                Err(_) => break,
-            }
-            
-            // Read other headers (expect \r\n separator)
-            while let Ok(n) = reader.read_line(&mut line) {
-                if n == 0 || line.trim().is_empty() { break; }
-                line.clear();
-            }
-
-            if size > 0 {
-                let mut buf = vec![0u8; size];
-                if reader.read_exact(&mut buf).is_ok() {
-                    if let Ok(msg_str) = String::from_utf8(buf) {
-                         self.handle_message(&msg_str);
-                    }
-                }
-            }
-        }
-
+    async fn shutdown(&self) -> Result<()> {
         Ok(())
     }
 
-    fn handle_message(&mut self, raw: &str) {
-        let msg: Result<LspMessage, _> = serde_json::from_str(raw);
-        if let Ok(msg) = msg {
-            if let Some(method) = &msg.method {
-                match method.as_str() {
-                    "initialize" => {
-                        let result = serde_json::json!({
-                            "capabilities": {
-                                "textDocumentSync": 1, // Full sync
-                                "hoverProvider": true,
-                                // "definitionProvider": true // Disabled until implemented
-                            }
-                        });
-                        if let Some(id) = msg.id {
-                            self.respond(id, result);
-                        }
-                    }
-                    "textDocument/didOpen" => {
-                        if let Some(params) = msg.params {
-                            if let Some(text_document) = params.get("textDocument") {
-                                if let (Some(uri), Some(text)) = (text_document.get("uri").and_then(|v| v.as_str()), text_document.get("text").and_then(|v| v.as_str())) {
-                                    self.documents.insert(uri.to_string(), text.to_string());
-                                    self.validate_document(uri);
-                                }
-                            }
-                        }
-                    }
-                    "textDocument/didChange" => {
-                        if let Some(params) = msg.params {
-                             if let Some(text_document) = params.get("textDocument") {
-                                if let Some(uri) = text_document.get("uri").and_then(|v| v.as_str()) {
-                                    if let Some(changes) = params.get("contentChanges").and_then(|v| v.as_array()) {
-                                        if let Some(last_change) = changes.last() {
-                                            if let Some(text) = last_change.get("text").and_then(|v| v.as_str()) {
-                                                self.documents.insert(uri.to_string(), text.to_string());
-                                                self.validate_document(uri);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    "shutdown" => {
-                        if let Some(id) = msg.id {
-                            self.respond(id, serde_json::Value::Null);
-                        }
-                    }
-                    "exit" => {
-                        self.is_running = false;
-                        std::process::exit(0);
-                    }
-                    _ => {
-                        // Ignore other methods for now
-                    }
-                }
-            }
+    async fn did_open(&self, params: DidOpenTextDocumentParams) {
+        let uri = params.text_document.uri.to_string();
+        let text = params.text_document.text;
+        self.document_map.write().await.insert(uri.clone(), text.clone());
+        self.validate_document(&uri, &text).await;
+    }
+
+    async fn did_change(&self, params: DidChangeTextDocumentParams) {
+        let uri = params.text_document.uri.to_string();
+        if let Some(change) = params.content_changes.into_iter().last() {
+            let text = change.text;
+            self.document_map.write().await.insert(uri.clone(), text.clone());
+            self.validate_document(&uri, &text).await;
         }
     }
 
-    fn validate_document(&self, uri: &str) {
-        if let Some(text) = self.documents.get(uri) {
-            let mut diagnostics = Vec::new();
-
-            // Run Lexer
-            let mut lexer = Lexer::new(text);
-            match lexer.tokenize() {
-                Ok(tokens) => {
-                    // Run Parser
-                    let mut parser = Parser::new(tokens);
-                    match parser.parse_program() {
-                        Ok(program) => {
-                            // Run Checker
-                            let mut checker = Checker::new();
-                            if let Err(errors) = checker.check_program(&program) {
-                                for err in errors {
-                                    let (err_line, err_col, msg) = extract_line_col_message(&err);
-                                    diagnostics.push(serde_json::json!({
-                                        "range": {
-                                            "start": { "line": err_line, "character": err_col },
-                                            "end": { "line": err_line, "character": err_col }
-                                        },
-                                        "severity": 1, // Error
-                                        "message": msg
-                                    }));
-                                }
-                            }
-                        }
-                        Err(e) => {
-                            let (err_line, err_col, msg) = extract_line_col_message(&e);
-                            // Parser error (string)
-                            diagnostics.push(serde_json::json!({
-                                "range": {
-                                    "start": { "line": err_line, "character": err_col },
-                                    "end": { "line": err_line, "character": err_col }
-                                },
-                                "severity": 1, 
-                                "message": format!("Parser Error: {}", msg)
-                            }));
-                        }
-                    }
-                }
-                Err(e) => {
-                     let (err_line, err_col, msg) = extract_line_col_message(&e);
-                     // Lexer error
-                     diagnostics.push(serde_json::json!({
-                        "range": {
-                            "start": { "line": err_line, "character": err_col },
-                            "end": { "line": err_line, "character": err_col }
-                        },
-                        "severity": 1, 
-                        "message": format!("Lexer Error: {}", msg)
-                    }));
-                }
-            }
-
-            self.publish_diagnostics(uri, diagnostics);
-        }
-    }
-
-    fn publish_diagnostics(&self, uri: &str, diagnostics: Vec<Value>) {
-        let params = serde_json::json!({
-            "uri": uri,
-            "diagnostics": diagnostics
-        });
-        
-        // Notification message (no id)
-        let notification = serde_json::json!({
-            "jsonrpc": "2.0",
-            "method": "textDocument/publishDiagnostics",
-            "params": params
-        });
-        
-        let body = notification.to_string();
-        print!("Content-Length: {}\r\n\r\n{}", body.len(), body);
-        io::stdout().flush().unwrap();
-    }
-
-    pub fn respond(&self, id: Value, result: Value) {
-        let response = serde_json::json!({
-            "jsonrpc": "2.0",
-            "id": id,
-            "result": result
-        });
-        let body = response.to_string();
-        print!("Content-Length: {}\r\n\r\n{}", body.len(), body);
-        io::stdout().flush().unwrap();
+    async fn hover(&self, params: HoverParams) -> Result<Option<Hover>> {
+        let _uri = params.text_document_position_params.text_document.uri.to_string();
+        let _pos = params.text_document_position_params.position;
+        // MVP: Provide basic hover info. Future versions will query the Semantic Analyzer (Checker).
+        Ok(Some(Hover {
+            contents: HoverContents::Scalar(MarkedString::String("OmniLang Token".to_string())),
+            range: None,
+        }))
     }
 }
 
-pub fn run_lsp_server() {
-    let mut server = LspServer::new();
-    if let Err(e) = server.start() {
-        eprintln!("LSP Server error: {}", e);
+impl Backend {
+    async fn validate_document(&self, uri_str: &str, text: &str) {
+        let mut diagnostics = Vec::new();
+
+        let mut lexer = Lexer::new(text);
+        match lexer.tokenize() {
+            Ok(tokens) => {
+                let mut parser = Parser::new(tokens);
+                match parser.parse_program() {
+                    Ok(program) => {
+                        let mut checker = Checker::new();
+                        if let Err(errors) = checker.check_program(&program) {
+                            for err in errors {
+                                let (err_line, err_col, msg) = extract_line_col_message(&err);
+                                diagnostics.push(Diagnostic {
+                                    range: Range::new(
+                                        Position::new(err_line, err_col),
+                                        Position::new(err_line, err_col + 1), // Optional spanning
+                                    ),
+                                    severity: Some(DiagnosticSeverity::ERROR),
+                                    message: msg,
+                                    ..Default::default()
+                                });
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        let (err_line, err_col, msg) = extract_line_col_message(&e);
+                        diagnostics.push(Diagnostic {
+                            range: Range::new(
+                                Position::new(err_line, err_col),
+                                Position::new(err_line, err_col + 1),
+                            ),
+                            severity: Some(DiagnosticSeverity::ERROR),
+                            message: format!("Parser Error: {}", msg),
+                            ..Default::default()
+                        });
+                    }
+                }
+            }
+            Err(e) => {
+                let (err_line, err_col, msg) = extract_line_col_message(&e);
+                diagnostics.push(Diagnostic {
+                    range: Range::new(
+                        Position::new(err_line, err_col),
+                        Position::new(err_line, err_col + 1),
+                    ),
+                    severity: Some(DiagnosticSeverity::ERROR),
+                    message: format!("Lexer Error: {}", msg),
+                    ..Default::default()
+                });
+            }
+        }
+
+        if let Ok(uri) = Url::parse(uri_str) {
+            self.client.publish_diagnostics(uri, diagnostics, None).await;
+        }
     }
+}
+
+pub async fn run_lsp_server_async() {
+    let stdin = tokio::io::stdin();
+    let stdout = tokio::io::stdout();
+
+    let (service, socket) = LspService::new(|client| Backend {
+        client,
+        document_map: RwLock::new(HashMap::new()),
+    });
+    Server::new(stdin, stdout, socket).serve(service).await;
 }

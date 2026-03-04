@@ -53,6 +53,7 @@ pub enum TokenType {
     Impl,
     Const,
     Enum,
+    Import,
 
     // Identifiers & Literals
     Ident(String),
@@ -293,6 +294,7 @@ impl Lexer {
                         "impl" => TokenType::Impl,
                         "const" => TokenType::Const,
                         "enum" => TokenType::Enum,
+                        "import" => TokenType::Import,
 
                         _ => TokenType::Ident(s.clone()),
                     };

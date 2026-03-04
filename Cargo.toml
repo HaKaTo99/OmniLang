@@ -21,12 +21,15 @@ hmac = "0.12"
 base64 = "0.22"
 rand = "0.8"
 anyhow = "1.0.102"
+toml = "0.8"
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 ort = { version = "2.0.0-rc.11", default-features = false, features = ["load-dynamic"] }
 serialport = "4.3"
 android_logger = "0.13"
 log = "0.4"
+tower-lsp = "0.20"
+tokio = { version = "1.30", features = ["full", "rt-multi-thread"] }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 proptest = "1.1.0"

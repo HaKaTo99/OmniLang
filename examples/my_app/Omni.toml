@@ -1,0 +1,9 @@
+[package]
+name = "my_app"
+version = "0.1.0"
+authors = ["OmniLang Architect <architect@hakato99.com>"]
+description = "Sebuah arsitektur paket OmniLang baru."
+entry = "src/main.omni"
+
+[dependencies]
+my_lib = { path = "../my_lib" }

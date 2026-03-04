@@ -85,6 +85,7 @@ impl Checker {
                 Item::Const(const_decl) => {
                     self.register_const(const_decl)?;
                 }
+                Item::Import(_) => {}
             }
         }
         
