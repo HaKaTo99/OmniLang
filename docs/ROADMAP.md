@@ -302,6 +302,7 @@ OmniLang bukan sekadar bahasa pemrograman; ia adalah **Neuro-Language** yang mam
 
 | Platform | Status Saat Ini | Cara Instalasi / Penggunaan | Target Penyelesaian |
 |:---------|:----------------|:-----------------------------|:--------------------|
+| **xAetherOS** | ✅ **Native Fabric** | • **Kernel Integration** (Berjalan langsung di atas bare-metal xAetherOS) <br> • *System Control Language* bawaan kernel | ✅ **Selesai** (v1.0.0+) |
 | **Windows OS** | ✅ **Production Ready** | • Binary standalone (`omnilang.exe`) <br> • Build dari source dengan Rust toolchain <br> • WASM Playground | ✅ **Selesai** (v2.2.1) |
 | **Linux OS** | ✅ **Production Ready** | • Binary standalone (`omnilang`) <br> • Package manager (`.deb`/`.rpm` via `opm` nanti) <br> • Build dari source | ✅ **Selesai** (v2.2.1) |
 | **macOS** | ✅ **Production Ready** | • Binary standalone (`omnilang`) <br> • Homebrew tap (rencana) <br> • Build dari source | ✅ **Selesai** (v2.2.1) |
