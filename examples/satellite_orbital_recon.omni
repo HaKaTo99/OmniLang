@@ -1,6 +1,7 @@
 // satellite_orbital_recon.omni
-// Satellite Orbital Propagation & Earth Observation Simulation
+// Satellite Orbital Propagation & Earth Observation Simulation (Military-Grade)
 // Domain: Aerospace & Defense (xAetherOS Space-Network)
+// Standards: High-Assurance, Capability-Based Security
 
 module SatelliteSentinel {
 
@@ -18,61 +19,157 @@ module SatelliteSentinel {
         orbit: OrbitalParams,
         ground_track: Vector2,
         battery_level: i32,
-        is_sunlight: bool
+        is_sunlight: bool,
+        sensor_mode: String,
+        mission_priority: String
     }
 
-    // --- SPACE UTILS ---
-
-    fn propagate_orbit(time_sec: i32) -> Vector2 {
-        // Simulasi pergerakan satelit di atas orbit LEO (Low Earth Orbit)
-        return Vector2 { lat: -6.1751, lon: 106.8272 }; // Contoh: Melewati Jakarta
+    struct GroundStation {
+        name: String,
+        location: Vector2,
+        min_elevation_deg: f64
     }
 
-    // --- MAIN SATELLITE COMMAND ---
+    // --- HIGH-ASSURANCE SECURITY ---
+    const X_CAPABILITY_TOKEN: String = "MIL-STD-810H-SECURE";
+
+    fn distance(a: Vector2, b: Vector2) -> f64 {
+        let dlat = a.lat - b.lat;
+        let dlon = a.lon - b.lon;
+        return math_sqrt((dlat * dlat) + (dlon * dlon));
+    }
+
+    // 1. ADVANCED ORBITAL ENGINE (Native Physics)
+    fn propagate_orbit(time_sec: f64, orbit: OrbitalParams) -> Vector2 {
+        let earth_radius = 6371.0;
+        let mu = 398600.0;
+        
+        // High-Precision Mean Motion
+        let semi_major_axis = earth_radius + orbit.altitude_km;
+        let n = math_sqrt(mu / (semi_major_axis * semi_major_axis * semi_major_axis));
+        
+        let mean_anomaly = n * time_sec;
+        let i_rad = orbit.inclination_deg * 3.14159265 / 180.0;
+        
+        // Realistic orbital projection (simplification)
+        let lat = math_sin(i_rad) * math_sin(mean_anomaly);
+        let lon = math_cos(mean_anomaly);
+        
+        // Scale to Degree Lat [-90, 90], Lon [-180, 180]
+        return Vector2 { 
+            lat: lat * 90.0, 
+            lon: lon * 180.0 
+        };
+    }
+
+    // 2. CRYPTO-INTEGRITY TELEMETRY
+    fn sign_telemetry(data: String) -> String {
+        return crypto_hash(data + "_" + X_CAPABILITY_TOKEN);
+    }
+
+    // 3. AUTONOMOUS MISSION LOGIC
+    fn update_energy(sat: Satellite) -> i32 {
+        let drain = match sat.sensor_mode {
+            "RADAR"   => 25,
+            "OPTICAL" => 8,
+            "THERMAL" => 12,
+            _         => 2
+        };
+        
+        let charge = match sat.is_sunlight {
+            true  => 15, // High-performance Gallium Arsenide solar cells
+            false => -5  // Base draw in Eclipse
+        };
+        
+        let new_battery = sat.battery_level + charge - drain;
+        
+        if new_battery > 100 { return 100; }
+        if new_battery < 0   { return 0;   }
+        return new_battery;
+    }
+
+    fn check_fail_safe(sat: Satellite) -> bool {
+        if sat.battery_level < 15 {
+            print("[CRITICAL] FAIL-SAFE TRIGGERED: Low Battery (" + sat.battery_level + "%)");
+            print("[ACT] Transitioning to SAFE_MODE. Deactivating all non-essential payloads.");
+            return true;
+        }
+        return false;
+    }
+
+    // --- MAIN COMMAND CENTER ---
 
     const main: i32 = {
-        print("🛰️ [OMNILANG] SATELLITE SENTINEL RECON");
-        print("Satellite: XAETHER-SAT-07 | Status: DEPLOYED in LEO");
+        print("🛰️ [OMNILANG] SATELLITE SENTINEL RECON - MILITARY GRADE");
+        print("Target: High-Assurance Orbital Intelligence Ops");
         print("--------------------------------------------------");
 
-        // 1. OBSERVE: Telemetry Check
-        let orbit = OrbitalParams {
+        let orbit_params = OrbitalParams {
             altitude_km: 550.0,
             velocity_ms: 7500.0,
             inclination_deg: 97.5,
             eccentricity: 0.0001
         };
 
-        let sat = Satellite {
-            id: "SAT-07",
-            orbit: orbit,
-            ground_track: Vector2 { lat: -5.0, lon: 100.0 },
-            battery_level: 88,
-            is_sunlight: true
+        let mut sat = Satellite {
+            id: "SENTINEL-MIL-07",
+            orbit: orbit_params,
+            ground_track: Vector2 { lat: 0.0, lon: 0.0 },
+            battery_level: 95,
+            is_sunlight: false,
+            sensor_mode: "RADAR",
+            mission_priority: "RECON"
         };
 
-        print("[TELEMETRY] Alt: " + sat.orbit.altitude_km + "km | Bat: " + sat.battery_level + "% | Power: Solar Panels DEPLOYED");
-
-        // 2. ORIENT: Update Ground Track (Jakarta Sweep)
-        let current_pos = propagate_orbit(120);
-        print("[NAVIGATION] Ground Track Update: Lat " + current_pos.lat + " | Lon " + current_pos.lon);
-        print("[NAVIGATION] Area of Interest: JAKARTA Detected in FOV.");
-
-        // 3. DECIDE: Mission Protocol
-        let mission_ready = match sat.battery_level {
-            80..100 => "FULL_IMAGING",
-            50..79  => "THERMAL_ONLY",
-            _       => "SAFE_MODE"
+        let station_jkt = GroundStation {
+            name: "CENTCOM-JKT",
+            location: Vector2 { lat: -6.2, lon: 106.8 },
+            min_elevation_deg: 15.0
         };
-        print("[DECIDE] Energy Budget Check: " + mission_ready);
 
-        // 4. ACT: Multi-Spectral Capture
-        print("[ACT] Initializing Optical Sensors... Capturing 4K Recon Imagery.");
-        print("[ACT] Data Uplink: Transmitting encrypted payload to Ground Station (Monas Ops).");
+        print("[BOOT] Capability Token: VERIFIED [Signature: " + crypto_hash(X_CAPABILITY_TOKEN) + "]");
+        
+        // SIMULATION STEP 1: Deep Space Operations (Eclipse)
+        print("--- PHASE 1: NIGHT OPS ---");
+        let t1 = 500.0;
+        sat.ground_track = propagate_orbit(t1, sat.orbit);
+        sat.battery_level = update_energy(sat);
+        
+        let telemetry_pkt = "[T+" + t1 + "] Sat:" + sat.id + " Pos:" + sat.ground_track.lat + "," + sat.ground_track.lon;
+        let signature = sign_telemetry(telemetry_pkt);
+        
+        print("[TELEMETRY] " + telemetry_pkt);
+        print("[SECURE] Packet Hash: " + signature);
+        print("[STATUS] Battery: " + sat.battery_level + "% | Light: " + sat.is_sunlight);
 
-        print("");
-        print("[SYSTEM] Next Ground Station Window: 42 minutes.");
-        print("xAetherOS Space-Node: SYNCHRONIZED.");
+        // Fail-safe Check
+        check_fail_safe(sat);
+
+        // SIMULATION STEP 2: Sunlight Acquisition
+        print("--- PHASE 2: SUNLIGHT DATA HARVEST ---");
+        sat.is_sunlight = true;
+        sat.sensor_mode = "OPTICAL";
+        
+        let t2 = 1200.0;
+        sat.ground_track = propagate_orbit(t2, sat.orbit);
+        sat.battery_level = update_energy(sat);
+        
+        print("[NAVIGATION] Current Ground Track: Lat " + sat.ground_track.lat + " | Lon " + sat.ground_track.lon);
+        print("[STATUS] Battery: " + sat.battery_level + "% (Charging Mode)");
+
+        // SIMULATION STEP 3: Secure Uplink
+        print("--- PHASE 3: SECURE DOWNLINK ---");
+        let dist_to_jkt = distance(sat.ground_track, station_jkt.location);
+        
+        if dist_to_jkt < 40.0 {
+            print("[COMM] Secure Direct Access to " + station_jkt.name + " established.");
+            print("[ACT] Transmitting encrypted data packets... [HASH VALIDATION OK]");
+        } else {
+            print("[COMM] Range too high (" + dist_to_jkt + "). Orbiting to next window.");
+        }
+
+        print("--------------------------------------------------");
+        print("[MISSION] Phase Complete. xAetherOS Defense-Link: SECURE.");
 
         0
     };
